@@ -135,7 +135,7 @@
 
     <?php echo $__env->yieldContent('content'); ?>
 
-    <?php echo $__env->make('frontend.inc.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+    <!--<?php echo $__env->make('frontend.inc.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?> -->
 
     <?php echo $__env->make('frontend.partials.modal', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
@@ -168,6 +168,7 @@
 
 <!-- SCRIPTS -->
 <a href="#" class="back-to-top btn-back-to-top"></a>
+
 
 <!-- Core -->
 <script src="<?php echo e(asset('frontend/js/vendor/popper.min.js')); ?>"></script>
@@ -230,7 +231,10 @@
 
                 });
             });
-        }
+		}
+
+        
+   
 
         if ($('#currency-change').length > 0) {
             $('#currency-change .dropdown-item a').each(function() {

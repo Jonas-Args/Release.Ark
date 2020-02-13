@@ -146,7 +146,7 @@
                                 @if(Auth::check())
                                     <a href="{{ route('checkout.shipping_info') }}" class="btn btn-styled btn-base-1">{{__('Next')}}</a>
                                 @else
-                                    <button class="btn btn-styled btn-base-1" onclick="showCheckoutModal()">{{__('Next')}}</button>
+								<button class="btn btn-styled btn-base-1" onclick="$('#maintenance-update').modal('show');">{{__('Next')}}</button>
                                 @endif
                             </div>
                         </div>

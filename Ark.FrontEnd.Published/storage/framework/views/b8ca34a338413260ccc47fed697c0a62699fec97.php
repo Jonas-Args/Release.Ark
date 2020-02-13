@@ -145,7 +145,7 @@
                                 <?php if(Auth::check()): ?>
                                     <a href="<?php echo e(route('checkout.shipping_info')); ?>" class="btn btn-styled btn-base-1"><?php echo e(__('Next')); ?></a>
                                 <?php else: ?>
-                                    <button class="btn btn-styled btn-base-1" onclick="showCheckoutModal()"><?php echo e(__('Next')); ?></button>
+								<button class="btn btn-styled btn-base-1" onclick="$('#maintenance-update').modal('show');"><?php echo e(__('Next')); ?></button>
                                 <?php endif; ?>
                             </div>
                         </div>

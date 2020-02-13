@@ -115,7 +115,7 @@
 													<div class="form-group">
 														<!-- <label><?php echo e(__('')); ?></label> -->
 														<div class="input-group input-group--style-1">
-															<input type="email" class="form-control<?php echo e($errors->has('mobileNo') ? ' is-invalid' : ''); ?>" value="<?php echo e(old('mobileNo')); ?>" placeholder="<?php echo e(__('Phone Number')); ?>" name="mobileNo" />
+															<input type="tel" class="form-control<?php echo e($errors->has('mobileNo') ? ' is-invalid' : ''); ?>" value="<?php echo e(old('mobileNo')); ?>" placeholder="<?php echo e(__('Phone Number')); ?>" name="mobileNo" />
 															<span class="input-group-addon">
 																<i class="text-md la la-mobile"></i>
 															</span>
@@ -174,6 +174,24 @@
 															<?php if($errors->has('source_code')): ?>
 															<span class="invalid-feedback" role="alert">
 																<strong><?php echo e($errors->first('source_code')); ?></strong>
+															</span>
+															<?php endif; ?>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-12">
+													<div class="form-group">
+														<!-- <label><?php echo e(__('special_code')); ?></label> -->
+														<div class="input-group input-group--style-1">
+															<input type="text" class="form-control<?php echo e($errors->has('special_code') ? ' is-invalid' : ''); ?>" value="<?php echo e(old('special_code')); ?>" placeholder="<?php echo e(__('Special Code')); ?>" name="special_code" />
+															<span class="input-group-addon">
+																<i class="text-md la la-lock"></i>
+															</span>
+															<?php if($errors->has('source_code')): ?>
+															<span class="invalid-feedback" role="alert">
+																<strong><?php echo e($errors->first('special_code')); ?></strong>
 															</span>
 															<?php endif; ?>
 														</div>

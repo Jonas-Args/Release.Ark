@@ -63,10 +63,10 @@
                         </li>
                         @else
                         <li>
-                            <a href="{{ route('user.login') }}" class="top-bar-item">{{__('Login')}}</a>
+                            <a href="#" class="top-bar-item"  data-toggle="modal" data-target="#maintenance-update">{{__('Login')}}</a>
                         </li>
                         <li>
-                            <a href="{{ route('user.registration') }}" class="top-bar-item">{{__('Registration')}}</a>
+                            <a href="#" class="top-bar-item"  data-toggle="modal" data-target="#maintenance-update">{{__('Registration')}}</a>
                         </li>
                         @endauth
                     </ul>

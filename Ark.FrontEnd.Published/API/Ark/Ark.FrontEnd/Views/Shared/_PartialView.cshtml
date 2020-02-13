@@ -1,0 +1,130 @@
+﻿
+<!DOCTYPE html>
+<html lang="ru" class="no-js">
+
+
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<head>
+
+    <meta charset="utf-8">
+    <!-- <base href="/"> -->
+
+    <title>@ViewBag.Title</title>
+    <meta name="description" content="">
+
+    <script src="~/assets/jquery-3.3.1.min.js"></script>
+    <script src="~/assets/popper.min.js"></script>
+    @*<script src="~/assets/bootstrap.min.js"></script>*@
+
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script src="~/assets/particles.js"></script>
+    <script src="~/assets/custom.js"></script>
+
+    <script src="../ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-2.2.4.min.js"><\/script>')</script>
+
+    <script src="~/js/scripts.min.js"></script>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- Template Basic Images Start -->
+    <meta property="og:image" content="path/to/image.html">
+    <link rel="icon" href="~/img/favicon/fav.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="~/img/favicon/fav.png">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="../stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Template Basic Images End -->
+    <!-- Custom Browsers Color Start -->
+    <meta name="theme-color" content="#000">
+    <!-- Custom Browsers Color End -->
+
+    <link rel="stylesheet" href="~/css/main.css">
+    <link rel="stylesheet" href="~/css/defaults.css">
+    <link href="~/css/orgchart.css" rel="stylesheet" />
+    <link href="~/css/animate.min.css" rel="stylesheet" />
+    @*<link rel="stylesheet" href="~/assets/bootstrap.min.css">*@
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/orgchart/2.1.9/js/jquery.orgchart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/orgchart/2.1.9/js/jquery.orgchart.min.js.map"></script>
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+        <link href="https://cdn.datatables.net/1.10.9/css/jquery.dataTables.css" rel="stylesheet" type="text/css" />
+        <script src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.js"></script>*@
+
+    @*<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/orgchart/2.1.9/js/jquery.orgchart.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/orgchart/2.1.9/js/jquery.orgchart.min.js.map"></script>
+        <link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+        <link href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css" rel="stylesheet" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/orgchart/2.1.9/js/jquery.orgchart.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/orgchart/2.1.9/js/jquery.orgchart.min.js.map"></script>
+        <link href=" https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" rel="stylesheet" />
+        <script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.flash.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+        <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
+        <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">*@
+    <script src="~/assets/bootstrap.min.js"></script>
+
+    <!-- <link rel="stylesheet" href="assets/css/style.min.css"> -->
+    <!-- Load google font
+    ================================================== -->
+    <script type="text/javascript">
+        WebFontConfig = {
+            google: { families: ['Lato:300,400,500,700'] }
+        };
+        (function () {
+            var wf = document.createElement('script');
+            wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+                '://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js';
+            wf.type = 'text/javascript';
+            wf.async = 'true';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(wf, s);
+        })();
+    </script>
+
+    <!-- Load other scripts
+    ================================================== -->
+    <script type="text/javascript">
+        var _html = document.documentElement;
+        _html.className = _html.className.replace("no-js", "js");
+    </script>
+
+    <style>
+        .preloader {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            background-color: #fff;
+            z-index: 9999;
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+
+
+
+    <partial name="_NavBar.cshtml" />
+    <div class="content">
+        <partial name="_SideBar.cshtml" />
+
+        @RenderBody()
+        @RenderSection("Scripts", required: false)
+
+    </div>
+
+
+
+
+</body>
+</html>

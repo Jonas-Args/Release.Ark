@@ -1,0 +1,236 @@
+﻿@{
+
+    ViewBag.Title = "WCC  | My Ethereum";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+@model WalletVM
+<div id="content" class="content">
+    <!-- begin breadcrumb -->
+    <ol class="breadcrumb float-xl-right">
+        <li class="breadcrumb-item"><a onclick="location.href='@Url.Action("MyEthereum", "Wallet")'">Wallet</a></li>
+        <li class="breadcrumb-item active">All channels</li>
+    </ol>
+    <!-- end breadcrumb -->
+    <!-- begin page-header -->
+    <h1 class="page-header"> Ethereum wallet <small> </small></h1>
+
+    <div class="row">
+        <!-- begin col-6 -->
+        <div class="col-xl-6" onclick="location.href='@Url.Action("MyEthereum", "Wallet")'">
+            <!-- begin card -->
+            <div class="card border-0   text-white mb-3 overflow-hidden" style="background-color: #563d7c">
+                <!-- begin card-body -->
+                <div class="card-body">
+                    <!-- begin row -->
+                    <div class="row">
+                        <!-- begin col-7 -->
+                        <div class="col-xl-7 col-lg-8">
+                            <!-- begin title -->
+                            <div class="mb-3 text-white ">
+                                <b>
+                                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                         width="42px" height="42px" viewBox="0 0 42 42" style="enable-background:new 0 0 42 42;" xml:space="preserve">
+                                    <path fill="#fff" d="M32,0H10C4.5,0,0,4.5,0,10v22c0,5.5,4.5,10,10,10h22c5.5,0,10-4.5,10-10V10C42,4.5,37.5,0,32,0z M14.831,21.05
+										   c1.99-3.383,4.08-6.667,6.07-10.05c2.09,3.383,4.08,6.667,6.07,10.05c-0.099,0.099-0.199,0.099-0.298,0.199
+										   c-1.891,1.094-3.781,2.189-5.572,3.284c-0.199,0.099-0.398,0.099-0.597,0c-1.791-1.095-3.932-2.304-5.723-3.398L14.831,21.05z
+											M20.901,31c-1.99-3.085-4.08-5.97-6.169-8.856c0.199,0.099,0.298,0.199,0.497,0.298c1.791,1.095,3.483,2.09,5.274,3.184
+										   c0.298,0.199,0.497,0.199,0.796,0c1.891-1.094,3.781-2.189,5.672-3.284l0.249-0.139C25.13,25.089,23.09,28.114,20.901,31z" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+									   </svg>
+                                </b>
+                                @*<span class="ml-2">
+                                    <i class="fa fa-info-circle" data-toggle="popover" data-trigger="hover" data-title="Total sales" data-placement="top" data-content="Net sales (gross sales minus discounts and returns) plus taxes and shipping. Includes orders from all sales channels."></i>
+                                </span>*@
+                            </div>
+                            <!-- end title -->
+                            <!-- begin total-sales -->
+                            <div class="row text-truncate">
+                                <!-- begin col-6 -->
+                                <div class="col-6">
+                                    <div class="f-s-12 text-white">ETHEREUM WALLET</div>
+                                    <div class="f-s-18 m-b-5 f-w-600 p-b-1" data-animation="number" data-value="-">ETH</div>
+                                    <div class="progress progress-xs rounded-lg bg-dark-darker m-b-5">
+                                        <div class="progress-bar progress-bar-striped rounded-right bg-teal" data-animation="width" data-value="55%" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                <!-- end col-6 -->
+                                <!-- begin col-6 -->
+                                <div class="col-6">
+                                    <div class="f-s-12 text-white">Balance:</div>
+                                   @* <div class="f-s-18 m-b-5 f-w-600 p-b-1"><span data-animation="number" data-value="0.00"> @Html.DisplayFor(model => model.UserWallets.Find(i => i.WalletCode == "ETH").Balance) ETH</font></span></div>*@
+                                <div class="f-s-18 m-b-5 f-w-600 p-b-1"><span data-animation="number" data-value="0.00"> @((decimal)Model.UserWalletAddressTxs.Txrefs.Sum(i => i.Value) / 100000000) ETH </font></span></div>
+                                    <div class="progress progress-xs rounded-lg bg-dark-darker m-b-5">
+                                        <div class="progress-bar progress-bar-striped rounded-right" data-animation="width" data-value="55%" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                <!-- end col-6 -->
+                            </div>
+                            <!-- end total-sales -->
+                            <!-- begin percentage -->
+                            @*<div class="mb-3 text-grey">
+                                <i class="fa fa-caret-up"></i> <span data-animation="number" data-value="00.00">0.00</span>New Visits
+                            </div>*@
+                            <!-- end percentage -->
+                            <!-- begin row -->
+                            <div class="row text-truncate">
+                                <!-- begin col-6 -->
+                                <div class="col-6">
+                                    <div class="f-s-12 text-white">Last day</div>
+                                    <div class="f-s-18 m-b-5 f-w-600 p-b-1" data-animation="number" data-value="0">+ 0$</div>
+                                    <div class="progress progress-xs rounded-lg bg-dark-darker m-b-5">
+                                        <div class="progress-bar progress-bar-striped rounded-right bg-teal" data-animation="width" data-value="55%" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                <!-- end col-6 -->
+                                <!-- begin col-6 -->
+                                <div class="col-6">
+                                    <div class="f-s-12 text-white">0 ETH</div>
+                                    <div class="f-s-18 m-b-5 f-w-600 p-b-1"><span data-animation="number" data-value="0.00">0 USD</font></span></div>
+                                    <div class="progress progress-xs rounded-lg bg-dark-darker m-b-5">
+                                        <div class="progress-bar progress-bar-striped rounded-right" data-animation="width" data-value="55%" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                <!-- end col-6 -->
+                            </div>
+                            <!-- end row -->
+                        </div> <div class="col-xl-5 col-lg-4 align-items-d d-flex justify-content-end">
+                            <img src="~/img/wallet-bg-img-2.png" height="150px" class="d-none d-lg-block" />
+                        </div>
+                        <!-- end col-7 -->
+                        <!-- begin col-5 -->
+                        <!-- end col-5 -->
+                    </div>
+                    <span><b>Wallet number:</b> 0x45e1D2D3C1d001aC30E9C0B10e3a9cdD35018Bf0</span>
+                    <!-- end row -->
+                </div>
+                <!-- end card-body -->
+            </div>
+            <!-- end card -->
+        </div>
+
+
+
+
+        <div class="col-xl-2">
+            <!-- begin card -->
+            <div class="card border-0   text-white mb-3 overflow-hidden" style="background-color:#d9e0e7">
+                <!-- begin card-body -->
+                <div class="card-body">
+                    <!-- begin row -->
+
+
+
+                    <span>
+                        <button id="send" data-toggle="modal" data-target="#sendModal" class="btn btn-primary">SEND  </button>
+                    </span>
+                    <!-- end row -->
+                </div>
+                <div class="card-body">
+                    <!-- begin row -->
+                    <form onsubmit="GetNewAddress('@Url.Action("NewAddress", "Wallet")','POST',this); return false">
+
+                        <button type="submit" id="receive" data-toggle="modal" data-target="#receiveModal" class="btn btn-primary popup-link">RECEIVE </button>
+                        <input style="display:none" type="text" Name="WalletCode" value="@Html.DisplayFor(i => i.WalletCode)">
+                    </form>
+                    <!-- end row -->
+                </div>
+                <div class="card-body">
+                    <!-- begin row -->
+
+
+
+                    <button onclick="location.href='@Url.Action("Index", "Transactions")'" class="btn btn-primary">ALL TRANSACTIONS </button>
+                    <!-- end row -->
+                </div>
+                <!-- end card-body -->
+            </div>
+            <!-- end card -->
+        </div>
+
+
+        <partial name="PartialsWallet/Send.cshtml" />
+        <partial name="PartialsWallet/Receive.cshtml" />
+
+        <!-- end card -->
+    </div>
+</div>
+
+<script type="text/javascript">
+    var p, q;
+
+    function showPreload(e) {
+        q = e.innerHTML;
+        e.innerHTML = "Loading...";
+        e.style.opacity = 0.5;
+        p = e;
+    }
+
+    function CopyPaymentAddressText() {
+        /* Get the text field */
+        var copyText = document.getElementById("PaymentAddress");
+
+        /* Select the text field */
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+        /* Copy the text inside the text field */
+        document.execCommand("copy");
+
+        /* Alert the copied text */
+        alert("Address Copied to clipboard.");
+    }
+
+    function getFormData(form) {
+        var unindexed_array = $(form).serializeArray();
+        var indexed_array = {};
+
+        $.map(unindexed_array, function (n, i) {
+            indexed_array[n['name']] = n['value'];
+        });
+
+        return JSON.stringify(indexed_array);
+    }
+
+    function GetNewAddress(url, type, form) {
+        if (document.getElementById('PaymentAddress').value == "") {
+            $.ajax({
+                url: url,
+                type: type,
+                data: getFormData(form),
+                contentType: 'application/json',
+                success: function (data) {
+                    if (data.Message != undefined) {
+                        alert(data.Message);
+                    }
+                    document.getElementById('spinner').style.display = "none";
+                    document.getElementById('PaymentAddress').value = data.Address;
+                    document.getElementById('PaymentAddressImg').src = "https://api.qrserver.com/v1/create-qr-code/?size=192x192&data=" + data.Address;
+                },
+                error: function (data, textStatus, jqXHR) {
+                    console.log(data.responseJSON);
+                    alert(data.responseJSON.Message);
+                    window.location.replace(data.RedirectUrl);
+                },
+            });
+        }
+
+
+
+        return false
+    }
+
+</script>

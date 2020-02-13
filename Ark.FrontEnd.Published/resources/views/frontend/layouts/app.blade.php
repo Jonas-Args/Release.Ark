@@ -135,7 +135,7 @@
 
     @yield('content')
 
-    @include('frontend.inc.footer')
+    <!--@include('frontend.inc.footer') -->
 
     @include('frontend.partials.modal')
 
@@ -168,6 +168,7 @@
 
 <!-- SCRIPTS -->
 <a href="#" class="back-to-top btn-back-to-top"></a>
+
 
 <!-- Core -->
 <script src="{{ asset('frontend/js/vendor/popper.min.js') }}"></script>
@@ -230,7 +231,10 @@
 
                 });
             });
-        }
+		}
+
+        
+   
 
         if ($('#currency-change').length > 0) {
             $('#currency-change .dropdown-item a').each(function() {

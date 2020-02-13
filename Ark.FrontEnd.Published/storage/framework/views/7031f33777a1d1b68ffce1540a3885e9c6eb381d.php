@@ -64,10 +64,10 @@
                         </li>
                         <?php else: ?>
                         <li>
-                            <a href="<?php echo e(route('user.login')); ?>" class="top-bar-item"><?php echo e(__('Login')); ?></a>
+                            <a href="#" class="top-bar-item"  data-toggle="modal" data-target="#maintenance-update"><?php echo e(__('Login')); ?></a>
                         </li>
                         <li>
-                            <a href="<?php echo e(route('user.registration')); ?>" class="top-bar-item"><?php echo e(__('Registration')); ?></a>
+                            <a href="#" class="top-bar-item"  data-toggle="modal" data-target="#maintenance-update"><?php echo e(__('Registration')); ?></a>
                         </li>
                         <?php endif; ?>
                     </ul>

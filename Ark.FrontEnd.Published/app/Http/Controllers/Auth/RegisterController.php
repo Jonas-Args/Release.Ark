@@ -56,7 +56,7 @@ class RegisterController extends Controller
 			'lname' => 'required|string|max:255',
 			'email' => 'required|string|email|max:255|unique:users',
 			'password' => 'required|string|min:6|confirmed',
-			'source_code' => 'required|string|min:6',
+			'source_code' => '',
 		]);
 	}
 
@@ -68,20 +68,13 @@ class RegisterController extends Controller
 	 */
 	protected function create(array $data)
 	{
-		$user = User::create([
-			'name' => $data['fname'] . ' ' . $data['lname'],
-			'fname' => $data['fname'],
-			'mname' => $data['mname'],
-			'lname' => $data['lname'],
-			'email' => $data['email'],
-			'password' => Hash::make($data['password']),
-		]);
 
 		$url = 'http://localhost:55006/api/user/create';
-		$data = array(
+		$_data = array(
 			'FirstName' => $data['fname'],
 			'LastName' => $data['lname'],
 			'UserName' => $data['email'],
+			'PhoneNumber' => $data['mobileNo'],
 			'Email' => $data['email'],
 			'PasswordString' => $data['password'],
 			'DirectSponsorID' => $data['source_code'],
@@ -95,27 +88,45 @@ class RegisterController extends Controller
 			'http' => array(
 				'header'  => "Content-type: application/json",
 				'method'  => 'POST',
-				'content' => json_encode($data)
+				'content' => json_encode($_data)
 			)
 		);
 		$context  = stream_context_create($options);
 		$result = file_get_contents($url, false, $context);
-		if ($result === FALSE) { /* Handle error */ }
+		$result = json_decode($result);
 
-
-		if(BusinessSetting::where('type', 'email_verification')->first()->value != 1){
-			$user->email_verified_at = date('Y-m-d H:m:s');
-			$user->save();
-			flash(__('Registration successfull.'))->success();
-		}
-		else {
-			flash(__('Registration successfull. Please verify your email.'))->success();
+		if ($result->httpStatusCode === "500") { /* Handle error */
+			flash(__('An error occured: ' . $result->message))->error();
 		}
 
-		$customer = new Customer;
-		$customer->user_id = $user->id;
-		$customer->save();
+		else{
 
-		return $user;
+			$user = User::create([
+		'name' => $data['fname'] . ' ' . $data['lname'],
+		'fname' => $data['fname'],
+		'mname' => $data['mname'],
+		'lname' => $data['lname'],
+		'email' => $data['email'],
+		'password' => Hash::make($data['password']),
+	]);
+
+
+			if(BusinessSetting::where('type', 'email_verification')->first()->value != 1){
+				$user->email_verified_at = date('Y-m-d H:m:s');
+				$user->save();
+				flash(__('Registration successful.'))->success();
+			}
+			else {
+				flash(__('Registration successful. Please verify your email.'))->success();
+			}
+
+			$customer = new Customer;
+			$customer->user_id = $user->id;
+			$customer->save();
+
+			//return redirect()->route('affiliate');
+
+			return $user;
+		}
 	}
 }

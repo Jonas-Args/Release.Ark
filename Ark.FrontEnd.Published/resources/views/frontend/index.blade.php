@@ -79,12 +79,12 @@
                     </div>
                 </div>
 
-                <div class="col-lg-7 order-1 order-lg-0">
+                <div class="col-lg-9 order-1 order-lg-0">
                     <div class="home-slide">
                         <div class="home-slide">
-                            <div class="slick-carousel" data-slick-arrows="true" data-slick-dots="true" data-slick-autoplay="true">
+                            <div class="slick-carousel" data-slick-arrows="true" data-slick-dots="false" data-slick-autoplay="true">
                                 @foreach (\App\Slider::where('published', 1)->get() as $key => $slider)
-                                    <div class="" style="height:275px;">
+                                    <div class="" style="height:345px;">
                                         <a href="{{ $slider->link }}" target="_blank">
                                         <img class="d-block w-100 h-100 lazyload" src="{{ asset('frontend/images/placeholder-rect.jpg') }}" data-src="{{ asset($slider->photo) }}" alt="{{ env('APP_NAME')}} promo">
                                         </a>
@@ -93,7 +93,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="trending-category  d-none d-lg-block">
+                <!--    <div class="trending-category  d-none d-lg-block">
                         <ul>
                             @foreach (\App\Category::where('featured', 1)->get()->take(7) as $key => $category)
                                 <li @if ($key == 0) class="active" @endif>
@@ -108,14 +108,14 @@
                                 </li>
                             @endforeach
                         </ul>
-                    </div>
+                    </div>-->
                 </div>
 
                 @php
                     $flash_deal = \App\FlashDeal::where('status', 1)->first();
                 @endphp
                 @if($flash_deal != null && strtotime(date('d-m-Y')) >= $flash_deal->start_date && strtotime(date('d-m-Y')) <= $flash_deal->end_date)
-                    <div class="col-lg-2 d-none d-lg-block">
+                  <!-- <div class="col-lg-2 d-none d-lg-block">
                         <div class="flash-deal-box bg-white h-100">
                             <div class="title text-center p-2 gry-bg">
                                 <h3 class="heading-6 mb-0">
@@ -151,9 +151,9 @@
                                 @endforeach
                             </div>
                         </div>
-                    </div>
+                    </div>--> 
                 @else
-                    <div class="col-lg-2 d-none d-lg-block">
+                   <!-- div class="col-lg-2 d-none d-lg-block">
                         <div class="flash-deal-box bg-white h-100">
                             <div class="title text-center p-2 gry-bg">
                                 <h3 class="heading-6 mb-0">
@@ -185,7 +185,7 @@
                                 @endforeach
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                 @endif
             </div>
         </div>
@@ -333,6 +333,8 @@
 
 @section('script')
     <script type="text/javascript">
+		$('#maintenance-update').modal('show')
+
         $(document).ready(function(){
             $.post('{{ route('home.section.featured') }}', {_token:'{{ csrf_token() }}'}, function(data){
                 $('#section_featured').html(data);

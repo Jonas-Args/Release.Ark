@@ -205,6 +205,7 @@
                                 <li class="<?php echo e(areActiveRoutes(['customers.index'])); ?>">
                                     <a class="nav-link" href="<?php echo e(route('customers.index')); ?>"><?php echo e(__('Customer list')); ?></a>
                                 </li>
+							
                             </ul>
                         </li>
                         <?php endif; ?>

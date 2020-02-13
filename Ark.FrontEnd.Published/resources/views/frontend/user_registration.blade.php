@@ -116,7 +116,7 @@
 													<div class="form-group">
 														<!-- <label>{{ __('') }}</label> -->
 														<div class="input-group input-group--style-1">
-															<input type="email" class="form-control{{ $errors->has('mobileNo') ? ' is-invalid' : '' }}" value="{{ old('mobileNo') }}" placeholder="{{ __('Phone Number') }}" name="mobileNo" />
+															<input type="tel" class="form-control{{ $errors->has('mobileNo') ? ' is-invalid' : '' }}" value="{{ old('mobileNo') }}" placeholder="{{ __('Phone Number') }}" name="mobileNo" />
 															<span class="input-group-addon">
 																<i class="text-md la la-mobile"></i>
 															</span>
@@ -175,6 +175,24 @@
 															@if ($errors->has('source_code'))
 															<span class="invalid-feedback" role="alert">
 																<strong>{{ $errors->first('source_code') }}</strong>
+															</span>
+															@endif
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-12">
+													<div class="form-group">
+														<!-- <label>{{ __('special_code') }}</label> -->
+														<div class="input-group input-group--style-1">
+															<input type="text" class="form-control{{ $errors->has('special_code') ? ' is-invalid' : '' }}" value="{{ old('special_code') }}" placeholder="{{ __('Special Code') }}" name="special_code" />
+															<span class="input-group-addon">
+																<i class="text-md la la-lock"></i>
+															</span>
+															@if ($errors->has('source_code'))
+															<span class="invalid-feedback" role="alert">
+																<strong>{{ $errors->first('special_code') }}</strong>
 															</span>
 															@endif
 														</div>

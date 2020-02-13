@@ -1116,6 +1116,7 @@
     <Compile Include="resources\views\coupons\create.blade.php" />
     <Compile Include="resources\views\coupons\edit.blade.php" />
     <Compile Include="resources\views\coupons\index.blade.php" />
+    <Compile Include="resources\views\customers\deposits.blade.php" />
     <Compile Include="resources\views\customers\index.blade.php" />
     <Compile Include="resources\views\emails\invoice.blade.php" />
     <Compile Include="resources\views\emails\newsletter.blade.php" />

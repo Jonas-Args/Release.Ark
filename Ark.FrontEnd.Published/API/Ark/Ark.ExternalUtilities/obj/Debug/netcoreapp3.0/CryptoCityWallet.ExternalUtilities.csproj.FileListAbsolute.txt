@@ -1,0 +1,8 @@
+C:\Projects\Net Core\CryptoCityWallet\CryptoCityWallet.ExternalUtilities\bin\Debug\netcoreapp3.0\CryptoCityWallet.ExternalUtilities.deps.json
+C:\Projects\Net Core\CryptoCityWallet\CryptoCityWallet.ExternalUtilities\bin\Debug\netcoreapp3.0\CryptoCityWallet.ExternalUtilities.dll
+C:\Projects\Net Core\CryptoCityWallet\CryptoCityWallet.ExternalUtilities\bin\Debug\netcoreapp3.0\CryptoCityWallet.ExternalUtilities.pdb
+C:\Projects\Net Core\CryptoCityWallet\CryptoCityWallet.ExternalUtilities\obj\Debug\netcoreapp3.0\CryptoCityWallet.ExternalUtilities.csprojAssemblyReference.cache
+C:\Projects\Net Core\CryptoCityWallet\CryptoCityWallet.ExternalUtilities\obj\Debug\netcoreapp3.0\CryptoCityWallet.ExternalUtilities.AssemblyInfoInputs.cache
+C:\Projects\Net Core\CryptoCityWallet\CryptoCityWallet.ExternalUtilities\obj\Debug\netcoreapp3.0\CryptoCityWallet.ExternalUtilities.AssemblyInfo.cs
+C:\Projects\Net Core\CryptoCityWallet\CryptoCityWallet.ExternalUtilities\obj\Debug\netcoreapp3.0\CryptoCityWallet.ExternalUtilities.dll
+C:\Projects\Net Core\CryptoCityWallet\CryptoCityWallet.ExternalUtilities\obj\Debug\netcoreapp3.0\CryptoCityWallet.ExternalUtilities.pdb

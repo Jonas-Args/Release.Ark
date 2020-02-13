@@ -1,0 +1,64 @@
+﻿using System;
+using System.Text;
+using System.Linq;
+using System.Security.Cryptography;
+using Ark.Entities.DTO;
+using Ark.Entities.BO;
+using Ark.Entities.Enums;
+using Ark.DataAccessLayer;
+using System.Collections.Generic;
+
+namespace Ark.DataAccessLayer
+{
+    public class UserWalletTransactionRepository
+    {
+        public bool Create(UserWalletBO userWallet, WalletTransactionBO walletTransaction, ArkContext db)
+        {
+            TblUserWalletTransaction userWalletTransaction = new TblUserWalletTransaction();
+            userWalletTransaction.UserAuthId = userWallet.UserAuthId;
+            userWalletTransaction.SourceUserWalletId = userWallet.Id;
+            userWalletTransaction.Amount = (decimal)walletTransaction.Amount;
+            userWalletTransaction.CreatedOn = DateTime.Now;
+            userWalletTransaction.RunningBalance = userWallet.Balance;
+
+            if (userWallet.IsEnabled == true)
+            {
+                userWalletTransaction.Remarks = GenericStatusType.Approved.ToString();
+            }
+            else
+            {
+                userWalletTransaction.Remarks = GenericStatusType.Disabled.ToString();
+            }
+
+
+            db.TblUserWalletTransaction.Add(userWalletTransaction);
+            db.SaveChanges();
+            return true;
+        }
+
+        public List<TblUserWalletTransaction> GetAll(TblUserAuth userAuth, ArkContext db)
+        {
+            var _q = from a in db.TblUserWalletTransaction
+                     join b in db.TblUserWallet on a.SourceUserWalletId equals b.Id
+                     join c in db.TblWalletType on b.WalletTypeId equals c.Id
+                     where a.UserAuthId == userAuth.Id
+
+                     orderby a.CreatedOn descending
+                     select new TblUserWalletTransaction
+                     {
+                        Id = a.Id,
+                        CreatedOn = a.CreatedOn,
+                        Amount = a.Amount,
+                        IsEnabled = a.IsEnabled,
+                        ModifiedOn = a.ModifiedOn,
+                        Remarks = a.Remarks,
+                        RunningBalance = a.RunningBalance,
+                        SourceUserWallet = new TblUserWallet { Id = b.Id, Balance = b.Balance, WalletType = c, IsEnabled = b.IsEnabled, CreatedOn = b.CreatedOn, UserAuthId = userAuth.Id}
+                     };
+
+            List<TblUserWalletTransaction> userWalletTransactions = _q.ToList<TblUserWalletTransaction>();
+
+            return userWalletTransactions;
+        }
+    }
+}

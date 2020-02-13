@@ -127,7 +127,7 @@
 								</div>
 								@if (\App\BusinessSetting::where('type', 'conversation_system')->first()->value == 1)
 									<div class="col-auto">
-										<button class="btn" onclick="show_chat_modal()">{{__('Message Seller')}}</button>
+										<button class="btn" onclick="show_chat_modal()">{{__('Message')}}</button>
 									</div>
 								@endif
 							</div>
@@ -271,10 +271,10 @@
 								<div class="d-table-cell">
 									<!-- Buy Now button -->
 									@if ($qty > 0)
-									<button type="button" class="btn btn-styled btn-base-1 btn-icon-left strong-700 hov-bounce hov-shaddow buy-now" onclick="buyNow()">
+									<button type="button" class="btn btn-styled btn-base-1 btn-icon-left strong-700 hov-bounce hov-shaddow buy-now" style="background-color:#00babc!important" onclick="buyNow()">
 										<i class="la la-shopping-cart"></i> {{__('Buy Now')}}
 									</button>
-									<button type="button" class="btn btn-styled btn-alt-base-1 c-white btn-icon-left strong-700 hov-bounce hov-shaddow ml-2 add-to-cart" onclick="addToCart()">
+									<button type="button" class="btn btn-styled btn-alt-base-1 c-white btn-icon-left strong-700 hov-bounce hov-shaddow ml-2 add-to-cart" style="background-color:#f04f00!important" onclick="addToCart()">
 										<i class="la la-shopping-cart"></i>
 										<span class="d-none d-md-inline-block"> {{__('Add to cart')}}</span>
 									</button>

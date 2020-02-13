@@ -118,7 +118,7 @@
     <script type="text/javascript">
 
         $( document ).ready(function() {
-            //$('div.alert').not('.alert-important').delay(3000).fadeOut(350);
+            $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
             if($('.active-link').parent().parent().parent().is('ul')){
                 $('.active-link').parent().parent().addClass('in');
                 $('.active-link').parent().parent().parent().addClass('in');

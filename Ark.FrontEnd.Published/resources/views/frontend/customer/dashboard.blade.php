@@ -34,6 +34,8 @@
 
 				<!-- dashboard content -->
 				<div class="">
+
+					
 					@php
 					 $_s = Session::get('apiSession');
 
@@ -48,24 +50,67 @@
 					 $context  = stream_context_create($options);
 					 $result = file_get_contents($url, false, $context);
 					 $_r = json_decode($result);
-     @endphp
+					@endphp
+
+					@if($_r->httpStatusCode != "500")
+					
 
 					@if(count($_r->businessPackages) == 0)
 
-					<div class="form-box bg-white mt-4" style="width:100%">
+					<div class="form-box bg-white mt-4" style="width:100%" id="account_activation">
 						<div class="form-box-title px-3 py-2">
-							{{__('Account Status')}}
+							{{__('Account Activation')}}
 						</div>
 
 						<div class="form-box-content p-3">
 
 							<h5 style="margin-top:10px;">
-								Please activate your account by purchasing a package.
-								
+								Loading..
 							</h5>
-							<a class="btn btn-styled btn-base-1 col-md-2" href="{{ route('affiliate') }}">Activate Now</a>
 						</div>
 					</div>
+					<script>window.location.replace('{{ route('affiliate') }}');
+					</script>
+
+
+					@elseif($_r->businessPackages[0]->packageStatus == "1")
+
+					<div class="form-box bg-white mt-4" style="width:100%" id="">
+						<div class="form-box-title px-3 py-2">
+							{{__('Account Activation')}}
+						</div>
+
+						<div class="form-box-content p-3">
+
+							<p>Please pay your enterprise package button activate your account</p>
+							<hr />
+							<h6><b>Package Details:</b></h6>
+							<ul>
+							    <li>Package Name: <b>{{ $_r->businessPackages[0]->businessPackage->packageName }}</b></li>
+							    <li>Payment Method: <b>{{ $_r->businessPackages[0]->userDepositRequest->remarks }}</b></li>
+							    <li>Payment Amount: <b>{{ $_r->businessPackages[0]->userDepositRequest->amount }}</b></li>
+							    <li>Package Status: Pending Activation</li>
+							</ul>
+							
+							<hr />
+							@if($_r->businessPackages[0]->userDepositRequest->remarks == "DEPOSIT VIA BANK")
+
+							<p><b>Bank Details:</b></>
+							<p style="margin-bottom:0px">Bank Name: <b>EASTWEST</b></p>
+							<p style="margin-bottom:0px">Currency: <b>PHP</b></p>
+							<p style="margin-bottom:0px">Account Name: <b>ACCESSIBLE REVENUE KIOSK INC</b></p>
+							<p style="margin-bottom:0px">Account Number: <b>200039751878</b></p>
+
+							@elseif($_r->businessPackages[0]->userDepositRequest->remarks == "CASH VIA ADMIN")
+							<h5>Cash Via Admin</h5>
+
+										<p>Please proceed to Ark Philippines' offfice and pay the package amount on the counter.</p>
+										<p><b>Office Location:</b></p>
+										<p>{{ \App\GeneralSetting::first()->address }}</p>
+							@endif
+						</div>
+					</div>
+
 					@else
 					<div class="row">
 
@@ -152,7 +197,9 @@
 					</div>
 					@endif
 
-					
+				@else
+					<script>window.location.replace('{{ route('logout') }}');</script>
+				@endif	
 				</div>
 
 			</div>

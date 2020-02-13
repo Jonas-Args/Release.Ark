@@ -26,4 +26,14 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="maintenance-update" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg modal-dialog-centered">
+		<div class="modal-content">
+
+			<img src="<?php echo e(asset('uploads/banners/ARK-WEB.png')); ?>" alt="" style="width:100%" />
+			
+		</div>
+	</div>
+</div>
 <?php /**PATH C:\Projects\PHP\Ark\resources\views/frontend/partials/modal.blade.php ENDPATH**/ ?>

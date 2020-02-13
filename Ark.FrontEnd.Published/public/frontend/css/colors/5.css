@@ -283,10 +283,8 @@ input:checked + .toggle-switch-slider:before,
 .input-group-btn-vertical > .btn:hover,
 #map-zoom-in:hover,
 #map-zoom-out:hover,
-.product-box-2 .add-to-cart:hover
-
-{
-    background-color: #12CBC4;
+.product-box-2 .add-to-cart:hover {
+    background-color: #00babc;
 }
 
 
