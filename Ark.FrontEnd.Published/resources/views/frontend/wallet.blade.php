@@ -12,26 +12,6 @@
                     @endif
                 </div>
 
-
-                @php
-
-			 $_s = Session::get('apiSession');
-			 $url = 'http://localhost:55006/api/user/Wallet';
-			 $options = array(
-				 'http' => array(
-					 'method'  => 'GET',
-					 'header'    => "Accept-language: en\r\n" .
-						 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
-				 )
-			 );
-			 $context  = stream_context_create($options);
-			 $result = file_get_contents($url, false, $context);
-			 $UserWallet = json_decode($result);
-			 $UserWallet = $UserWallet->userWallet;
-
-                @endphp
-
-
                 <div class="col-lg-9">
                     <div class="main-content">
                         <!-- Page title -->
@@ -56,19 +36,11 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-4 ">
-                                <div class="dashboard-widget text-center red-widget text-white mt-4 c-pointer">
-                                    <i class="la la-wallet" style="font-size:24px;"></i>
-                                    <span class="d-block title heading-3 strong-400"> ₱{{ number_format($UserWallet[9]->balance) }}</span>
-                                    <span class="d-block sub-title">{{ __('Ark Cash Balance') }}</span>
-
-                                </div>
-                            </div>
-                            <div class="col-md-4 ">
+                            <div class="col-md-4 offset-md-2">
                                 <div class="dashboard-widget text-center green-widget text-white mt-4 c-pointer">
-                                    <i class="la la-wallet" style="font-size:24px;"></i>
+                                    <i class="fa fa-dollar"></i>
                                     <span class="d-block title heading-3 strong-400">{{ single_price(Auth::user()->balance) }}</span>
-                                    <span class="d-block sub-title">{{ __('Ark Credit Balance') }}</span>
+                                    <span class="d-block sub-title">{{ __('Wallet Balance') }}</span>
 
                                 </div>
                             </div>

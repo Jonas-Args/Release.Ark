@@ -88,7 +88,7 @@
                 </tr>
 
                 <tr class="cart-shipping">
-                    <th>{{__('VAT (12%)')}}</th>
+                    <th>{{__('Tax')}}</th>
                     <td class="text-right">
                         <span class="text-italic">{{ single_price($tax) }}</span>
                     </td>

@@ -20,13 +20,8 @@ class CustomerController extends Controller
         return view('customers.index', compact('customers'));
     }
 
-	public function deposits()
-    {
-        $customers = Customer::orderBy('created_at', 'desc')->get();
-        return view('customers.deposits', compact('customers.deposits'));
-    }
     /**
-	 * Show the form for creating a new resource.
+     * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */

@@ -99,17 +99,17 @@
             networkDefs: {
                 facebook:{url:'http://www.facebook.com/share.php?u=|u|'},
                 //http://twitter.com/home?status=jQuery%20Share%20Social%20Media%20Plugin%20-%20Share%20to%20multiple%20social%20networks%20from%20a%20single%20form%20http://plugins.in1.com/share/demo
-                //twitter:{url:'https://twitter.com/share?url=|u|&text=|140|'},
-                //linkedin:{url:'http://www.linkedin.com/shareArticle?mini=true&url=|u|&title=|t|&summary=|d|&source=in1.com'},
-                //in1:{url:'http://www.in1.com/cast?u=|u|',w:'490',h:'529'},                //tumblr:{url:'http://www.tumblr.com/share?v=3&u=|u|'},
-                //digg:{url:'http://digg.com/submit?url=|u|&title=|t|'},
-                //googleplus:{url:'https://plusone.google.com/_/+1/confirm?hl=en&url=|u|'},
-                //reddit:{url:'http://reddit.com/submit?url=|u|'},
-                //pinterest:{url:'http://pinterest.com/pin/create/button/?url=|u|&media=&description=|d|'},
-                //posterous:{url:'http://posterous.com/share?linkto=|u|&title=|t|'},
-                //stumbleupon:{url:'http://www.stumbleupon.com/submit?url=|u|&title=|t|'},
-                //email:{url:'mailto:?subject=|t|'}
-
+                twitter:{url:'https://twitter.com/share?url=|u|&text=|140|'},
+                linkedin:{url:'http://www.linkedin.com/shareArticle?mini=true&url=|u|&title=|t|&summary=|d|&source=in1.com'},
+                in1:{url:'http://www.in1.com/cast?u=|u|',w:'490',h:'529'},
+                tumblr:{url:'http://www.tumblr.com/share?v=3&u=|u|'},
+                digg:{url:'http://digg.com/submit?url=|u|&title=|t|'},
+                googleplus:{url:'https://plusone.google.com/_/+1/confirm?hl=en&url=|u|'},
+                reddit:{url:'http://reddit.com/submit?url=|u|'},
+                pinterest:{url:'http://pinterest.com/pin/create/button/?url=|u|&media=&description=|d|'},
+                posterous:{url:'http://posterous.com/share?linkto=|u|&title=|t|'},
+                stumbleupon:{url:'http://www.stumbleupon.com/submit?url=|u|&title=|t|'},
+                email:{url:'mailto:?subject=|t|'}
             }
         }
 

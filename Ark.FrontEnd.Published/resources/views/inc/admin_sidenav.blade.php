@@ -232,7 +232,6 @@
                                 <li class="{{ areActiveRoutes(['customers.index'])}}">
                                     <a class="nav-link" href="{{ route('customers.index') }}">{{__('Customer list')}}</a>
                                 </li>
-							
                             </ul>
                         </li>
                         @endif
