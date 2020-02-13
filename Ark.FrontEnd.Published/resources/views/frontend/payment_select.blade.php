@@ -6,7 +6,7 @@
         <section class="slice-xs sct-color-2 border-bottom">
             <div class="container container-sm">
                 <div class="row cols-delimited justify-content-center">
-                    <div class="col-3">
+                    <div class="col-4">
                         <div class="icon-block icon-block--style-1-v5 text-center">
                             <div class="block-icon c-gray-light mb-0">
                                 <i class="la la-shopping-cart"></i>
@@ -17,7 +17,7 @@
                         </div>
                     </div>
 
-                    <div class="col-3">
+                    <div class="col-4">
                         <div class="icon-block icon-block--style-1-v5 text-center">
                             <div class="block-icon c-gray-light mb-0">
                                 <i class="la la-truck"></i>
@@ -28,18 +28,18 @@
                         </div>
                     </div>
 
-                    <div class="col-3">
-                        <div class="icon-block icon-block--style-1-v5 text-center">
-                            <div class="block-icon mb-0 c-gray-light">
-                                <i class="la la-truck"></i>
-                            </div>
-                            <div class="block-content d-none d-md-block">
-                                <h3 class="heading heading-sm strong-300 c-gray-light text-capitalize">3. {{__('Delivery info')}}</h3>
-                            </div>
-                        </div>
-                    </div>
+					<div class="col-3" style="display:none!important">
+						<div class="icon-block icon-block--style-1-v5 text-center">
+							<div class="block-icon mb-0 c-gray-light">
+								<i class="la la-truck"></i>
+							</div>
+							<div class="block-content d-none d-md-block">
+								<h3 class="heading heading-sm strong-300 c-gray-light text-capitalize">3. {{__('Delivery info')}}</h3>
+							</div>
+						</div>
+					</div>
 
-                    <div class="col-3">
+                    <div class="col-4">
                         <div class="icon-block icon-block--style-1-v5 text-center active">
                             <div class="block-icon mb-0">
                                 <i class="la la-credit-card"></i>
@@ -163,7 +163,7 @@
                                             <div class="col-xxl-6 col-lg-8 col-md-10 mx-auto">
                                                 <div class="text-center bg-gray py-4">
                                                     <i class="fa"></i>
-                                                    <div class="h5 mb-4">Your wallet balance : <strong>{{ single_price(Auth::user()->balance) }}</strong></div>
+                                                    <div class="h5 mb-4">Your ark credit balance : <strong>{{ single_price(Auth::user()->balance) }}</strong></div>
                                                     @if(Auth::user()->balance < $total)
                                                         <button type="button" class="btn btn-base-2" disabled>Insufficient balance</button>
                                                     @else

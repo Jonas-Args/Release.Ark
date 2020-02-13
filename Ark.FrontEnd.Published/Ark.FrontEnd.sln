@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{A0786B88-2ADB-4C21-ABE8-AA2D79766269}") = "Ark", "Ark.phpproj", "{E0BCC9E4-16FD-42E8-8B3A-DB8778F09240}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E0BCC9E4-16FD-42E8-8B3A-DB8778F09240}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0BCC9E4-16FD-42E8-8B3A-DB8778F09240}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {09560F77-4152-4F75-85EF-FF95EB1C2149}
+	EndGlobalSection
+EndGlobal

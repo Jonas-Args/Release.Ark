@@ -66,6 +66,9 @@ class LoginController extends Controller
         if($existingUser){
             // log them in
             auth()->login($existingUser, true);
+
+            
+
         } else {
             // create a new user
             $newUser                  = new User;

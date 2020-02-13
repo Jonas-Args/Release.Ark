@@ -263,6 +263,12 @@
 							</div>
 				        </div>
 						<div id="demo-stk-lft-tab-6" class="tab-pane fade">
+
+							<div class="customer_choice_options" id="price_choice_options">
+
+							</div>
+							
+
 							<div class="form-group">
 	                            <label class="col-lg-2 control-label">{{__('Unit price')}}</label>
 	                            <div class="col-lg-7">
@@ -305,6 +311,13 @@
 									<input type="number" min="0" value="{{ $product->current_stock }}" step="1" placeholder="{{__('Quantity')}}" name="current_stock" class="form-control" required>
 								</div>
 							</div>
+
+							<div class="form-group">
+								<div class="col-lg-2">
+									<button type="button" class="btn btn-info" onclick="add_more_price_choice_option()">{{ __('Add more price choice option') }}</button>
+								</div>
+							</div>
+
 							<br>
 							<div class="sku_combination" id="sku_combination">
 
@@ -419,6 +432,12 @@
 	var i = $('input[name="choice_no[]"').last().val();
 	if(isNaN(i)){
 		i =0;
+	}
+
+	function add_more_price_choice_option(){
+		$('#price_choice_options').append('<div class="form-group"><div class="col-lg-2"><input type="hidden" name="choice_no[]" value="'+i+'"> <div ><label class="control-label" style="width:100%">Unit Price</label></div> <div><label class="control-label" style="width:100%">Quantity</label></div> </div><div class="col-lg-7"><input type="text" class="form-control" name="choice[]" value="" placeholder=""> <input type="number" class="form-control" name="choice[]" value="" placeholder=""></div><div class="col-lg-2"><button onclick="delete_row(this)" class="btn btn-danger btn-icon"><i class="demo-psi-recycling icon-lg"></i></button></div></div>');
+		i++;
+		$("input[data-role=tagsinput], select[multiple][data-role=tagsinput]").tagsinput();
 	}
 
 	function add_more_customer_choice_option(){

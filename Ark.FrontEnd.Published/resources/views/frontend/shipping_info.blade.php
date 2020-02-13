@@ -28,7 +28,7 @@
                         </div>
                     </div>
 
-                    <div class="col-3">
+                    <div class="col-3" style="display:none!important">
                         <div class="icon-block icon-block--style-1-v5 text-center">
                             <div class="block-icon mb-0 c-gray-light">
                                 <i class="la la-truck"></i>
@@ -45,7 +45,7 @@
                                 <i class="la la-credit-card"></i>
                             </div>
                             <div class="block-content d-none d-md-block">
-                                <h3 class="heading heading-sm strong-300 c-gray-light text-capitalize">4. {{__('Payment')}}</h3>
+                                <h3 class="heading heading-sm strong-300 c-gray-light text-capitalize">3. {{__('Payment')}}</h3>
                             </div>
                         </div>
                     </div>
@@ -57,7 +57,7 @@
             <div class="container">
                 <div class="row cols-xs-space cols-sm-space cols-md-space">
                     <div class="col-lg-8">
-                        <form class="form-default" data-toggle="validator" action="{{ route('checkout.store_shipping_infostore') }}" role="form" method="POST">
+                        <form class="form-default" data-toggle="validator" action="{{ route('checkout.store_delivery_info') }}" role="form" method="POST">
                             @csrf
                             <div class="card">
                                 @if(Auth::check())
@@ -122,6 +122,17 @@
                                                 <div class="form-group has-feedback">
                                                     <label class="control-label">{{__('Phone')}}</label>
                                                     <input type="number" min="0" class="form-control" value="{{ $user->phone }}" name="phone" required>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <hr />
+
+                                         <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group has-feedback">
+                                                    <label class="control-label">{{__('Notes to delivery')}}</label>
+                                                    <textarea class="form-control"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -204,7 +215,7 @@
                                     </a>
                                 </div>
                                 <div class="col-md-6 text-right">
-                                    <button type="submit" class="btn btn-styled btn-base-1">{{__('Continue to Delivery Info')}}</a>
+                                    <button type="submit" class="btn btn-styled btn-base-1">{{__('Continue to Payment')}}</a>
                                 </div>
                             </div>
                             {{-- <div class="row align-items-center pt-4">

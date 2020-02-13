@@ -121,6 +121,16 @@ class HomeController extends Controller
         }
     }
 
+     public function affiliate(Request $request)
+    {
+        if(Auth::user()->user_type == 'customer'){
+            return view('frontend.customer.affiliate');
+        }
+        elseif(Auth::user()->user_type == 'seller'){
+            return view('frontend.seller.affiliate');
+        }
+    }
+
     public function customer_update_profile(Request $request)
     {
         $user = Auth::user();

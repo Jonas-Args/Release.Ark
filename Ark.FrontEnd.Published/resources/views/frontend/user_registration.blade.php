@@ -20,15 +20,15 @@
                                             <div class="row">
                                                 <div class="col-12">
                                                     <div class="form-group">
-                                                        <!-- <label>{{ __('name') }}</label> -->
+                                                        <!-- <label>{{ __('fname') }}</label> -->
                                                         <div class="input-group input-group--style-1">
-                                                            <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" value="{{ old('name') }}" placeholder="{{ __('Name') }}" name="name">
+															<input type="text" class="form-control{{ $errors->has('fname') ? ' is-invalid' : '' }}" value="{{ old('fname') }}" placeholder="{{ __('First Name') }}" name="fname" />
                                                             <span class="input-group-addon">
                                                                 <i class="text-md la la-user"></i>
                                                             </span>
-                                                            @if ($errors->has('name'))
+                                                            @if ($errors->has('fname'))
                                                                 <span class="invalid-feedback" role="alert">
-                                                                    <strong>{{ $errors->first('name') }}</strong>
+                                                                    <strong>{{ $errors->first('fname') }}</strong>
                                                                 </span>
                                                             @endif
                                                         </div>
@@ -36,6 +36,62 @@
                                                 </div>
                                             </div>
 
+											<div class="row">
+												<div class="col-12">
+													<div class="form-group">
+														<!-- <label>{{ __('mname') }}</label> -->
+														<div class="input-group input-group--style-1">
+															<input type="text" class="form-control{{ $errors->has('mname') ? ' is-invalid' : '' }}" value="{{ old('mname') }}" placeholder="{{ __('Middle Name') }}" name="mname" />
+															<span class="input-group-addon">
+																<i class="text-md la la-user"></i>
+															</span>
+															@if ($errors->has('mname'))
+															<span class="invalid-feedback" role="alert">
+																<strong>{{ $errors->first('mname') }}</strong>
+															</span>
+															@endif
+														</div>
+													</div>
+												</div>
+											</div>
+
+											<div class="row">
+												<div class="col-12">
+													<div class="form-group">
+														<!-- <label>{{ __('lname') }}</label> -->
+														<div class="input-group input-group--style-1">
+															<input type="text" class="form-control{{ $errors->has('lname') ? ' is-invalid' : '' }}" value="{{ old('lname') }}" placeholder="{{ __('Last Name') }}" name="lname" />
+															<span class="input-group-addon">
+																<i class="text-md la la-user"></i>
+															</span>
+															@if ($errors->has('lname'))
+															<span class="invalid-feedback" role="alert">
+																<strong>{{ $errors->first('lname') }}</strong>
+															</span>
+															@endif
+														</div>
+													</div>
+												</div>
+											</div>
+                                            <hr />
+											<div class="row" style="display:none">
+												<div class="col-12">
+													<div class="form-group">
+														<!-- <label>{{ __('username') }}</label> -->
+														<div class="input-group input-group--style-1">
+															<input type="text" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" value="{{ old('username') }}" placeholder="{{ __('Username') }}" name="username" />
+															<span class="input-group-addon">
+																<i class="text-md la la-envelope"></i>
+															</span>
+															@if ($errors->has('username'))
+															<span class="invalid-feedback" role="alert">
+																<strong>{{ $errors->first('username') }}</strong>
+															</span>
+															@endif
+														</div>
+													</div>
+												</div>
+											</div>
                                             <div class="row">
                                                 <div class="col-12">
                                                     <div class="form-group">
@@ -54,6 +110,25 @@
                                                     </div>
                                                 </div>
                                             </div>
+
+											<div class="row">
+												<div class="col-12">
+													<div class="form-group">
+														<!-- <label>{{ __('') }}</label> -->
+														<div class="input-group input-group--style-1">
+															<input type="tel" class="form-control{{ $errors->has('mobileNo') ? ' is-invalid' : '' }}" value="{{ old('mobileNo') }}" placeholder="{{ __('Phone Number') }}" name="mobileNo" />
+															<span class="input-group-addon">
+																<i class="text-md la la-mobile"></i>
+															</span>
+															@if ($errors->has('mobileNo'))
+															<span class="invalid-feedback" role="alert">
+																<strong>{{ $errors->first('mobileNo') }}</strong>
+															</span>
+															@endif
+														</div>
+													</div>
+												</div>
+											</div>
 
                                             <div class="row">
                                                 <div class="col-12">
@@ -87,7 +162,43 @@
                                                     </div>
                                                 </div>
                                             </div>
-
+                                            <hr />
+											<div class="row">
+												<div class="col-12">
+													<div class="form-group">
+														<!-- <label>{{ __('source_code') }}</label> -->
+														<div class="input-group input-group--style-1">
+															<input type="text" class="form-control{{ $errors->has('source_code') ? ' is-invalid' : '' }}" value="{{ old('source_code') }}" placeholder="{{ __('Source Code') }}" name="source_code" />
+															<span class="input-group-addon">
+																<i class="text-md la la-lock"></i>
+															</span>
+															@if ($errors->has('source_code'))
+															<span class="invalid-feedback" role="alert">
+																<strong>{{ $errors->first('source_code') }}</strong>
+															</span>
+															@endif
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-12">
+													<div class="form-group">
+														<!-- <label>{{ __('special_code') }}</label> -->
+														<div class="input-group input-group--style-1">
+															<input type="text" class="form-control{{ $errors->has('special_code') ? ' is-invalid' : '' }}" value="{{ old('special_code') }}" placeholder="{{ __('Special Code') }}" name="special_code" />
+															<span class="input-group-addon">
+																<i class="text-md la la-lock"></i>
+															</span>
+															@if ($errors->has('source_code'))
+															<span class="invalid-feedback" role="alert">
+																<strong>{{ $errors->first('special_code') }}</strong>
+															</span>
+															@endif
+														</div>
+													</div>
+												</div>
+											</div>
                                             <div class="row">
                                                 <div class="col-12">
                                                     <div class="form-group">

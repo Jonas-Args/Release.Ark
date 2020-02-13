@@ -1,0 +1,17 @@
+C:\Projects\Net Core\CryptoCity\CryptoCityWallet.Wrapper\bin\Debug\netcoreapp3.0\CryptoCityWallet.Wrapper.deps.json
+C:\Projects\Net Core\CryptoCity\CryptoCityWallet.Wrapper\bin\Debug\netcoreapp3.0\CryptoCityWallet.Wrapper.dll
+C:\Projects\Net Core\CryptoCity\CryptoCityWallet.Wrapper\obj\Debug\netcoreapp3.0\CryptoCityWallet.Wrapper.AssemblyInfoInputs.cache
+C:\Projects\Net Core\CryptoCity\CryptoCityWallet.Wrapper\obj\Debug\netcoreapp3.0\CryptoCityWallet.Wrapper.AssemblyInfo.cs
+C:\Projects\Net Core\CryptoCityWallet\CryptoCityWallet.Wrapper\bin\Debug\netcoreapp3.0\CryptoCityWallet.Wrapper.deps.json
+C:\Projects\Net Core\CryptoCityWallet\CryptoCityWallet.Wrapper\bin\Debug\netcoreapp3.0\CryptoCityWallet.Wrapper.dll
+C:\Projects\Net Core\CryptoCityWallet\CryptoCityWallet.Wrapper\bin\Debug\netcoreapp3.0\CryptoCityWallet.Wrapper.pdb
+C:\Projects\Net Core\CryptoCityWallet\CryptoCityWallet.Wrapper\bin\Debug\netcoreapp3.0\CryptoCityWallet.Entities.dll
+C:\Projects\Net Core\CryptoCityWallet\CryptoCityWallet.Wrapper\bin\Debug\netcoreapp3.0\CryptoCityWallet.ExternalUtilities.dll
+C:\Projects\Net Core\CryptoCityWallet\CryptoCityWallet.Wrapper\bin\Debug\netcoreapp3.0\CryptoCityWallet.Entities.pdb
+C:\Projects\Net Core\CryptoCityWallet\CryptoCityWallet.Wrapper\bin\Debug\netcoreapp3.0\CryptoCityWallet.ExternalUtilities.pdb
+C:\Projects\Net Core\CryptoCityWallet\CryptoCityWallet.Wrapper\obj\Debug\netcoreapp3.0\CryptoCityWallet.Wrapper.csprojAssemblyReference.cache
+C:\Projects\Net Core\CryptoCityWallet\CryptoCityWallet.Wrapper\obj\Debug\netcoreapp3.0\CryptoCityWallet.Wrapper.AssemblyInfoInputs.cache
+C:\Projects\Net Core\CryptoCityWallet\CryptoCityWallet.Wrapper\obj\Debug\netcoreapp3.0\CryptoCityWallet.Wrapper.AssemblyInfo.cs
+C:\Projects\Net Core\CryptoCityWallet\CryptoCityWallet.Wrapper\obj\Debug\netcoreapp3.0\CryptoCityWallet.Wrapper.csproj.CopyComplete
+C:\Projects\Net Core\CryptoCityWallet\CryptoCityWallet.Wrapper\obj\Debug\netcoreapp3.0\CryptoCityWallet.Wrapper.dll
+C:\Projects\Net Core\CryptoCityWallet\CryptoCityWallet.Wrapper\obj\Debug\netcoreapp3.0\CryptoCityWallet.Wrapper.pdb

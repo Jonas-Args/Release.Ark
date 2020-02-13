@@ -56,17 +56,17 @@
                         </li>
                         @auth
                         <li>
-                            <a href="{{ route('dashboard') }}" class="top-bar-item">{{__('My Panel')}}</a>
+                            <a href="{{ route('dashboard') }}" class="top-bar-item">{{__('My Account')}}</a>
                         </li>
                         <li>
                             <a href="{{ route('logout') }}" class="top-bar-item">{{__('Logout')}}</a>
                         </li>
                         @else
                         <li>
-                            <a href="{{ route('user.login') }}" class="top-bar-item">{{__('Login')}}</a>
+                            <a href="#" class="top-bar-item"  data-toggle="modal" data-target="#maintenance-update">{{__('Login')}}</a>
                         </li>
                         <li>
-                            <a href="{{ route('user.registration') }}" class="top-bar-item">{{__('Registration')}}</a>
+                            <a href="#" class="top-bar-item"  data-toggle="modal" data-target="#maintenance-update">{{__('Registration')}}</a>
                         </li>
                         @endauth
                     </ul>
@@ -368,9 +368,10 @@
                             </a>
 
                             @if(Route::currentRouteName() != 'home' && Route::currentRouteName() != 'categories.all')
-                                <div class="d-none d-xl-block category-menu-icon-box">
+                                <div class="d-none d-xl-block category-menu-icon-box" style="min-width:120px">
                                     <div class="dropdown-toggle navbar-light category-menu-icon" id="category-menu-icon">
                                         <span class="navbar-toggler-icon"></span>
+                                        <span>Categories</span>
                                     </div>
                                 </div>
                             @endif
@@ -429,15 +430,17 @@
                                     </div>
                                 </div>
                                 <div class="d-none d-lg-inline-block">
-                                    <div class="nav-compare-box" id="compare">
-                                        <a href="{{ route('compare') }}" class="nav-box-link">
-                                            <i class="la la-refresh d-inline-block nav-box-icon"></i>
-                                            <span class="nav-box-text d-none d-xl-inline-block">{{__('Compare')}}</span>
-                                            @if(Session::has('compare'))
-                                                <span class="nav-box-number">{{ count(Session::get('compare'))}}</span>
+                                    <div class="nav-compare-box" id="compare" style="width:100px">
+                                        <a href="{{ route('wallet.index') }}" class="nav-box-link">
+                                            <i class="la la-wallet d-inline-block nav-box-icon"></i>
+                                            <span class="nav-box-text d-none d-xl-inline-block">{{__('Ark Credits')}}</span>
+                                           <span class="nav-box-number" style="width: max-content;padding: 0px 10px; background-color:#0acf97!important">
+                                             @auth
+                                               {{ single_price(Auth::user()->balance) }}
                                             @else
-                                                <span class="nav-box-number">0</span>
-                                            @endif
+                                               0
+                                             @endauth
+                                            </span>
                                         </a>
                                     </div>
                                 </div>

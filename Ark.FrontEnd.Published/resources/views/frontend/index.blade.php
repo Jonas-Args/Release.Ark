@@ -79,12 +79,12 @@
                     </div>
                 </div>
 
-                <div class="col-lg-7 order-1 order-lg-0">
+                <div class="col-lg-9 order-1 order-lg-0">
                     <div class="home-slide">
                         <div class="home-slide">
-                            <div class="slick-carousel" data-slick-arrows="true" data-slick-dots="true" data-slick-autoplay="true">
+                            <div class="slick-carousel" data-slick-arrows="true" data-slick-dots="false" data-slick-autoplay="true">
                                 @foreach (\App\Slider::where('published', 1)->get() as $key => $slider)
-                                    <div class="" style="height:275px;">
+                                    <div class="" style="height:345px;">
                                         <a href="{{ $slider->link }}" target="_blank">
                                         <img class="d-block w-100 h-100 lazyload" src="{{ asset('frontend/images/placeholder-rect.jpg') }}" data-src="{{ asset($slider->photo) }}" alt="{{ env('APP_NAME')}} promo">
                                         </a>
@@ -93,7 +93,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="trending-category  d-none d-lg-block">
+                <!--    <div class="trending-category  d-none d-lg-block">
                         <ul>
                             @foreach (\App\Category::where('featured', 1)->get()->take(7) as $key => $category)
                                 <li @if ($key == 0) class="active" @endif>
@@ -108,14 +108,14 @@
                                 </li>
                             @endforeach
                         </ul>
-                    </div>
+                    </div>-->
                 </div>
 
                 @php
                     $flash_deal = \App\FlashDeal::where('status', 1)->first();
                 @endphp
                 @if($flash_deal != null && strtotime(date('d-m-Y')) >= $flash_deal->start_date && strtotime(date('d-m-Y')) <= $flash_deal->end_date)
-                    <div class="col-lg-2 d-none d-lg-block">
+                  <!-- <div class="col-lg-2 d-none d-lg-block">
                         <div class="flash-deal-box bg-white h-100">
                             <div class="title text-center p-2 gry-bg">
                                 <h3 class="heading-6 mb-0">
@@ -151,9 +151,9 @@
                                 @endforeach
                             </div>
                         </div>
-                    </div>
+                    </div>--> 
                 @else
-                    <div class="col-lg-2 d-none d-lg-block">
+                   <!-- div class="col-lg-2 d-none d-lg-block">
                         <div class="flash-deal-box bg-white h-100">
                             <div class="title text-center p-2 gry-bg">
                                 <h3 class="heading-6 mb-0">
@@ -185,7 +185,7 @@
                                 @endforeach
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                 @endif
             </div>
         </div>
@@ -211,8 +211,30 @@
 
     </div>
 
-    <div id="section_best_selling">
+    <div id="section_best_selling" style="display:none!important">
 
+    </div>
+
+    <div id="section_coming_soon">
+		<section class="mb-4">
+			<div class="container">
+				<div class="px-2 py-4 p-md-4 bg-white shadow-sm">
+					<div class="section-title-1 clearfix">
+						<h3 class="heading-5 strong-700 mb-0 float-left">
+							<span class="mr-4">{{__('Coming Soon')}}</span>
+						</h3>
+						<ul class="inline-links float-right">
+							<!-- <li><a  class="active">{{__('Top 20')}}</a></li>-->
+						</ul>
+					</div>
+					<div class="caorusel-box">
+						<div class="slick-carousel" data-slick-items="3" data-slick-lg-items="2" data-slick-md-items="2" data-slick-sm-items="1" data-slick-xs-items="1" data-slick-dots="true" data-slick-rows="2">
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
     </div>
 
     <div id="section_home_categories">
@@ -235,14 +257,14 @@
         </div>
     </section>
 
-    <div id="section_best_sellers">
+   <!-- <div id="section_best_sellers">
 
     </div>
-
+-->
     <section class="mb-3">
         <div class="container">
             <div class="row gutters-10">
-                <div class="col-lg-6">
+				<!---<div class="col-lg-6">
                     <div class="section-title-1 clearfix">
                         <h3 class="heading-5 strong-700 mb-0 float-left">
                             <span class="mr-4">{{__('Top 10 Catogories')}}</span>
@@ -273,7 +295,7 @@
                         @endforeach
                     </div>
                 </div>
-                <div class="col-lg-6">
+               <div class="col-lg-6">
                     <div class="section-title-1 clearfix">
                         <h3 class="heading-5 strong-700 mb-0 float-left">
                             <span class="mr-4">{{__('Top 10 Brands')}}</span>
@@ -285,7 +307,7 @@
                         </ul>
                     </div>
                     <div class="row">
-                        @foreach (\App\Brand::where('top', 1)->get() as $brand)
+                      //  @foreach (\App\Brand::where('top', 1)->get() as $brand)
                             <div class="mb-3 col-6">
                                 <a href="{{ route('products.brand', $brand->slug) }}" class="bg-white border d-block c-base-2 box-2 icon-anim pl-2">
                                     <div class="row align-items-center no-gutters">
@@ -301,9 +323,9 @@
                                     </div>
                                 </a>
                             </div>
-                        @endforeach
+                     //   @endforeach
                     </div>
-                </div>
+                </div> --->
             </div>
 
     </section>
@@ -311,6 +333,8 @@
 
 @section('script')
     <script type="text/javascript">
+		$('#maintenance-update').modal('show')
+
         $(document).ready(function(){
             $.post('{{ route('home.section.featured') }}', {_token:'{{ csrf_token() }}'}, function(data){
                 $('#section_featured').html(data);

@@ -1,0 +1,236 @@
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\appsettings.Development.json
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\appsettings.json
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Properties\launchSettings.json
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\MinnyCasinoAffiliate.Api.exe
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\MinnyCasinoAffiliate.Api.deps.json
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\MinnyCasinoAffiliate.Api.runtimeconfig.json
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\MinnyCasinoAffiliate.Api.runtimeconfig.dev.json
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\MinnyCasinoAffiliate.Api.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\MinnyCasinoAffiliate.Api.pdb
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Microsoft.AspNetCore.Razor.Language.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Microsoft.CodeAnalysis.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Microsoft.CodeAnalysis.CSharp.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Microsoft.CodeAnalysis.Razor.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Microsoft.CodeAnalysis.Workspaces.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Microsoft.Data.SqlClient.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Microsoft.EntityFrameworkCore.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Microsoft.EntityFrameworkCore.Design.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Microsoft.Identity.Client.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Microsoft.VisualStudio.Web.CodeGeneration.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Microsoft.VisualStudio.Web.CodeGeneration.Contracts.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Microsoft.VisualStudio.Web.CodeGeneration.Core.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\dotnet-aspnet-codegenerator-design.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Microsoft.VisualStudio.Web.CodeGeneration.Templating.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Newtonsoft.Json.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Npgsql.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\NuGet.Frameworks.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\System.Composition.AttributedModel.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\System.Composition.Convention.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\System.Composition.Hosting.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\System.Composition.Runtime.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\System.Composition.TypedParts.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\System.Configuration.ConfigurationManager.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\System.Runtime.Caching.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\System.Security.Cryptography.ProtectedData.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\cs\Microsoft.CodeAnalysis.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\de\Microsoft.CodeAnalysis.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\es\Microsoft.CodeAnalysis.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\fr\Microsoft.CodeAnalysis.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\it\Microsoft.CodeAnalysis.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\ja\Microsoft.CodeAnalysis.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\ko\Microsoft.CodeAnalysis.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\pl\Microsoft.CodeAnalysis.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\ru\Microsoft.CodeAnalysis.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\tr\Microsoft.CodeAnalysis.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\runtimes\unix\lib\netcoreapp2.1\Microsoft.Data.SqlClient.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\runtimes\win\lib\netcoreapp2.1\Microsoft.Data.SqlClient.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\runtimes\win-arm64\native\sni.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\runtimes\win-x64\native\sni.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\runtimes\win-x86\native\sni.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\MinnyCasinoAffiliate.AppService.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\MinnyCasinoAffiliate.DataAccessLayer.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\MinnyCasinoAffiliate.Entities.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\MinnyCasinoAffiliate.AppService.pdb
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\MinnyCasinoAffiliate.Entities.pdb
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\MinnyCasinoAffiliate.DataAccessLayer.pdb
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\obj\Debug\netcoreapp3.0\MinnyCasinoAffiliate.Api.csprojAssemblyReference.cache
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\obj\Debug\netcoreapp3.0\staticwebassets\MinnyCasinoAffiliate.Api.StaticWebAssets.Manifest.cache
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\obj\Debug\netcoreapp3.0\staticwebassets\MinnyCasinoAffiliate.Api.StaticWebAssets.xml
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\obj\Debug\netcoreapp3.0\MinnyCasinoAffiliate.Api.MvcApplicationPartsAssemblyInfo.cache
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\obj\Debug\netcoreapp3.0\MinnyCasinoAffiliate.Api.AssemblyInfoInputs.cache
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\obj\Debug\netcoreapp3.0\MinnyCasinoAffiliate.Api.AssemblyInfo.cs
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\obj\Debug\netcoreapp3.0\MinnyCasinoAffiliate.Api.RazorTargetAssemblyInfo.cache
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\obj\Debug\netcoreapp3.0\MinnyCasinoAffiliate.Api.csproj.CopyComplete
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\obj\Debug\netcoreapp3.0\MinnyCasinoAffiliate.Api.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\obj\Debug\netcoreapp3.0\MinnyCasinoAffiliate.Api.pdb
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\appsettings.Development.json
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\appsettings.json
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Properties\launchSettings.json
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\MinnyCasinoAffiliate.Api.exe
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\MinnyCasinoAffiliate.Api.deps.json
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\MinnyCasinoAffiliate.Api.runtimeconfig.json
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\MinnyCasinoAffiliate.Api.runtimeconfig.dev.json
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\MinnyCasinoAffiliate.Api.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\MinnyCasinoAffiliate.Api.pdb
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Microsoft.AspNetCore.Razor.Language.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Microsoft.CodeAnalysis.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Microsoft.CodeAnalysis.CSharp.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Microsoft.CodeAnalysis.Razor.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Microsoft.CodeAnalysis.Workspaces.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Microsoft.Data.SqlClient.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Microsoft.EntityFrameworkCore.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Microsoft.Identity.Client.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Microsoft.VisualStudio.Web.CodeGeneration.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Microsoft.VisualStudio.Web.CodeGeneration.Contracts.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Microsoft.VisualStudio.Web.CodeGeneration.Core.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\dotnet-aspnet-codegenerator-design.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Microsoft.VisualStudio.Web.CodeGeneration.Templating.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Newtonsoft.Json.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Npgsql.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\NuGet.Frameworks.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\System.Composition.AttributedModel.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\System.Composition.Convention.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\System.Composition.Hosting.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\System.Composition.Runtime.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\System.Composition.TypedParts.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\System.Configuration.ConfigurationManager.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\System.Runtime.Caching.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\System.Security.Cryptography.ProtectedData.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\cs\Microsoft.CodeAnalysis.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\de\Microsoft.CodeAnalysis.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\es\Microsoft.CodeAnalysis.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\fr\Microsoft.CodeAnalysis.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\it\Microsoft.CodeAnalysis.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\ja\Microsoft.CodeAnalysis.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\ko\Microsoft.CodeAnalysis.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\pl\Microsoft.CodeAnalysis.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\ru\Microsoft.CodeAnalysis.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\tr\Microsoft.CodeAnalysis.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\runtimes\unix\lib\netcoreapp2.1\Microsoft.Data.SqlClient.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\runtimes\win\lib\netcoreapp2.1\Microsoft.Data.SqlClient.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\runtimes\win-arm64\native\sni.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\runtimes\win-x64\native\sni.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\runtimes\win-x86\native\sni.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\MinnyCasinoAffiliate.AppService.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\MinnyCasinoAffiliate.DataAccessLayer.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\MinnyCasinoAffiliate.Entities.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\MinnyCasinoAffiliate.AppService.pdb
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\MinnyCasinoAffiliate.Entities.pdb
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\bin\Debug\netcoreapp3.0\MinnyCasinoAffiliate.DataAccessLayer.pdb
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\obj\Debug\netcoreapp3.0\MinnyCasinoAffiliate.Api.csprojAssemblyReference.cache
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\obj\Debug\netcoreapp3.0\staticwebassets\MinnyCasinoAffiliate.Api.StaticWebAssets.Manifest.cache
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\obj\Debug\netcoreapp3.0\staticwebassets\MinnyCasinoAffiliate.Api.StaticWebAssets.xml
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\obj\Debug\netcoreapp3.0\MinnyCasinoAffiliate.Api.MvcApplicationPartsAssemblyInfo.cache
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\obj\Debug\netcoreapp3.0\MinnyCasinoAffiliate.Api.AssemblyInfoInputs.cache
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\obj\Debug\netcoreapp3.0\MinnyCasinoAffiliate.Api.AssemblyInfo.cs
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\obj\Debug\netcoreapp3.0\MinnyCasinoAffiliate.Api.RazorTargetAssemblyInfo.cache
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\obj\Debug\netcoreapp3.0\MinnyCasinoAffiliate.Api.csproj.CopyComplete
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\obj\Debug\netcoreapp3.0\MinnyCasinoAffiliate.Api.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api\obj\Debug\netcoreapp3.0\MinnyCasinoAffiliate.Api.pdb

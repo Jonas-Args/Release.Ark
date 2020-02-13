@@ -75,7 +75,7 @@
     <section class="gry-bg py-4">
         <div class="container sm-px-0">
             <div class="row">
-                <div class="col-xl-3 d-none d-xl-block">
+                <div class="col-xl-3 d-none d-xl-block" style="display:none!important">
 
                     <div class="bg-white sidebar-box mb-3">
                         <div class="box-title text-center">
@@ -149,10 +149,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-9">
+                <div class="col-xl-12">
                     <!-- <div class="bg-white"> -->
-                        <div class="brands-bar row no-gutters pb-3 bg-white p-3">
-                            <div class="col-11">
+                        <div class="brands-bar row no-gutters pb-3 bg-white p-3" style="display:none!important">
+                            <div class="col-11" style="display:none!important">
                                 <div class="brands-collapse-box" id="brands-collapse-box">
                                     <ul class="inline-links">
                                         @php
@@ -224,7 +224,7 @@
                                 <input type="hidden" name="subsubcategory" value="{{ \App\SubSubCategory::find($subsubcategory_id)->slug }}">
                             @endisset
 
-                            <div class="sort-by-bar row no-gutters bg-white mb-3 px-3">
+                            <div class="sort-by-bar row no-gutters bg-white mb-3 px-3" style="padding:16px 16px">
                                 <div class="col-lg-4 col-md-5">
                                     <div class="sort-by-box">
                                         <div class="form-group">
@@ -240,7 +240,7 @@
                                 </div>
                                 <div class="col-md-7 offset-lg-1">
                                     <div class="row no-gutters">
-                                        <div class="col-4">
+                                        <div class="col-4" style="float:right!important">
                                             <div class="sort-by-box px-1">
                                                 <div class="form-group">
                                                     <label>{{__('Sort by')}}</label>
@@ -253,7 +253,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-4">
+                                        <div class="col-4" style="display:none!important">
                                             <div class="sort-by-box px-1">
                                                 <div class="form-group">
                                                     <label>{{__('Brands')}}</label>
@@ -268,7 +268,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-4">
+                                        <div class="col-4" style="display:none!important">
                                             <div class="sort-by-box px-1">
                                                 <div class="form-group">
                                                     <label>{{__('Sellers')}}</label>
@@ -303,9 +303,10 @@
                                                     <button class="btn add-wishlist" title="Add to Wishlist" onclick="addToWishList({{ $product->id }})" tabindex="0">
                                                         <i class="la la-heart-o"></i>
                                                     </button>
-                                                    <button class="btn add-compare" title="Add to Compare" onclick="addToCompare({{ $product->id }})" tabindex="0">
+                                                   <!-- <button class="btn add-compare" title="Add to Compare" onclick="addToCompare({{ $product->id }})" tabindex="0">
                                                         <i class="la la-refresh"></i>
                                                     </button>
+                                                       -->
                                                     <button class="btn quick-view" title="Quick view" onclick="showAddToCartModal({{ $product->id }})" tabindex="0">
                                                         <i class="la la-eye"></i>
                                                     </button>

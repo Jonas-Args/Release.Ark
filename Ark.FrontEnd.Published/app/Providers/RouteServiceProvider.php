@@ -35,13 +35,13 @@ class RouteServiceProvider extends ServiceProvider
    */
   public function map()
   {
-    //$this->mapApiRoutes();
+    $this->mapApiRoutes();
 
-    //$this->mapWebRoutes();
+    $this->mapWebRoutes();
 
-    //$this->mapAdminRoutes();
+    $this->mapAdminRoutes();
 
-    $this->mapInstallRoutes();
+    //$this->mapInstallRoutes();
 
     //$this->mapUpdateRoutes();
   }

@@ -1,0 +1,26 @@
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.AppService\bin\Debug\netcoreapp3.0\MinnyCasinoAffiliate.AppService.deps.json
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.AppService\bin\Debug\netcoreapp3.0\MinnyCasinoAffiliate.AppService.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.AppService\bin\Debug\netcoreapp3.0\MinnyCasinoAffiliate.AppService.pdb
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.AppService\bin\Debug\netcoreapp3.0\MinnyCasinoAffiliate.DataAccessLayer.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.AppService\bin\Debug\netcoreapp3.0\MinnyCasinoAffiliate.Entities.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.AppService\bin\Debug\netcoreapp3.0\MinnyCasinoAffiliate.DataAccessLayer.pdb
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.AppService\bin\Debug\netcoreapp3.0\MinnyCasinoAffiliate.Entities.pdb
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.AppService\obj\Debug\netcoreapp3.0\MinnyCasinoAffiliate.AppService.csprojAssemblyReference.cache
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.AppService\obj\Debug\netcoreapp3.0\MinnyCasinoAffiliate.AppService.AssemblyInfoInputs.cache
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.AppService\obj\Debug\netcoreapp3.0\MinnyCasinoAffiliate.AppService.AssemblyInfo.cs
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.AppService\obj\Debug\netcoreapp3.0\MinnyCasinoAffiliate.AppService.csproj.CopyComplete
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.AppService\obj\Debug\netcoreapp3.0\MinnyCasinoAffiliate.AppService.dll
+D:\Codes\MinnyCasinoAffiliate\MinnyCasinoAffiliate.AppService\obj\Debug\netcoreapp3.0\MinnyCasinoAffiliate.AppService.pdb
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.AppService\bin\Debug\netcoreapp3.0\MinnyCasinoAffiliate.AppService.deps.json
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.AppService\bin\Debug\netcoreapp3.0\MinnyCasinoAffiliate.AppService.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.AppService\bin\Debug\netcoreapp3.0\MinnyCasinoAffiliate.AppService.pdb
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.AppService\bin\Debug\netcoreapp3.0\MinnyCasinoAffiliate.DataAccessLayer.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.AppService\bin\Debug\netcoreapp3.0\MinnyCasinoAffiliate.Entities.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.AppService\bin\Debug\netcoreapp3.0\MinnyCasinoAffiliate.DataAccessLayer.pdb
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.AppService\bin\Debug\netcoreapp3.0\MinnyCasinoAffiliate.Entities.pdb
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.AppService\obj\Debug\netcoreapp3.0\MinnyCasinoAffiliate.AppService.csprojAssemblyReference.cache
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.AppService\obj\Debug\netcoreapp3.0\MinnyCasinoAffiliate.AppService.AssemblyInfoInputs.cache
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.AppService\obj\Debug\netcoreapp3.0\MinnyCasinoAffiliate.AppService.AssemblyInfo.cs
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.AppService\obj\Debug\netcoreapp3.0\MinnyCasinoAffiliate.AppService.csproj.CopyComplete
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.AppService\obj\Debug\netcoreapp3.0\MinnyCasinoAffiliate.AppService.dll
+C:\Projects\Net Core\MinnyCasinoAffiliate\MinnyCasinoAffiliate.AppService\obj\Debug\netcoreapp3.0\MinnyCasinoAffiliate.AppService.pdb

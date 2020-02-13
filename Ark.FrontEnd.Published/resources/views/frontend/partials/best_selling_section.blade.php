@@ -7,7 +7,7 @@
                         <span class="mr-4">{{__('Best Selling')}}</span>
                     </h3>
                     <ul class="inline-links float-right">
-                        <li><a  class="active">{{__('Top 20')}}</a></li>
+                       <!-- <li><a  class="active">{{__('Top 20')}}</a></li>-->
                     </ul>
                 </div>
                 <div class="caorusel-box">
@@ -24,9 +24,10 @@
                                                 <button class="btn add-wishlist" title="Add to Wishlist" onclick="addToWishList({{ $product->id }})">
                                                     <i class="la la-heart-o"></i>
                                                 </button>
-                                                <button class="btn add-compare" title="Add to Compare" onclick="addToCompare({{ $product->id }})">
+                                                <!--<button class="btn add-compare" title="Add to Compare" onclick="addToCompare({{ $product->id }})">
                                                     <i class="la la-refresh"></i>
                                                 </button>
+												                                                    -->
                                                 <button class="btn quick-view" title="Quick view" onclick="showAddToCartModal({{ $product->id }})">
                                                     <i class="la la-eye"></i>
                                                 </button>
