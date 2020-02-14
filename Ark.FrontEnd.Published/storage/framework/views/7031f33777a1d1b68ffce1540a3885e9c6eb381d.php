@@ -100,8 +100,8 @@
                                 <div class="image " style="background-image:url('<?php echo e(asset('frontend/images/icons/user-placeholder.jpg')); ?>')"></div>
                         </div>
                         <div class="side-login px-3 pb-3">
-                            <a href="<?php echo e(route('user.login')); ?>"><?php echo e(__('Sign In')); ?></a>
-                            <a href="<?php echo e(route('user.registration')); ?>"><?php echo e(__('Registration')); ?></a>
+                            <a href="#" data-toggle="modal" data-target="#maintenance-update"><?php echo e(__('Sign In')); ?></a>
+                            <a href="#" data-toggle="modal" data-target="#maintenance-update"><?php echo e(__('Registration')); ?></a>
                         </div>
                     <?php endif; ?>
                 </div>
@@ -115,14 +115,14 @@
                         </li>
 
                         <li>
-                            <a href="<?php echo e(route('dashboard')); ?>">
+                            <a href="#" data-toggle="modal" data-target="#maintenance-update">
                                 <i class="la la-dashboard"></i>
                                 <span><?php echo e(__('Dashboard')); ?></span>
                             </a>
                         </li>
 
                         <li>
-                            <a href="<?php echo e(route('purchase_history.index')); ?>">
+                            <a href="#" data-toggle="modal" data-target="#maintenance-update">
                                 <i class="la la-file-text"></i>
                                 <span><?php echo e(__('Purchase History')); ?></span>
                             </a>
@@ -169,7 +169,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="<?php echo e(route('wishlists.index')); ?>">
+                            <a href="#" data-toggle="modal" data-target="#maintenance-update">
                                 <i class="la la-heart-o"></i>
                                 <span><?php echo e(__('Wishlist')); ?></span>
                             </a>
@@ -185,7 +185,7 @@
                         <?php endif; ?>
 
                         <li>
-                            <a href="<?php echo e(route('profile')); ?>">
+                            <a href="#" data-toggle="modal" data-target="#maintenance-update">
                                 <i class="la la-user"></i>
                                 <span><?php echo e(__('Manage Profile')); ?></span>
                             </a>
@@ -193,7 +193,7 @@
 
                         <?php if(\App\BusinessSetting::where('type', 'wallet_system')->first()->value == 1): ?>
                             <li>
-                                <a href="<?php echo e(route('wallet.index')); ?>" class="<?php echo e(areActiveRoutesHome(['wallet.index'])); ?>">
+                                <a href="#" data-toggle="modal" data-target="#maintenance-update" class="<?php echo e(areActiveRoutesHome(['wallet.index'])); ?>">
                                     <i class="la la-dollar"></i>
                                     <span class="category-name">
                                         <?php echo e(__('My Wallet')); ?>
@@ -203,7 +203,7 @@
                             </li>
                         <?php endif; ?>
                         <li>
-                            <a href="<?php echo e(route('support_ticket.index')); ?>" class="<?php echo e(areActiveRoutesHome(['support_ticket.index', 'support_ticket.show'])); ?>">
+                            <a href="#" data-toggle="modal" data-target="#maintenance-update" class="<?php echo e(areActiveRoutesHome(['support_ticket.index', 'support_ticket.show'])); ?>">
                                 <i class="la la-support"></i>
                                 <span class="category-name">
                                     <?php echo e(__('Support Ticket')); ?>
@@ -438,7 +438,7 @@
                                 </div>
                                 <div class="d-none d-lg-inline-block">
                                     <div class="nav-compare-box" id="compare" style="width:100px">
-                                        <a href="<?php echo e(route('wallet.index')); ?>" class="nav-box-link">
+                                        <a href="#" data-toggle="modal" data-target="#maintenance-update" class="nav-box-link">
                                             <i class="la la-wallet d-inline-block nav-box-icon"></i>
                                             <span class="nav-box-text d-none d-xl-inline-block"><?php echo e(__('Ark Credits')); ?></span>
                                            <span class="nav-box-number" style="width: max-content;padding: 0px 10px; background-color:#0acf97!important">
@@ -454,7 +454,7 @@
                                 </div>
                                 <div class="d-none d-lg-inline-block">
                                     <div class="nav-wishlist-box" id="wishlist">
-                                        <a href="<?php echo e(route('wishlists.index')); ?>" class="nav-box-link">
+                                        <a href="#" data-toggle="modal" data-target="#maintenance-update" class="nav-box-link">
                                             <i class="la la-heart-o d-inline-block nav-box-icon"></i>
                                             <span class="nav-box-text d-none d-xl-inline-block"><?php echo e(__('Wishlist')); ?></span>
                                             <?php if(Auth::check()): ?>
