@@ -32,58 +32,58 @@ trait AuthenticatesUsers
     {
         $this->validateLogin($request);
 
-		//$url = 'http://localhost:55006/api/user/authenticate';
-		//$data = array(
-		//    'UserName' => $request['email'],
-		//    'PasswordString' => $request['password']
-		//    );
+		$url = 'http://localhost:55006/api/user/authenticate';
+        $data = array(
+			'UserName' => $request['email'],
+			'PasswordString' => $request['password']
+			);
 
-		//// use key 'http' even if you send the request to https://...
-		//$options = array(
-		//    'http' => array(
-		//        'header'  => "Content-type: application/json",
-		//        'method'  => 'POST',
-		//        'content' => json_encode($data)
-		//    )
-		//);
-		//$context  = stream_context_create($options);
-		//$result = file_get_contents($url, false, $context);
-		//$_r = json_decode($result);
+		// use key 'http' even if you send the request to https://...
+		$options = array(
+			'http' => array(
+				'header'  => "Content-type: application/json",
+				'method'  => 'POST',
+				'content' => json_encode($data)
+			)
+		);
+		$context  = stream_context_create($options);
+		$result = file_get_contents($url, false, $context);
+		$_r = json_decode($result);
 
-		//if ($_r->httpStatusCode == "500")
-		//{
-		//    flash(__('An error occured: ' . $_r->message))->error();
-		//    return redirect('/users/login');
-		//}
+        if ($_r->httpStatusCode == "500")
+		{
+            flash(__('An error occured: ' . $_r->message))->error();
+            return redirect('/users/login');
+		}
 
-		//$cookies = array();
-		//foreach ($http_response_header as $hdr) {
-		//    if (preg_match('/^Set-Cookie:\s*([^;]+)/', $hdr, $matches)) {
-		//        parse_str($matches[1], $tmp);
-		//        $cookies += $tmp;
-		//    }
-		//}
+        $cookies = array();
+		foreach ($http_response_header as $hdr) {
+			if (preg_match('/^Set-Cookie:\s*([^;]+)/', $hdr, $matches)) {
+				parse_str($matches[1], $tmp);
+				$cookies += $tmp;
+			}
+		}
 
-		//$url = 'http://localhost:55006/api/user/Profile';
-		//$options = array(
-		//    'http' => array(
-		//        'method'  => 'GET',
-		//        'header'    => "Accept-language: en\r\n" .
-		//            "Cookie: .AspNetCore.Session=". $cookies["_AspNetCore_Session"] ."\r\n"
-		//    )
-		//);
-		//$context  = stream_context_create($options);
-		//$result = file_get_contents($url, false, $context);
-		//$_r = json_decode($result);
+		$url = 'http://localhost:55006/api/user/Profile';
+		$options = array(
+			'http' => array(
+				'method'  => 'GET',
+				'header'    => "Accept-language: en\r\n" .
+					"Cookie: .AspNetCore.Session=". $cookies["_AspNetCore_Session"] ."\r\n"
+			)
+		);
+		$context  = stream_context_create($options);
+		$result = file_get_contents($url, false, $context);
+		$_r = json_decode($result);
 
-		//$request->session()->put('apiSession', implode($cookies));
-		//$request->session()->put('userAuthId', $_r->userAuth->id);
-		//$request->session()->put('userName', $_r->userAuth->userName);
+        $request->session()->put('apiSession', implode($cookies));
+        $request->session()->put('userAuthId', $_r->userAuth->id);
+        $request->session()->put('userName', $_r->userAuth->userName);
 
-		//if ($_r->userRole->accessRole != "Admin")
-		//{
-		//    //return redirect('/users/login');
-		//}
+        if ($_r->userRole->accessRole != "Admin")
+		{
+            //return redirect('/users/login');
+		}
 
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
         // the login attempts for this application. We'll key this by the username and

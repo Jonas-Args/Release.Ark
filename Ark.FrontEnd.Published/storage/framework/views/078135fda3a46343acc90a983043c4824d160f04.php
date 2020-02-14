@@ -131,23 +131,23 @@
                                 </li>
                             <?php else: ?>
                                 <li>
-									<a href="#" data-toggle="modal" data-target="#maintenance-update" title="Login">
-										<?php echo e(__('Login')); ?>
+                                    <a href="<?php echo e(route('user.login')); ?>" title="Login">
+                                        <?php echo e(__('Login')); ?>
 
-									</a>
+                                    </a>
                                 </li>
                             <?php endif; ?>
                             <li>
-								<a href="#" data-toggle="modal" data-target="#maintenance-update" title="Order History">
-									<?php echo e(__('Order History')); ?>
+                                <a href="<?php echo e(route('purchase_history.index')); ?>" title="Order History">
+                                    <?php echo e(__('Order History')); ?>
 
-								</a>
+                                </a>
                             </li>
                             <li>
-								<a href="#" data-toggle="modal" data-target="#maintenance-update" title="My Wishlist">
-									<?php echo e(__('My Wishlist')); ?>
+                                <a href="<?php echo e(route('wishlists.index')); ?>" title="My Wishlist">
+                                    <?php echo e(__('My Wishlist')); ?>
 
-								</a>
+                                </a>
                             </li>
                             <li>
                                 <a href="<?php echo e(route('orders.track')); ?>" title="Track Order">
