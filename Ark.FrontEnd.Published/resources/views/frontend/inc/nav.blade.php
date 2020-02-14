@@ -99,8 +99,8 @@
                                 <div class="image " style="background-image:url('{{ asset('frontend/images/icons/user-placeholder.jpg') }}')"></div>
                         </div>
                         <div class="side-login px-3 pb-3">
-                            <a href="{{ route('user.login') }}">{{__('Sign In')}}</a>
-                            <a href="{{ route('user.registration') }}">{{__('Registration')}}</a>
+                            <a href="#" data-toggle="modal" data-target="#maintenance-update">{{__('Sign In')}}</a>
+                            <a href="#" data-toggle="modal" data-target="#maintenance-update">{{__('Registration')}}</a>
                         </div>
                     @endauth
                 </div>
@@ -114,14 +114,14 @@
                         </li>
 
                         <li>
-                            <a href="{{ route('dashboard') }}">
+                            <a href="#" data-toggle="modal" data-target="#maintenance-update">
                                 <i class="la la-dashboard"></i>
                                 <span>{{__('Dashboard')}}</span>
                             </a>
                         </li>
 
                         <li>
-                            <a href="{{ route('purchase_history.index') }}">
+                            <a href="#" data-toggle="modal" data-target="#maintenance-update">
                                 <i class="la la-file-text"></i>
                                 <span>{{__('Purchase History')}}</span>
                             </a>
@@ -167,7 +167,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('wishlists.index') }}">
+                            <a href="#" data-toggle="modal" data-target="#maintenance-update">
                                 <i class="la la-heart-o"></i>
                                 <span>{{__('Wishlist')}}</span>
                             </a>
@@ -183,7 +183,7 @@
                         @endif
 
                         <li>
-                            <a href="{{ route('profile') }}">
+                            <a href="#" data-toggle="modal" data-target="#maintenance-update">
                                 <i class="la la-user"></i>
                                 <span>{{__('Manage Profile')}}</span>
                             </a>
@@ -191,7 +191,7 @@
 
                         @if (\App\BusinessSetting::where('type', 'wallet_system')->first()->value == 1)
                             <li>
-                                <a href="{{ route('wallet.index') }}" class="{{ areActiveRoutesHome(['wallet.index'])}}">
+                                <a href="#" data-toggle="modal" data-target="#maintenance-update" class="{{ areActiveRoutesHome(['wallet.index'])}}">
                                     <i class="la la-dollar"></i>
                                     <span class="category-name">
                                         {{__('My Wallet')}}
@@ -200,7 +200,7 @@
                             </li>
                         @endif
                         <li>
-                            <a href="{{ route('support_ticket.index') }}" class="{{ areActiveRoutesHome(['support_ticket.index', 'support_ticket.show'])}}">
+                            <a href="#" data-toggle="modal" data-target="#maintenance-update" class="{{ areActiveRoutesHome(['support_ticket.index', 'support_ticket.show'])}}">
                                 <i class="la la-support"></i>
                                 <span class="category-name">
                                     {{__('Support Ticket')}}
@@ -431,7 +431,7 @@
                                 </div>
                                 <div class="d-none d-lg-inline-block">
                                     <div class="nav-compare-box" id="compare" style="width:100px">
-                                        <a href="{{ route('wallet.index') }}" class="nav-box-link">
+                                        <a href="#" data-toggle="modal" data-target="#maintenance-update" class="nav-box-link">
                                             <i class="la la-wallet d-inline-block nav-box-icon"></i>
                                             <span class="nav-box-text d-none d-xl-inline-block">{{__('Ark Credits')}}</span>
                                            <span class="nav-box-number" style="width: max-content;padding: 0px 10px; background-color:#0acf97!important">
@@ -446,7 +446,7 @@
                                 </div>
                                 <div class="d-none d-lg-inline-block">
                                     <div class="nav-wishlist-box" id="wishlist">
-                                        <a href="{{ route('wishlists.index') }}" class="nav-box-link">
+                                        <a href="#" data-toggle="modal" data-target="#maintenance-update" class="nav-box-link">
                                             <i class="la la-heart-o d-inline-block nav-box-icon"></i>
                                             <span class="nav-box-text d-none d-xl-inline-block">{{__('Wishlist')}}</span>
                                             @if(Auth::check())

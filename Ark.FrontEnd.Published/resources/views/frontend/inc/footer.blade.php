@@ -125,20 +125,20 @@
                                 </li>
                             @else
                                 <li>
-                                    <a href="{{ route('user.login') }}" title="Login">
-                                        {{__('Login')}}
-                                    </a>
+									<a href="#" data-toggle="modal" data-target="#maintenance-update" title="Login">
+										{{__('Login')}}
+									</a>
                                 </li>
                             @endif
                             <li>
-                                <a href="{{ route('purchase_history.index') }}" title="Order History">
-                                    {{__('Order History')}}
-                                </a>
+								<a href="#" data-toggle="modal" data-target="#maintenance-update" title="Order History">
+									{{__('Order History')}}
+								</a>
                             </li>
                             <li>
-                                <a href="{{ route('wishlists.index') }}" title="My Wishlist">
-                                    {{__('My Wishlist')}}
-                                </a>
+								<a href="#" data-toggle="modal" data-target="#maintenance-update" title="My Wishlist">
+									{{__('My Wishlist')}}
+								</a>
                             </li>
                             <li>
                                 <a href="{{ route('orders.track') }}" title="Track Order">
