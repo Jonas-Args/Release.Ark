@@ -31,8 +31,9 @@
 	<div class="modal-dialog modal-lg modal-dialog-centered">
 		<div class="modal-content">
 
-			<img src="{{ asset('uploads/banners/ARK-WEB-8.png') }}" alt="" style="width:100%" />
+			<img src="{{ asset('uploads/banners/ARK-WEB-7.png') }}" alt="" style="width:100%" />
 			
 		</div>
 	</div>
 </div>
+
