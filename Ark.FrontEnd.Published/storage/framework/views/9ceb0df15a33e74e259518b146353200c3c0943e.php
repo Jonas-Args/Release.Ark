@@ -88,6 +88,7 @@
 
 <!-- jQuery -->
 <script src="<?php echo e(asset('frontend/js/vendor/jquery.min.js')); ?>"></script>
+<script src="<?php echo e(asset('frontend/js/bootstrap-treeview.js')); ?>"></script>
 
 
 <?php if(\App\BusinessSetting::where('type', 'google_analytics')->first()->value == 1): ?>
@@ -135,7 +136,7 @@
 
     <?php echo $__env->yieldContent('content'); ?>
 
-    <!--<?php echo $__env->make('frontend.inc.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?> -->
+    <?php echo $__env->make('frontend.inc.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
     <?php echo $__env->make('frontend.partials.modal', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 

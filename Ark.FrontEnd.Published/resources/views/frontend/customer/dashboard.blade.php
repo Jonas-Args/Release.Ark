@@ -2,13 +2,51 @@
 
 @section('content')
 
+@php
+   $_s = Session::get('apiSession');
+  
+   $url = 'http://localhost:55006/api/user/BusinessPackages';
+   $options = array(
+  	 'http' => array(
+  		 'method'  => 'GET',
+  		 'header'    => "Accept-language: en\r\n" .
+  			 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
+  	 )
+   );
+   $context  = stream_context_create($options);
+   $result = file_get_contents($url, false, $context);
+   $_r = json_decode($result);
+
+   if(count($_r->businessPackages) != 0 && $_r->businessPackages[0]->packageStatus == "2"){
+	   $url = 'http://localhost:55006/api/Affiliate/InvitationLink';
+	   $data = array(
+		   'DirectSponsorID' => Session::get('userName'),
+		   'BinarySponsorID' => Session::get('userName'),
+		   'BinaryPosition' => '1'
+		   );
+	   $options = array(
+		   'http' => array(
+			   'content' => json_encode($data),
+			   'method'  => 'POST',
+			   'header'    => "Accept-language: en\r\n" .  "Content-type: application/json\r\n" .
+				   "Cookie: .AspNetCore.Session=". $_s ."\r\n"
+		   )
+	   );
+	   $context  = stream_context_create($options);
+	   $result = file_get_contents($url, false, $context);
+	   $_res = json_decode($result);
+	   $userLink = $_res->affiliateMapBO;
+
+   }
+@endphp
+
 <section class="gry-bg py-4 profile">
 	<div class="container">
 		<div class="row cols-xs-space cols-sm-space cols-md-space">
-			<div class="col-lg-3 d-none d-lg-block">
+			<div class="col-lg-3 d-none d-lg-block" style="display: @if (isset($userLink)) block!important @else none!important @endif">
 				@include('frontend.inc.customer_side_nav')
 			</div>
-			<div class="col-lg-9">
+			<div class=" @if (isset($userLink)) col-lg-9 @else col-lg-12 @endif">
 				<!-- Page title -->
 				<div class="page-title">
 					<div class="row align-items-center">
@@ -34,24 +72,7 @@
 
 				<!-- dashboard content -->
 				<div class="">
-
 					
-					@php
-					 $_s = Session::get('apiSession');
-
-					 $url = 'http://localhost:55006/api/user/BusinessPackages';
-					 $options = array(
-						 'http' => array(
-							 'method'  => 'GET',
-							 'header'    => "Accept-language: en\r\n" .
-								 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
-						 )
-					 );
-					 $context  = stream_context_create($options);
-					 $result = file_get_contents($url, false, $context);
-					 $_r = json_decode($result);
-					@endphp
-
 					@if($_r->httpStatusCode != "500")
 					
 
@@ -82,7 +103,7 @@
 
 						<div class="form-box-content p-3">
 
-							<p>Please pay your enterprise package button activate your account</p>
+							<p>Please pay your enterprise package to activate your account</p>
 							<hr />
 							<h6><b>Package Details:</b></h6>
 							<ul>

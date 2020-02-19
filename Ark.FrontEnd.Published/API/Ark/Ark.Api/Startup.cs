@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace Ark.Api
 {
@@ -37,6 +38,7 @@ namespace Ark.Api
 
 
             });
+          
             services.AddDistributedMemoryCache();
             services.AddSession(options => {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);//You can set Time   
@@ -45,6 +47,7 @@ namespace Ark.Api
                 options.Cookie.IsEssential = true;
             });
 
+
             services.AddMvc(option => option.EnableEndpointRouting = false);
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
@@ -52,7 +55,9 @@ namespace Ark.Api
                 {
                     options.SuppressModelStateInvalidFilter = true;
                 });
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

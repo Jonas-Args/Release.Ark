@@ -114,6 +114,30 @@ namespace Ark.Api.Controllers
             return Ok(_apiResponse);
         }
 
+        [HttpPost("VerifyEmail")]
+        public ActionResult VerifyEmail([FromBody] TblUserAuth userAuth)
+        {
+            UserAppService userAppService = new UserAppService();
+            ApiResponseBO _apiResponse = new ApiResponseBO();
+
+            try
+            {
+                userAppService.VerifyEmail(userAuth);
+
+                _apiResponse.HttpStatusCode = "200";
+                _apiResponse.Message = "User Validated Sucessfully";
+                _apiResponse.Status = "Success";
+            }
+            catch (Exception ex)
+            {
+                _apiResponse.HttpStatusCode = "500";
+                _apiResponse.Message = ex.InnerException.Message;
+                _apiResponse.Status = "Error";
+            }
+
+            return Ok(_apiResponse);
+        }
+
         [HttpDelete("Delete")]
         public ActionResult Delete()
         {
@@ -191,8 +215,7 @@ namespace Ark.Api.Controllers
             try
             {
                 // GET SESSIONS
-                SessionController sessionController = new SessionController();
-                
+                SessionController sessionController = new SessionController();                
                 TblUserAuth userAuth = sessionController.GetSession(HttpContext.Session);
 
                 _apiResponse.UserWallet = userWalletAppService.GetAllBO(userAuth);

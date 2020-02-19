@@ -1,6 +1,6 @@
 <?php $__env->startSection('content'); ?>
 
-    <div id="page-content">
+     <div id="page-content">
         <section class="slice-xs sct-color-2 border-bottom">
             <div class="container container-sm">
                 <div class="row cols-delimited justify-content-center">
@@ -26,7 +26,7 @@
                         </div>
                     </div>
 
-                    <div class="col-3" style="display:none!important">
+                    <div class="col-3">
                         <div class="icon-block icon-block--style-1-v5 text-center">
                             <div class="block-icon mb-0 c-gray-light">
                                 <i class="la la-truck"></i>
@@ -43,7 +43,7 @@
                                 <i class="la la-credit-card"></i>
                             </div>
                             <div class="block-content d-none d-md-block">
-                                <h3 class="heading heading-sm strong-300 c-gray-light text-capitalize">3. <?php echo e(__('Payment')); ?></h3>
+                                <h3 class="heading heading-sm strong-300 c-gray-light text-capitalize">4. <?php echo e(__('Payment')); ?></h3>
                             </div>
                         </div>
                     </div>
@@ -55,13 +55,13 @@
             <div class="container">
                 <div class="row cols-xs-space cols-sm-space cols-md-space">
                     <div class="col-lg-8">
-                        <form class="form-default" data-toggle="validator" action="<?php echo e(route('checkout.store_delivery_info')); ?>" role="form" method="POST">
+                        <form class="form-default" data-toggle="validator" action="<?php echo e(route('checkout.store_shipping_infostore')); ?>" role="form" method="POST">
                             <?php echo csrf_field(); ?>
                             <div class="card">
                                 <?php if(Auth::check()): ?>
                                     <?php
-                                        $user = Auth::user();
-                                    ?>
+			 $user = Auth::user();
+             ?>
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-12">
@@ -120,17 +120,6 @@
                                                 <div class="form-group has-feedback">
                                                     <label class="control-label"><?php echo e(__('Phone')); ?></label>
                                                     <input type="number" min="0" class="form-control" value="<?php echo e($user->phone); ?>" name="phone" required>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <hr />
-
-                                         <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group has-feedback">
-                                                    <label class="control-label"><?php echo e(__('Notes to delivery')); ?></label>
-                                                    <textarea class="form-control"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -214,7 +203,7 @@
                                     </a>
                                 </div>
                                 <div class="col-md-6 text-right">
-                                    <button type="submit" class="btn btn-styled btn-base-1"><?php echo e(__('Continue to Payment')); ?></a>
+                                    <button type="submit" class="btn btn-styled btn-base-1"><?php echo e(__('Continue to Delivery Info')); ?></a>
                                 </div>
                             </div>
                             
@@ -229,6 +218,13 @@
         </section>
     </div>
 
+
+<script>
+   
+
+	sendFormData();
+
+</script>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('frontend.layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Projects\PHP\Ark\resources\views/frontend/shipping_info.blade.php ENDPATH**/ ?>

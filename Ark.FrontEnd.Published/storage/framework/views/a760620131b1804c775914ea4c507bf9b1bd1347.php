@@ -22,11 +22,20 @@
                 </tr>
             </thead>
             <tbody>
+				
                 <?php
                     $subtotal = 0;
                     $tax = 0;
                     $shipping = 0;
-                ?>
+					$user_balance = isset(Auth::user()->balance) ? Auth::user()->balance : 0;
+
+             ?>
+				<?php
+			 $total = $subtotal+$tax+$shipping;
+			 if(Session::has('coupon_discount')){
+				 $total -= Session::get('coupon_discount');
+			 }
+             ?>
                 <?php $__currentLoopData = Session::get('cart'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $cartItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <?php
                     $product = \App\Product::find($cartItem['id']);
@@ -83,26 +92,42 @@
 
             <tfoot>
                 <tr class="cart-subtotal">
-                    <th><?php echo e(__('Subtotal')); ?></th>
+                    <th><?php echo e(__('Total Purchase')); ?></th>
                     <td class="text-right">
                         <span class="strong-600"><?php echo e(single_price($subtotal)); ?></span>
                     </td>
                 </tr>
 
-                <tr class="cart-shipping">
-                    <th><?php echo e(__('VAT (12%)')); ?></th>
-                    <td class="text-right">
-                        <span class="text-italic"><?php echo e(single_price($tax)); ?></span>
-                    </td>
-                </tr>
+               
 
                 <tr class="cart-shipping">
-                    <th><?php echo e(__('Total Shipping')); ?></th>
+                    <th><?php echo e(__('Shipping Fee')); ?></th>
                     <td class="text-right">
                         <span class="text-italic"><?php echo e(single_price($shipping)); ?></span>
                     </td>
                 </tr>
 
+				<tr class="cart-shipping">
+					<th><?php echo e(__('Sub Total')); ?></th>
+					<td class="text-right">
+						<span class="text-italic"><?php echo e(number_format(floatval($subtotal) + floatval($shipping),2)); ?></span>
+					</td>
+				</tr>
+
+				<tr class="cart-shipping">
+					<th></th>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+
+				<tr class="cart-shipping">
+					<th><?php echo e(__('Less Available Credit')); ?></th>
+					<td class="text-right">
+						<span class="text-italic"><?php echo e(floatval($total) < ($user_balance) ? number_format(floatval($total),2) : number_format(floatval($user_balance),2)); ?></span>
+					</td>
+				</tr>
+                
                 <?php if(Session::has('coupon_discount')): ?>
                     <tr class="cart-shipping">
                         <th><?php echo e(__('Coupon Discount')); ?></th>
@@ -112,17 +137,22 @@
                     </tr>
                 <?php endif; ?>
 
-                <?php
-                    $total = $subtotal+$tax+$shipping;
-                    if(Session::has('coupon_discount')){
-                        $total -= Session::get('coupon_discount');
-                    }
-                ?>
+              
 
                 <tr class="cart-total">
-                    <th><span class="strong-600"><?php echo e(__('Total')); ?></span></th>
+                    <th><span class="strong-600"><?php echo e(__('Amount To Pay')); ?></span></th>
                     <td class="text-right">
-                        <strong><span><?php echo e(single_price($total)); ?></span></strong>
+                        <?php if((floatval($user_balance) - floatval($total)) < 0): ?>
+
+<strong>
+	<span><?php echo e(number_format(abs(floatval($user_balance) - floatval($total)),2)); ?></span>
+</strong>
+						<?php else: ?> 
+						<strong>
+							<span>0</span>
+						</strong>
+                        <?php endif; ?>
+                       
                     </td>
                 </tr>
             </tfoot>

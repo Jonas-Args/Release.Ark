@@ -42,6 +42,25 @@ namespace Ark.AppService
             }
             return true;
         }
+        public bool ExecuteCommissionDistribution(TblUserAuth userAuth, TblUserBusinessPackage userBusinessPackage, decimal amountPaid, ArkContext db) {
+            BusinessPackageRepository businessPackageRepository = new BusinessPackageRepository();
+            IncomeTypeRepository incomeTypeRepository = new IncomeTypeRepository();
+            List<TblIncomeType> incomeTypes = businessPackageRepository.GetIncomeTypes(userBusinessPackage.BusinessPackage, db);
+
+
+            foreach (var incomeType in incomeTypes)
+            {
+                switch (incomeType.IncomeTypeCode)
+                {
+                    case IncomeType.PSI:
+                        ProductSalesCommission(userAuth, incomeTypeRepository.GetDistribution(incomeType.IncomeTypeCode, userBusinessPackage.BusinessPackage, db), amountPaid, db);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            return true;
+        }
         private bool DirectIncome(TblUserAuth userAuth,TblIncomeDistribution incomeDistribution, decimal amountPaid, ArkContext db)
         {
             UserAuthRepository userAuthRepository = new UserAuthRepository();            
@@ -88,8 +107,8 @@ namespace Ark.AppService
             TblUserMap userMap = userMapRepository.Get(userAuth, db);
 
             int minUserCount = 9;
-            List<TblUserMap> userMaps = userMapRepository.GetAll(new TblUserMap { SponsorUserId = userAuth.Id }, db);
-            MinimumUserCheckBO minimumUserCheckBO = MinimumUserCheck(userMaps, minUserCount);
+            List<TblUserBusinessPackage> userBusinessPackages = userMapRepository.GetAllActivated(new TblUserMap { SponsorUserId = userMap.SponsorUserId }, db);
+            MinimumUserCheckBO minimumUserCheckBO = MinimumUserCheck(userBusinessPackages, minUserCount);
 
             if (minimumUserCheckBO.IsPassed)
             {
@@ -153,10 +172,9 @@ namespace Ark.AppService
                 }
 
                 DistributeToWallet((long)userMap.SponsorUserId, userAuth.Id, calculateIncome, incomeDistribution, db);
+                userMap = userMapRepository.Get(new TblUserAuth { Id = (long)userMap.SponsorUserId }, db);
             }
-
-
-
+                       
             return true;
         }
         private bool ProductSalesRebates(TblUserAuth userAuth, TblIncomeDistribution incomeDistribution, decimal amountPaid, ArkContext db)
@@ -174,12 +192,11 @@ namespace Ark.AppService
 
             return true;
         }
-        private MinimumUserCheckBO MinimumUserCheck(List<TblUserMap> userMaps, int minUserCount)
+        private MinimumUserCheckBO MinimumUserCheck(List<TblUserBusinessPackage> userBusinessPackages, int minUserCount)
         {
             MinimumUserCheckBO minimumUserCheckBO = new MinimumUserCheckBO() { IsPassed = false };
             if (minUserCount != 0)
             {
-                List<TblUserBusinessPackage> userBusinessPackages = userMaps.SelectMany(item => item.IdNavigation.TblUserBusinessPackage).ToList();
                 decimal _ck = userBusinessPackages.Count % minUserCount;
                 
 
@@ -197,7 +214,6 @@ namespace Ark.AppService
                 }
             }
             else {
-                List<TblUserBusinessPackage> userBusinessPackages = userMaps.SelectMany(item => item.IdNavigation.TblUserBusinessPackage).ToList();
                 minimumUserCheckBO.IsPassed = true;
                 minimumUserCheckBO.userBusinessPackages = userBusinessPackages;
             }

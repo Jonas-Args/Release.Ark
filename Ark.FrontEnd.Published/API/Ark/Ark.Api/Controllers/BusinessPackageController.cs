@@ -74,15 +74,17 @@ namespace Ark.Api.Controllers
         public ActionResult Update([FromBody] UserBusinessPackageBO userBusinessPackageBO)
         {
             UserBusinessPackageAppService userBusinessPackageAppService = new UserBusinessPackageAppService();
+            MailAppService mailAppService = new MailAppService();
             ApiResponseBO _apiResponse = new ApiResponseBO();
 
             try
             {
-                userBusinessPackageAppService.Update(userBusinessPackageBO);
+                TblUserAuth userAuth = userBusinessPackageAppService.Update(userBusinessPackageBO);
+                bool response = mailAppService.SendSmtp(new UserBO { Email = userAuth.UserName } ,EmailType.PackagePurchaseConfirmation);
 
                 _apiResponse.HttpStatusCode = "200";
                 _apiResponse.Message = "Package successfully purchased";
-                _apiResponse.RedirectUrl = "/dashboard";
+                _apiResponse.RedirectUrl = "/admin/customers";
                 _apiResponse.Status = "Success";
 
                 return Ok(_apiResponse);

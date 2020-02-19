@@ -25,7 +25,7 @@ namespace Ark.DataAccessLayer
             var _q = from a in db.TblUserMap
                      where a.Id == userAuth.Id
                      join b in db.TblUserAuth on a.Id equals b.Id
-                     join c in db.TblUserBusinessPackage on b.Id equals c.UserAuthId
+                     join c in db.TblUserInfo on b.UserInfoId equals c.Id
                      select new TblUserMap
                      {
                          Id = a.Id,
@@ -35,7 +35,8 @@ namespace Ark.DataAccessLayer
                          UserUid = a.UserUid,
                          Position = a.Position,
                          SponsorUserId = a.SponsorUserId,
-                         UplineUserId = a.UplineUserId
+                         UplineUserId = a.UplineUserId,
+                         IdNavigation = new TblUserAuth { Id = b.Id, UserName = b.UserName, UserInfo = c}
                      };
 
             TblUserMap _qRes = _q.FirstOrDefault();
@@ -62,6 +63,34 @@ namespace Ark.DataAccessLayer
                      };
 
             List<TblUserMap> _qRes = _q.ToList<TblUserMap>();
+
+            return _qRes;
+        }
+        public List<TblUserBusinessPackage> GetAllActivated(TblUserMap userMapQuery, ArkContext db)
+        {
+            var _q = from a in db.TblUserMap
+                     join b in db.TblUserAuth on a.Id equals b.Id
+                     join c in db.TblUserBusinessPackage on b.Id equals c.UserAuthId
+                     join d in db.TblBusinessPackage on c.BusinessPackageId equals d.Id
+
+                     where a.SponsorUserId == userMapQuery.SponsorUserId && c.PackageStatus == PackageStatus.Activated
+                     select new TblUserBusinessPackage
+                     {
+                         Id = a.Id,
+                         CreatedOn = c.CreatedOn,
+                         IsEnabled = c.IsEnabled,
+                         ModifiedOn = c.ModifiedOn,
+                         ActivationDate = c.ActivationDate,
+                         BusinessPackageId = c.BusinessPackageId,
+                         UserAuthId = c.UserAuthId,
+                         CancellationDate = c.CancellationDate,
+                         ExpiryDate = c.ExpiryDate,
+                         UserDepositRequestId = c.UserDepositRequestId,
+                         PackageStatus = c.PackageStatus,
+                         BusinessPackage = d
+                     };
+
+            List<TblUserBusinessPackage> _qRes = _q.ToList<TblUserBusinessPackage>();
 
             return _qRes;
         }
@@ -127,40 +156,48 @@ namespace Ark.DataAccessLayer
 
             return userMapBO;
         }
-        public List<UnilevelMapBO> GetUnilevelChildren(TblUserAuth userAuth, ArkContext db)
+        public List<UnilevelMapBO> GetUnilevelChildren(int maxDeepness, int counter, TblUserAuth userAuth, ArkContext db)
         {
+            UserIncomeTransactionRepository userIncomeTransactionRepository = new UserIncomeTransactionRepository();
+            List<TblUserIncomeTransaction> tblUserIncomeTransactions = userIncomeTransactionRepository.GetAll(userAuth, db);
             var _q = from a in db.TblUserMap
                      join b in db.TblUserAuth on a.Id equals b.Id
                      join c in db.TblUserInfo on b.UserInfoId equals c.Id
                      join d in db.TblUserBusinessPackage on b.Id equals d.UserAuthId
+                     join e in db.TblBusinessPackage on d.BusinessPackageId equals e.Id 
 
                      where a.SponsorUserId == userAuth.Id
                      orderby a.Id ascending
                      select new UnilevelMapBO
                      {
-                         Text = b.UserName,
+                         Text = String.Format("{0} {1} - {2} | {3} | Commissions: {4}", c.FirstName, c.LastName, d.PackageStatus == PackageStatus.PendingActivation ? "Pending Activation" : "Source Code: " + c.Uid , e.PackageName, 0m),
                          MapBO = a,
                          UserAuth = b,
-                         UserBusinessPackage = d
+                         TotalCommission = 0,//(decimal)tblUserIncomeTransactions.Where(x => x.TriggeredByUbpId == b.Id).Sum(i => i.IncomePercentage),
+                         UserBusinessPackage = new TblUserBusinessPackage { BusinessPackage = e , ActivationDate = d.ActivationDate, BusinessPackageId = d.BusinessPackageId, CreatedOn = d.CreatedOn, CancellationDate = d.CancellationDate, PackageStatus = d.PackageStatus}
                      };
 
             List<UnilevelMapBO> _qRes = _q.ToList<UnilevelMapBO>();
-
+            
             if (_qRes.Count != 0)
             {
-                for (int i = 0; i < _qRes.Count; i++)
+                counter = counter + 1;
+                if (counter <= maxDeepness)
                 {
-                    List<UnilevelMapBO> _p = GetUnilevelChildren(new TblUserAuth { Id = (long)_qRes[i].MapBO.Id }, db);
-                    _qRes[i].Nodes = _p.Count > 0 ? _p : null;
+                    for (int i = 0; i < _qRes.Count; i++)
+                    {
+                        List<UnilevelMapBO> _p = GetUnilevelChildren(maxDeepness, counter, new TblUserAuth { Id = (long)_qRes[i].MapBO.Id }, db);
+                        _qRes[i].Nodes = _p.Count > 0 ? _p : null;
+                    }
                 }
-
+               
             }
 
             return _qRes;
         }
         public UnilevelMapBO GetUnilevel(TblUserAuth userAuth, ArkContext db)
         {
-            List<UnilevelMapBO> _o = GetUnilevelChildren(userAuth, db);
+            List<UnilevelMapBO> _o = GetUnilevelChildren(3, 0, userAuth, db);
             UnilevelMapBO unilevelMapBO = new UnilevelMapBO()
             {
                 Text = userAuth.UserName,

@@ -28,7 +28,7 @@
                         </div>
                     </div>
 
-					<div class="col-3" style="display:none!important">
+					<div class="col-3" style="">
 						<div class="icon-block icon-block--style-1-v5 text-center">
 							<div class="block-icon mb-0 c-gray-light">
 								<i class="la la-truck"></i>
@@ -142,6 +142,7 @@
                                                         </label>
                                                     </div>
                                                 @endif
+												<input type="radio" id="" name="payment_option" value="cash_on_delivery" checked style="display:none" />
                                                 @if(\App\BusinessSetting::where('type', 'cash_payment')->first()->value == 1)
                                                     <div class="col-6">
                                                         <label class="payment_option mb-4" data-toggle="tooltip" data-title="Cash on Delivery">
@@ -156,9 +157,9 @@
                                         </div>
                                     </div>
                                     @if (Auth::check() && \App\BusinessSetting::where('type', 'wallet_system')->first()->value == 1)
-                                        <div class="or or--1 mt-2">
+                                      <!---<div class="or or--1 mt-2">
                                             <span>or</span>
-                                        </div>
+                                        </div>-->  
                                         <div class="row">
                                             <div class="col-xxl-6 col-lg-8 col-md-10 mx-auto">
                                                 <div class="text-center bg-gray py-4">

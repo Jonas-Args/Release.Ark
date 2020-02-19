@@ -22,6 +22,12 @@ namespace Ark.AppService
                 UserInfoRepository userInfoRepository = new UserInfoRepository();
                 TblUserInfo userInfo = userInfoRepository.Get(userAuth, db);
 
+                // ENFORECE EMAIL VERIFICATION
+                if (userInfo.EmailStatus == (short)EmailStatus.Unverified)
+                {
+                    throw new System.ArgumentException("Email Not Verified");
+                }
+
                 UserWalletRepository userWalletRepository = new UserWalletRepository();
                 List<UserWalletBO> userWallet = userWalletRepository.GetAllBO(userAuth, db);
 
@@ -125,9 +131,22 @@ namespace Ark.AppService
                 }
             }
         }
-        public bool Activate()
+        public bool VerifyEmail(TblUserAuth userAuth)
         {
-            return true;
+            using (var db = new DataAccessLayer.ArkContext())   
+            {
+                using (var transaction = db.Database.BeginTransaction())
+                {
+
+                    UserInfoRepository userInfoRepository = new UserInfoRepository();
+                    userInfoRepository.VerifyEmail(userAuth, db);
+
+                    transaction.Commit();
+                    return true;
+                }
+            }
+
+
         }
         public bool StructureMapTesting(StructureMapInjection structureMap)
         {

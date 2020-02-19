@@ -26,6 +26,8 @@
 			 $result = file_get_contents($url, false, $context);
 			 $UserWallet = json_decode($result);
 			 $UserWallet = $UserWallet->userWallet;
+			 
+
 
                 ?>
 
@@ -58,7 +60,7 @@
                             <div class="col-md-4 ">
                                 <div class="dashboard-widget text-center red-widget text-white mt-4 c-pointer">
                                     <i class="la la-wallet" style="font-size:24px;"></i>
-                                    <span class="d-block title heading-3 strong-400"> ₱<?php echo e(number_format($UserWallet[9]->balance)); ?></span>
+                                    <span class="d-block title heading-3 strong-400"> ₱<?php echo e(number_format($UserWallet[array_search('ACW', array_column($UserWallet, 'walletCode'))]->balance,2)); ?></span>
                                     <span class="d-block sub-title"><?php echo e(__('Ark Cash Balance')); ?></span>
 
                                 </div>

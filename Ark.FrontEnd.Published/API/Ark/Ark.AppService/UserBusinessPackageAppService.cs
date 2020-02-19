@@ -158,18 +158,21 @@ namespace Ark.AppService
 
 
         }
-        public bool Update(UserBusinessPackageBO userBusinessPackage, ArkContext db = null)
+        public TblUserAuth Update(UserBusinessPackageBO userBusinessPackage, ArkContext db = null)
         {
             if (db != null)
             {
                 using var transaction = db.Database.BeginTransaction();
                 decimal _amountPaid = userBusinessPackage.AmountPaid;
 
+                UserAuthRepository userAuthRepository = new UserAuthRepository();
+
                 UserBusinessPackageRepository userBusinessPackageRepository = new UserBusinessPackageRepository();
                 TblUserBusinessPackage tblUserBusinessPackage = userBusinessPackageRepository.Get(new TblUserBusinessPackage { Id = userBusinessPackage.UserPackageID }, db);
                 tblUserBusinessPackage.PackageStatus = PackageStatus.Activated;
                 tblUserBusinessPackage.ModifiedOn = DateTime.Now;
 
+                TblUserAuth userAuth = userAuthRepository.GetByID((long)tblUserBusinessPackage.UserAuthId, db);
                 userBusinessPackageRepository.Update(tblUserBusinessPackage, db);
 
                 UserDepositRequestRepository userDepositRequestRepository = new UserDepositRequestRepository();
@@ -194,7 +197,7 @@ namespace Ark.AppService
 
                 db.SaveChanges();
                 transaction.Commit();
-                return true;
+                return userAuth;
             }
             else
             {
@@ -203,11 +206,14 @@ namespace Ark.AppService
                     using var transaction = db.Database.BeginTransaction();
                     decimal _amountPaid = userBusinessPackage.AmountPaid;
 
+                    UserAuthRepository userAuthRepository = new UserAuthRepository();
+                    
                     UserBusinessPackageRepository userBusinessPackageRepository = new UserBusinessPackageRepository();
                     TblUserBusinessPackage tblUserBusinessPackage = userBusinessPackageRepository.Get(new TblUserBusinessPackage { Id = userBusinessPackage.UserPackageID }, db);
                     tblUserBusinessPackage.PackageStatus = PackageStatus.Activated;
                     tblUserBusinessPackage.ModifiedOn = DateTime.Now;
 
+                    TblUserAuth userAuth = userAuthRepository.GetByID((long)tblUserBusinessPackage.UserAuthId, db);
                     userBusinessPackageRepository.Update(tblUserBusinessPackage, db);
 
                     UserDepositRequestRepository userDepositRequestRepository = new UserDepositRequestRepository();
@@ -232,7 +238,7 @@ namespace Ark.AppService
 
                     db.SaveChanges();
                     transaction.Commit();
-                    return true;
+                    return userAuth;
                 }
             }
         }

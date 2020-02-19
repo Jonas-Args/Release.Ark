@@ -44,7 +44,7 @@ namespace Ark.AppService
             
             var mail = new MailMessage()
             {
-                From = new MailAddress("no-reply@ark.ph"),                
+                From = new MailAddress("info@ark.ph"),                
             };
 
            
@@ -54,17 +54,27 @@ namespace Ark.AppService
                     using (StreamReader reader = new StreamReader("./Resources/Templates/Email/email-confirmation.html"))
                     {
                         mail.Body = reader.ReadToEnd();
+                        mail.Body = mail.Body.Replace("[UserName]", userBO.UserName);
                     }
                    
-                    mail.Subject = "Confirm Email Address";
+                    mail.Subject = "Action Required: Confirm Email Address";
                     break;
                 case EmailType.AccountRegistration:
                     using (StreamReader reader = new StreamReader("./Resources/Templates/Email/email-registration.html"))
                     {
                         mail.Body = reader.ReadToEnd();
+                        mail.Body.Replace("[UserName]", userBO.UserName);
                     }
 
-                    mail.Subject = "Confirm Email Address";
+                    mail.Subject = "Action Required: Confirm Email Address";
+                    break;
+                case EmailType.PackagePurchaseConfirmation:
+                    using (StreamReader reader = new StreamReader("./Resources/Templates/Email/email-purchasing-trade.html"))
+                    {
+                        mail.Body = reader.ReadToEnd();
+                    }
+
+                    mail.Subject = "Action Required: Confirm Email Address";
                     break;
                 default:
                     break;

@@ -22,11 +22,20 @@
                 </tr>
             </thead>
             <tbody>
+				
                 @php
                     $subtotal = 0;
                     $tax = 0;
                     $shipping = 0;
-                @endphp
+					$user_balance = isset(Auth::user()->balance) ? Auth::user()->balance : 0;
+
+             @endphp
+				@php
+			 $total = $subtotal+$tax+$shipping;
+			 if(Session::has('coupon_discount')){
+				 $total -= Session::get('coupon_discount');
+			 }
+             @endphp
                 @foreach (Session::get('cart') as $key => $cartItem)
                     @php
                     $product = \App\Product::find($cartItem['id']);
@@ -81,26 +90,42 @@
 
             <tfoot>
                 <tr class="cart-subtotal">
-                    <th>{{__('Subtotal')}}</th>
+                    <th>{{__('Total Purchase')}}</th>
                     <td class="text-right">
                         <span class="strong-600">{{ single_price($subtotal) }}</span>
                     </td>
                 </tr>
 
-                <tr class="cart-shipping">
-                    <th>{{__('VAT (12%)')}}</th>
-                    <td class="text-right">
-                        <span class="text-italic">{{ single_price($tax) }}</span>
-                    </td>
-                </tr>
+               
 
                 <tr class="cart-shipping">
-                    <th>{{__('Total Shipping')}}</th>
+                    <th>{{__('Shipping Fee')}}</th>
                     <td class="text-right">
                         <span class="text-italic">{{ single_price($shipping) }}</span>
                     </td>
                 </tr>
 
+				<tr class="cart-shipping">
+					<th>{{__('Sub Total')}}</th>
+					<td class="text-right">
+						<span class="text-italic">{{ number_format(floatval($subtotal) + floatval($shipping),2)  }}</span>
+					</td>
+				</tr>
+
+				<tr class="cart-shipping">
+					<th></th>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+
+				<tr class="cart-shipping">
+					<th>{{__('Less Available Credit')}}</th>
+					<td class="text-right">
+						<span class="text-italic">{{ floatval($total) < ($user_balance) ? number_format(floatval($total),2) : number_format(floatval($user_balance),2)}}</span>
+					</td>
+				</tr>
+                
                 @if (Session::has('coupon_discount'))
                     <tr class="cart-shipping">
                         <th>{{__('Coupon Discount')}}</th>
@@ -110,17 +135,22 @@
                     </tr>
                 @endif
 
-                @php
-                    $total = $subtotal+$tax+$shipping;
-                    if(Session::has('coupon_discount')){
-                        $total -= Session::get('coupon_discount');
-                    }
-                @endphp
+              
 
                 <tr class="cart-total">
-                    <th><span class="strong-600">{{__('Total')}}</span></th>
+                    <th><span class="strong-600">{{__('Amount To Pay')}}</span></th>
                     <td class="text-right">
-                        <strong><span>{{ single_price($total) }}</span></strong>
+                        @if ((floatval($user_balance) - floatval($total)) < 0)
+
+<strong>
+	<span>{{ number_format(abs(floatval($user_balance) - floatval($total)),2) }}</span>
+</strong>
+						@else 
+						<strong>
+							<span>0</span>
+						</strong>
+                        @endif
+                       
                     </td>
                 </tr>
             </tfoot>

@@ -1,9 +1,122 @@
 <?php $__env->startSection('content'); ?>
 
+<?php
+			 
+
+	 $_s = Session::get('apiSession');
+
+
+	 // try
+	 // {
+	 $url = 'http://localhost:55006/api/user/BusinessPackages';
+	 $options = array(
+		 'http' => array(
+			 'method'  => 'GET',
+			 'header'    => "Accept-language: en\r\n" .
+				 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
+		 )
+	 );
+	 $context  = stream_context_create($options);
+	 $result = file_get_contents($url, false, $context);
+	 $_r = json_decode($result);
+
+	 $url = 'http://localhost:55006/api/user/Wallet';
+	 $options = array(
+		 'http' => array(
+			 'method'  => 'GET',
+			 'header'    => "Accept-language: en\r\n" .
+				 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
+		 )
+	 );
+	 $context  = stream_context_create($options);
+	 $result = file_get_contents($url, false, $context);
+	 $UserWallet = json_decode($result);
+	 $UserWallet = $UserWallet->userWallet;
+
+	 if(count($_r->businessPackages) == 0){
+		 $url = 'http://localhost:55006/api/BusinessPackage';
+		 $options = array(
+			 'http' => array(
+				 'method'  => 'GET',
+				 'header'    => "Accept-language: en\r\n" .
+					 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
+			 )
+		 );
+		 $context  = stream_context_create($options);
+		 $result = file_get_contents($url, false, $context);
+		 $businessPackages = json_decode($result);
+		 $businessPackages = $businessPackages->businessPackages;
+
+	 }
+	 else{
+		 $url = 'http://localhost:55006/api/user/UnilevelMap';
+		 $options = array(
+			 'http' => array(
+				 'method'  => 'GET',
+				 'header'    => "Accept-language: en\r\n" .
+					 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
+			 )
+		 );
+		 $context  = stream_context_create($options);
+		 $result = file_get_contents($url, false, $context);
+		 $_res = json_decode($result);
+
+		 $unilevelMap_raw = json_encode($_res->userUnilevelMap);
+		 $unilevelMap = isset($_res->userUnilevelMap->nodes) == true ? $_res->userUnilevelMap->nodes : [];
+
+
+		 
+		 //var_dump($unilevelMap);
+
+		 $url = 'http://localhost:55006/api/user/UserIncomeTransactions';
+		 $options = array(
+			 'http' => array(
+				 'method'  => 'GET',
+				 'header'    => "Accept-language: en\r\n" .
+					 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
+			 )
+		 );
+		 $context  = stream_context_create($options);
+		 $result = file_get_contents($url, false, $context);
+		 $_res = json_decode($result);
+		 $userIncomeTransactions = $_res->userIncomeTransactions;
+		 //var_dump($userIncomeTransactions);
+
+		 if(count($_r->businessPackages) != 0 && $_r->businessPackages[0]->packageStatus == "2"){
+
+			 $url = 'http://localhost:55006/api/Affiliate/InvitationLink';
+			 $data = array(
+				 'DirectSponsorID' => Session::get('userName'),
+				 'BinarySponsorID' => Session::get('userName'),
+				 'BinaryPosition' => '1'
+				 );
+			 $options = array(
+				 'http' => array(
+					 'content' => json_encode($data),
+					 'method'  => 'POST',
+					 'header'    => "Accept-language: en\r\n" .  "Content-type: application/json\r\n" .
+						 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
+				 )
+			 );
+			 $context  = stream_context_create($options);
+			 $result = file_get_contents($url, false, $context);
+			 $_res = json_decode($result);
+			 $userLink = $_res->affiliateMapBO;
+		 }
+		 //var_dump($userLink);
+	 }
+	 // }
+	 // catch (Exception $exception)
+	 // {
+	 //	 echo '<script>window.location = "' .  route('logout') . '"</script>';
+	 // }
+			 
+  ?>
+
 <section class="gry-bg py-4 profile">
 	<div class="container">
 		<div class="row cols-xs-space cols-sm-space cols-md-space">
-			<div class="col-lg-3 d-none d-lg-block">
+			<div class="col-lg-3 d-none d-lg-block" style="display: <?php if(isset($userLink)): ?> block <?php else: ?> none <?php endif; ?>">
 				<?php if(Auth::user()->user_type == 'seller'): ?>
 						<?php echo $__env->make('frontend.inc.seller_side_nav', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 					<?php elseif(Auth::user()->user_type == 'customer'): ?>
@@ -11,7 +124,7 @@
 					<?php endif; ?>
 			</div>
 
-			<div class="col-lg-9">
+			<div class=" <?php if(isset($userLink)): ?> col-lg-9 <?php else: ?> col-lg-12 <?php endif; ?>">
 				<div class="main-content">
 					<!-- Page title -->
 					<div class="page-title">
@@ -44,109 +157,7 @@
 
 						<div class="">
 
-							<?php
-			
-
-			 $_s = Session::get('apiSession');
-
-
-			 try
-			 {
-				 $url = 'http://localhost:55006/api/user/BusinessPackages';
-				 $options = array(
-					 'http' => array(
-						 'method'  => 'GET',
-						 'header'    => "Accept-language: en\r\n" .
-							 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
-					 )
-				 );
-				 $context  = stream_context_create($options);
-				 $result = file_get_contents($url, false, $context);
-				 $_r = json_decode($result);
-
-				 $url = 'http://localhost:55006/api/user/Wallet';
-				 $options = array(
-					 'http' => array(
-						 'method'  => 'GET',
-						 'header'    => "Accept-language: en\r\n" .
-							 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
-					 )
-				 );
-				 $context  = stream_context_create($options);
-				 $result = file_get_contents($url, false, $context);
-				 $UserWallet = json_decode($result);
-				 $UserWallet = $UserWallet->userWallet;
-
-				 if(count($_r->businessPackages) == 0){
-					 $url = 'http://localhost:55006/api/BusinessPackage';
-					 $options = array(
-						 'http' => array(
-							 'method'  => 'GET',
-							 'header'    => "Accept-language: en\r\n" .
-								 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
-						 )
-					 );
-					 $context  = stream_context_create($options);
-					 $result = file_get_contents($url, false, $context);
-					 $businessPackages = json_decode($result);
-					 $businessPackages = $businessPackages->businessPackages;
-				 }
-				 else{
-					// $url = 'http://localhost:55006/api/user/UnilevelMap';
-					// $options = array(
-					//	 'http' => array(
-					//		 'method'  => 'GET',
-					//		 'header'    => "Accept-language: en\r\n" .
-					//			 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
-					//	 )
-					// );
-					// $context  = stream_context_create($options);
-					// $result = file_get_contents($url, false, $context);
-					// $_res = json_decode($result);
-					// $unilevelMap = $_res->userUnilevelMap->nodes;
-					// //var_dump($unilevelMap);
-
-					 $url = 'http://localhost:55006/api/user/UserIncomeTransactions';
-					 $options = array(
-						 'http' => array(
-							 'method'  => 'GET',
-							 'header'    => "Accept-language: en\r\n" .
-								 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
-						 )
-					 );
-					 $context  = stream_context_create($options);
-					 $result = file_get_contents($url, false, $context);
-					 $_res = json_decode($result);
-					 $userIncomeTransactions = $_res->userIncomeTransactions;
-					 //var_dump($userIncomeTransactions);
-
-					 $url = 'http://localhost:55006/api/Affiliate/InvitationLink';
-					 $data = array(
-						 'DirectSponsorID' => Session::get('userName'),
-						 'BinarySponsorID' => Session::get('userName'),
-						 'BinaryPosition' => '1'
-						 );
-					 $options = array(
-						 'http' => array(
-							 'content' => json_encode($data),
-							 'method'  => 'POST',
-							 'header'    => "Accept-language: en\r\n" .  "Content-type: application/json\r\n" .
-								 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
-						 )
-					 );
-					 $context  = stream_context_create($options);
-					 $result = file_get_contents($url, false, $context);
-					 $_res = json_decode($result);
-					 $userLink = $_res->affiliateMapBO;
-					 var_dump($userLink);
-				 }
-			 }
-			 catch (Exception $exception)
-			 {
-				 echo '<script>window.location = "' .  route('logout') . '"</script>';
-			 }
-			 
-       ?>
+							
 
 							<?php if($_r->httpStatusCode == "500"): ?>
 							<script>window.location.replace('<?php echo e(route('logout')); ?>');</script>
@@ -167,13 +178,13 @@
 										<label><b>Selected Package</b></label>
 										<select class="form-control col-md-4" id="packageBuy_option" name="BusinessPackageID" oninput="UpdateSelectedAmount()">
 											<?php $__currentLoopData = $businessPackages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $businessPackage): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-											<option value="<?php echo e($businessPackage->id); ?>"><?php echo e($businessPackage->packageName); ?> (PHP <?php echo e(number_format($businessPackage->valueFrom)); ?>)</option>
+											<option value="<?php echo e($businessPackage->id); ?>"><?php echo e($businessPackage->packageName); ?> (PHP <?php echo e(number_format($businessPackage->valueTo)); ?>)</option>
 											<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 										</select>
 
 										<select class="form-control col-md-4" id="packageAmount_option" name="AmountPaid" style="display:none">
 											<?php $__currentLoopData = $businessPackages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $businessPackage): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-											<option value="<?php echo e($businessPackage->valueFrom); ?>"><?php echo e(number_format($businessPackage->valueFrom)); ?>)</option>
+											<option value="<?php echo e($businessPackage->valueFrom); ?>"><?php echo e(number_format($businessPackage->valueTo)); ?>)</option>
 											<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 										</select>
 										
@@ -213,14 +224,10 @@
 											<?php $__currentLoopData = $businessPackages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $businessPackage): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
 											<div class="col-md-4">
-												<div class="dashboard-widget text-center blue-widget mt-4 c-pointer">
-													<a href="javascript:SelectPackage('<?php echo e($businessPackage->id); ?>');" class="d-block">
-														<i class="fa fa-shopping-cart"></i>
-														<h3 class="d-block title">PHP <?php echo e(number_format($businessPackage->valueFrom)); ?></h3>
-														<span class="d-block title"><?php echo e($businessPackage->packageName); ?></span>
-														<span class="d-block sub-title"><?php echo e($businessPackage->packageDescription); ?></span>
-													</a>
-												</div>
+
+												<img class="dashboard-widget" src="<?php echo e(asset('uploads/packages/' . $businessPackage->imageFile)); ?>" onclick="SelectPackage('<?php echo e($businessPackage->id); ?>');" alt="Alternate Text" style="width:100%" />
+
+												
 											</div>
 
 											<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -295,17 +302,32 @@
 
 								</div>
 								<div class="form-box-content p-3">
+									
+									<?php if(isset($userLink)): ?>
 									<p>This is your enterprise source code you can share</p>
-									<input type="text" class="form-control" name="name" value="<?php echo e('http://'.$_SERVER['HTTP_HOST'].'/users/registration?ulink='.$userLink->directSponsorID); ?>" />
+									<input type="text" id="userLink" class="form-control" name="name" value="<?php echo e('http://'.$_SERVER['HTTP_HOST'].'/users/registration?ulink='.$userLink->directSponsorID); ?>" />
+									<?php else: ?>
+									<p>Please activate your account first</p>
+									<?php endif; ?>
+									
 									<hr />
-									<button type="button" class="btn btn-styled btn-base-1 col-md-2" style="">Copy Link</button>
+									<button type="button" onclick="CopyLink()" class="btn btn-styled btn-base-1 col-md-2" style="">Copy Link</button>
 								</div>
 
 								
 							</div>
 							<div class="form-box bg-white mt-4">
 								<div class="form-box-title px-3 py-2">
-									<?php echo e(__('Direct Affiliates')); ?>
+									<?php echo e(__('Enterprisers Under You')); ?>
+
+								</div>
+								<div class="form-box-content p-3">
+									 <div id="treeview"></div>
+								</div>
+							</div>
+							<div class="form-box bg-white mt-4">
+								<div class="form-box-title px-3 py-2">
+									<?php echo e(__('First Level Enterprisers')); ?>
 
 								</div>
 								<div class="form-box-content p-3">
@@ -315,7 +337,7 @@
 												<thead>
 													<tr>
 														<th><?php echo e(__('Date')); ?></th>
-														<th><?php echo e(__('Name')); ?></th>
+														<th><?php echo e(__('Email')); ?></th>
 														<th><?php echo e(__('Account Package')); ?></th>
 														<th><?php echo e(__('Status')); ?></th>
 														<th><?php echo e(__('Total Commissions')); ?></th>
@@ -326,11 +348,11 @@
 													<?php if(isset($unilevelMap) && $unilevelMap != null): ?>
 													<?php $__currentLoopData = $unilevelMap; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $unilevelMapItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 													<tr>
-														<td><?php echo e($unilevelMapItem->userBusinessPackage->CreatedOn); ?></td>
-														<td><?php echo e($unilevelMapItem->UserAuth->UserName); ?></td>
-														<td><?php echo e($unilevelMapItem->userBusinessPackage->BusinessPackage->PackageName); ?></td>
-														<td><?php echo e($unilevelMapItem->UserAuth->userBusinessPackage->PackageStatus); ?></td>
-														<td><?php echo e($unilevelMapItem->TotalCommission); ?></td>
+														<td><?php echo e(date_format(date_create($unilevelMapItem->userBusinessPackage->createdOn),"Y/m/d H:i:s")); ?></td>
+														<td><?php echo e($unilevelMapItem->userAuth->userName); ?></td>
+														<td><?php echo e($unilevelMapItem->userBusinessPackage->businessPackage->packageName); ?></td>
+														<td><?php echo e($unilevelMapItem->userBusinessPackage->packageStatus == 2 ? 'Activated' : 'Pending Activation'); ?></td>
+														<td><?php echo e($unilevelMapItem->totalCommission); ?></td>
 														<td></td>
 													</tr>
 													<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -342,14 +364,14 @@
 										</div>
 									</div>
 
-									<div class="text-right mt-4">
+									<!--<div class="text-right mt-4">
 										<button type="submit" class="btn btn-styled btn-base-1  col-sm-12  col-lg-3"><?php echo e(__('View Genealogy')); ?></button>
-									</div>
+									</div>-->
 								</div>
 							</div>
 							<div class="form-box bg-white mt-4">
 								<div class="form-box-title px-3 py-2">
-									<?php echo e(__('Product Commission')); ?>
+									<?php echo e(__('Rewards Transactions')); ?>
 
 								</div>
 								<div class="form-box-content p-3">
@@ -361,29 +383,31 @@
 														<th><?php echo e(__('Date')); ?></th>
 														<th><?php echo e(__('User')); ?></th>
 														<th><?php echo e(__('Amount')); ?></th>
-														<th><?php echo e(__('Payment Status')); ?></th>
+														<th><?php echo e(__('Reward Name')); ?></th>
 														<th><?php echo e(__('Options')); ?></th>
 													</tr>
 												</thead>
 												<tbody>
-												<?php if(isset($unilevelMap) && $unilevelMap != null): ?>
-													<?php $__currentLoopData = $unilevelMap; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $unilevelMapItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+												
+												<?php if(isset($userIncomeTransactions) && $userIncomeTransactions != null): ?>
+													<?php $__currentLoopData = $userIncomeTransactions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $userIncomeTransactionItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 													<tr>
-														<td><?php echo e($unilevelMapItem->userBusinessPackage->CreatedOn); ?></td>
-														<td><?php echo e($unilevelMapItem->UserAuth->UserName); ?></td>
-														<td><?php echo e($unilevelMapItem->userBusinessPackage->IncomePercentage); ?></td>
-														<td><?php echo e($unilevelMapItem->UserAuth->userBusinessPackage->IncomeStatus); ?></td>
+														<td><?php echo e(date_format(date_create($userIncomeTransactionItem->createdOn),"Y/m/d H:i:s")); ?></td>
+														<td><?php echo e($userIncomeTransactionItem->userAuth->userName); ?></td>
+														<td><?php echo e($userIncomeTransactionItem->incomePercentage); ?></td>
+														<td><?php echo e($userIncomeTransactionItem->incomeTypeId == 2 ? 'DIRECT SALES INCOME' : 'TRIMATCH SALES INCOME'); ?></td>
 														<td></td>
 													</tr>
 													<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 												<?php endif; ?>
-
 												</tbody>
 											</table>
 										</div>
 									</div>
 								</div>
 							</div>
+
+							
 
 							<?php endif; ?>
 						<?php endif; ?>
@@ -402,6 +426,35 @@
 </section>
 
 <script>
+
+	var datascource = '<?php  if (isset($unilevelMap_raw))
+								 {
+								 	echo $unilevelMap_raw; 
+								 }
+						?>'
+								  
+	datascource = "[" + datascource + "]";
+                        var $tree = $('#treeview').treeview({
+                            color: "#428bca",
+                            expandIcon: "fa fa-chevron-right text-danger",
+                            collapseIcon: "fa fa-chevron-down text-danger",
+                            nodeIcon: "fa fa-user",
+                            showTags: true,
+                            showBorder: false,
+                            data: datascource
+                        });
+
+
+                        $('#togglePan').on('click', function () {
+                            // of course, oc.setOptions({ 'pan': this.checked }); is also OK.
+                            oc.setOptions('pan', this.checked);
+                        });
+
+                        $('#toggleZoom').on('click', function () {
+                            // of course, oc.setOptions({ 'zoom': this.checked }); is also OK.
+                            oc.setOptions('zoom', this.checked);
+                        });
+
 	function SelectPaymentMethod() {
 		document.getElementById('packageBuyForm').style.display = "none";
 		switch (document.getElementById('FromWalletCode').value) {
@@ -499,7 +552,22 @@
 		 });
 
     return false
+	}
+	function CopyLink() {
+  /* Get the text field */
+  var copyText = document.getElementById("userLink");
+
+  /* Select the text field */
+  copyText.select();
+  copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+  /* Copy the text inside the text field */
+  document.execCommand("copy");
+
+  /* Alert the copied text */
+  alert("User source code copied!");
 }
+
 </script>
 
 <?php $__env->stopSection(); ?>

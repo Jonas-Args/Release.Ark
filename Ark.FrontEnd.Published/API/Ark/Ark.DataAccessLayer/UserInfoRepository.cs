@@ -123,5 +123,15 @@ namespace Ark.DataAccessLayer
             List<UserBO> _users = _qUi.ToList();
             return _users;
         }
+
+        public bool VerifyEmail(TblUserAuth userAuth, ArkContext db)
+        {
+            TblUserInfo userInfo_1 = db.TblUserInfo.SingleOrDefault(i => i.Email == userAuth.UserName);
+            userInfo_1.EmailStatus = (short)EmailStatus.Verified;
+
+            db.SaveChanges();
+
+            return true;
+        }
     }
 }

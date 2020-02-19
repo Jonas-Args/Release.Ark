@@ -18,7 +18,9 @@ namespace Ark.DataAccessLayer
                 IncomeTypeId = incomeDistribution.IncomeTypeId,
                 TriggeredByUbpId = long.Parse(walletTransaction.From),
                 TransactionType = (short)TransactionType.Received,
-                IncomeStatus = (short)TransactionStatus.Completed
+                IncomeStatus = (short)TransactionStatus.Completed,
+                IncomePercentage = walletTransaction.Amount,
+                Remarks = walletTransaction.Remarks
             };
 
             db.TblUserIncomeTransaction.Add(userIncomeTransaction);
@@ -30,7 +32,27 @@ namespace Ark.DataAccessLayer
 
         public List<TblUserIncomeTransaction> GetAll(TblUserAuth userAuth, ArkContext db)
         {
-            List<TblUserIncomeTransaction> userIncomeTransactions = db.TblUserIncomeTransaction.Where(item => item.UserAuthId == userAuth.Id).ToList();
+              var _qObj = from a in db.TblUserIncomeTransaction
+                          join b in db.TblUserAuth on a.UserAuthId equals b.Id
+
+                          join d in db.TblUserAuth on a.TriggeredByUbpId equals d.Id
+
+                          where a.UserAuthId == userAuth.Id
+                          select new TblUserIncomeTransaction
+                          {
+                            Id = a.Id,
+                            CreatedOn = a.CreatedOn,
+                            UserAuth = d,
+                            IncomePercentage = a.IncomePercentage,
+                            IncomeTypeId = a.IncomeTypeId,
+                            TriggeredByUbpId = a.TriggeredByUbpId,
+                            TransactionType = a.TransactionType,
+                            IncomeStatus = a.IncomeStatus,
+                            Remarks = a.Remarks                            
+                          };
+
+            List<TblUserIncomeTransaction> userIncomeTransactions = _qObj.ToList();
+
             return userIncomeTransactions;
         }
     }

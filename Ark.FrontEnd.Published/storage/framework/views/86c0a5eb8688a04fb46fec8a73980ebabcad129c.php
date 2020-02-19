@@ -1,4 +1,47 @@
-<div class="sidebar sidebar--style-3 no-border stickyfill p-0">
+<?php
+	 $_s = Session::get('apiSession');
+
+
+	 // try
+	 // {
+	 $url = 'http://localhost:55006/api/user/BusinessPackages';
+	 $options = array(
+		 'http' => array(
+			 'method'  => 'GET',
+			 'header'    => "Accept-language: en\r\n" .
+				 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
+		 )
+	 );
+	 $context  = stream_context_create($options);
+	 $result = file_get_contents($url, false, $context);
+	 $_r = json_decode($result);
+
+	 if(count($_r->businessPackages) != 0 && $_r->businessPackages[0]->packageStatus == "2"){
+		  $url = 'http://localhost:55006/api/Affiliate/InvitationLink';
+		  $data = array(
+			  'DirectSponsorID' => Session::get('userName'),
+			  'BinarySponsorID' => Session::get('userName'),
+			  'BinaryPosition' => '1'
+			  );
+		  $options = array(
+			  'http' => array(
+				  'content' => json_encode($data),
+				  'method'  => 'POST',
+				  'header'    => "Accept-language: en\r\n" .  "Content-type: application/json\r\n" .
+					  "Cookie: .AspNetCore.Session=". $_s ."\r\n"
+			  )
+		  );
+		  $context  = stream_context_create($options);
+		  $result = file_get_contents($url, false, $context);
+		  $_res = json_decode($result);
+		  $userLink = $_res->affiliateMapBO;
+          
+	 }
+?>
+
+
+
+<div class="sidebar sidebar--style-3 no-border stickyfill p-0" style="display: <?php if(isset($userLink)): ?> block <?php else: ?> none <?php endif; ?>">
     <div class="widget mb-0">
         <div class="widget-profile-box text-center p-3">
             <?php if(Auth::user()->avatar_original != null): ?>
@@ -7,6 +50,15 @@
                 <img src="<?php echo e(asset('frontend/images/user.png')); ?>" class="image rounded-circle">
             <?php endif; ?>
             <div class="name"><?php echo e(Auth::user()->name); ?></div>
+
+            <?php if(isset($userLink)): ?>
+	        <p style="margin-bottom:0px"><?php echo e($userLink->directSponsorID); ?></p>
+            <p style="color:#808080; font-size:9px">Your source code</p>
+	        
+	        <?php else: ?>
+	        <p>Please activate your account first</p>
+	        <?php endif; ?>
+
         </div>
         <div class="sidebar-widget-title py-3">
             <span><?php echo e(__('Menu')); ?></span>

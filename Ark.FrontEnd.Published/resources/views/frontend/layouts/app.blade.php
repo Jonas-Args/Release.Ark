@@ -88,6 +88,7 @@
 
 <!-- jQuery -->
 <script src="{{ asset('frontend/js/vendor/jquery.min.js') }}"></script>
+<script src="{{ asset('frontend/js/bootstrap-treeview.js') }}"></script>
 
 
 @if (\App\BusinessSetting::where('type', 'google_analytics')->first()->value == 1)
@@ -135,7 +136,7 @@
 
     @yield('content')
 
-    <!--@include('frontend.inc.footer') -->
+    @include('frontend.inc.footer')
 
     @include('frontend.partials.modal')
 

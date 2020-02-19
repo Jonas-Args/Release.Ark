@@ -101,7 +101,35 @@ class CheckoutController extends Controller
                 $user = Auth::user();
                 $user->balance -= Order::findOrFail($request->session()->get('order_id'))->grand_total;
                 $user->save();
-                return $this->checkout_done($request->session()->get('order_id'), null);
+
+                 $_s = Session::get('apiSession');
+
+
+                 $url = 'http://localhost:55006/api/Affiliate/Commission';
+				 $data = array(
+					 'amountPaid' => Order::findOrFail($request->session()->get('order_id'))->grand_total
+					 );
+
+				 // use key 'http' even if you send the request to https://...
+				 $options = array(
+					 'http' => array(
+						 'header'  => "Content-type: application/json \r\n" .
+				                "Cookie: .AspNetCore.Session=". $_s ."\r\n",
+						 'method'  => 'POST',
+						 'content' => json_encode($data)
+					 )
+				 );
+				 $context  = stream_context_create($options);
+				 $result = file_get_contents($url, false, $context);
+				 $_r = json_decode($result);
+
+				 if ($_r->httpStatusCode == "500")
+				 {
+					 //flash(__('An error occured: ' . $_r->message))->error();
+
+				 }
+
+				 return $this->checkout_done($request->session()->get('order_id'), null);
             }
         }
     }

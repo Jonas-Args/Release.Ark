@@ -25,7 +25,7 @@
                     </div>
                 </div>
 
-				<div class="col-3" style="display:none!important">
+				<div class="col-3" style="">
 					<div class="icon-block icon-block--style-1-v5 text-center">
 						<div class="block-icon mb-0 c-gray-light">
 							<i class="la la-truck"></i>

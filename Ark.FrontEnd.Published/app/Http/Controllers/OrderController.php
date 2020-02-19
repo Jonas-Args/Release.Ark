@@ -246,8 +246,8 @@ class OrderController extends Controller
                             'logOutputFile' => storage_path('logs/log.htm'),
                             'tempDir' => storage_path('logs/')
                         ])->loadView('invoices.customer_invoice', compact('order'));
-            $output = $pdf->output();
-    		file_put_contents('public/invoices/'.'Order#'.$order->code.'.pdf', $output);
+            //$output = $pdf->output();
+    		//file_put_contents('public/invoices/'.'Order#'.$order->code.'.pdf', $output);
 
             $array['view'] = 'emails.invoice';
             $array['subject'] = 'Order Placed - '.$order->code;
@@ -265,7 +265,7 @@ class OrderController extends Controller
                 }
 
             }
-            unlink($array['file']);
+           // unlink($array['file']);
 
             $request->session()->put('order_id', $order->id);
         }

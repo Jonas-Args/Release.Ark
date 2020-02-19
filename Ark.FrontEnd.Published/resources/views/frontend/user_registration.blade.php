@@ -97,7 +97,7 @@
                                                     <div class="form-group">
                                                         <!-- <label>{{ __('email') }}</label> -->
                                                         <div class="input-group input-group--style-1">
-                                                            <input type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" placeholder="{{ __('Email') }}" name="email">
+															<input type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" autocomplete="off" placeholder="{{ __('Email') }}" name="email" />
                                                             <span class="input-group-addon">
                                                                 <i class="text-md la la-envelope"></i>
                                                             </span>
@@ -116,7 +116,7 @@
 													<div class="form-group">
 														<!-- <label>{{ __('') }}</label> -->
 														<div class="input-group input-group--style-1">
-															<input type="tel" class="form-control{{ $errors->has('mobileNo') ? ' is-invalid' : '' }}" value="{{ old('mobileNo') }}" placeholder="{{ __('Phone Number') }}" name="mobileNo" />
+															<input type="tel" class="form-control{{ $errors->has('mobileNo') ? ' is-invalid' : '' }}" value="{{ old('mobileNo') }}" placeholder="{{ __('Phone Number (Optional)') }}" name="mobileNo" />
 															<span class="input-group-addon">
 																<i class="text-md la la-mobile"></i>
 															</span>
@@ -135,7 +135,7 @@
                                                     <div class="form-group">
                                                         <!-- <label>{{ __('password') }}</label> -->
                                                         <div class="input-group input-group--style-1">
-                                                            <input type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('Password') }}" name="password">
+															<input type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('Password') }}" autocomplete="off" name="password" />
                                                             <span class="input-group-addon">
                                                                 <i class="text-md la la-lock"></i>
                                                             </span>
@@ -154,7 +154,7 @@
                                                     <div class="form-group">
                                                         <!-- <label>{{ __('confirm_password') }}</label> -->
                                                         <div class="input-group input-group--style-1">
-                                                            <input type="password" class="form-control" placeholder="{{ __('Confirm Password') }}" name="password_confirmation">
+                                                            <input type="password" class="form-control" placeholder="{{ __('Confirm Password') }}" name="password_confirmation" autocomplete="off">
                                                             <span class="input-group-addon">
                                                                 <i class="text-md la la-lock"></i>
                                                             </span>
@@ -168,7 +168,10 @@
 													<div class="form-group">
 														<!-- <label>{{ __('source_code') }}</label> -->
 														<div class="input-group input-group--style-1">
-															<input type="text" class="form-control{{ $errors->has('source_code') ? ' is-invalid' : '' }}" value="{{ old('source_code') }}" placeholder="{{ __('Source Code') }}" name="source_code" />
+
+                                                           
+															<input type="text" class="form-control{{ $errors->has('source_code') ? ' is-invalid' : '' }}" value="{{ app('request')->input('ulink') }}" placeholder="{{ __('Source Code (Optional)') }}" name="source_code" />
+															
 															<span class="input-group-addon">
 																<i class="text-md la la-lock"></i>
 															</span>
@@ -186,7 +189,7 @@
 													<div class="form-group">
 														<!-- <label>{{ __('special_code') }}</label> -->
 														<div class="input-group input-group--style-1">
-															<input type="text" class="form-control{{ $errors->has('special_code') ? ' is-invalid' : '' }}" value="{{ old('special_code') }}" placeholder="{{ __('Special Code') }}" name="special_code" />
+															<input type="text" class="form-control{{ $errors->has('special_code') ? ' is-invalid' : '' }}" value="{{ old('special_code') }}" placeholder="{{ __('Special Code (Optional)') }}" name="special_code" />
 															<span class="input-group-addon">
 																<i class="text-md la la-lock"></i>
 															</span>
@@ -230,26 +233,26 @@
                                             </div>
                                         </form>
                                     </div>
-                                    <div class="col-lg-1 text-center align-self-stretch">
+                                    <div class="col-lg-1 text-center align-self-stretch" style="display:none!important">
                                         <div class="border-right h-100 mx-auto" style="width:1px;"></div>
                                     </div>
-                                    <div class="col-12 col-lg">
-                                        @if(\App\BusinessSetting::where('type', 'google_login')->first()->value == 1)
-                                            <a href="{{ route('social.login', ['provider' => 'google']) }}" class="btn btn-styled btn-block btn-google btn-icon--2 btn-icon-left px-4 my-4">
-                                                <i class="icon fa fa-google"></i> {{__('Login with Google')}}
-                                            </a>
-                                        @endif
+									<div class="col-12 col-lg" style="display:none!important">
+										@if(\App\BusinessSetting::where('type', 'google_login')->first()->value == 1)
+										<a href="{{ route('social.login', ['provider' => 'google']) }}" class="btn btn-styled btn-block btn-google btn-icon--2 btn-icon-left px-4 my-4">
+											<i class="icon fa fa-google"></i> {{__('Login with Google')}}
+										</a>
+										@endif
                                         @if (\App\BusinessSetting::where('type', 'facebook_login')->first()->value == 1)
-                                            <a href="{{ route('social.login', ['provider' => 'facebook']) }}" class="btn btn-styled btn-block btn-facebook btn-icon--2 btn-icon-left px-4 my-4">
-                                                <i class="icon fa fa-facebook"></i> {{__('Login with Facebook')}}
-                                            </a>
-                                        @endif
+										<a href="{{ route('social.login', ['provider' => 'facebook']) }}" class="btn btn-styled btn-block btn-facebook btn-icon--2 btn-icon-left px-4 my-4">
+											<i class="icon fa fa-facebook"></i> {{__('Login with Facebook')}}
+										</a>
+										@endif
                                         @if (\App\BusinessSetting::where('type', 'twitter_login')->first()->value == 1)
-                                        <a href="{{ route('social.login', ['provider' => 'twitter']) }}" class="btn btn-styled btn-block btn-twitter btn-icon--2 btn-icon-left px-4 my-4">
-                                            <i class="icon fa fa-twitter"></i> {{__('Login with Twitter')}}
-                                        </a>
-                                        @endif
-                                    </div>
+										<a href="{{ route('social.login', ['provider' => 'twitter']) }}" class="btn btn-styled btn-block btn-twitter btn-icon--2 btn-icon-left px-4 my-4">
+											<i class="icon fa fa-twitter"></i> {{__('Login with Twitter')}}
+										</a>
+										@endif
+									</div>
                                 </div>
                             </div>
                             <div class="text-center px-35 pb-3">

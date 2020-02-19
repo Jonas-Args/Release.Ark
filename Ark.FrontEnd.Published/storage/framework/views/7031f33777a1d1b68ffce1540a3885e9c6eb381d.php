@@ -1,3 +1,39 @@
+<?php
+			 function number_format_short( $n, $precision = 1 ) {
+				 if ($n < 900) {
+					 // 0 - 900
+					 $n_format = number_format($n, $precision);
+					 $suffix = '';
+				 } else if ($n < 900000) {
+					 // 0.9k-850k
+					 $n_format = number_format($n / 1000, $precision);
+					 $suffix = 'K';
+				 } else if ($n < 900000000) {
+					 // 0.9m-850m
+					 $n_format = number_format($n / 1000000, $precision);
+					 $suffix = 'M';
+				 } else if ($n < 900000000000) {
+					 // 0.9b-850b
+					 $n_format = number_format($n / 1000000000, $precision);
+					 $suffix = 'B';
+				 } else {
+					 // 0.9t+
+					 $n_format = number_format($n / 1000000000000, $precision);
+					 $suffix = 'T';
+				 }
+
+				 // Remove unecessary zeroes after decimal. "1.0" -> "1"; "1.00" -> "1"
+				 // Intentionally does not affect partials, eg "1.50" -> "1.50"
+				 if ( $precision > 0 ) {
+					 $dotzero = '.' . str_repeat( '0', $precision );
+					 $n_format = str_replace( $dotzero, '', $n_format );
+				 }
+
+				 return $n_format . $suffix;
+			 }
+
+
+?>
 <div class="header bg-white">
     <!-- Top Bar -->
     <div class="top-navbar">
@@ -64,10 +100,10 @@
                         </li>
                         <?php else: ?>
                         <li>
-                            <a href="#" class="top-bar-item"  data-toggle="modal" data-target="#maintenance-update"><?php echo e(__('Login')); ?></a>
+                            <a href="<?php echo e(route('user.login')); ?>" class="top-bar-item"><?php echo e(__('Login')); ?></a>
                         </li>
                         <li>
-                            <a href="#" class="top-bar-item"  data-toggle="modal" data-target="#maintenance-update"><?php echo e(__('Registration')); ?></a>
+                            <a href="<?php echo e(route('user.registration')); ?>" class="top-bar-item"><?php echo e(__('Registration')); ?></a>
                         </li>
                         <?php endif; ?>
                     </ul>
@@ -146,17 +182,7 @@
                                 </li>
                             <?php endif; ?>
                         <?php endif; ?>
-                        <li>
-                            <a href="<?php echo e(route('compare')); ?>">
-                                <i class="la la-refresh"></i>
-                                <span><?php echo e(__('Compare')); ?></span>
-                                <?php if(Session::has('compare')): ?>
-                                    <span class="badge" id="compare_items_sidenav"><?php echo e(count(Session::get('compare'))); ?></span>
-                                <?php else: ?>
-                                    <span class="badge" id="compare_items_sidenav">0</span>
-                                <?php endif; ?>
-                            </a>
-                        </li>
+                      
                         <li>
                             <a href="<?php echo e(route('cart')); ?>">
                                 <i class="la la-shopping-cart"></i>
@@ -190,6 +216,16 @@
                                 <span><?php echo e(__('Manage Profile')); ?></span>
                             </a>
                         </li>
+
+                         <li>
+                    <a href="<?php echo e(route('affiliate')); ?>" class="<?php echo e(areActiveRoutesHome(['affiliate'])); ?>">
+                        <i class="la la-users"></i>
+                        <span class="category-name">
+                            <?php echo e(__('Enterprise')); ?>
+
+                        </span>
+                    </a>
+                </li>
 
                         <?php if(\App\BusinessSetting::where('type', 'wallet_system')->first()->value == 1): ?>
                             <li>
@@ -443,7 +479,7 @@
                                             <span class="nav-box-text d-none d-xl-inline-block"><?php echo e(__('Ark Credits')); ?></span>
                                            <span class="nav-box-number" style="width: max-content;padding: 0px 10px; background-color:#0acf97!important">
                                              <?php if(auth()->guard()->check()): ?>
-                                               <?php echo e(single_price(Auth::user()->balance)); ?>
+                                               <?php echo e(number_format_short(floatval(Auth::user()->balance))); ?>
 
                                             <?php else: ?>
                                                0

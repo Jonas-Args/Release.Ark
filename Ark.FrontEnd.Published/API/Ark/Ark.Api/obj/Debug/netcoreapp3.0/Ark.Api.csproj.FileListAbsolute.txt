@@ -261,10 +261,13 @@ C:\Projects\PHP\Ark\API\Ark\Ark.Api\bin\Debug\netcoreapp3.0\Ark.DataAccessLayer.
 C:\Projects\PHP\Ark\API\Ark\Ark.Api\obj\Debug\netcoreapp3.0\Ark.Api.csprojAssemblyReference.cache
 C:\Projects\PHP\Ark\API\Ark\Ark.Api\obj\Debug\netcoreapp3.0\staticwebassets\Ark.Api.StaticWebAssets.Manifest.cache
 C:\Projects\PHP\Ark\API\Ark\Ark.Api\obj\Debug\netcoreapp3.0\staticwebassets\Ark.Api.StaticWebAssets.xml
-C:\Projects\PHP\Ark\API\Ark\Ark.Api\obj\Debug\netcoreapp3.0\Ark.Api.MvcApplicationPartsAssemblyInfo.cache
 C:\Projects\PHP\Ark\API\Ark\Ark.Api\obj\Debug\netcoreapp3.0\Ark.Api.AssemblyInfoInputs.cache
 C:\Projects\PHP\Ark\API\Ark\Ark.Api\obj\Debug\netcoreapp3.0\Ark.Api.AssemblyInfo.cs
 C:\Projects\PHP\Ark\API\Ark\Ark.Api\obj\Debug\netcoreapp3.0\Ark.Api.RazorTargetAssemblyInfo.cache
 C:\Projects\PHP\Ark\API\Ark\Ark.Api\obj\Debug\netcoreapp3.0\Ark.Api.csproj.CopyComplete
 C:\Projects\PHP\Ark\API\Ark\Ark.Api\obj\Debug\netcoreapp3.0\Ark.Api.dll
 C:\Projects\PHP\Ark\API\Ark\Ark.Api\obj\Debug\netcoreapp3.0\Ark.Api.pdb
+C:\Projects\PHP\Ark\API\Ark\Ark.Api\bin\Debug\netcoreapp3.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Projects\PHP\Ark\API\Ark\Ark.Api\bin\Debug\netcoreapp3.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Projects\PHP\Ark\API\Ark\Ark.Api\bin\Debug\netcoreapp3.0\Newtonsoft.Json.Bson.dll
+C:\Projects\PHP\Ark\API\Ark\Ark.Api\obj\Debug\netcoreapp3.0\Ark.Api.MvcApplicationPartsAssemblyInfo.cache

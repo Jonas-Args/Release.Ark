@@ -220,7 +220,8 @@ class HomeController extends Controller
         // foreach($files as $file) {
         //     ImageOptimizer::optimize(base_path('public/uploads/categories/').$file);
         // }
-        return view('frontend.index');
+		$products = filter_products(Product::orderBy('created_at', 'desc'))->paginate(500);
+        return view('frontend.index', compact('products'));
     }
 
     public function load_featured_section(){

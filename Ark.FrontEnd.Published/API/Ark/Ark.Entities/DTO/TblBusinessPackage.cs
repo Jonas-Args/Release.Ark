@@ -29,6 +29,12 @@ namespace Ark.Entities.DTO
         public long? DiscountValue { get; set; }
         public long? DiscountType { get; set; }
         public long? NetworkValue { get; set; }
+        public long? Consumables { get; set; }
+        public string ImageFile { get; set; }
+        public string ImageFileDiscounted { get; set; }
+        public string ImageFilePromo { get; set; }
+        public string ImageFileOriginal { get; set; }
+
         public BusinessPackageCalculationMethod CalculationMethod { get; set; }
 
         public virtual TblCurrency Currency { get; set; }

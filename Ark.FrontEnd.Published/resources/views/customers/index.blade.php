@@ -3,9 +3,9 @@
 @section('content')
 
 <div class="row">
-    <div class="col-sm-12">
-        <!-- <a href="{{ route('sellers.create')}}" class="btn btn-info pull-right">{{__('add_new')}}</a> -->
-    </div>
+	<div class="col-sm-12">
+		<!-- <a href="{{ route('sellers.create')}}" class="btn btn-info pull-right">{{__('add_new')}}</a> -->
+	</div>
 </div>
 
 <br>
@@ -151,11 +151,11 @@
 			contentType: 'application/json',
 			success: function (data) {
 				//console.log(data);
-				if (data.Message != undefined && data.HttpStatusCode == "200") {
-					alert(data.Message);
+				if (data.message != undefined && data.httpStatusCode == "200") {
+					alert(data.message);
 				}
 				//window.location = data.RedirectUrl;
-				//window.location.replace(data.RedirectUrl);
+				window.location.replace(data.redirectUrl);
 			},
 			error: function (data, textStatus, jqXHR) {
 				console.log(data.responseJSON);
@@ -170,7 +170,10 @@
 
 		return false
 	}
-
+	AutoRefresh(5000);
+	function AutoRefresh(t) {
+		setTimeout("location.reload(true);", t);
+	}
 
 </script>
 

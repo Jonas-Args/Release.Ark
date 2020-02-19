@@ -96,7 +96,7 @@
                                                     <div class="form-group">
                                                         <!-- <label><?php echo e(__('email')); ?></label> -->
                                                         <div class="input-group input-group--style-1">
-                                                            <input type="email" class="form-control<?php echo e($errors->has('email') ? ' is-invalid' : ''); ?>" value="<?php echo e(old('email')); ?>" placeholder="<?php echo e(__('Email')); ?>" name="email">
+															<input type="email" class="form-control<?php echo e($errors->has('email') ? ' is-invalid' : ''); ?>" value="<?php echo e(old('email')); ?>" autocomplete="off" placeholder="<?php echo e(__('Email')); ?>" name="email" />
                                                             <span class="input-group-addon">
                                                                 <i class="text-md la la-envelope"></i>
                                                             </span>
@@ -115,7 +115,7 @@
 													<div class="form-group">
 														<!-- <label><?php echo e(__('')); ?></label> -->
 														<div class="input-group input-group--style-1">
-															<input type="tel" class="form-control<?php echo e($errors->has('mobileNo') ? ' is-invalid' : ''); ?>" value="<?php echo e(old('mobileNo')); ?>" placeholder="<?php echo e(__('Phone Number')); ?>" name="mobileNo" />
+															<input type="tel" class="form-control<?php echo e($errors->has('mobileNo') ? ' is-invalid' : ''); ?>" value="<?php echo e(old('mobileNo')); ?>" placeholder="<?php echo e(__('Phone Number (Optional)')); ?>" name="mobileNo" />
 															<span class="input-group-addon">
 																<i class="text-md la la-mobile"></i>
 															</span>
@@ -134,7 +134,7 @@
                                                     <div class="form-group">
                                                         <!-- <label><?php echo e(__('password')); ?></label> -->
                                                         <div class="input-group input-group--style-1">
-                                                            <input type="password" class="form-control<?php echo e($errors->has('password') ? ' is-invalid' : ''); ?>" placeholder="<?php echo e(__('Password')); ?>" name="password">
+															<input type="password" class="form-control<?php echo e($errors->has('password') ? ' is-invalid' : ''); ?>" placeholder="<?php echo e(__('Password')); ?>" autocomplete="off" name="password" />
                                                             <span class="input-group-addon">
                                                                 <i class="text-md la la-lock"></i>
                                                             </span>
@@ -153,7 +153,7 @@
                                                     <div class="form-group">
                                                         <!-- <label><?php echo e(__('confirm_password')); ?></label> -->
                                                         <div class="input-group input-group--style-1">
-                                                            <input type="password" class="form-control" placeholder="<?php echo e(__('Confirm Password')); ?>" name="password_confirmation">
+                                                            <input type="password" class="form-control" placeholder="<?php echo e(__('Confirm Password')); ?>" name="password_confirmation" autocomplete="off">
                                                             <span class="input-group-addon">
                                                                 <i class="text-md la la-lock"></i>
                                                             </span>
@@ -167,7 +167,10 @@
 													<div class="form-group">
 														<!-- <label><?php echo e(__('source_code')); ?></label> -->
 														<div class="input-group input-group--style-1">
-															<input type="text" class="form-control<?php echo e($errors->has('source_code') ? ' is-invalid' : ''); ?>" value="<?php echo e(old('source_code')); ?>" placeholder="<?php echo e(__('Source Code')); ?>" name="source_code" />
+
+                                                           
+															<input type="text" class="form-control<?php echo e($errors->has('source_code') ? ' is-invalid' : ''); ?>" value="<?php echo e(app('request')->input('ulink')); ?>" placeholder="<?php echo e(__('Source Code (Optional)')); ?>" name="source_code" />
+															
 															<span class="input-group-addon">
 																<i class="text-md la la-lock"></i>
 															</span>
@@ -185,7 +188,7 @@
 													<div class="form-group">
 														<!-- <label><?php echo e(__('special_code')); ?></label> -->
 														<div class="input-group input-group--style-1">
-															<input type="text" class="form-control<?php echo e($errors->has('special_code') ? ' is-invalid' : ''); ?>" value="<?php echo e(old('special_code')); ?>" placeholder="<?php echo e(__('Special Code')); ?>" name="special_code" />
+															<input type="text" class="form-control<?php echo e($errors->has('special_code') ? ' is-invalid' : ''); ?>" value="<?php echo e(old('special_code')); ?>" placeholder="<?php echo e(__('Special Code (Optional)')); ?>" name="special_code" />
 															<span class="input-group-addon">
 																<i class="text-md la la-lock"></i>
 															</span>
@@ -229,29 +232,29 @@
                                             </div>
                                         </form>
                                     </div>
-                                    <div class="col-lg-1 text-center align-self-stretch">
+                                    <div class="col-lg-1 text-center align-self-stretch" style="display:none!important">
                                         <div class="border-right h-100 mx-auto" style="width:1px;"></div>
                                     </div>
-                                    <div class="col-12 col-lg">
-                                        <?php if(\App\BusinessSetting::where('type', 'google_login')->first()->value == 1): ?>
-                                            <a href="<?php echo e(route('social.login', ['provider' => 'google'])); ?>" class="btn btn-styled btn-block btn-google btn-icon--2 btn-icon-left px-4 my-4">
-                                                <i class="icon fa fa-google"></i> <?php echo e(__('Login with Google')); ?>
+									<div class="col-12 col-lg" style="display:none!important">
+										<?php if(\App\BusinessSetting::where('type', 'google_login')->first()->value == 1): ?>
+										<a href="<?php echo e(route('social.login', ['provider' => 'google'])); ?>" class="btn btn-styled btn-block btn-google btn-icon--2 btn-icon-left px-4 my-4">
+											<i class="icon fa fa-google"></i> <?php echo e(__('Login with Google')); ?>
 
-                                            </a>
-                                        <?php endif; ?>
+										</a>
+										<?php endif; ?>
                                         <?php if(\App\BusinessSetting::where('type', 'facebook_login')->first()->value == 1): ?>
-                                            <a href="<?php echo e(route('social.login', ['provider' => 'facebook'])); ?>" class="btn btn-styled btn-block btn-facebook btn-icon--2 btn-icon-left px-4 my-4">
-                                                <i class="icon fa fa-facebook"></i> <?php echo e(__('Login with Facebook')); ?>
+										<a href="<?php echo e(route('social.login', ['provider' => 'facebook'])); ?>" class="btn btn-styled btn-block btn-facebook btn-icon--2 btn-icon-left px-4 my-4">
+											<i class="icon fa fa-facebook"></i> <?php echo e(__('Login with Facebook')); ?>
 
-                                            </a>
-                                        <?php endif; ?>
+										</a>
+										<?php endif; ?>
                                         <?php if(\App\BusinessSetting::where('type', 'twitter_login')->first()->value == 1): ?>
-                                        <a href="<?php echo e(route('social.login', ['provider' => 'twitter'])); ?>" class="btn btn-styled btn-block btn-twitter btn-icon--2 btn-icon-left px-4 my-4">
-                                            <i class="icon fa fa-twitter"></i> <?php echo e(__('Login with Twitter')); ?>
+										<a href="<?php echo e(route('social.login', ['provider' => 'twitter'])); ?>" class="btn btn-styled btn-block btn-twitter btn-icon--2 btn-icon-left px-4 my-4">
+											<i class="icon fa fa-twitter"></i> <?php echo e(__('Login with Twitter')); ?>
 
-                                        </a>
-                                        <?php endif; ?>
-                                    </div>
+										</a>
+										<?php endif; ?>
+									</div>
                                 </div>
                             </div>
                             <div class="text-center px-35 pb-3">

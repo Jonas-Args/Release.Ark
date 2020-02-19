@@ -1,3 +1,39 @@
+@php
+			 function number_format_short( $n, $precision = 1 ) {
+				 if ($n < 900) {
+					 // 0 - 900
+					 $n_format = number_format($n, $precision);
+					 $suffix = '';
+				 } else if ($n < 900000) {
+					 // 0.9k-850k
+					 $n_format = number_format($n / 1000, $precision);
+					 $suffix = 'K';
+				 } else if ($n < 900000000) {
+					 // 0.9m-850m
+					 $n_format = number_format($n / 1000000, $precision);
+					 $suffix = 'M';
+				 } else if ($n < 900000000000) {
+					 // 0.9b-850b
+					 $n_format = number_format($n / 1000000000, $precision);
+					 $suffix = 'B';
+				 } else {
+					 // 0.9t+
+					 $n_format = number_format($n / 1000000000000, $precision);
+					 $suffix = 'T';
+				 }
+
+				 // Remove unecessary zeroes after decimal. "1.0" -> "1"; "1.00" -> "1"
+				 // Intentionally does not affect partials, eg "1.50" -> "1.50"
+				 if ( $precision > 0 ) {
+					 $dotzero = '.' . str_repeat( '0', $precision );
+					 $n_format = str_replace( $dotzero, '', $n_format );
+				 }
+
+				 return $n_format . $suffix;
+			 }
+
+
+@endphp
 <div class="header bg-white">
     <!-- Top Bar -->
     <div class="top-navbar">
@@ -63,10 +99,10 @@
                         </li>
                         @else
                         <li>
-                            <a href="#" class="top-bar-item"  data-toggle="modal" data-target="#maintenance-update">{{__('Login')}}</a>
+                            <a href="{{ route('user.login') }}" class="top-bar-item">{{__('Login')}}</a>
                         </li>
                         <li>
-                            <a href="#" class="top-bar-item"  data-toggle="modal" data-target="#maintenance-update">{{__('Registration')}}</a>
+                            <a href="{{ route('user.registration') }}" class="top-bar-item">{{__('Registration')}}</a>
                         </li>
                         @endauth
                     </ul>
@@ -144,17 +180,7 @@
                                 </li>
                             @endif
                         @endauth
-                        <li>
-                            <a href="{{ route('compare') }}">
-                                <i class="la la-refresh"></i>
-                                <span>{{__('Compare')}}</span>
-                                @if(Session::has('compare'))
-                                    <span class="badge" id="compare_items_sidenav">{{ count(Session::get('compare'))}}</span>
-                                @else
-                                    <span class="badge" id="compare_items_sidenav">0</span>
-                                @endif
-                            </a>
-                        </li>
+                      
                         <li>
                             <a href="{{ route('cart') }}">
                                 <i class="la la-shopping-cart"></i>
@@ -188,6 +214,15 @@
                                 <span>{{__('Manage Profile')}}</span>
                             </a>
                         </li>
+
+                         <li>
+                    <a href="{{ route('affiliate') }}" class="{{ areActiveRoutesHome(['affiliate'])}}">
+                        <i class="la la-users"></i>
+                        <span class="category-name">
+                            {{__('Enterprise')}}
+                        </span>
+                    </a>
+                </li>
 
                         @if (\App\BusinessSetting::where('type', 'wallet_system')->first()->value == 1)
                             <li>
@@ -436,7 +471,7 @@
                                             <span class="nav-box-text d-none d-xl-inline-block">{{__('Ark Credits')}}</span>
                                            <span class="nav-box-number" style="width: max-content;padding: 0px 10px; background-color:#0acf97!important">
                                              @auth
-                                               {{ single_price(Auth::user()->balance) }}
+                                               {{ number_format_short(floatval(Auth::user()->balance)) }}
                                             @else
                                                0
                                              @endauth
