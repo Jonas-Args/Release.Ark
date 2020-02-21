@@ -31,9 +31,10 @@
 	<div class="modal-dialog modal-lg modal-dialog-centered">
 		<div class="modal-content">
 
-			<img src="<?php echo e(asset('uploads/banners/ARK-WEB.png')); ?>" alt="" style="width:100%" />
+			<img src="<?php echo e(asset('uploads/banners/ARK-WEB-7.png')); ?>" alt="" style="width:100%" />
 			
 		</div>
 	</div>
 </div>
+
 <?php /**PATH C:\Projects\Published\Release.Ark\Ark.FrontEnd.Published\resources\views/frontend/partials/modal.blade.php ENDPATH**/ ?>
