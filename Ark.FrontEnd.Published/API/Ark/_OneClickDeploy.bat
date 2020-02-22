@@ -11,32 +11,21 @@ goto :choice
 
 :somewhere
 
-echo Building Release.CryptoCityWallet.API ...
-dotnet publish CryptoCityWallet.sln -o C:\Projects\Published\Release.CryptoCityWallet\CryptoCityWallet.Api.Published
+echo Building Release.Ark.API ...
+dotnet publish Ark.API.sln -o C:\Projects\Published\Release.Ark\Ark.Api.Published
 
 
-echo Building Release.CryptoCityWallet.FrontEnd ...
-dotnet publish CryptoCityWallet.FrontEnd.sln -o C:\Projects\Published\Release.CryptoCityWallet\CryptoCityWallet.FrontEnd.Published
+#echo Building Release.Ark.FrontEnd ...
+#dotnet publish Ark.FrontEnd.sln -o C:\Projects\Published\Release.Ark\Ark.FrontEnd.Published
 
 
 echo Deploying to git ...
-cd C:\Projects\Published\Release.CryptoCityWallet
+cd C:\Projects\Published\Release.Ark
 git add *.*
 git commit -m "One Click Deploy"
 
 
 git push
-
-echo Change directory to project folder..
-cd C:\Projects\Net Core\CryptoCityWallet
-
-
-echo Deploying to server: Portal
-plink ubuntu@54.169.98.94 -m oneclick.portal.sh -batch
-
-
-echo Deploying to server: API
-plink -pw 208BNwk%H66s$$PsBw#3 ph-dev@13.251.181.208 -m oneclick.api.sh -batch
 
 
 echo Deployment done. Have a good day :)
