@@ -55,7 +55,7 @@
                                                         <i class="la la-minus"></i>
                                                     </button>
                                                 </span>
-                                                <input type="text" name="quantity[<?php echo e($key); ?>]" class="form-control input-number" placeholder="1" value="<?php echo e($cartItem['quantity']); ?>" min="1" max="10" onchange="updateQuantity(<?php echo e($key); ?>, this)">
+                                                <input type="text" name="quantity[<?php echo e($key); ?>]" style="padding-left:0px; padding-right:0px" class="form-control input-number" placeholder="1" value="<?php echo e($cartItem['quantity']); ?>" min="1" max="50" onchange="updateQuantity(<?php echo e($key); ?>, this)">
                                                 <span class="input-group-btn">
                                                     <button class="btn btn-number" type="button" data-type="plus" data-field="quantity[<?php echo e($key); ?>]">
                                                         <i class="la la-plus"></i>

@@ -1,4 +1,7 @@
 <?php $__env->startSection('content'); ?>
+<?php
+use Illuminate\Support\Facades\DB;
+?>
     <section class="home-banner-area mb-4">
         <div class="container">
             <div class="row no-gutters position-relative">
@@ -175,7 +178,7 @@
                                                     <div class="price">
                                                         <span class="d-block"><?php echo e(home_discounted_base_price($product->id)); ?></span>
                                                         <?php if(home_base_price($product->id) != home_discounted_base_price($product->id)): ?>
-                                                            <del class="d-block"><?php echo e(home_base_price($product->id)); ?></del>
+                                                            <del class="d-block"><?php echo e(single_price_dashboard($product->id)); ?></del>
                                                         <?php endif; ?>
                                                     </div>
                                                 </div>
@@ -331,6 +334,7 @@
 			<div class="products-box-bar p-3 bg-white">
 				<div class="row sm-no-gutters gutters-5">
 					<?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+					
 					<div class="col-xxl-3 col-xl-4 col-lg-3 col-md-4 col-6">
 						<div class="product-box-2 bg-white alt-box my-md-2">
 							<div class="position-relative overflow-hidden">
@@ -361,9 +365,9 @@
 								<div class="clearfix">
 									<div class="price-box float-left">
 										<?php if(home_base_price($product->id) != home_discounted_base_price($product->id)): ?>
-										<del class="old-product-price strong-400"><?php echo e(home_base_price($product->id)); ?></del>
+										<del class="old-product-price strong-400"><?php echo e(single_price_dashboard($product->id)); ?></del>
 										<?php endif; ?>
-										<span class="product-price strong-600"><?php echo e(home_discounted_base_price($product->id)); ?></span>
+										<span class="product-price strong-600"><?php echo e(single_price_dashboard($product->id)); ?></span>
 									</div>
 								</div>
 							</div>

@@ -1,6 +1,8 @@
 <?php $__env->startSection('content'); ?>
 
 <?php
+	try{
+	
    $_s = Session::get('apiSession');
   
    $url = 'http://localhost:55006/api/user/BusinessPackages';
@@ -34,8 +36,13 @@
 	   $result = file_get_contents($url, false, $context);
 	   $_res = json_decode($result);
 	   $userLink = $_res->affiliateMapBO;
+   }
 
    }
+	catch (Exception $exception)
+	{
+		echo '<script>window.location = "' .  route('logout') . '"</script>';
+	}
 ?>
 
 <section class="gry-bg py-4 profile">

@@ -187,7 +187,9 @@
                                     </a>
                                 </div>
                                 <div class="col-6 text-right">
+                                     @if(Auth::user()->balance < $total)
                                     <button type="submit" class="btn btn-styled btn-base-1">{{__('Complete Order')}}</button>
+									@endif
                                 </div>
                             </div>
 							@endif

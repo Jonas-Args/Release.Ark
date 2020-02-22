@@ -1,1 +1,0 @@
-dotnet publish MinnyCasinoAffiliate.sln -o C:\Projects\Published\Release.MinnyCasinoAffiliate\MinnyCasinoAffiliate.Api.Published

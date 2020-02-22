@@ -43,7 +43,7 @@
 						<div class="product-gal sticky-top d-flex flex-row-reverse">
 							<?php if(is_array(json_decode($product->photos)) && count(json_decode($product->photos)) > 0): ?>
 								<div class="product-gal-img">
-									<img src="<?php echo e(asset('frontend/images/placeholder.jpg')); ?>" class="xzoom img-fluid lazyload" src="<?php echo e(asset('frontend/images/placeholder.jpg')); ?>" data-src="<?php echo e(asset(json_decode($product->photos)[0])); ?>" xoriginal="<?php echo e(asset(json_decode($product->photos)[0])); ?>" />
+									<img style="width:100%" src="<?php echo e(asset('frontend/images/placeholder.jpg')); ?>" class="xzoom img-fluid lazyload" src="<?php echo e(asset('frontend/images/placeholder.jpg')); ?>" data-src="<?php echo e(asset(json_decode($product->photos)[0])); ?>" xoriginal="<?php echo e(asset(json_decode($product->photos)[0])); ?>" />
 								</div>
 								<div class="product-gal-thumb">
 									<div class="xzoom-thumbs">
@@ -152,7 +152,7 @@
 									</div>
 									<div class="col-10">
 										<div class="product-price">
-											<strong>
+											<strong id="unit_price">
 												<?php echo e(home_discounted_price($product->id)); ?>
 
 											</strong>
@@ -167,7 +167,7 @@
 									</div>
 									<div class="col-10">
 										<div class="product-price">
-											<strong>
+											<strong id="unit_price">
 												<?php echo e(home_discounted_price($product->id)); ?>
 
 											</strong>
@@ -176,7 +176,14 @@
 									</div>
 								</div>
 							<?php endif; ?>
-
+							<br />
+							<p>Quantity Variations</p>
+							<?php $__currentLoopData = $product_price; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k1 => $product_priceItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+							<?php if($product_priceItem->range_from != $product_priceItem->range_to): ?>
+							<?php echo e($product_priceItem->range_from); ?> - <?php echo e($product_priceItem->range_to . ' ' .$product->unit . 's'); ?> = <b><?php echo e(single_price($product_priceItem->unit_price)); ?></b>
+							<br />
+							<?php endif; ?>
+							<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 							<hr>
 
 							<form id="option-choice-form">

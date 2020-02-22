@@ -145,7 +145,7 @@
 		}
 
 		$.ajax({
-			url: 'http://localhost:55006/api/BusinessPackage/Update',
+			url: 'http://nightly.ark.com.ph:55009/api/BusinessPackage/Update',
 			type: "POST",
 			data: JSON.stringify(UserBusinessPackageBO),
 			contentType: 'application/json',

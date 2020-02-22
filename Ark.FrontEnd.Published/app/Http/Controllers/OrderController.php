@@ -15,6 +15,7 @@ use PDF;
 use Mail;
 use App\Mail\InvoiceEmailManager;
 
+
 class OrderController extends Controller
 {
     /**
@@ -228,6 +229,94 @@ class OrderController extends Controller
 
             $order->grand_total = $subtotal + $tax + $shipping;
 
+             $_s = Session::get('apiSession');
+
+				 $url = 'http://localhost:55006/api/user/BusinessPackages';
+				 $options = array(
+					 'http' => array(
+						 'method'  => 'GET',
+						 'header'    => "Accept-language: en\r\n" .
+							 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
+					 )
+				 );
+			$context  = stream_context_create($options);
+			$result = file_get_contents($url, false, $context);
+			$_r = json_decode($result);
+
+			if(count($_r->businessPackages) != 0){
+				if ($_r->businessPackages[0]->packageStatus == "2")
+				{
+					switch($_r->businessPackages[0]->businessPackage->packageCode){
+						case "EPKG1":
+							$user->balance += ($subtotal * 0.0025);
+							$_rewards = ($subtotal * 0.0025);
+							$user->save();
+							break;
+
+						case "EPKG2":
+							$user->balance += ($subtotal * 0.005);
+							$_rewards = ($subtotal * 0.005);
+							$user->save();
+							break;
+
+						case "EPKG3":
+							$user->balance += ($subtotal * 0.01);
+							$_rewards = ($subtotal * 0.01);
+							$user->save();
+							break;
+
+					}
+
+					$wallet = new Wallet;
+					$wallet->user_id = $user->id;
+					$wallet->amount = $_rewards;
+					$wallet->payment_method = 'Product Rebates';
+					$wallet->payment_details = 'Product Rebates';
+					$wallet->save();
+				}
+
+			}
+
+			$url = 'http://localhost:55006/api/Affiliate/Commission';
+			$data = array(
+				'amountPaid' => floatval($subtotal)
+				);
+
+			// use key 'http' even if you send the request to https://...
+			$options = array(
+				'http' => array(
+					'header'  => "Content-type: application/json \r\n" .
+						   "Cookie: .AspNetCore.Session=". $_s ."\r\n",
+					'method'  => 'POST',
+					'content' => json_encode($data)
+				)
+			);
+			$context  = stream_context_create($options);
+			$result = file_get_contents($url, false, $context);
+			$_r = json_decode($result);
+
+			if ($_r->httpStatusCode == "200")
+			{
+				foreach ($_r->commission as $commissionItem)
+				{
+					$_userC = DB::table('users')->where('id', $commissionItem->shopUserId)->increment('balance' , floatval($commissionItem->reward));
+
+					$wallet = new Wallet;
+					$wallet->user_id = $commissionItem->shopUserId;
+					$wallet->amount = $commissionItem->reward;
+					$wallet->payment_method = 'Product Commission';
+					$wallet->payment_details = 'Product Commission';
+					$wallet->save();
+				}
+
+
+				//flash(__('An error occured: ' . $_r->message))->error();
+
+			}
+			else{
+
+			}
+
             if(Session::has('coupon_discount')){
                 $order->grand_total -= Session::get('coupon_discount');
                 $order->coupon_discount = Session::get('coupon_discount');
@@ -259,7 +348,7 @@ class OrderController extends Controller
             //sends email to customer with the invoice pdf attached
             if(env('MAIL_USERNAME') != null){
                 try {
-                    Mail::to($request->session()->get('shipping_info')['email'])->queue(new InvoiceEmailManager($array));
+                   // Mail::to($request->session()->get('shipping_info')['email'])->queue(new InvoiceEmailManager($array));
                 } catch (\Exception $e) {
 
                 }
