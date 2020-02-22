@@ -45,7 +45,7 @@
 						<div class="product-gal sticky-top d-flex flex-row-reverse">
 							@if(is_array(json_decode($product->photos)) && count(json_decode($product->photos)) > 0)
 								<div class="product-gal-img">
-									<img src="{{ asset('frontend/images/placeholder.jpg') }}" class="xzoom img-fluid lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($product->photos)[0]) }}" xoriginal="{{ asset(json_decode($product->photos)[0]) }}" />
+									<img style="width:100%" src="{{ asset('frontend/images/placeholder.jpg') }}" class="xzoom img-fluid lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($product->photos)[0]) }}" xoriginal="{{ asset(json_decode($product->photos)[0]) }}" />
 								</div>
 								<div class="product-gal-thumb">
 									<div class="xzoom-thumbs">
@@ -156,7 +156,7 @@
 									</div>
 									<div class="col-10">
 										<div class="product-price">
-											<strong>
+											<strong id="unit_price">
 												{{ home_discounted_price($product->id) }}
 											</strong>
 											<span class="piece">/{{ $product->unit }}</span>
@@ -170,7 +170,7 @@
 									</div>
 									<div class="col-10">
 										<div class="product-price">
-											<strong>
+											<strong id="unit_price">
 												{{ home_discounted_price($product->id) }}
 											</strong>
 											<span class="piece">/{{ $product->unit }}</span>
@@ -178,7 +178,14 @@
 									</div>
 								</div>
 							@endif
-
+							<br />
+							<p>Quantity Variations</p>
+							@foreach ($product_price as $k1 => $product_priceItem)
+							@if($product_priceItem->range_from != $product_priceItem->range_to)
+							{{ $product_priceItem->range_from }} - {{ $product_priceItem->range_to . ' ' .$product->unit . 's'}} = <b>{{ single_price($product_priceItem->unit_price) }}</b>
+							<br />
+							@endif
+							@endforeach
 							<hr>
 
 							<form id="option-choice-form">

@@ -6,6 +6,7 @@ use App\Product;
 use App\SubSubCategory;
 use App\FlashDealProduct;
 use App\FlashDeal;
+use Illuminate\Support\Facades\DB;
 
 //highlights the selected navigation on admin panel
 if (! function_exists('areActiveRoutes')) {
@@ -221,22 +222,32 @@ if (! function_exists('single_price')) {
     }
 }
 
+if (! function_exists('single_price_dashboard')) {
+    function single_price_dashboard($id)
+    {
+        $product_price = DB::table('product_price')->where('product_id', '=', $id)->get();
+        $price = count($product_price) > 0 ?  single_price($product_price[count($product_price) - 1]->unit_price) . ' - ' . single_price($product_price[0]->unit_price) : single_price(0);
+        return $price;
+    }
+}
+
 //Shows Price on page based on low to high
 if (! function_exists('home_price')) {
     function home_price($id)
     {
         $product = Product::findOrFail($id);
-        $lowest_price = $product->unit_price;
-        $highest_price = $product->unit_price;
+        $product_price = DB::table('product_price')->where([['product_id', '=', $product->id]])->get();
+        $lowest_price = $product_price[0]->unit_price;
+        $highest_price = $product_price[0]->unit_price;
 
-        foreach (json_decode($product->variations) as $key => $variation) {
-            if($lowest_price > $variation->price){
-                $lowest_price = $variation->price;
-            }
-            if($highest_price < $variation->price){
-                $highest_price = $variation->price;
-            }
-        }
+		//foreach (json_decode($product->variations) as $key => $variation) {
+		//    if($lowest_price > $variation->price){
+		//        $lowest_price = $variation->price;
+		//    }
+		//    if($highest_price < $variation->price){
+		//        $highest_price = $variation->price;
+		//    }
+		//}
 
         if($product->tax_type == 'percent'){
             $lowest_price += ($lowest_price*$product->tax)/100;
@@ -264,17 +275,18 @@ if (! function_exists('home_discounted_price')) {
     function home_discounted_price($id)
     {
         $product = Product::findOrFail($id);
-        $lowest_price = $product->unit_price;
-        $highest_price = $product->unit_price;
+        $product_price = DB::table('product_price')->where([['product_id', '=', $product->id]])->get();
+        $lowest_price = $product_price[0]->unit_price;
+        $highest_price = $product_price[0]->unit_price;
 
-        foreach (json_decode($product->variations) as $key => $variation) {
-            if($lowest_price > $variation->price){
-                $lowest_price = $variation->price;
-            }
-            if($highest_price < $variation->price){
-                $highest_price = $variation->price;
-            }
-        }
+		//foreach (json_decode($product->variations) as $key => $variation) {
+		//    if($lowest_price > $variation->price){
+		//        $lowest_price = $variation->price;
+		//    }
+		//    if($highest_price < $variation->price){
+		//        $highest_price = $variation->price;
+		//    }
+		//}
 
         $flash_deal = \App\FlashDeal::where('status', 1)->first();
         if ($flash_deal != null && strtotime(date('d-m-Y')) >= $flash_deal->start_date && strtotime(date('d-m-Y')) <= $flash_deal->end_date && FlashDealProduct::where('flash_deal_id', $flash_deal->id)->where('product_id', $id)->first() != null) {

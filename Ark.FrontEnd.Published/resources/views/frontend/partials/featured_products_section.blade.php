@@ -21,9 +21,9 @@
                             <div class="p-md-3 p-2">
                                 <div class="price-box">
                                     @if(home_base_price($product->id) != home_discounted_base_price($product->id))
-                                        <del class="old-product-price strong-400">{{ home_base_price($product->id) }}</del>
+                                        <del class="old-product-price strong-400">{{ single_price_dashboard($product->id) }}</del>
                                     @endif
-                                    <span class="product-price strong-600">{{ home_discounted_base_price($product->id) }}</span>
+                                    <span class="product-price strong-600">{{ single_price_dashboard($product->id) }}</span>
                                 </div>
                                 <div class="star-rating star-rating-sm mt-1">
                                     {{ renderStarRating($product->rating) }}

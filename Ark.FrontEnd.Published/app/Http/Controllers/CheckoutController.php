@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Auth;
 use App\Category;
@@ -14,7 +15,9 @@ use App\Order;
 use App\BusinessSetting;
 use App\Coupon;
 use App\CouponUsage;
+use App\Wallet;
 use Session;
+
 
 class CheckoutController extends Controller
 {
@@ -98,16 +101,63 @@ class CheckoutController extends Controller
             	return redirect()->route('home');
             }
             elseif ($request->payment_option == 'wallet') {
+                $grandTotal = Order::findOrFail($request->session()->get('order_id'))->grand_total;
+                $_rewards = 0;
                 $user = Auth::user();
-                $user->balance -= Order::findOrFail($request->session()->get('order_id'))->grand_total;
+                $user->balance -= $grandTotal;
                 $user->save();
 
                  $_s = Session::get('apiSession');
 
+				 $url = 'http://localhost:55006/api/user/BusinessPackages';
+				 $options = array(
+					 'http' => array(
+						 'method'  => 'GET',
+						 'header'    => "Accept-language: en\r\n" .
+							 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
+					 )
+				 );
+				 $context  = stream_context_create($options);
+				 $result = file_get_contents($url, false, $context);
+				 $_r = json_decode($result);
 
-                 $url = 'http://localhost:55006/api/Affiliate/Commission';
+                  if(count($_r->businessPackages) != 0){
+					  if ($_r->businessPackages[0]->packageStatus == "2")
+					  {
+                          switch($_r->businessPackages[0]->businessPackage->packageCode){
+							  case "EPKG1":
+								  $user->balance += ($grandTotal * 0.0025);
+                                  $_rewards = ($grandTotal * 0.0025);
+								  $user->save();
+                              break;
+
+							  case "EPKG2":
+                                  $user->balance += ($grandTotal * 0.005);
+                                  $_rewards = ($grandTotal * 0.005);
+								  $user->save();
+                              break;
+
+							  case "EPKG3":
+                                  $user->balance += ($grandTotal * 0.01);
+                                  $_rewards = ($grandTotal * 0.01);
+								  $user->save();
+                              break;
+
+						  }
+
+                          $wallet = new Wallet;
+						  $wallet->user_id = $user->id;
+						  $wallet->amount = $_rewards;
+						  $wallet->payment_method = 'Product Rebates';
+						  $wallet->payment_details = 'Product Rebates';
+						  $wallet->save();
+				      }
+
+				  }
+
+				  $url = 'http://localhost:55006/api/Affiliate/Commission';
 				 $data = array(
-					 'amountPaid' => Order::findOrFail($request->session()->get('order_id'))->grand_total
+					 'amountPaid' => floatval(Order::findOrFail($request->session()->get('order_id'))->grand_total)
 					 );
 
 				 // use key 'http' even if you send the request to https://...
@@ -123,11 +173,28 @@ class CheckoutController extends Controller
 				 $result = file_get_contents($url, false, $context);
 				 $_r = json_decode($result);
 
-				 if ($_r->httpStatusCode == "500")
+				 if ($_r->httpStatusCode == "200")
 				 {
+                     foreach ($_r->commission as $commissionItem)
+					 {
+                         $_userC = DB::table('users')->where('id', $commissionItem->shopUserId)->increment('balance' , floatval($commissionItem->reward));
+
+						 $wallet = new Wallet;
+						 $wallet->user_id = $commissionItem->shopUserId;
+						 $wallet->amount = $commissionItem->reward;
+						 $wallet->payment_method = 'Product Commission';
+						 $wallet->payment_details = 'Product Commission';
+						 $wallet->save();
+					 }
+
+
 					 //flash(__('An error occured: ' . $_r->message))->error();
 
 				 }
+                 else{
+
+				 }
+
 
 				 return $this->checkout_done($request->session()->get('order_id'), null);
             }

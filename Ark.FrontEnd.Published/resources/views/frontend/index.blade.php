@@ -1,6 +1,9 @@
 @extends('frontend.layouts.app')
 
 @section('content')
+@php
+use Illuminate\Support\Facades\DB;
+@endphp
     <section class="home-banner-area mb-4">
         <div class="container">
             <div class="row no-gutters position-relative">
@@ -175,7 +178,7 @@
                                                     <div class="price">
                                                         <span class="d-block">{{ home_discounted_base_price($product->id) }}</span>
                                                         @if(home_base_price($product->id) != home_discounted_base_price($product->id))
-                                                            <del class="d-block">{{ home_base_price($product->id) }}</del>
+                                                            <del class="d-block">{{ single_price_dashboard($product->id) }}</del>
                                                         @endif
                                                     </div>
                                                 </div>
@@ -331,6 +334,7 @@
 			<div class="products-box-bar p-3 bg-white">
 				<div class="row sm-no-gutters gutters-5">
 					@foreach ($products as $key => $product)
+					
 					<div class="col-xxl-3 col-xl-4 col-lg-3 col-md-4 col-6">
 						<div class="product-box-2 bg-white alt-box my-md-2">
 							<div class="position-relative overflow-hidden">
@@ -360,9 +364,9 @@
 								<div class="clearfix">
 									<div class="price-box float-left">
 										@if(home_base_price($product->id) != home_discounted_base_price($product->id))
-										<del class="old-product-price strong-400">{{ home_base_price($product->id) }}</del>
+										<del class="old-product-price strong-400">{{ single_price_dashboard($product->id)  }}</del>
 										@endif
-										<span class="product-price strong-600">{{ home_discounted_base_price($product->id) }}</span>
+										<span class="product-price strong-600">{{single_price_dashboard($product->id)}}</span>
 									</div>
 								</div>
 							</div>

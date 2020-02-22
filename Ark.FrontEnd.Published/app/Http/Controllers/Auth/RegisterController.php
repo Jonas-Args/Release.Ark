@@ -68,6 +68,14 @@ class RegisterController extends Controller
 	 */
 	protected function create(array $data)
 	{
+		$user = User::create([
+		'name' => $data['fname'] . ' ' . $data['lname'],
+		'fname' => $data['fname'],
+		'mname' => $data['mname'],
+		'lname' => $data['lname'],
+		'email' => $data['email'],
+		'password' => Hash::make($data['password']),
+	]);
 
 		$url = 'http://localhost:55006/api/user/create';
 		$_data = array(
@@ -79,7 +87,8 @@ class RegisterController extends Controller
 			'Email' => $data['email'],
 			'PasswordString' => $data['password'],
 			'DirectSponsorID' => $data['source_code'],
-			'BinaryPosition' => '1'
+			'BinaryPosition' => '1',
+			'ShopUserId' => $user->id
 			);
 
 
@@ -101,16 +110,6 @@ class RegisterController extends Controller
 		}
 
 		else{
-
-			$user = User::create([
-		'name' => $data['fname'] . ' ' . $data['lname'],
-		'fname' => $data['fname'],
-		'mname' => $data['mname'],
-		'lname' => $data['lname'],
-		'email' => $data['email'],
-		'password' => Hash::make($data['password']),
-	]);
-
 
 			if(BusinessSetting::where('type', 'email_verification')->first()->value != 1){
 				$user->email_verified_at = date('Y-m-d H:m:s');

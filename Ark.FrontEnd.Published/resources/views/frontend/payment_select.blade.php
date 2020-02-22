@@ -177,6 +177,8 @@
                                 </div>
                             </div>
 
+							@if (Auth::check() && \App\BusinessSetting::where('type', 'wallet_system')->first()->value == 1)
+                            @else
                             <div class="row align-items-center pt-4">
                                 <div class="col-6">
                                     <a href="{{ route('home') }}" class="link link--style-3">
@@ -188,6 +190,7 @@
                                     <button type="submit" class="btn btn-styled btn-base-1">{{__('Complete Order')}}</button>
                                 </div>
                             </div>
+							@endif
                         </form>
                     </div>
 

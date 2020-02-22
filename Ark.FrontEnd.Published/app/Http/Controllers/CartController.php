@@ -8,6 +8,7 @@ use App\SubSubCategory;
 use App\Category;
 use Session;
 use App\Color;
+use Illuminate\Support\Facades\DB;
 
 class CartController extends Controller
 {
@@ -32,6 +33,7 @@ class CartController extends Controller
     public function addToCart(Request $request)
     {
         $product = Product::find($request->id);
+        $product_price = DB::table('product_price')->where([['product_id', '=', $product->id],['range_from', '<=',floatval($request->quantity)],['range_to', '>=',floatval($request->quantity)]])->get();
 
         $data = array();
         $data['id'] = $product->id;
@@ -58,7 +60,7 @@ class CartController extends Controller
         //Check the string and decreases quantity for the stock
         if($str != null){
             $variations = json_decode($product->variations);
-            $price = $variations->$str->price;
+            $price = $product_price[0]->unit_price;//$variations->$str->price;
             if($variations->$str->qty >= $request['quantity']){
                 // $variations->$str->qty -= $request['quantity'];
                 // $product->variations = json_encode($variations);
@@ -69,7 +71,7 @@ class CartController extends Controller
             }
         }
         else{
-            $price = $product->unit_price;
+            $price = $product_price[0]->unit_price; //$product->unit_price;
         }
 
         //discount calculation based on flash deal and regular discount
@@ -146,7 +148,12 @@ class CartController extends Controller
         $cart = $request->session()->get('cart', collect([]));
         $cart = $cart->map(function ($object, $key) use ($request) {
             if($key == $request->key){
+                $product = Product::find($object['id']);
+				$product_price = DB::table('product_price')->where([['product_id', '=', $product->id],['range_from', '<=',floatval($request->quantity)],['range_to', '>=',floatval($request->quantity)]])->get();
+
+
                 $object['quantity'] = $request->quantity;
+                $object['price'] = $product_price[0]->unit_price;
             }
             return $object;
         });

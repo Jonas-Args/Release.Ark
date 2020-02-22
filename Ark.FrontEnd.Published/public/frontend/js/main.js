@@ -227,9 +227,11 @@ $(document).ready(function() {
     }
     $('.xzoom, .xzoom-gallery').xzoom({
         Xoffset: zoomXoffset,
+        zoomWidth: '400',
+        zoomHeight: '400',
         bg: true,
         tint: '#000',
-        defaultScale: -1,
+        defaultScale: 0,
         position: zoomposition
     });
 

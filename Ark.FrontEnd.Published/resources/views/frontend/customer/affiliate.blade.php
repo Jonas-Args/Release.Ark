@@ -8,8 +8,8 @@
 	 $_s = Session::get('apiSession');
 
 
-	 // try
-	 // {
+	  try
+	  {
 	 $url = 'http://localhost:55006/api/user/BusinessPackages';
 	 $options = array(
 		 'http' => array(
@@ -107,11 +107,11 @@
 		 }
 		 //var_dump($userLink);
 	 }
-	 // }
-	 // catch (Exception $exception)
-	 // {
-	 //	 echo '<script>window.location = "' .  route('logout') . '"</script>';
-	 // }
+	  }
+	  catch (Exception $exception)
+	  {
+	 	 echo '<script>window.location = "' .  route('logout') . '"</script>';
+	  }
 			 
   @endphp
 

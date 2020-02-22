@@ -19,6 +19,7 @@ use App\Color;
 use App\Order;
 use App\BusinessSetting;
 use App\Http\Controllers\SearchController;
+use Illuminate\Support\Facades\DB;
 use ImageOptimizer;
 
 class HomeController extends Controller
@@ -254,9 +255,10 @@ class HomeController extends Controller
     public function product($slug)
     {
         $product  = Product::where('slug', $slug)->first();
+        $product_price = DB::table('product_price')->where([['product_id', '=', $product->id]])->get();
         if($product!=null){
             updateCartSetup();
-            return view('frontend.product_details', compact('product'));
+            return view('frontend.product_details', compact('product'), compact('product_price'));
         }
         abort(404);
     }
@@ -290,6 +292,7 @@ class HomeController extends Controller
         $categories = Category::all();
         return view('frontend.all_category', compact('categories'));
     }
+
     public function all_brands(Request $request)
     {
         $categories = Category::all();
@@ -459,6 +462,8 @@ class HomeController extends Controller
         $product = Product::find($request->id);
         $str = '';
         $quantity = 0;
+        $product_price = DB::table('product_price')->where([['product_id', '=', $product->id],['range_from', '<=',floatval($request->quantity)],['range_to', '>=',floatval($request->quantity)]])->get();
+
 
         if($request->has('color')){
             $data['color'] = $request['color'];
@@ -509,7 +514,8 @@ class HomeController extends Controller
         elseif($product->tax_type == 'amount'){
             $price += $product->tax;
         }
-        return array('price' => single_price($price*$request->quantity), 'quantity' => $quantity);
+        return array('price' => single_price($product_price[0]->unit_price*$request->quantity), 'quantity' => $quantity, 'unit_price' => single_price($product_price[0]->unit_price));
+		//return array('price' => single_price($price*$request->quantity), 'quantity' => $quantity);
     }
 
     public function sellerpolicy(){

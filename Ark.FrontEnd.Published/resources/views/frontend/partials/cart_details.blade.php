@@ -55,7 +55,7 @@
                                                         <i class="la la-minus"></i>
                                                     </button>
                                                 </span>
-                                                <input type="text" name="quantity[{{ $key }}]" class="form-control input-number" placeholder="1" value="{{ $cartItem['quantity'] }}" min="1" max="10" onchange="updateQuantity({{ $key }}, this)">
+                                                <input type="text" name="quantity[{{ $key }}]" style="padding-left:0px; padding-right:0px" class="form-control input-number" placeholder="1" value="{{ $cartItem['quantity'] }}" min="1" max="50" onchange="updateQuantity({{ $key }}, this)">
                                                 <span class="input-group-btn">
                                                     <button class="btn btn-number" type="button" data-type="plus" data-field="quantity[{{ $key }}]">
                                                         <i class="la la-plus"></i>
