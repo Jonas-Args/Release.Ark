@@ -125,7 +125,7 @@
                                 </li>
                             @else
                                 <li>
-									<a href="#" data-toggle="modal" data-target="#maintenance-update" title="Login">
+									<a href="{{ route('user.login') }}" title="Login">
 										{{__('Login')}}
 									</a>
                                 </li>
