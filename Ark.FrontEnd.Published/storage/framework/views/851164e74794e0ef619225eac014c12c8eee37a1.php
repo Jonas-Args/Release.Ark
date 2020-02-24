@@ -131,7 +131,7 @@
                                 </li>
                             <?php else: ?>
                                 <li>
-									<a href="#" data-toggle="modal" data-target="#maintenance-update" title="Login">
+									<a href="<?php echo e(route('user.login')); ?>" title="Login">
 										<?php echo e(__('Login')); ?>
 
 									</a>

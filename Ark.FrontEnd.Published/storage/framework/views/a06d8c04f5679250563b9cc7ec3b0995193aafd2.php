@@ -136,8 +136,8 @@
                                 <div class="image " style="background-image:url('<?php echo e(asset('frontend/images/icons/user-placeholder.jpg')); ?>')"></div>
                         </div>
                         <div class="side-login px-3 pb-3">
-                            <a href="#" data-toggle="modal" data-target="#maintenance-update"><?php echo e(__('Sign In')); ?></a>
-                            <a href="#" data-toggle="modal" data-target="#maintenance-update"><?php echo e(__('Registration')); ?></a>
+                            <a href="<?php echo e(route('user.login')); ?>"><?php echo e(__('Sign In')); ?></a>
+                            <a href="<?php echo e(route('user.registration')); ?>"><?php echo e(__('Registration')); ?></a>
                         </div>
                     <?php endif; ?>
                 </div>
