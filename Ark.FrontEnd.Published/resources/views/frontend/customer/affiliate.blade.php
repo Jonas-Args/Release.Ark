@@ -521,7 +521,7 @@
 	function SendDepositRequest() {
 
 		 $.ajax({
-		     url: 'http://nightly.ark.com.ph:55009/api/BusinessPackage/Buy',
+		     url: config.ApiURL + '/api/BusinessPackage/Buy',
 			 type: "POST",
 			 data: getFormData(document.getElementById('packageForm')),
 		     contentType: 'application/json',

@@ -7,7 +7,62 @@
 <head>
 
 @php
+    class configuration{
+		function _construct(){
+            $this->ApiURL = "";
+            $this->FrontEndURL = "";
+            $this->Environment = "";
+		}
+
+        function GetEnvironment(){
+            $isProdEnv = strrpos("https://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'],"ark.com.ph");
+            $isUatEnv = strrpos("https://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'],"nightly.ark.com.ph");
+            $isDevEnv = strrpos("https://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'],"localhost");
+            if ($isProdEnv)
+			{
+                $this->SetProductionEnvironment();
+			}
+            else if ($isUatEnv){
+				$this->SetUatEnvironment();
+			}
+            else if ($isDevEnv){
+				$this->SetDevelopmentEnvironment();
+			}
+            $this->SetJavaScriptEnvironment();
+		}
+
+        function SetDevelopmentEnvironment(){
+			$this->ApiURL = "http://localhost:55006/";
+            $this->FrontEndURL = "http://localhost:1111/";
+            $this->Environment = "Development";
+		}
+        function SetUatEnvironment(){
+			$this->ApiURL = "http://nightly.ark.com.ph:55009/";
+            $this->FrontEndURL = "http://nightly.ark.com.ph/";
+            $this->Environment = "UAT";
+		}
+        function SetProductionEnvironment(){
+			$this->ApiURL = "http://ark.com.ph:55009/";
+            $this->FrontEndURL = "http://ark.com.ph/";
+            $this->Environment = "Production";
+		}
+
+        function SetJavaScriptEnvironment(){
+			$configToJson = json_encode($this);
+            echo "<script>" . "var config = " . $configToJson . "</script>" ;
+		}
+	}
+
+    $configuration = new configuration();
+    $configuration->GetEnvironment();
+
+    //var_dump($configuration);
+       
     $seosetting = \App\SeoSetting::first();
+    
+    $env
+  
+	
 @endphp
 
 <meta charset="utf-8">
