@@ -20,10 +20,10 @@
             $isDevEnv = strrpos("https://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'],"localhost");
             if ($isUatEnv)
 			{
-                $this->SetProductionEnvironment();
+                $this->SetUatEnvironment();
 			}
             else if ($isProdEnv){
-				$this->SetUatEnvironment();
+                $this->SetProductionEnvironment();
 			}
             else if ($isDevEnv){
 				$this->SetDevelopmentEnvironment();
