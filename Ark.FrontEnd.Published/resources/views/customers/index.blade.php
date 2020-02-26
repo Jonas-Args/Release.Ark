@@ -145,7 +145,7 @@
 		}
 
 		$.ajax({
-			url: config.ApiURL + '/api/BusinessPackage/Update',
+			url: config.ApiURL + 'api/BusinessPackage/Update',
 			type: "POST",
 			data: JSON.stringify(UserBusinessPackageBO),
 			contentType: 'application/json',
