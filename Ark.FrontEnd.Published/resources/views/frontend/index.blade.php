@@ -382,7 +382,7 @@ use Illuminate\Support\Facades\DB;
 
 @section('script')
     <script type="text/javascript">
-		$('#maintenance-update').modal('show')
+		//$('#maintenance-update').modal('show')
 
         $(document).ready(function(){
             $.post('{{ route('home.section.featured') }}', {_token:'{{ csrf_token() }}'}, function(data){
