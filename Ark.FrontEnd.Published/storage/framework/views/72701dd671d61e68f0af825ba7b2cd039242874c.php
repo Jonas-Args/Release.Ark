@@ -18,12 +18,12 @@
             $isProdEnv = strrpos("https://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'],"ark.com.ph");
             $isUatEnv = strrpos("https://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'],"nightly.ark.com.ph");
             $isDevEnv = strrpos("https://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'],"localhost");
-            if ($isProdEnv)
+            if ($isUatEnv)
 			{
-                $this->SetProductionEnvironment();
+                $this->SetUatEnvironment();
 			}
-            else if ($isUatEnv){
-				$this->SetUatEnvironment();
+            else if ($isProdEnv){
+                $this->SetProductionEnvironment();
 			}
             else if ($isDevEnv){
 				$this->SetDevelopmentEnvironment();

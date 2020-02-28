@@ -14,7 +14,7 @@ use DB;
 use PDF;
 use Mail;
 use App\Mail\InvoiceEmailManager;
-
+use App\Wallet;
 
 class OrderController extends Controller
 {
@@ -246,6 +246,7 @@ class OrderController extends Controller
 			if(count($_r->businessPackages) != 0){
 				if ($_r->businessPackages[0]->packageStatus == "2")
 				{
+                    $user = Auth::user();
 					switch($_r->businessPackages[0]->businessPackage->packageCode){
 						case "EPKG1":
 							$user->balance += ($subtotal * 0.0025);

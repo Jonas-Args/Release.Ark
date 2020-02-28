@@ -1,8 +1,6 @@
-@extends('frontend.layouts.app')
+<?php $__env->startSection('content'); ?>
 
-@section('content')
-
-@php
+<?php
 			 
 
 	 $_s = Session::get('apiSession');
@@ -113,40 +111,41 @@
 	 	 echo '<script>window.location = "' .  route('logout') . '"</script>';
 	  }
 			 
-  @endphp
+  ?>
 
 <section class="gry-bg py-4 profile">
 	<div class="container">
 		<div class="row cols-xs-space cols-sm-space cols-md-space">
-			<div class="col-lg-3 d-none d-lg-block" style="display: @if (isset($userLink)) block @else none @endif">
-				@if(Auth::user()->user_type == 'seller')
-						@include('frontend.inc.seller_side_nav')
-					@elseif(Auth::user()->user_type == 'customer')
-						@include('frontend.inc.customer_side_nav')
-					@endif
+			<div class="col-lg-3 d-none d-lg-block" style="display: <?php if(isset($userLink)): ?> block <?php else: ?> none <?php endif; ?>">
+				<?php if(Auth::user()->user_type == 'seller'): ?>
+						<?php echo $__env->make('frontend.inc.seller_side_nav', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+					<?php elseif(Auth::user()->user_type == 'customer'): ?>
+						<?php echo $__env->make('frontend.inc.customer_side_nav', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+					<?php endif; ?>
 			</div>
 
-			<div class=" @if (isset($userLink)) col-lg-9 @else col-lg-12 @endif">
+			<div class=" <?php if(isset($userLink)): ?> col-lg-9 <?php else: ?> col-lg-12 <?php endif; ?>">
 				<div class="main-content">
 					<!-- Page title -->
 					<div class="page-title">
 						<div class="row align-items-center">
 							<div class="col-md-6 col-12">
 								<h2 class="heading heading-6 text-capitalize strong-600 mb-0">
-									{{__('Your Enterprise')}}
+									<?php echo e(__('Your Enterprise')); ?>
+
 								</h2>
 							</div>
 							<div class="col-md-6 col-12">
 								<div class="float-md-right">
 									<ul class="breadcrumb">
 										<li>
-											<a href="{{ route('home') }}">{{__('Home')}}</a>
+											<a href="<?php echo e(route('home')); ?>"><?php echo e(__('Home')); ?></a>
 										</li>
 										<li>
-											<a href="{{ route('dashboard') }}">{{__('Dashboard')}}</a>
+											<a href="<?php echo e(route('dashboard')); ?>"><?php echo e(__('Dashboard')); ?></a>
 										</li>
 										<li class="active">
-											<a href="{{ route('profile') }}">{{__('My Enterprise')}}</a>
+											<a href="<?php echo e(route('profile')); ?>"><?php echo e(__('My Enterprise')); ?></a>
 										</li>
 									</ul>
 								</div>
@@ -154,43 +153,44 @@
 						</div>
 					</div>
 					
-						@csrf
+						<?php echo csrf_field(); ?>
 
 						<div class="">
 
 							
 
-							@if($_r->httpStatusCode == "500")
-							<script>window.location.replace('{{ route('logout') }}');</script>
+							<?php if($_r->httpStatusCode == "500"): ?>
+							<script>window.location.replace('<?php echo e(route('logout')); ?>');</script>
 
-							@else
+							<?php else: ?>
 
 
-							@if(count($_r->businessPackages) == 0)
+							<?php if(count($_r->businessPackages) == 0): ?>
 
 								<div class="form-box bg-white mt-4" id="packageBuyForm" style="display:none">
 									<div class="form-box-title px-3 py-2">
-										{{__('Payment Method')}}
+										<?php echo e(__('Payment Method')); ?>
+
 									</div>
 									<div  class="form-box-content p-3">
 										<form id="packageForm" onsubmit="return SelectPaymentMethod();" >
 										
 										<label><b>Selected Package</b></label>
 										<select class="form-control col-md-4" id="packageBuy_option" name="BusinessPackageID" oninput="UpdateSelectedAmount()">
-											@foreach ($businessPackages as $key => $businessPackage)
-											<option value="{{ $businessPackage->id }}">{{ $businessPackage->packageName }} (PHP {{ number_format($businessPackage->valueTo) }})</option>
-											@endforeach
+											<?php $__currentLoopData = $businessPackages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $businessPackage): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+											<option value="<?php echo e($businessPackage->id); ?>"><?php echo e($businessPackage->packageName); ?> (PHP <?php echo e(number_format($businessPackage->valueTo)); ?>)</option>
+											<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 										</select>
 
 										<select class="form-control col-md-4" id="packageAmount_option" name="AmountPaid" style="display:none">
-											@foreach ($businessPackages as $key => $businessPackage)
-											<option value="{{ $businessPackage->valueFrom }}">{{ number_format($businessPackage->valueTo) }})</option>
-											@endforeach
+											<?php $__currentLoopData = $businessPackages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $businessPackage): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+											<option value="<?php echo e($businessPackage->valueFrom); ?>"><?php echo e(number_format($businessPackage->valueTo)); ?>)</option>
+											<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 										</select>
 										
 										<br />
 
-										<input type="hidden" name="Id" value="{{ Session::get('userAuthId') }}" />
+										<input type="hidden" name="Id" value="<?php echo e(Session::get('userAuthId')); ?>" />
 										<input type="hidden" name="FromCurrencyIso3" value="PHP" />
 										<input type="number" style="display:none" name="DepositStatus" value="0" />
 
@@ -198,7 +198,7 @@
 										<select class="form-control col-md-4" name="Remarks" id="FromWalletCode">
 											<option value="CASH VIA ADMIN">CASH VIA ADMIN</option>
 											<option value="DEPOSIT VIA BANK">DEPOSIT VIA BANK</option>
-										<!--<option value="ACW">ARK CASH WALLET | PHP {{ $UserWallet[9]->balance }}</option>-->	
+										<!--<option value="ACW">ARK CASH WALLET | PHP <?php echo e($UserWallet[9]->balance); ?></option>-->	
 											<option value="G Cash" disabled>G-Cash (Coming Soon)</option>
 											<option value="Paymaya" disabled>Paymaya (Coming Soon)</option>
 											<option value="7 Eleven" disabled>7 - Eleven (Coming Soon)</option>
@@ -213,7 +213,7 @@
 							
 								<div class="form-box bg-white mt-4" style="width:100%" id="packageSelectForm">
 									<div class="form-box-title px-3 py-2">
-										<b>{{__('Enterprise Packages')}}</b>
+										<b><?php echo e(__('Enterprise Packages')); ?></b>
 									</div>
 
 									<div class="form-box-content p-3">
@@ -221,16 +221,16 @@
 
 										<div class="row" style="padding:10px 10px;">
 											
-											@foreach ($businessPackages as $key => $businessPackage)
+											<?php $__currentLoopData = $businessPackages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $businessPackage): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
 											<div class="col-md-4">
 
-												<img class="dashboard-widget" src="{{asset('uploads/packages/' . $businessPackage->imageFile) }}" onclick="SelectPackage('{{ $businessPackage->id }}');" alt="Alternate Text" style="width:100%" />
+												<img class="dashboard-widget" src="<?php echo e(asset('uploads/packages/' . $businessPackage->imageFile)); ?>" onclick="SelectPackage('<?php echo e($businessPackage->id); ?>');" alt="Alternate Text" style="width:100%" />
 
 												
 											</div>
 
-											@endforeach
+											<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 										</div>
 
 										
@@ -242,7 +242,8 @@
 
 								<div class="form-box bg-white mt-4" id="packageBuy_method_cashAdmin" style="display:none">
 									<div class="form-box-title px-3 py-2">
-										{{__('Payment')}}
+										<?php echo e(__('Payment')); ?>
+
 									</div>
 									<div class="form-box-content p-3">
 										<h5>Cash Via Admin</h5>
@@ -250,7 +251,7 @@
 										<p>Please proceed to Ark Philippines' offfice and pay the package amount on the counter.</p>
 										<hr />
 										<p><b>Office Location:</b></p>
-										<p>{{ \App\GeneralSetting::first()->address }}</p>
+										<p><?php echo e(\App\GeneralSetting::first()->address); ?></p>
 
 										<button type="button" onclick="SendDepositRequest();" class="btn btn-styled btn-base-1 col-md-2">Confirm</button>
 									</div>
@@ -260,7 +261,8 @@
 
 								<div class="form-box bg-white mt-4" id="packageBuy_method_depositSlip" style="display:none">
 									<div class="form-box-title px-3 py-2">
-										{{__('Payment')}}
+										<?php echo e(__('Payment')); ?>
+
 									</div>
 									<div class="form-box-content p-3">
 										<h5>Deposit Via Bank</h5>
@@ -285,26 +287,28 @@
 									
 								</div>
 
-							@else
+							<?php else: ?>
 
 							<div class="form-box bg-white mt-4">
 								<div class="form-box-title px-3 py-2">
-									{{__('Summary')}}
+									<?php echo e(__('Summary')); ?>
+
 								</div>
 								<div class="form-box-content p-3"></div>
 							</div>
 							<div class="form-box bg-white mt-4">
 								<div class="form-box-title px-3 py-2">
-									{{__('Source Code Link')}}
+									<?php echo e(__('Source Code Link')); ?>
+
 								</div>
 								<div class="form-box-content p-3">
 									
-									@if (isset($userLink))
+									<?php if(isset($userLink)): ?>
 									<p>This is your enterprise source code you can share</p>
-									<input type="text" id="userLink" class="form-control" name="name" value="{{ 'http://'.$_SERVER['HTTP_HOST'].'/users/registration?ulink='.$userLink->directSponsorID }}" />
-									@else
+									<input type="text" id="userLink" class="form-control" name="name" value="<?php echo e('http://'.$_SERVER['HTTP_HOST'].'/users/registration?ulink='.$userLink->directSponsorID); ?>" />
+									<?php else: ?>
 									<p>Please activate your account first</p>
-									@endif
+									<?php endif; ?>
 									
 									<hr />
 									<button type="button" onclick="CopyLink()" class="btn btn-styled btn-base-1 col-md-2" style="">Copy Link</button>
@@ -314,7 +318,8 @@
 							</div>
 							<div class="form-box bg-white mt-4">
 								<div class="form-box-title px-3 py-2">
-									{{__('Enterprisers Under You')}}
+									<?php echo e(__('Enterprisers Under You')); ?>
+
 								</div>
 								<div class="form-box-content p-3">
 									 <div id="treeview"></div>
@@ -322,7 +327,8 @@
 							</div>
 							<div class="form-box bg-white mt-4">
 								<div class="form-box-title px-3 py-2">
-									{{__('First Level Enterprisers')}}
+									<?php echo e(__('First Level Enterprisers')); ?>
+
 								</div>
 								<div class="form-box-content p-3">
 									<div class="card no-border mt-4" style="margin-top: 6px!important;">
@@ -330,27 +336,27 @@
 											<table class="table table-sm table-hover table-responsive-md">
 												<thead>
 													<tr>
-														<th>{{__('Date')}}</th>
-														<th>{{__('Email')}}</th>
-														<th>{{__('Account Package')}}</th>
-														<th>{{__('Status')}}</th>
-														<th>{{__('Total Commissions')}}</th>
-														<th>{{__('Options')}}</th>
+														<th><?php echo e(__('Date')); ?></th>
+														<th><?php echo e(__('Email')); ?></th>
+														<th><?php echo e(__('Account Package')); ?></th>
+														<th><?php echo e(__('Status')); ?></th>
+														<th><?php echo e(__('Total Commissions')); ?></th>
+														<th><?php echo e(__('Options')); ?></th>
 													</tr>
 												</thead>
 												<tbody>
-													@if(isset($unilevelMap) && $unilevelMap != null)
-													@foreach ($unilevelMap as $key => $unilevelMapItem)
+													<?php if(isset($unilevelMap) && $unilevelMap != null): ?>
+													<?php $__currentLoopData = $unilevelMap; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $unilevelMapItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 													<tr>
-														<td>{{ date_format(date_create($unilevelMapItem->userBusinessPackage->createdOn),"Y/m/d H:i:s")  }}</td>
-														<td>{{ $unilevelMapItem->userAuth->userName }}</td>
-														<td>{{ $unilevelMapItem->userBusinessPackage->businessPackage->packageName }}</td>
-														<td>{{ $unilevelMapItem->userBusinessPackage->packageStatus == 2 ? 'Activated' : 'Pending Activation'}}</td>
-														<td>{{ $unilevelMapItem->totalCommission}}</td>
+														<td><?php echo e(date_format(date_create($unilevelMapItem->userBusinessPackage->createdOn),"Y/m/d H:i:s")); ?></td>
+														<td><?php echo e($unilevelMapItem->userAuth->userName); ?></td>
+														<td><?php echo e($unilevelMapItem->userBusinessPackage->businessPackage->packageName); ?></td>
+														<td><?php echo e($unilevelMapItem->userBusinessPackage->packageStatus == 2 ? 'Activated' : 'Pending Activation'); ?></td>
+														<td><?php echo e($unilevelMapItem->totalCommission); ?></td>
 														<td></td>
 													</tr>
-													@endforeach
-												@endif
+													<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+												<?php endif; ?>
 
 
 												</tbody>
@@ -359,13 +365,14 @@
 									</div>
 
 									<!--<div class="text-right mt-4">
-										<button type="submit" class="btn btn-styled btn-base-1  col-sm-12  col-lg-3">{{__('View Genealogy')}}</button>
+										<button type="submit" class="btn btn-styled btn-base-1  col-sm-12  col-lg-3"><?php echo e(__('View Genealogy')); ?></button>
 									</div>-->
 								</div>
 							</div>
 							<div class="form-box bg-white mt-4">
 								<div class="form-box-title px-3 py-2">
-									{{__('Rewards Transactions')}}
+									<?php echo e(__('Rewards Transactions')); ?>
+
 								</div>
 								<div class="form-box-content p-3">
 									<div class="card no-border mt-4" style="margin-top: 6px!important;">
@@ -373,26 +380,26 @@
 											<table class="table table-sm table-hover table-responsive-md">
 												<thead>
 													<tr>
-														<th>{{__('Date')}}</th>
-														<th>{{__('User')}}</th>
-														<th>{{__('Amount')}}</th>
-														<th>{{__('Reward Name')}}</th>
-														<th>{{__('Options')}}</th>
+														<th><?php echo e(__('Date')); ?></th>
+														<th><?php echo e(__('User')); ?></th>
+														<th><?php echo e(__('Amount')); ?></th>
+														<th><?php echo e(__('Reward Name')); ?></th>
+														<th><?php echo e(__('Options')); ?></th>
 													</tr>
 												</thead>
 												<tbody>
 												
-												@if(isset($userIncomeTransactions) && $userIncomeTransactions != null)
-													@foreach ($userIncomeTransactions as $key => $userIncomeTransactionItem)
+												<?php if(isset($userIncomeTransactions) && $userIncomeTransactions != null): ?>
+													<?php $__currentLoopData = $userIncomeTransactions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $userIncomeTransactionItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 													<tr>
-														<td>{{ date_format(date_create($userIncomeTransactionItem->createdOn),"Y/m/d H:i:s")  }}</td>
-														<td>{{ $userIncomeTransactionItem->userAuth->userName }}</td>
-														<td>{{ $userIncomeTransactionItem->incomePercentage }}</td>
-														<td>{{ $userIncomeTransactionItem->incomeTypeId == 2 ? 'DIRECT SALES INCOME' : 'TRIMATCH SALES INCOME'}}</td>
+														<td><?php echo e(date_format(date_create($userIncomeTransactionItem->createdOn),"Y/m/d H:i:s")); ?></td>
+														<td><?php echo e($userIncomeTransactionItem->userAuth->userName); ?></td>
+														<td><?php echo e($userIncomeTransactionItem->incomePercentage); ?></td>
+														<td><?php echo e($userIncomeTransactionItem->incomeTypeId == 2 ? 'DIRECT SALES INCOME' : 'TRIMATCH SALES INCOME'); ?></td>
 														<td></td>
 													</tr>
-													@endforeach
-												@endif
+													<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+												<?php endif; ?>
 												</tbody>
 											</table>
 										</div>
@@ -402,8 +409,8 @@
 
 							
 
-							@endif
-						@endif
+							<?php endif; ?>
+						<?php endif; ?>
 
 							
 						</div>
@@ -420,11 +427,11 @@
 
 <script>
 
-	var datascource = '@php  if (isset($unilevelMap_raw))
+	var datascource = '<?php  if (isset($unilevelMap_raw))
 								 {
 								 	echo $unilevelMap_raw; 
 								 }
-      @endphp'
+      ?>'
 								  
 	datascource = "[" + datascource + "]";
                         var $tree = $('#treeview').treeview({
@@ -563,4 +570,6 @@
 
 </script>
 
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('frontend.layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Projects\Published\Release.Ark\Ark.FrontEnd.Published\resources\views/frontend/customer/affiliate.blade.php ENDPATH**/ ?>
