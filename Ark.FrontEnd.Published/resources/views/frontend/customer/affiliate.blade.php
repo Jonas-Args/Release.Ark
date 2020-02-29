@@ -388,7 +388,7 @@
 														<td>{{ date_format(date_create($userIncomeTransactionItem->createdOn),"Y/m/d H:i:s")  }}</td>
 														<td>{{ $userIncomeTransactionItem->userAuth->userName }}</td>
 														<td>{{ $userIncomeTransactionItem->incomePercentage }}</td>
-														<td>{{ $userIncomeTransactionItem->incomeTypeId == 2 ? 'DIRECT SALES INCOME' : 'TRIMATCH SALES INCOME'}}</td>
+														<td>{{ $userIncomeTransactionItem->incomeType->incomeTypeName}}</td>
 														<td></td>
 													</tr>
 													@endforeach

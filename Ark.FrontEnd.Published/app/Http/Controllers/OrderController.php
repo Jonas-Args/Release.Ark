@@ -228,6 +228,7 @@ class OrderController extends Controller
             }
 
             $order->grand_total = $subtotal + $tax + $shipping;
+            $netValue = $subtotal - ($subtotal * 0.12);
 
              $_s = Session::get('apiSession');
 
@@ -249,20 +250,20 @@ class OrderController extends Controller
                     $user = Auth::user();
 					switch($_r->businessPackages[0]->businessPackage->packageCode){
 						case "EPKG1":
-							$user->balance += ($subtotal * 0.0025);
-							$_rewards = ($subtotal * 0.0025);
+							$user->balance += ($netValue * 0.0025);
+							$_rewards = ($netValue * 0.0025);
 							$user->save();
 							break;
 
 						case "EPKG2":
-							$user->balance += ($subtotal * 0.005);
-							$_rewards = ($subtotal * 0.005);
+							$user->balance += ($netValue * 0.005);
+							$_rewards = ($netValue * 0.005);
 							$user->save();
 							break;
 
 						case "EPKG3":
-							$user->balance += ($subtotal * 0.01);
-							$_rewards = ($subtotal * 0.01);
+							$user->balance += ($netValue * 0.01);
+							$_rewards = ($netValue * 0.01);
 							$user->save();
 							break;
 
@@ -280,7 +281,7 @@ class OrderController extends Controller
 
 			$url = 'http://localhost:55006/api/Affiliate/Commission';
 			$data = array(
-				'amountPaid' => floatval($subtotal)
+				'amountPaid' => floatval($netValue)
 				);
 
 			// use key 'http' even if you send the request to https://...
@@ -300,7 +301,7 @@ class OrderController extends Controller
 			{
 				foreach ($_r->commission as $commissionItem)
 				{
-					$_userC = DB::table('users')->where('id', $commissionItem->shopUserId)->increment('balance' , floatval($commissionItem->reward));
+					//$_userC = DB::table('users')->where('id', $commissionItem->shopUserId)->increment('balance' , floatval($commissionItem->reward));
 
 					$wallet = new Wallet;
 					$wallet->user_id = $commissionItem->shopUserId;

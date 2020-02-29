@@ -383,7 +383,7 @@ use Illuminate\Support\Facades\DB;
 
 <?php $__env->startSection('script'); ?>
     <script type="text/javascript">
-		$('#maintenance-update').modal('show')
+		//$('#maintenance-update').modal('show')
 
         $(document).ready(function(){
             $.post('<?php echo e(route('home.section.featured')); ?>', {_token:'<?php echo e(csrf_token()); ?>'}, function(data){

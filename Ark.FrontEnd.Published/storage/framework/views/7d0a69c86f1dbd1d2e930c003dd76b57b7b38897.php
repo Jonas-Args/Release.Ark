@@ -395,7 +395,7 @@
 														<td><?php echo e(date_format(date_create($userIncomeTransactionItem->createdOn),"Y/m/d H:i:s")); ?></td>
 														<td><?php echo e($userIncomeTransactionItem->userAuth->userName); ?></td>
 														<td><?php echo e($userIncomeTransactionItem->incomePercentage); ?></td>
-														<td><?php echo e($userIncomeTransactionItem->incomeTypeId == 2 ? 'DIRECT SALES INCOME' : 'TRIMATCH SALES INCOME'); ?></td>
+														<td><?php echo e($userIncomeTransactionItem->incomeType->incomeTypeName); ?></td>
 														<td></td>
 													</tr>
 													<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
