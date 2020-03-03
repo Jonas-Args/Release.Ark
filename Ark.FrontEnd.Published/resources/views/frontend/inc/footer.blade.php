@@ -1,5 +1,5 @@
 
-<section class="slice-sm footer-top-bar bg-white">
+<section class="slice-sm footer-top-bar bg-white" style="display:none!important">
     <div class="container sct-inner">
         <div class="row no-gutters">
             <div class="col-lg-3 col-md-6">
@@ -110,7 +110,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-4 col-lg-2">
+           <!--    <div class="col-md-4 col-lg-2">
                     <div class="col text-center text-md-left">
                        <h4 class="heading heading-xs strong-600 text-uppercase mb-2">
                           {{__('My Account')}}
@@ -147,6 +147,7 @@
                             </li>
                         </ul>
                     </div>
+               --> 
                     @if (\App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1)
                         <div class="col text-center text-md-left">
                             <div class="mt-4">

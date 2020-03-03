@@ -153,12 +153,12 @@
                                     <span class="text-italic">{{ single_price($order->orderDetails->sum('shipping_cost')) }}</span>
                                 </td>
                             </tr>
-                            <tr>
+                          <!-- <tr>
                                 <th>{{__('Tax')}}</th>
                                 <td class="text-right">
                                     <span class="text-italic">{{ single_price($order->orderDetails->sum('tax')) }}</span>
                                 </td>
-                            </tr>
+                            </tr>--> 
                             <tr>
                                 <th>{{__('Coupon Discount')}}</th>
                                 <td class="text-right">

@@ -160,7 +160,7 @@
                         </li>
 
                         <li>
-                            <a href="#" >
+                            <a href="<?php echo e(route('purchase_history.index')); ?>" >
                                 <i class="la la-file-text"></i>
                                 <span><?php echo e(__('Purchase History')); ?></span>
                             </a>
@@ -197,7 +197,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#" >
+                            <a href="<?php echo e(route('wishlists.index')); ?>" >
                                 <i class="la la-heart-o"></i>
                                 <span><?php echo e(__('Wishlist')); ?></span>
                             </a>
@@ -213,7 +213,7 @@
                         <?php endif; ?>
 
                         <li>
-                            <a href="#" >
+                            <a href="<?php echo e(route('profile')); ?>" >
                                 <i class="la la-user"></i>
                                 <span><?php echo e(__('Manage Profile')); ?></span>
                             </a>
@@ -228,7 +228,7 @@
                         </span>
                     </a>
                 </li>
-
+                        <!--
                         <li>
                             <a href="#"  class="<?php echo e(areActiveRoutesHome(['support_ticket.index', 'support_ticket.show'])); ?>">
                                 <i class="la la-support"></i>
@@ -238,6 +238,7 @@
                                 </span>
                             </a>
                         </li>
+                            -->
 
                     </ul>
                     <?php else: ?>

@@ -146,14 +146,14 @@
                                 ->where('user_id', Auth::user()->id)
                                 ->count();
                 @endphp
-                <li>
+              <!--<li>
                     <a href="{{ route('support_ticket.index') }}" class="{{ areActiveRoutesHome(['support_ticket.index'])}}">
                         <i class="la la-support"></i>
                         <span class="category-name">
                             {{__('Support Ticket')}} @if($support_ticket > 0)<span class="ml-2" style="color:green"><strong>({{ $support_ticket }} {{ __('New') }})</strong></span></span>@endif
                         </span>
                     </a>
-                </li>
+                </li>-->  
             </ul>
         </div>
         @if (\App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1)

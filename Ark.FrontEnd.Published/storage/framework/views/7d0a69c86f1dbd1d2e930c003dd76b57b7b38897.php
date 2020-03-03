@@ -325,7 +325,7 @@
 									 <div id="treeview"></div>
 								</div>
 							</div>
-							<div class="form-box bg-white mt-4">
+							<div class="form-box bg-white mt-4" style="display:none!important">
 								<div class="form-box-title px-3 py-2">
 									<?php echo e(__('First Level Enterprisers')); ?>
 
@@ -340,8 +340,6 @@
 														<th><?php echo e(__('Email')); ?></th>
 														<th><?php echo e(__('Account Package')); ?></th>
 														<th><?php echo e(__('Status')); ?></th>
-														<th><?php echo e(__('Total Commissions')); ?></th>
-														<th><?php echo e(__('Options')); ?></th>
 													</tr>
 												</thead>
 												<tbody>
@@ -352,8 +350,6 @@
 														<td><?php echo e($unilevelMapItem->userAuth->userName); ?></td>
 														<td><?php echo e($unilevelMapItem->userBusinessPackage->businessPackage->packageName); ?></td>
 														<td><?php echo e($unilevelMapItem->userBusinessPackage->packageStatus == 2 ? 'Activated' : 'Pending Activation'); ?></td>
-														<td><?php echo e($unilevelMapItem->totalCommission); ?></td>
-														<td></td>
 													</tr>
 													<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 												<?php endif; ?>
@@ -371,7 +367,7 @@
 							</div>
 							<div class="form-box bg-white mt-4">
 								<div class="form-box-title px-3 py-2">
-									<?php echo e(__('Rewards Transactions')); ?>
+									<?php echo e(__('Transactions')); ?>
 
 								</div>
 								<div class="form-box-content p-3">
@@ -384,22 +380,36 @@
 														<th><?php echo e(__('User')); ?></th>
 														<th><?php echo e(__('Amount')); ?></th>
 														<th><?php echo e(__('Reward Name')); ?></th>
-														<th><?php echo e(__('Options')); ?></th>
+														<th><?php echo e(__('Computation')); ?></th>
 													</tr>
 												</thead>
 												<tbody>
 												
 												<?php if(isset($userIncomeTransactions) && $userIncomeTransactions != null): ?>
 													<?php $__currentLoopData = $userIncomeTransactions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $userIncomeTransactionItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+													<?php
+													 $totalAmount += floatval($userIncomeTransactionItem->incomePercentage);
+													?>
+
 													<tr>
 														<td><?php echo e(date_format(date_create($userIncomeTransactionItem->createdOn),"Y/m/d H:i:s")); ?></td>
 														<td><?php echo e($userIncomeTransactionItem->userAuth->userName); ?></td>
 														<td><?php echo e($userIncomeTransactionItem->incomePercentage); ?></td>
 														<td><?php echo e($userIncomeTransactionItem->incomeType->incomeTypeName); ?></td>
-														<td></td>
+														<td><?php echo e($userIncomeTransactionItem->remarks); ?></td>
 													</tr>
 													<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+													<tr>
+													 <td></td>
+													 <td><b>Total</b></td>
+													 <td><b><?php echo e(floatval($totalAmount)); ?></b></td>
+													 <td></td>
+													 <td></td>
+												 </tr>
 												<?php endif; ?>
+
+												 
 												</tbody>
 											</table>
 										</div>

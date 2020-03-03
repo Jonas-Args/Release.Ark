@@ -228,7 +228,7 @@ class OrderController extends Controller
             }
 
             $order->grand_total = $subtotal + $tax + $shipping;
-            $netValue = $subtotal - ($subtotal * 0.12);
+            $netValue = ($subtotal / 1.12) * 0.9;
 
              $_s = Session::get('apiSession');
 

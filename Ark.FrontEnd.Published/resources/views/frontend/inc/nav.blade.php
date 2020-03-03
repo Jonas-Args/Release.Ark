@@ -159,7 +159,7 @@
                         </li>
 
                         <li>
-                            <a href="#" >
+                            <a href="{{ route('purchase_history.index') }}" >
                                 <i class="la la-file-text"></i>
                                 <span>{{__('Purchase History')}}</span>
                             </a>
@@ -195,7 +195,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#" >
+                            <a href="{{ route('wishlists.index') }}" >
                                 <i class="la la-heart-o"></i>
                                 <span>{{__('Wishlist')}}</span>
                             </a>
@@ -211,7 +211,7 @@
                         @endif
 
                         <li>
-                            <a href="#" >
+                            <a href="{{ route('profile') }}" >
                                 <i class="la la-user"></i>
                                 <span>{{__('Manage Profile')}}</span>
                             </a>
@@ -225,7 +225,7 @@
                         </span>
                     </a>
                 </li>
-
+                        <!--
                         <li>
                             <a href="#"  class="{{ areActiveRoutesHome(['support_ticket.index', 'support_ticket.show'])}}">
                                 <i class="la la-support"></i>
@@ -234,6 +234,7 @@
                                 </span>
                             </a>
                         </li>
+                            -->
 
                     </ul>
                     @else

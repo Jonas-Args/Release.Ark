@@ -152,14 +152,14 @@
                                 ->where('user_id', Auth::user()->id)
                                 ->count();
                 ?>
-                <li>
+              <!--<li>
                     <a href="<?php echo e(route('support_ticket.index')); ?>" class="<?php echo e(areActiveRoutesHome(['support_ticket.index'])); ?>">
                         <i class="la la-support"></i>
                         <span class="category-name">
                             <?php echo e(__('Support Ticket')); ?> <?php if($support_ticket > 0): ?><span class="ml-2" style="color:green"><strong>(<?php echo e($support_ticket); ?> <?php echo e(__('New')); ?>)</strong></span></span><?php endif; ?>
                         </span>
                     </a>
-                </li>
+                </li>-->  
             </ul>
         </div>
         <?php if(\App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1): ?>

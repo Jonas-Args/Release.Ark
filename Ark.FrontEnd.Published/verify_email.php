@@ -20,7 +20,8 @@ $url = 'http://localhost:55006/api/user/VerifyEmail';
 
 		if ($_r->httpStatusCode != "500")
 		{
-		echo "Successfully Validated!";
+	    header("Location:" . $_SERVER['SERVER_NAME'] . "/");
+		//echo "Successfully Validated!";
         }
         else{
             echo "Validation Error!";

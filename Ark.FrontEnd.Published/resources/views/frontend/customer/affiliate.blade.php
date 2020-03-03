@@ -320,7 +320,7 @@
 									 <div id="treeview"></div>
 								</div>
 							</div>
-							<div class="form-box bg-white mt-4">
+							<div class="form-box bg-white mt-4" style="display:none!important">
 								<div class="form-box-title px-3 py-2">
 									{{__('First Level Enterprisers')}}
 								</div>
@@ -334,8 +334,6 @@
 														<th>{{__('Email')}}</th>
 														<th>{{__('Account Package')}}</th>
 														<th>{{__('Status')}}</th>
-														<th>{{__('Total Commissions')}}</th>
-														<th>{{__('Options')}}</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -346,8 +344,6 @@
 														<td>{{ $unilevelMapItem->userAuth->userName }}</td>
 														<td>{{ $unilevelMapItem->userBusinessPackage->businessPackage->packageName }}</td>
 														<td>{{ $unilevelMapItem->userBusinessPackage->packageStatus == 2 ? 'Activated' : 'Pending Activation'}}</td>
-														<td>{{ $unilevelMapItem->totalCommission}}</td>
-														<td></td>
 													</tr>
 													@endforeach
 												@endif
@@ -365,7 +361,7 @@
 							</div>
 							<div class="form-box bg-white mt-4">
 								<div class="form-box-title px-3 py-2">
-									{{__('Rewards Transactions')}}
+									{{__('Transactions')}}
 								</div>
 								<div class="form-box-content p-3">
 									<div class="card no-border mt-4" style="margin-top: 6px!important;">
@@ -377,22 +373,36 @@
 														<th>{{__('User')}}</th>
 														<th>{{__('Amount')}}</th>
 														<th>{{__('Reward Name')}}</th>
-														<th>{{__('Options')}}</th>
+														<th>{{__('Computation')}}</th>
 													</tr>
 												</thead>
 												<tbody>
 												
 												@if(isset($userIncomeTransactions) && $userIncomeTransactions != null)
 													@foreach ($userIncomeTransactions as $key => $userIncomeTransactionItem)
+													@php
+													 $totalAmount += floatval($userIncomeTransactionItem->incomePercentage);
+													@endphp
+
 													<tr>
 														<td>{{ date_format(date_create($userIncomeTransactionItem->createdOn),"Y/m/d H:i:s")  }}</td>
 														<td>{{ $userIncomeTransactionItem->userAuth->userName }}</td>
 														<td>{{ $userIncomeTransactionItem->incomePercentage }}</td>
 														<td>{{ $userIncomeTransactionItem->incomeType->incomeTypeName}}</td>
-														<td></td>
+														<td>{{ $userIncomeTransactionItem->remarks}}</td>
 													</tr>
 													@endforeach
+
+													<tr>
+													 <td></td>
+													 <td><b>Total</b></td>
+													 <td><b>{{ floatval($totalAmount) }}</b></td>
+													 <td></td>
+													 <td></td>
+												 </tr>
 												@endif
+
+												 
 												</tbody>
 											</table>
 										</div>

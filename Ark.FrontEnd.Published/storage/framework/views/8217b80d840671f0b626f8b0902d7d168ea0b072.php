@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
                     <div class="category-sidebar">
                         <div class="all-category d-none d-lg-block">
                             <span ><?php echo e(__('Categories')); ?></span>
-                            <a href="<?php echo e(route('categories.all')); ?>">
+                            <a href="#">
                                 <span class="d-none d-lg-inline-block"><?php echo e(__('See All')); ?> ></span>
                             </a>
                         </div>
