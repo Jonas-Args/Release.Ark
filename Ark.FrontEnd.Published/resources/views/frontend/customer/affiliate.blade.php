@@ -396,7 +396,7 @@
 													<tr>
 													 <td></td>
 													 <td><b>Total</b></td>
-													 <td><b>{{ floatval($totalAmount) }}</b></td>
+													 <td><b>{{ $totalAmount }}</b></td>
 													 <td></td>
 													 <td></td>
 												 </tr>
