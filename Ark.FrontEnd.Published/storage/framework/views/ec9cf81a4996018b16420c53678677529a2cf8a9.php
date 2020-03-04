@@ -188,7 +188,7 @@
 													<div class="form-group">
 														<!-- <label><?php echo e(__('special_code')); ?></label> -->
 														<div class="input-group input-group--style-1">
-															<input type="text" class="form-control<?php echo e($errors->has('special_code') ? ' is-invalid' : ''); ?>" value="<?php echo e(old('special_code')); ?>" placeholder="<?php echo e(__('Special Code (Optional)')); ?>" name="special_code" />
+															<input type="text" class="form-control<?php echo e($errors->has('special_code') ? ' is-invalid' : ''); ?>" value="<?php echo e(old('special_code')); ?>" placeholder="<?php echo e(__('Discount Code (Optional)')); ?>" name="special_code" />
 															<span class="input-group-addon">
 																<i class="text-md la la-lock"></i>
 															</span>
@@ -220,7 +220,7 @@
                                                 <div class="col-12">
                                                     <div class="checkbox pad-btm text-left">
                                                         <input class="magic-checkbox" type="checkbox" name="checkbox_example_1" id="checkboxExample_1a" required>
-                                                        <label for="checkboxExample_1a" class="text-sm"><?php echo e(__('By signing up you agree to our terms and conditions.')); ?></label>
+                                                        <label for="checkboxExample_1a" class="text-sm"><?php echo e(__('By signing up you agree to our ')); ?> <a  href="<?php echo e(route('terms')); ?>">terms and conditions</a></label>
                                                     </div>
                                                 </div>
                                             </div>

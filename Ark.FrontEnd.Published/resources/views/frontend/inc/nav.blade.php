@@ -114,8 +114,8 @@
 
     <!-- mobile menu -->
     <div class="mobile-side-menu d-lg-none">
-        <div class="side-menu-overlay opacity-0" onclick="sideMenuClose()"></div>
-        <div class="side-menu-wrap opacity-0">
+        <div class="side-menu-overlay opacity-0" onclick="sideMenuClose()" style="transition-duration: 0s!important;transition: none!important;"></div>
+        <div class="side-menu-wrap opacity-0"  style="transition-duration: 0s!important;transition: none!important;">
             <div class="side-menu closed">
                 <div class="side-menu-header ">
                     <div class="side-menu-close" onclick="sideMenuClose()">
@@ -124,7 +124,7 @@
 
                     @auth
                         <div class="widget-profile-box px-3 py-4 d-flex align-items-center">
-                                <div class="image " style="background-image:url('{{ Auth::user()->avatar_original }}')"></div>
+                                <div class="image " style="border:none!important;background-image:url('{{ asset(Auth::user()->avatar_original) }}')"></div>
                                 <div class="name">{{ Auth::user()->name }}</div>
                         </div>
                         <div class="side-login px-3 pb-3">
@@ -132,7 +132,7 @@
                         </div>
                     @else
                         <div class="widget-profile-box px-3 py-4 d-flex align-items-center">
-                                <div class="image " style="background-image:url('{{ asset('frontend/images/icons/user-placeholder.jpg') }}')"></div>
+                                
                         </div>
                         <div class="side-login px-3 pb-3">
                           <!-- <a href="{{ route('user.login') }}">{{__('Sign In')}}</a>
@@ -367,7 +367,7 @@
                         @foreach (\App\Category::all() as $key => $category)
                             <li>
                             <a href="{{ route('products.category', $category->slug) }}" class="text-truncate">
-                                <img class="cat-image lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($category->icon) }}" width="13" alt="{{ __($category->name) }}">
+                                <img class="cat-image lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($category->icon) }}" width="28" alt="{{ __($category->name) }}">
                                 <span>{{ __($category->name) }}</span>
                             </a>
                         </li>

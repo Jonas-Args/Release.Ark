@@ -1139,6 +1139,7 @@
     <Compile Include="resources\views\frontend\layouts\app.blade.php" />
     <Compile Include="resources\views\frontend\partials\addedToCart.blade.php" />
     <Compile Include="resources\views\frontend\partials\addToCart.blade.php" />
+    <Compile Include="resources\views\frontend\partials\ark_products_section.blade.php" />
     <Compile Include="resources\views\frontend\partials\best_sellers_section.blade.php" />
     <Compile Include="resources\views\frontend\partials\best_selling_section.blade.php" />
     <Compile Include="resources\views\frontend\partials\cart.blade.php" />

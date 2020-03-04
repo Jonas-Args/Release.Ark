@@ -325,9 +325,9 @@
                                                 <div class="clearfix">
                                                     <div class="price-box float-left">
                                                         <?php if(home_base_price($product->id) != home_discounted_base_price($product->id)): ?>
-                                                            <del class="old-product-price strong-400"><?php echo e(home_base_price($product->id)); ?></del>
+                                                            <del class="old-product-price strong-400"><?php echo e(single_price_dashboard($product->id)); ?></del>
                                                         <?php endif; ?>
-                                                        <span class="product-price strong-600"><?php echo e(home_discounted_base_price($product->id)); ?></span>
+                                                        <span class="product-price strong-600"><?php echo e(single_price_dashboard($product->id)); ?></span>
                                                     </div>
                                                 </div>
                                             </div>

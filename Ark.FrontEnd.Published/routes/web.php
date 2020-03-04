@@ -30,6 +30,7 @@ Route::post('/subsubcategories/get_brands_by_subsubcategory', 'SubSubCategoryCon
 //Home Page
 Route::get('/', 'HomeController@index')->name('home');
 Route::post('/home/section/featured', 'HomeController@load_featured_section')->name('home.section.featured');
+Route::post('/home/section/ark_products', 'HomeController@load_ark_products_section')->name('home.section.ark_products');
 Route::post('/home/section/best_selling', 'HomeController@load_best_selling_section')->name('home.section.best_selling');
 Route::post('/home/section/home_categories', 'HomeController@load_home_categories_section')->name('home.section.home_categories');
 Route::post('/home/section/best_sellers', 'HomeController@load_best_sellers_section')->name('home.section.best_sellers');

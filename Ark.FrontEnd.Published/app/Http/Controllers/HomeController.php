@@ -228,6 +228,9 @@ class HomeController extends Controller
     public function load_featured_section(){
         return view('frontend.partials.featured_products_section');
     }
+    public function load_ark_products_section(){
+        return view('frontend.partials.ark_products_section');
+    }
 
     public function load_best_selling_section(){
         return view('frontend.partials.best_selling_section');

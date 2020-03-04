@@ -96,7 +96,7 @@ use Illuminate\Support\Facades\DB;
                             </div>
                         </div>
                     </div>
-                <!--    <div class="trending-category  d-none d-lg-block">
+                    <div class="trending-category  d-none d-lg-none">
                         <ul>
                             @foreach (\App\Category::where('featured', 1)->get()->take(7) as $key => $category)
                                 <li @if ($key == 0) class="active" @endif>
@@ -111,7 +111,7 @@ use Illuminate\Support\Facades\DB;
                                 </li>
                             @endforeach
                         </ul>
-                    </div>-->
+                    </div>
                 </div>
 
                 @php
@@ -194,6 +194,48 @@ use Illuminate\Support\Facades\DB;
         </div>
     </section>
 
+<section class="mb-3">
+	<div class="container d-lg-none">
+		<div class="row gutters-10">
+			<div class="col-lg-12">
+				<div class="section-title-1 clearfix">
+					<h3 class="heading-5 strong-700 mb-0 float-left">
+						<span class="mr-4">{{__('Catogories')}}</span>
+					</h3>
+					<ul class="float-right inline-links">
+						<li>
+							<!--<a href="{{ route('categories.all') }}" class="active">{{__('View All Catogories')}}</a>-->
+						</li>
+					</ul>
+				</div>
+				<div class="row gutters-5">
+					@foreach (\App\Category::get() as $category)
+					<div class="mb-3 col-6">
+						<a href="{{ route('products.category', $category->slug) }}" class="bg-white border d-block c-base-2 box-2 icon-anim pl-2">
+							<div class="row align-items-center no-gutters">
+								<div class="col-3 text-center">
+									<img src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($category->banner) }}" alt="{{ __($category->name) }}" class="img-fluid img lazyload" />
+								</div>
+								<div class="info col-7">
+									<div class="name pl-3 py-4">{{ __($category->name) }}</div>
+								</div>
+								<div class="col-2">
+									<i class="la la-angle-right c-base-1"></i>
+								</div>
+							</div>
+						</a>
+					</div>
+					@endforeach
+				</div>
+			</div>
+			
+		</div>
+
+
+
+
+</section>
+
     <section class="mb-4">
         <div class="container">
             <div class="row gutters-10">
@@ -210,13 +252,12 @@ use Illuminate\Support\Facades\DB;
         </div>
     </section>
 
-    <div id="section_featured">
+    <div id="section_featured"></div>
+    <div id="section_ark_products" class="mb-3"></div>
 
-    </div>
+<div id="section_best_selling" style="display:none!important"></div>
 
-    <div id="section_best_selling" style="display:none!important">
-
-    </div>
+    <div id="section_home_categories"></div>
 
     <div id="section_coming_soon">
 		<section class="mb-4">
@@ -240,9 +281,7 @@ use Illuminate\Support\Facades\DB;
 		</section>
     </div>
 
-    <div id="section_home_categories">
-
-    </div>
+    
 
     <section class="mb-4">
         <div class="container">
@@ -264,129 +303,21 @@ use Illuminate\Support\Facades\DB;
 
     </div>
 -->
-    <section class="mb-3">
-        <div class="container">
-            <div class="row gutters-10">
-				<!---<div class="col-lg-6">
-                    <div class="section-title-1 clearfix">
-                        <h3 class="heading-5 strong-700 mb-0 float-left">
-                            <span class="mr-4">{{__('Top 10 Catogories')}}</span>
-                        </h3>
-                        <ul class="float-right inline-links">
-                            <li>
-                                <a href="{{ route('categories.all') }}" class="active">{{__('View All Catogories')}}</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="row gutters-5">
-                        @foreach (\App\Category::where('top', 1)->get() as $category)
-                            <div class="mb-3 col-6">
-                                <a href="{{ route('products.category', $category->slug) }}" class="bg-white border d-block c-base-2 box-2 icon-anim pl-2">
-                                    <div class="row align-items-center no-gutters">
-                                        <div class="col-3 text-center">
-                                            <img src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($category->banner) }}" alt="{{ __($category->name) }}" class="img-fluid img lazyload">
-                                        </div>
-                                        <div class="info col-7">
-                                            <div class="name text-truncate pl-3 py-4">{{ __($category->name) }}</div>
-                                        </div>
-                                        <div class="col-2">
-                                            <i class="la la-angle-right c-base-1"></i>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-               <div class="col-lg-6">
-                    <div class="section-title-1 clearfix">
-                        <h3 class="heading-5 strong-700 mb-0 float-left">
-                            <span class="mr-4">{{__('Top 10 Brands')}}</span>
-                        </h3>
-                        <ul class="float-right inline-links">
-                            <li>
-                                <a href="{{ route('brands.all') }}" class="active">{{__('View All Brands')}}</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="row">
-                      //  @foreach (\App\Brand::where('top', 1)->get() as $brand)
-                            <div class="mb-3 col-6">
-                                <a href="{{ route('products.brand', $brand->slug) }}" class="bg-white border d-block c-base-2 box-2 icon-anim pl-2">
-                                    <div class="row align-items-center no-gutters">
-                                        <div class="col-3 text-center">
-                                            <img src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($brand->logo) }}" alt="{{ __($brand->name) }}" class="img-fluid img lazyload">
-                                        </div>
-                                        <div class="info col-7">
-                                            <div class="name text-truncate pl-3 py-4">{{ __($brand->name) }}</div>
-                                        </div>
-                                        <div class="col-2">
-                                            <i class="la la-angle-right c-base-1"></i>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                     //   @endforeach
-                    </div>
-                </div> --->
-            </div>
-
-			<div class="products-box-bar p-3 bg-white">
-				<div class="row sm-no-gutters gutters-5">
-					@foreach ($products as $key => $product)
-					
-					<div class="col-xxl-3 col-xl-4 col-lg-3 col-md-4 col-6">
-						<div class="product-box-2 bg-white alt-box my-md-2">
-							<div class="position-relative overflow-hidden">
-								<a href="{{ route('product', $product->slug) }}" class="d-block product-image h-100 text-center" tabindex="0">
-									<img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->thumbnail_img) }}" alt="{{ __($product->name) }}" />
-								</a>
-								<div class="product-btns clearfix">
-									<button class="btn add-wishlist" title="Add to Wishlist" onclick="addToWishList({{ $product->id }})" tabindex="0">
-										<i class="la la-heart-o"></i>
-									</button>
-									<!-- <button class="btn add-compare" title="Add to Compare" onclick="addToCompare({{ $product->id }})" tabindex="0">
-                                                        <i class="la la-refresh"></i>
-                                                    </button>
-                                                       -->
-									<button class="btn quick-view" title="Quick view" onclick="showAddToCartModal({{ $product->id }})" tabindex="0">
-										<i class="la la-eye"></i>
-									</button>
-								</div>
-							</div>
-							<div class="p-2 p-md-3 border-top">
-								<h2 class="product-title p-0 text-truncate">
-									<a href="{{ route('product', $product->slug) }}" tabindex="0">{{ __($product->name) }}</a>
-								</h2>
-								<div class="star-rating mb-1">
-									{{ renderStarRating($product->rating) }}
-								</div>
-								<div class="clearfix">
-									<div class="price-box float-left">
-										@if(home_base_price($product->id) != home_discounted_base_price($product->id))
-										<del class="old-product-price strong-400">{{ single_price_dashboard($product->id)  }}</del>
-										@endif
-										<span class="product-price strong-600">{{single_price_dashboard($product->id)}}</span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					@endforeach
-				</div>
-			</div>
-
-
-    </section>
+    
 @endsection
 
 @section('script')
     <script type="text/javascript">
 		//$('#maintenance-update').modal('show')
 
-        $(document).ready(function(){
+        
             $.post('{{ route('home.section.featured') }}', {_token:'{{ csrf_token() }}'}, function(data){
                 $('#section_featured').html(data);
+                slickInit();
+            });
+
+			$.post('{{ route('home.section.ark_products') }}', { _token: '{{ csrf_token() }}' }, function (data) {
+				$('#section_ark_products').html(data);
                 slickInit();
             });
 
@@ -404,6 +335,6 @@ use Illuminate\Support\Facades\DB;
                 $('#section_best_sellers').html(data);
                 slickInit();
             });
-        });
+        
     </script>
 @endsection

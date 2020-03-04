@@ -115,8 +115,8 @@
 
     <!-- mobile menu -->
     <div class="mobile-side-menu d-lg-none">
-        <div class="side-menu-overlay opacity-0" onclick="sideMenuClose()"></div>
-        <div class="side-menu-wrap opacity-0">
+        <div class="side-menu-overlay opacity-0" onclick="sideMenuClose()" style="transition-duration: 0s!important;transition: none!important;"></div>
+        <div class="side-menu-wrap opacity-0"  style="transition-duration: 0s!important;transition: none!important;">
             <div class="side-menu closed">
                 <div class="side-menu-header ">
                     <div class="side-menu-close" onclick="sideMenuClose()">
@@ -125,7 +125,7 @@
 
                     <?php if(auth()->guard()->check()): ?>
                         <div class="widget-profile-box px-3 py-4 d-flex align-items-center">
-                                <div class="image " style="background-image:url('<?php echo e(Auth::user()->avatar_original); ?>')"></div>
+                                <div class="image " style="border:none!important;background-image:url('<?php echo e(asset(Auth::user()->avatar_original)); ?>')"></div>
                                 <div class="name"><?php echo e(Auth::user()->name); ?></div>
                         </div>
                         <div class="side-login px-3 pb-3">
@@ -133,7 +133,7 @@
                         </div>
                     <?php else: ?>
                         <div class="widget-profile-box px-3 py-4 d-flex align-items-center">
-                                <div class="image " style="background-image:url('<?php echo e(asset('frontend/images/icons/user-placeholder.jpg')); ?>')"></div>
+                                
                         </div>
                         <div class="side-login px-3 pb-3">
                           <!-- <a href="<?php echo e(route('user.login')); ?>"><?php echo e(__('Sign In')); ?></a>
@@ -374,7 +374,7 @@
                         <?php $__currentLoopData = \App\Category::all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <li>
                             <a href="<?php echo e(route('products.category', $category->slug)); ?>" class="text-truncate">
-                                <img class="cat-image lazyload" src="<?php echo e(asset('frontend/images/placeholder.jpg')); ?>" data-src="<?php echo e(asset($category->icon)); ?>" width="13" alt="<?php echo e(__($category->name)); ?>">
+                                <img class="cat-image lazyload" src="<?php echo e(asset('frontend/images/placeholder.jpg')); ?>" data-src="<?php echo e(asset($category->icon)); ?>" width="28" alt="<?php echo e(__($category->name)); ?>">
                                 <span><?php echo e(__($category->name)); ?></span>
                             </a>
                         </li>
