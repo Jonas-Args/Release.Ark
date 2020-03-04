@@ -3,115 +3,124 @@
 <?php
 			 
 
-	 $_s = Session::get('apiSession');
+			 $_s = Session::get('apiSession');
+			 $totalAmount = 0;
 
-
-	  try
-	  {
-	 $url = 'http://localhost:55006/api/user/BusinessPackages';
-	 $options = array(
-		 'http' => array(
-			 'method'  => 'GET',
-			 'header'    => "Accept-language: en\r\n" .
-				 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
-		 )
-	 );
-	 $context  = stream_context_create($options);
-	 $result = file_get_contents($url, false, $context);
-	 $_r = json_decode($result);
-
-	 $url = 'http://localhost:55006/api/user/Wallet';
-	 $options = array(
-		 'http' => array(
-			 'method'  => 'GET',
-			 'header'    => "Accept-language: en\r\n" .
-				 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
-		 )
-	 );
-	 $context  = stream_context_create($options);
-	 $result = file_get_contents($url, false, $context);
-	 $UserWallet = json_decode($result);
-	 $UserWallet = $UserWallet->userWallet;
-
-	 if(count($_r->businessPackages) == 0){
-		 $url = 'http://localhost:55006/api/BusinessPackage';
-		 $options = array(
-			 'http' => array(
-				 'method'  => 'GET',
-				 'header'    => "Accept-language: en\r\n" .
-					 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
-			 )
-		 );
-		 $context  = stream_context_create($options);
-		 $result = file_get_contents($url, false, $context);
-		 $businessPackages = json_decode($result);
-		 $businessPackages = $businessPackages->businessPackages;
-
-	 }
-	 else{
-		 $url = 'http://localhost:55006/api/user/UnilevelMap';
-		 $options = array(
-			 'http' => array(
-				 'method'  => 'GET',
-				 'header'    => "Accept-language: en\r\n" .
-					 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
-			 )
-		 );
-		 $context  = stream_context_create($options);
-		 $result = file_get_contents($url, false, $context);
-		 $_res = json_decode($result);
-
-		 $unilevelMap_raw = json_encode($_res->userUnilevelMap);
-		 $unilevelMap = isset($_res->userUnilevelMap->nodes) == true ? $_res->userUnilevelMap->nodes : [];
-
-
-		 
-		 //var_dump($unilevelMap);
-
-		 $url = 'http://localhost:55006/api/user/UserIncomeTransactions';
-		 $options = array(
-			 'http' => array(
-				 'method'  => 'GET',
-				 'header'    => "Accept-language: en\r\n" .
-					 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
-			 )
-		 );
-		 $context  = stream_context_create($options);
-		 $result = file_get_contents($url, false, $context);
-		 $_res = json_decode($result);
-		 $userIncomeTransactions = $_res->userIncomeTransactions;
-		 //var_dump($userIncomeTransactions);
-
-		 if(count($_r->businessPackages) != 0 && $_r->businessPackages[0]->packageStatus == "2"){
-
-			 $url = 'http://localhost:55006/api/Affiliate/InvitationLink';
-			 $data = array(
-				 'DirectSponsorID' => Session::get('userName'),
-				 'BinarySponsorID' => Session::get('userName'),
-				 'BinaryPosition' => '1'
+			 try
+			 {
+				 $url = 'http://localhost:55006/api/user/BusinessPackages';
+				 $options = array(
+					 'http' => array(
+						 'method'  => 'GET',
+						 'header'    => "Accept-language: en\r\n" .
+							 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
+					 )
 				 );
-			 $options = array(
-				 'http' => array(
-					 'content' => json_encode($data),
-					 'method'  => 'POST',
-					 'header'    => "Accept-language: en\r\n" .  "Content-type: application/json\r\n" .
-						 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
-				 )
-			 );
-			 $context  = stream_context_create($options);
-			 $result = file_get_contents($url, false, $context);
-			 $_res = json_decode($result);
-			 $userLink = $_res->affiliateMapBO;
-		 }
-		 //var_dump($userLink);
-	 }
-	  }
-	  catch (Exception $exception)
-	  {
-	 	 echo '<script>window.location = "' .  route('logout') . '"</script>';
-	  }
+				 $context  = stream_context_create($options);
+				 $result = file_get_contents($url, false, $context);
+				 $_r = json_decode($result);
+
+				 $url = 'http://localhost:55006/api/user/Wallet';
+				 $options = array(
+					 'http' => array(
+						 'method'  => 'GET',
+						 'header'    => "Accept-language: en\r\n" .
+							 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
+					 )
+				 );
+				 $context  = stream_context_create($options);
+				 $result = file_get_contents($url, false, $context);
+				 $UserWallet = json_decode($result);
+				 $UserWallet = $UserWallet->userWallet;
+
+				 if(count($_r->businessPackages) == 0){
+					 $url = 'http://localhost:55006/api/BusinessPackage';
+					 $options = array(
+						 'http' => array(
+							 'method'  => 'GET',
+							 'header'    => "Accept-language: en\r\n" .
+								 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
+						 )
+					 );
+					 $context  = stream_context_create($options);
+					 $result = file_get_contents($url, false, $context);
+					 $businessPackages = json_decode($result);
+					 $businessPackages = $businessPackages->businessPackages;
+
+				 }
+				 else{
+					 $url = 'http://localhost:55006/api/user/UnilevelMap';
+					 $options = array(
+						 'http' => array(
+							 'method'  => 'GET',
+							 'header'    => "Accept-language: en\r\n" .
+								 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
+						 )
+					 );
+					 $context  = stream_context_create($options);
+					 $result = file_get_contents($url, false, $context);
+					 $_res = json_decode($result);
+
+					 $unilevelMap_raw = json_encode($_res->userUnilevelMap);
+					 $unilevelMap = isset($_res->userUnilevelMap->nodes) == true ? $_res->userUnilevelMap->nodes : [];
+
+
+					 
+					 //var_dump($unilevelMap);
+
+					 $url = 'http://localhost:55006/api/user/UserIncomeTransactions';
+					 $options = array(
+						 'http' => array(
+							 'method'  => 'GET',
+							 'header'    => "Accept-language: en\r\n" .
+								 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
+						 )
+					 );
+					 $context  = stream_context_create($options);
+					 $result = file_get_contents($url, false, $context);
+					 $_res = json_decode($result);
+					 $userIncomeTransactions = $_res->userIncomeTransactions;
+					 //var_dump($userIncomeTransactions);
+
+					 if(count($_r->businessPackages) != 0 && $_r->businessPackages[0]->packageStatus == "2"){
+
+						 $url = 'http://localhost:55006/api/Affiliate/InvitationLink';
+						 $data = array(
+							 'DirectSponsorID' => Session::get('userName'),
+							 'BinarySponsorID' => Session::get('userName'),
+							 'BinaryPosition' => '1'
+							 );
+						 $options = array(
+							 'http' => array(
+								 'content' => json_encode($data),
+								 'method'  => 'POST',
+								 'header'    => "Accept-language: en\r\n" .  "Content-type: application/json\r\n" .
+									 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
+							 )
+						 );
+						 $context  = stream_context_create($options);
+						 $result = file_get_contents($url, false, $context);
+						 $_res = json_decode($result);
+						 $userLink = $_res->affiliateMapBO;
+					 }
+					 //var_dump($userLink);
+				 }
+				 
+				 if(isset($userIncomeTransactions) && $userIncomeTransactions != null){
+					 foreach ($userIncomeTransactions as $userIncomeTransactionItem)
+					 {
+						 $totalAmount += floatval($userIncomeTransactionItem->incomePercentage);
+					 }
+				 }
+
+			 }
+			 catch (Exception $exception)
+			 {
+				 echo '<script>window.location = "' .  route('logout') . '"</script>';
+			 }
 			 
   ?>
+
 
 <section class="gry-bg py-4 profile">
 	<div class="container">
@@ -387,14 +396,11 @@
 												
 												<?php if(isset($userIncomeTransactions) && $userIncomeTransactions != null): ?>
 													<?php $__currentLoopData = $userIncomeTransactions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $userIncomeTransactionItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-													<?php
-													 $totalAmount += floatval($userIncomeTransactionItem->incomePercentage);
-													?>
-
+													
 													<tr>
 														<td><?php echo e(date_format(date_create($userIncomeTransactionItem->createdOn),"Y/m/d H:i:s")); ?></td>
-														<td><?php echo e($userIncomeTransactionItem->userAuth->userName); ?></td>
-														<td><?php echo e($userIncomeTransactionItem->incomePercentage); ?></td>
+														<td><?php echo e($userIncomeTransactionItem->userAuth->userInfo->firstName . ' ' .  $userIncomeTransactionItem->userAuth->userInfo->lastName); ?></td>
+														<td><?php echo e(number_format($userIncomeTransactionItem->incomePercentage,3)); ?></td>
 														<td><?php echo e($userIncomeTransactionItem->incomeType->incomeTypeName); ?></td>
 														<td><?php echo e($userIncomeTransactionItem->remarks); ?></td>
 													</tr>
@@ -403,7 +409,7 @@
 													<tr>
 													 <td></td>
 													 <td><b>Total</b></td>
-													 <td><b><?php echo e(floatval($totalAmount)); ?></b></td>
+													 <td><b><?php echo e($totalAmount); ?></b></td>
 													 <td></td>
 													 <td></td>
 												 </tr>
@@ -438,9 +444,9 @@
 <script>
 
 	var datascource = '<?php  if (isset($unilevelMap_raw))
-								 {
-								 	echo $unilevelMap_raw; 
-								 }
+							 {
+								 echo $unilevelMap_raw; 
+							 }
       ?>'
 								  
 	datascource = "[" + datascource + "]";

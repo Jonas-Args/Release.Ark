@@ -1382,6 +1382,7 @@
     <Compile Include="shop.sql" />
     <Compile Include="sitemap.xml" />
     <Compile Include="updates.zip" />
+    <Compile Include="verify_email.php" />
     <Compile Include="web.config" />
     <Compile Include="webpack.mix.js" />
     <Compile Include="yarn.lock" />
