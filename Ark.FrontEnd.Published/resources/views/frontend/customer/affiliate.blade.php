@@ -380,9 +380,9 @@
 													<tr>
 														<th>{{__('Date')}}</th>
 														<th>{{__('User')}}</th>
-														<th>{{__('Amount')}}</th>
 														<th>{{__('Reward Name')}}</th>
 														<th>{{__('Computation')}}</th>
+														<th>{{__('Amount')}}</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -393,18 +393,18 @@
 													<tr>
 														<td>{{ date_format(date_create($userIncomeTransactionItem->createdOn),"Y/m/d H:i:s")  }}</td>
 														<td>{{ $userIncomeTransactionItem->userAuth->userInfo->firstName . ' ' .  $userIncomeTransactionItem->userAuth->userInfo->lastName}}</td>
-														<td>{{ number_format($userIncomeTransactionItem->incomePercentage,3) }}</td>
 														<td>{{ $userIncomeTransactionItem->incomeType->incomeTypeName}}</td>
 														<td>{{ $userIncomeTransactionItem->remarks}}</td>
+														<td>{{ number_format($userIncomeTransactionItem->incomePercentage,3) }}</td>
 													</tr>
 													@endforeach
 
 													<tr>
 													 <td></td>
-													 <td><b>Total</b></td>
+													 <td></td>
+													 <td></td>
+													 <td></td>
 													 <td><b>{{ $totalAmount }}</b></td>
-													 <td></td>
-													 <td></td>
 												 </tr>
 												@endif
 
