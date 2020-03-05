@@ -233,17 +233,15 @@
 											@foreach ($businessPackages as $key => $businessPackage)
 
 											<div class="col-md-4">
-
 												<img class="dashboard-widget" src="{{asset('uploads/packages/' . $businessPackage->imageFile) }}" onclick="SelectPackage('{{ $businessPackage->id }}');" alt="Alternate Text" style="width:100%" />
-
-												
 											</div>
 
 											@endforeach
-										</div>
 
-										
-										
+											<div class="col-md-4">
+												<img class="dashboard-widget" src="{{asset('uploads/packages/DIRECT_REFERRAL_REWARD.png'}}" onclick="SelectPackage('{{ $businessPackage->id }}');" alt="Alternate Text" style="width:100%" />
+											</div>
+										</div>
 
 									</div>
 									

@@ -117,14 +117,14 @@
         <div class="side-menu-overlay opacity-0" onclick="sideMenuClose()" style="transition-duration: 0s!important;transition: none!important;"></div>
         <div class="side-menu-wrap opacity-0"  style="transition-duration: 0s!important;transition: none!important;">
             <div class="side-menu closed">
-                <div class="side-menu-header" style="background-image:url('{{ asset("img/DASHBOARD_HEADER_LOGGED_IN.png") }}')">
+                <div class="side-menu-header"  @auth style="background-image:url('{{ asset("img/DASHBOARD_HEADER_LOGGED_IN.png") }}')"  @else style="background-image:url('{{ asset("img/DASHBOARD_HEADER_LOGGED_OUT.png") }}')" @endauth>
                     <div class="side-menu-close" onclick="sideMenuClose()">
                         <i class="la la-close"></i>
                     </div>
 
                     @auth
                         <div class="widget-profile-box px-3 py-4 d-flex align-items-center">
-                                <div class="image " style="border:none!important;background-image:url('{{ asset(Auth::user()->avatar_original) }}')"></div>
+                                <div class="image " style="border:none!important;background-image:url('{{ Auth::user()->avatar_original != "" ? asset(Auth::user()->avatar_original) : asset('frontend/images/user.png') }}')"></div>
                                 <div class="name">{{ Auth::user()->name }}</div>
                         </div>
                         <div class="side-login px-3 pb-3">
