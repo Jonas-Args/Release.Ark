@@ -193,7 +193,7 @@
 
 										<select class="form-control col-md-4" id="packageAmount_option" name="AmountPaid" style="display:none">
 											@foreach ($businessPackages as $key => $businessPackage)
-											<option value="{{ $businessPackage->valueFrom }}">{{ number_format($businessPackage->valueTo) }})</option>
+											<option value="{{ $businessPackage->valueTo }}">{{ number_format($businessPackage->valueTo) }})</option>
 											@endforeach
 										</select>
 										
