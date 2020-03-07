@@ -30,6 +30,35 @@
 			 $UserWallet = $UserWallet->userWallet;
 			 
 
+             $url = 'http://localhost:55006/api/user/UserIncomeTransactions';
+			 $options = array(
+				 'http' => array(
+					 'method'  => 'GET',
+					 'header'    => "Accept-language: en\r\n" .
+						 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
+				 )
+			 );
+			 $context  = stream_context_create($options);
+			 $result = file_get_contents($url, false, $context);
+			 $_res = json_decode($result);
+			 $userIncomeTransactions = $_res->userCommissionsTransactions;
+             $CashtotalAmount = 0;
+             $CredittotalAmount = 0;
+
+			 if(isset($userIncomeTransactions) && $userIncomeTransactions != null){
+				 foreach ($userIncomeTransactions as $userIncomeTransactionItem)
+				 {
+					 $CashtotalAmount += floatval($userIncomeTransactionItem->incomePercentage);
+				 }
+			 }
+
+             if(isset($wallets) && $wallets != null){
+				 foreach ($wallets as $item)
+				 {
+					 $CredittotalAmount += floatval($userIncomeTransactionItem->incomePercentage);
+				 }
+			 }
+
 
                 @endphp
 
@@ -84,7 +113,7 @@
 
                         <div class="card no-border mt-5">
                             <div class="card-header py-3">
-                                <h4 class="mb-0 h6">{{__('Wallet recharge history')}}</h4>
+                                <h4 class="mb-0 h6">{{__('Ark Credits Transactions')}}</h4>
                             </div>
                             <div class="card-body">
                                 <table class="table table-sm table-responsive-md mb-0">
@@ -92,8 +121,8 @@
                                         <tr>
                                             <th>#</th>
                                             <th>{{ __('Date') }}</th>
+                                            <th>{{__('Description')}}</th>
                                             <th>{{__('Amount')}}</th>
-                                            <th>{{__('Payment Method')}}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -101,11 +130,63 @@
                                             @foreach ($wallets as $key => $wallet)
                                                 <tr>
                                                     <td>{{ $key+1 }}</td>
-                                                    <td>{{ date('d-m-Y', strtotime($wallet->created_at)) }}</td>
-                                                    <td>{{ single_price($wallet->amount) }}</td>
+                                                    <td>{{ date_format(date_create($wallet->created_at),"Y/m/d H:i:s") }}</td>
                                                     <td>{{ ucfirst(str_replace('_', ' ', $wallet ->payment_method)) }}</td>
+                                                    <td>{{ single_price($wallet->amount) }}</td>
                                                 </tr>
                                             @endforeach
+                                            <tr>
+													 <td></td>
+													 <td></td>
+													 <td></td>
+													 <td><b>{{ single_price($CredittotalAmount) }}</b></td>
+														
+												 </tr>
+                                        @else
+                                            <tr>
+                                                <td class="text-center pt-5 h4" colspan="100%">
+                                                    <i class="la la-meh-o d-block heading-1 alpha-5"></i>
+                                                <span class="d-block">{{ __('No history found.') }}</span>
+                                                </td>
+                                            </tr>
+                                        @endif
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                         <div class="card no-border mt-5">
+                            <div class="card-header py-3">
+                                <h4 class="mb-0 h6">{{__('Ark Cash Transactions')}}</h4>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-sm table-responsive-md mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>{{__('Date') }}</th>
+                                            <th>{{__('Description')}}</th>
+                                            <th>{{__('Amount')}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                       @if(isset($userIncomeTransactions) && $userIncomeTransactions != null)
+													@foreach ($userIncomeTransactions as $key => $userIncomeTransactionItem)
+													
+													<tr>
+                                                        <td>{{ $key+1 }}</td>
+														<td>{{ date_format(date_create($userIncomeTransactionItem->createdOn),"Y/m/d H:i:s")  }}</td>
+														<td>{{ $userIncomeTransactionItem->incomeType->incomeTypeName}}</td>
+														<td>{{ number_format($userIncomeTransactionItem->incomePercentage,3) }}</td>
+													</tr>
+													@endforeach
+
+                                                    <tr>
+													 <td></td>
+													 <td></td>
+													 <td></td>
+													 <td><b>{{ single_price($CashtotalAmount) }}</b></td>
+														
+												 </tr>
                                         @else
                                             <tr>
                                                 <td class="text-center pt-5 h4" colspan="100%">

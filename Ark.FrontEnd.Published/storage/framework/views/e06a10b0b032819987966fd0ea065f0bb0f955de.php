@@ -28,6 +28,35 @@
 			 $UserWallet = $UserWallet->userWallet;
 			 
 
+             $url = 'http://localhost:55006/api/user/UserIncomeTransactions';
+			 $options = array(
+				 'http' => array(
+					 'method'  => 'GET',
+					 'header'    => "Accept-language: en\r\n" .
+						 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
+				 )
+			 );
+			 $context  = stream_context_create($options);
+			 $result = file_get_contents($url, false, $context);
+			 $_res = json_decode($result);
+			 $userIncomeTransactions = $_res->userCommissionsTransactions;
+             $CashtotalAmount = 0;
+             $CredittotalAmount = 0;
+
+			 if(isset($userIncomeTransactions) && $userIncomeTransactions != null){
+				 foreach ($userIncomeTransactions as $userIncomeTransactionItem)
+				 {
+					 $CashtotalAmount += floatval($userIncomeTransactionItem->incomePercentage);
+				 }
+			 }
+
+             if(isset($wallets) && $wallets != null){
+				 foreach ($wallets as $item)
+				 {
+					 $CredittotalAmount += floatval($userIncomeTransactionItem->incomePercentage);
+				 }
+			 }
+
 
                 ?>
 
@@ -83,7 +112,7 @@
 
                         <div class="card no-border mt-5">
                             <div class="card-header py-3">
-                                <h4 class="mb-0 h6"><?php echo e(__('Wallet recharge history')); ?></h4>
+                                <h4 class="mb-0 h6"><?php echo e(__('Ark Credits Transactions')); ?></h4>
                             </div>
                             <div class="card-body">
                                 <table class="table table-sm table-responsive-md mb-0">
@@ -91,8 +120,8 @@
                                         <tr>
                                             <th>#</th>
                                             <th><?php echo e(__('Date')); ?></th>
+                                            <th><?php echo e(__('Description')); ?></th>
                                             <th><?php echo e(__('Amount')); ?></th>
-                                            <th><?php echo e(__('Payment Method')); ?></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -100,11 +129,63 @@
                                             <?php $__currentLoopData = $wallets; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $wallet): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                 <tr>
                                                     <td><?php echo e($key+1); ?></td>
-                                                    <td><?php echo e(date('d-m-Y', strtotime($wallet->created_at))); ?></td>
-                                                    <td><?php echo e(single_price($wallet->amount)); ?></td>
+                                                    <td><?php echo e(date_format(date_create($wallet->created_at),"Y/m/d H:i:s")); ?></td>
                                                     <td><?php echo e(ucfirst(str_replace('_', ' ', $wallet ->payment_method))); ?></td>
+                                                    <td><?php echo e(single_price($wallet->amount)); ?></td>
                                                 </tr>
                                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                            <tr>
+													 <td></td>
+													 <td></td>
+													 <td></td>
+													 <td><b><?php echo e(single_price($CredittotalAmount)); ?></b></td>
+														
+												 </tr>
+                                        <?php else: ?>
+                                            <tr>
+                                                <td class="text-center pt-5 h4" colspan="100%">
+                                                    <i class="la la-meh-o d-block heading-1 alpha-5"></i>
+                                                <span class="d-block"><?php echo e(__('No history found.')); ?></span>
+                                                </td>
+                                            </tr>
+                                        <?php endif; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                         <div class="card no-border mt-5">
+                            <div class="card-header py-3">
+                                <h4 class="mb-0 h6"><?php echo e(__('Ark Cash Transactions')); ?></h4>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-sm table-responsive-md mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th><?php echo e(__('Date')); ?></th>
+                                            <th><?php echo e(__('Description')); ?></th>
+                                            <th><?php echo e(__('Amount')); ?></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                       <?php if(isset($userIncomeTransactions) && $userIncomeTransactions != null): ?>
+													<?php $__currentLoopData = $userIncomeTransactions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $userIncomeTransactionItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+													
+													<tr>
+                                                        <td><?php echo e($key+1); ?></td>
+														<td><?php echo e(date_format(date_create($userIncomeTransactionItem->createdOn),"Y/m/d H:i:s")); ?></td>
+														<td><?php echo e($userIncomeTransactionItem->incomeType->incomeTypeName); ?></td>
+														<td><?php echo e(number_format($userIncomeTransactionItem->incomePercentage,3)); ?></td>
+													</tr>
+													<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+                                                    <tr>
+													 <td></td>
+													 <td></td>
+													 <td></td>
+													 <td><b><?php echo e(single_price($CashtotalAmount)); ?></b></td>
+														
+												 </tr>
                                         <?php else: ?>
                                             <tr>
                                                 <td class="text-center pt-5 h4" colspan="100%">

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Request>
+    <orders>
+        <items>
+            <Items>
+                <itemname>Package A(WPFV2)</itemname>
+                <quantity>1</quantity>
+                <amount>10.00</amount>
+            </Items>
+        </items>
+    </orders>
+    <mid>0000001404114A546C5D</mid>
+    <request_id>2851306488</request_id>
+    <ip_address></ip_address>
+    <notification_url>https://testpti.payserv.net/paytravel/notificationreceiver.aspx</notification_url>
+    <response_url>https://testpti.payserv.net/paytravel/Default.aspx</response_url>
+    <cancel_url>https://testpti.payserv.net/paytravel/Default.aspx</cancel_url>
+    <mtac_url></mtac_url>
+    <descriptor_note>'My Descriptor +18008008008'</descriptor_note>
+    <fname>Juan</fname>
+    <lname>Cruz</lname>
+    <mname>dela</mname>
+    <address1>1609 Cityland 10 HV Dela Costa St.</address1>
+    <address2>Salecedo Village</address2>
+    <city>makati</city>
+    <state>MM</state>
+    <country>PH</country>
+    <zip>1200</zip>
+    <secure3d>try3d</secure3d>
+    <trxtype>sale</trxtype>
+    <email>ronald.magleo@paynamics.net</email>
+    <phone>3308772</phone>
+    <mobile>09178134828</mobile>
+    <client_ip>203.82.37.90</client_ip>
+    <amount>10.00</amount>
+    <currency>PHP</currency>
+    <mlogo_url>https://testpti.payserv.net/paytravel/images/paytravel_logo.png</mlogo_url>
+    <pmethod></pmethod>
+    <signature>c3f2c8cc1fb8e2c1240545bdae8b1522462bf2c361416b0cf11e97258c969e6848ef2a7c1cc31585acc0f864b728dfd253240bc7ef4c023146eaa5bc3c29bd16</signature>
+</Request>
+
+<?xml version="1.0" encoding="utf-16"?>
+<Request xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <orders>
+        <items>
+            <Items>
+                <itemname>LETANG A10 Speaker</itemname>
+                <quantity>15</quantity>
+                <amount>617</amount>
+            </Items>
+        </items>
+    </orders>
+    <mid>000000161119730B1C0B</mid>
+    <request_id>c5a5ba07-e86a-4793-9349-65c0d7007f39</request_id>
+    <notification_url>https://testpti.payserv.net/webpayment/default.aspx</notification_url>
+    <response_url>https://testpti.payserv.net/webpayment/default.aspx</response_url>
+    <cancel_url>https://testpti.payserv.net/webpayment/default.aspx</cancel_url>
+    <fname>Joseph</fname>
+    <lname>Eraldo</lname>
+    <address1>not applicable  available</address1>
+    <city>Na</city>
+    <state>NCR</state>
+    <country>Philippines</country>
+    <secure3d>try3d</secure3d>
+    <trxtype>sale</trxtype>
+    <email>jjeeraldo@gmail.com</email>
+    <amount>1675.4099999999999</amount>
+    <currency>PHP</currency>
+    <signature>c8a8a48f8332bdccfdf34d874ed62881bd50fb6a3c14851cf259682acfd4da9a2db1f8b4307876826e17f5fd3ee23d80d94d273fd41dd5d92e3a0c12bdae1f54</signature>
+</Request>

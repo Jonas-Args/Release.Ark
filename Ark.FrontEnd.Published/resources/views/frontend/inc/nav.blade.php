@@ -1,4 +1,19 @@
 @php
+
+			 $_s = Session::get('apiSession');
+			 $url = 'http://localhost:55006/api/user/Wallet';
+			 $options = array(
+				 'http' => array(
+					 'method'  => 'GET',
+					 'header'    => "Accept-language: en\r\n" .
+						 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
+				 )
+			 );
+			 $context  = stream_context_create($options);
+			 $result = file_get_contents($url, false, $context);
+			 $UserWallet = json_decode($result);
+			 $UserWallet = $UserWallet->userWallet;
+
 			 function number_format_short( $n, $precision = 1 ) {
 				 if ($n < 900) {
 					 // 0 - 900
@@ -40,8 +55,21 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-7 col">
-                    <ul class="inline-links d-lg-inline-block d-flex justify-content-between">
-                        <li class="dropdown" id="lang-change">
+                    <ul class="inline-links d-lg-inline-block d-flex justify-content-between" >
+                        @auth
+                        <li class="dropdown" id="lang-change" style="float:right">                         
+                            <a href="#" class="top-bar-item d-lg-none">
+                              <i class="la la-wallet d-inline-block nav-box-icon" style="color:#0acf97"></i>  Ark Credit: <b>₱{{ number_format(floatval(Auth::user()->balance)) }} </b> 
+                            </a>
+                        </li>
+
+                         <li class="dropdown" id="lang-change" style="float:right">                         
+                            <a href="#" class="top-bar-item d-lg-none">
+                              <i class="la la-wallet d-inline-block nav-box-icon" style="color:#fa5c7c"></i>  Ark Cash: <b>₱{{ number_format($UserWallet[array_search('ACW', array_column($UserWallet, 'walletCode'))]->balance,2) }}</b> 
+                            </a>
+                        </li>
+                        @endauth
+                        <li class="dropdown" id="lang-change" style="display:none!important">
                             @php
                                 if(Session::has('locale')){
                                     $locale = Session::get('locale', Config::get('app.locale'));
@@ -62,7 +90,7 @@
                             </ul>
                         </li>
 
-                        <li class="dropdown" id="currency-change">
+                        <li class="dropdown" id="currency-change" style="display:none!important">
                             @php
                                 if(Session::has('currency_code')){
                                     $currency_code = Session::get('currency_code');

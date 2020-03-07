@@ -228,8 +228,13 @@ class HomeController extends Controller
     public function load_featured_section(){
         return view('frontend.partials.featured_products_section');
     }
+
     public function load_ark_products_section(){
         return view('frontend.partials.ark_products_section');
+    }
+
+    public function load_coming_soon_section(){
+        return view('frontend.partials.coming_soon_section');
     }
 
     public function load_best_selling_section(){
@@ -467,6 +472,11 @@ class HomeController extends Controller
         $quantity = 0;
         $product_price = DB::table('product_price')->where([['product_id', '=', $product->id],['range_from', '<=',floatval($request->quantity)],['range_to', '>=',floatval($request->quantity)]])->get();
 
+        if ($product_price == null)
+		{
+            $product_price = DB::table('product_price')->where([['product_id', '=', $product->id]])->orderBy('range_to','desc')->first();
+		}
+
 
         if($request->has('color')){
             $data['color'] = $request['color'];
@@ -533,6 +543,9 @@ class HomeController extends Controller
         return view("frontend.policies.supportpolicy");
     }
 
+    public function aboutus(){
+        return view("frontend.policies.aboutus");
+    }
     public function terms(){
         return view("frontend.policies.terms");
     }

@@ -181,7 +181,7 @@
     					<strong>{{__('Shipping')}} :</strong>
     				</td>
     				<td>
-    					{{ single_price($order->orderDetails->where('seller_id', Auth::user()->id)->sum('shipping_cost')) }}
+    					{{ single_price($order->orderDetails->where('seller_id', Auth::user()->id)->avg('shipping_cost')) }}
     				</td>
     			</tr>
     			<tr>

@@ -260,25 +260,7 @@ use Illuminate\Support\Facades\DB;
     <div id="section_home_categories"></div>
 
     <div id="section_coming_soon">
-		<section class="mb-4">
-			<div class="container">
-				<div class="px-2 py-4 p-md-4 bg-white shadow-sm">
-					<div class="section-title-1 clearfix">
-						<h3 class="heading-5 strong-700 mb-0 float-left">
-							<span class="mr-4">{{__('Coming Soon')}}</span>
-						</h3>
-						<ul class="inline-links float-right">
-							<!-- <li><a  class="active">{{__('Top 20')}}</a></li>-->
-						</ul>
-					</div>
-					<div class="caorusel-box">
-						<div class="slick-carousel" data-slick-items="3" data-slick-lg-items="2" data-slick-md-items="2" data-slick-sm-items="1" data-slick-xs-items="1" data-slick-dots="true" data-slick-rows="2">
-							
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
+		
     </div>
 
     
@@ -313,6 +295,11 @@ use Illuminate\Support\Facades\DB;
         
             $.post('{{ route('home.section.featured') }}', {_token:'{{ csrf_token() }}'}, function(data){
                 $('#section_featured').html(data);
+                slickInit();
+            });
+                
+            $.post('{{ route('home.section.coming_soon') }}', {_token:'{{ csrf_token() }}'}, function(data){
+				$('#section_coming_soon').html(data);
                 slickInit();
             });
 

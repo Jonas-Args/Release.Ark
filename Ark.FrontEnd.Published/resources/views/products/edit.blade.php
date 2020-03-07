@@ -435,7 +435,7 @@
 	}
 
 	function add_more_price_choice_option(){
-		$('#price_choice_options').append('<div class="form-group"><div class="col-lg-2"><input type="hidden" name="choice_no[]" value="'+i+'"> <div ><label class="control-label" style="width:100%">Unit Price</label></div> <div><label class="control-label" style="width:100%">Quantity</label></div> </div><div class="col-lg-7"><input type="text" class="form-control" name="choice[]" value="" placeholder=""> <input type="number" class="form-control" name="choice[]" value="" placeholder=""></div><div class="col-lg-2"><button onclick="delete_row(this)" class="btn btn-danger btn-icon"><i class="demo-psi-recycling icon-lg"></i></button></div></div>');
+		$('#price_choice_options').append('<div class="form-group"><div class="col-lg-2"><input type="hidden" name="choice_no[]" value="'+i+'"> <div><label class="control-label" style="width:100%">Unit Price</label></div> <div><label class="control-label" style="width:100%">Quantity</label></div> </div><div class="col-lg-7"><input type="text" class="form-control" name="choice[]" value="" placeholder=""> <input type="number" class="form-control" name="choice[]" value="" placeholder=""></div><div class="col-lg-2"><button onclick="delete_row(this)" class="btn btn-danger btn-icon"><i class="demo-psi-recycling icon-lg"></i></button></div></div>');
 		i++;
 		$("input[data-role=tagsinput], select[multiple][data-role=tagsinput]").tagsinput();
 	}

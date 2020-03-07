@@ -179,13 +179,15 @@
 								</div>
 							@endif
 							<br />
-							<p>Quantity Variations</p>
+							<p>Quantity Variations ({{ $product->unit }})</p>
+
 							@foreach ($product_price as $k1 => $product_priceItem)
 							@if($product_priceItem->range_from != $product_priceItem->range_to)
-							{{ $product_priceItem->range_from }} - {{ $product_priceItem->range_to . ' ' .$product->unit . 's'}} = <b>{{ single_price($product_priceItem->unit_price) }}</b>
+							{{ $product_priceItem->range_from }}  {{ $k1 != count($product_price) - 1 ? ' - ' . $product_priceItem->range_to : 'and above'}} = <b>{{ single_price($product_priceItem->unit_price) }}</b>
 							<br />
 							@endif
 							@endforeach
+
 							<hr>
 
 							<form id="option-choice-form">

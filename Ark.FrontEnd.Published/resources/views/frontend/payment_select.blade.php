@@ -2,6 +2,33 @@
 
 @section('content')
 
+@php
+	 $_s = Session::get('apiSession');
+	 $totalAmount = 0;
+	 $isActivated = false;
+	 
+		 $url = 'http://localhost:55006/api/user/BusinessPackages';
+		 $options = array(
+			 'http' => array(
+				 'method'  => 'GET',
+				 'header'    => "Accept-language: en\r\n" .
+					 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
+			 )
+		 );
+		 $context  = stream_context_create($options);
+		 $result = file_get_contents($url, false, $context);
+	     $_r = json_decode($result);
+
+if(count($_r->businessPackages) != 0 && $_r->businessPackages[0]->packageStatus == "2"){
+	$isActivated = true;
+}
+else{
+	echo "<script> alert('Your Account is not yet activated, please activate your account first.'); window.location = '/dashboard' </script>";
+}
+
+@endphp
+
+
     <div id="page-content">
         <section class="slice-xs sct-color-2 border-bottom">
             <div class="container container-sm">
@@ -60,7 +87,7 @@
             <div class="container">
                 <div class="row cols-xs-space cols-sm-space cols-md-space">
                     <div class="col-lg-8">
-						<form action="{{ Auth::user()->balance < $total ? "https://testpti.payserv.net/webpayment/default.aspx" : route('payment.checkout')  }}" class="form-default" data-toggle="validator" role="form" method="POST" id="checkout-form">
+						<form action="{{ Auth::user()->balance < $total ? route('payment.checkout.paynamics') : route('payment.checkout')  }}" class="form-default" data-toggle="validator" role="form" method="POST" id="checkout-form">
 							@csrf
 							<div class="card">
 								<div class="card-title px-4 py-3">
@@ -154,7 +181,7 @@
 												</div>
 												@endif
 
-												@if(Auth::user()->balance < $total)
+												@if(Auth::user()->balance < $total && $isActivated== true)
 												<div class="col-6">
 													<label class="payment_option mb-4" data-toggle="tooltip" data-title="Pay with Paynamics">
 														<input type="radio" id="" name="payment_option" value="cash_on_delivery" checked />
@@ -179,7 +206,7 @@
 													Your ark credit balance :
 													<strong>{{ single_price(Auth::user()->balance) }}</strong>
 												</div>
-												@if(Auth::user()->balance < $total) 
+												@if(Auth::user()->balance < $total)
 												<button type="button" class="btn btn-base-2" disabled>Insufficient balance</button>
 												@else
 												<button type="button" onclick="use_wallet()" class="btn btn-base-1">Pay with wallet</button>
@@ -202,7 +229,7 @@
 									</a>
 								</div>
 								<div class="col-6 text-right">
-									@if(Auth::user()->balance < $total)
+									@if(Auth::user()->balance < $total && $isActivated == true) 
 									<button type="submit" class="btn btn-styled btn-base-1">{{__('Complete Order')}}</button>
 
 									@endif
@@ -218,7 +245,7 @@
 								</div>
 								<div class="col-6 text-right">
 									@if(Auth::user()->balance < $total)
-									<button type="submit" class="btn btn-styled btn-base-1">{{__('Complete Order')}}</button>								
+									<button type="submit" class="btn btn-styled btn-base-1">{{__('Complete Order')}}</button>
 
 									@endif
 								</div>
@@ -237,6 +264,9 @@
 @endsection
 
 @section('script')
+
+
+
     <script type="text/javascript">
         function use_wallet(){
             $('input[name=payment_option]').val('wallet');

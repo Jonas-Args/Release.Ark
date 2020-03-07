@@ -1146,6 +1146,7 @@
     <Compile Include="resources\views\frontend\partials\cart_details.blade.php" />
     <Compile Include="resources\views\frontend\partials\cart_summary.blade.php" />
     <Compile Include="resources\views\frontend\partials\compare.blade.php" />
+    <Compile Include="resources\views\frontend\partials\coming_soon_section.blade.php" />
     <Compile Include="resources\views\frontend\partials\featured_products_section.blade.php" />
     <Compile Include="resources\views\frontend\partials\home_categories_section.blade.php" />
     <Compile Include="resources\views\frontend\partials\messages.blade.php" />
@@ -1163,6 +1164,7 @@
     <Compile Include="resources\views\frontend\policies\returnpolicy.blade.php" />
     <Compile Include="resources\views\frontend\policies\sellerpolicy.blade.php" />
     <Compile Include="resources\views\frontend\policies\supportpolicy.blade.php" />
+    <Compile Include="resources\views\frontend\policies\aboutus.blade.php" />
     <Compile Include="resources\views\frontend\policies\terms.blade.php" />
     <Compile Include="resources\views\frontend\razor_wallet\payWithRazorpay.blade.php" />
     <Compile Include="resources\views\frontend\seller\seller_withdraw_requests\index.blade.php" />
@@ -1360,6 +1362,7 @@
     <Compile Include="storage\framework\.gitignore" />
     <Compile Include="storage\logs\.gitignore" />
     <Compile Include="storage\logs\laravel-2020-01-22.log" />
+    <Compile Include="testPayment.php" />
     <Compile Include="tests\Feature\ExampleTest.php" />
     <Compile Include="tests\Unit\ExampleTest.php" />
     <Compile Include="tests\CreatesApplication.php" />
@@ -1578,5 +1581,8 @@
     <Folder Include="tests\Feature" />
     <Folder Include="tests\Unit" />
     <Folder Include="tests" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="XMLFile1.xml" />
   </ItemGroup>
 </Project>

@@ -30,6 +30,7 @@ Route::post('/subsubcategories/get_brands_by_subsubcategory', 'SubSubCategoryCon
 //Home Page
 Route::get('/', 'HomeController@index')->name('home');
 Route::post('/home/section/featured', 'HomeController@load_featured_section')->name('home.section.featured');
+Route::post('/home/section/coming_soon', 'HomeController@load_coming_soon_section')->name('home.section.coming_soon');
 Route::post('/home/section/ark_products', 'HomeController@load_ark_products_section')->name('home.section.ark_products');
 Route::post('/home/section/best_selling', 'HomeController@load_best_selling_section')->name('home.section.best_selling');
 Route::post('/home/section/home_categories', 'HomeController@load_home_categories_section')->name('home.section.home_categories');
@@ -65,6 +66,7 @@ Route::group(['middleware' => ['checkout']], function(){
 });
 
 Route::post('/checkout/payment', 'CheckoutController@checkout')->name('payment.checkout');
+Route::post('/checkout/paynamics', 'CheckoutController@paynamics')->name('payment.checkout.paynamics');
 Route::post('/get_pick_ip_points', 'HomeController@get_pick_ip_points')->name('shipping_info.get_pick_ip_points');
 Route::get('/checkout/payment_select', 'CheckoutController@get_payment_info')->name('checkout.payment_info');
 Route::post('/checkout/apply_coupon_code', 'CheckoutController@apply_coupon_code')->name('checkout.apply_coupon_code');
@@ -105,7 +107,10 @@ Route::get('/sellerpolicy', 'HomeController@sellerpolicy')->name('sellerpolicy')
 Route::get('/returnpolicy', 'HomeController@returnpolicy')->name('returnpolicy');
 Route::get('/supportpolicy', 'HomeController@supportpolicy')->name('supportpolicy');
 Route::get('/terms', 'HomeController@terms')->name('terms');
+Route::get('/aboutus', 'HomeController@aboutus')->name('aboutus');
 Route::get('/privacypolicy', 'HomeController@privacypolicy')->name('privacypolicy');
+
+Route::post('/wallet_update', 'WalletController@wallet_update')->name('wallet.wallet_update');
 
 Route::group(['middleware' => ['user', 'verified']], function(){
 	Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
@@ -123,6 +128,7 @@ Route::group(['middleware' => ['user', 'verified']], function(){
 
 	Route::get('/wallet', 'WalletController@index')->name('wallet.index');
 	Route::post('/recharge', 'WalletController@recharge')->name('wallet.recharge');
+
 
 	Route::resource('support_ticket','SupportTicketController');
 	Route::post('support_ticket/reply','SupportTicketController@seller_store')->name('support_ticket.seller_store');

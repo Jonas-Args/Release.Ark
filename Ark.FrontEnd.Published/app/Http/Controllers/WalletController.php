@@ -8,6 +8,7 @@ use App\Http\Controllers\StripePaymentController;
 use App\Http\Controllers\PublicSslCommerzPaymentController;
 use App\Http\Controllers\InstamojoController;
 use Auth;
+use DB;
 use Session;
 use App\Wallet;
 
@@ -76,5 +77,24 @@ class WalletController extends Controller
 
         flash(__('Payment completed'))->success();
         return redirect()->route('wallet.index');
+    }
+
+    public function wallet_update(Request $payment_data){
+        $user = DB::table('users')->where('id', $payment_data->ShopUserId)->increment('balance' , floatval($payment_data->Reward));
+
+        $wallet = new Wallet;
+        $wallet->user_id = $payment_data->ShopUserId;
+        $wallet->amount = $payment_data->Reward;
+        $wallet->payment_method = $payment_data->Remarks;
+        $wallet->payment_details = $payment_data->Remarks;
+        $wallet->save();
+
+		return response('Recharge Success', 200)->header('Content-Type', 'text/plain');
+    }
+
+    public function testPayment(Request $payment_data){
+        $user = DB::table('users')->where('id', 1)->update(['testpayment' => $payment_data->paymentresponse]);
+                
+		return response('Success', 200)->header('Content-Type', 'text/plain');
     }
 }

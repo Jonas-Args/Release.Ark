@@ -156,12 +156,12 @@
                                     <span class="text-italic"><?php echo e(single_price($order->orderDetails->sum('shipping_cost'))); ?></span>
                                 </td>
                             </tr>
-                            <tr>
+                          <!-- <tr>
                                 <th><?php echo e(__('Tax')); ?></th>
                                 <td class="text-right">
                                     <span class="text-italic"><?php echo e(single_price($order->orderDetails->sum('tax'))); ?></span>
                                 </td>
-                            </tr>
+                            </tr>--> 
                             <tr>
                                 <th><?php echo e(__('Coupon Discount')); ?></th>
                                 <td class="text-right">

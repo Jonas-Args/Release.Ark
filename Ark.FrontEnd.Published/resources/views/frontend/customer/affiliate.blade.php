@@ -403,7 +403,16 @@
 													 <td></td>
 													 <td></td>
 													 <td><b>{{ $totalAmount }}</b></td>
+														
 												 </tr>
+												@else
+											         <tr>
+                                                        <td class="text-center pt-5 h4" colspan="100%">
+                                                            <i class="la la-meh-o d-block heading-1 alpha-5"></i>
+                                                        <span class="d-block">{{ __('No history found.') }}</span>
+                                                        </td>
+                                                    </tr>
+
 												@endif
 
 												 

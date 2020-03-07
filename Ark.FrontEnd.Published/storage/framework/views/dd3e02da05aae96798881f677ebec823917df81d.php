@@ -177,13 +177,15 @@
 								</div>
 							<?php endif; ?>
 							<br />
-							<p>Quantity Variations</p>
+							<p>Quantity Variations (<?php echo e($product->unit); ?>)</p>
+
 							<?php $__currentLoopData = $product_price; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k1 => $product_priceItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 							<?php if($product_priceItem->range_from != $product_priceItem->range_to): ?>
-							<?php echo e($product_priceItem->range_from); ?> - <?php echo e($product_priceItem->range_to . ' ' .$product->unit . 's'); ?> = <b><?php echo e(single_price($product_priceItem->unit_price)); ?></b>
+							<?php echo e($product_priceItem->range_from); ?>  <?php echo e($k1 != count($product_price) - 1 ? ' - ' . $product_priceItem->range_to : 'and above'); ?> = <b><?php echo e(single_price($product_priceItem->unit_price)); ?></b>
 							<br />
 							<?php endif; ?>
 							<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
 							<hr>
 
 							<form id="option-choice-form">

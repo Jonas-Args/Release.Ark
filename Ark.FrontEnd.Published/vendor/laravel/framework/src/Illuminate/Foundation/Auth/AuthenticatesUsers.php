@@ -118,15 +118,15 @@ trait AuthenticatesUsers
 					$user = Auth::user();
 					if (floatval($user->balance) == 0)
 					{
-						$user->balance = $user->balance + $_r->businessPackages[0]->businessPackage->consumables;
-						$user->save();
+						//$user->balance = $user->balance + $_r->businessPackages[0]->businessPackage->consumables;
+						//$user->save();
 
-						$wallet = new Wallet;
-						$wallet->user_id = $user->id;
-						$wallet->amount = $_r->businessPackages[0]->businessPackage->consumables;
-						$wallet->payment_method = 'Package Consumables';
-						$wallet->payment_details = 'Package Consumables';
-						$wallet->save();
+						//$wallet = new Wallet;
+						//$wallet->user_id = $user->id;
+						//$wallet->amount = $_r->businessPackages[0]->businessPackage->consumables;
+						//$wallet->payment_method = 'Package Consumables';
+						//$wallet->payment_details = 'Package Consumables';
+						//$wallet->save();
 					}
 
 				}

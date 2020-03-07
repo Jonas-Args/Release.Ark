@@ -71,7 +71,7 @@
 			 $si = Session::get('shipping_info');
 			 if ($si != null)
 			 {
-				 var_dump($total_shipping_points);
+				 //var_dump($total_shipping_points);
 				 $_psf = DB::table('shipping_fee_type')->where([['range_from', '<=',floatval($total_shipping_points)],['range_to', '>=',floatval($total_shipping_points)],['region', '=',$si['country']]])->get();
 				 if ($_psf != null)
 				 {

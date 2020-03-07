@@ -169,13 +169,35 @@ class OrderController extends Controller
             $subtotal = 0;
             $tax = 0;
             $shipping = 0;
+            $total_shipping_points = 0;
+
+            $si = Session::get('shipping_info');
+            foreach (Session::get('cart') as $key => $cartItem){
+				$product = Product::find($cartItem['id']);
+
+				$product_price = DB::table('product_shipping_points')->where([['product_id', '=', $product->id]])->get();
+				$total_shipping_points += $product_price[0]->point_value*$cartItem['quantity'];
+
+                $_psf = DB::table('shipping_fee_type')->where([['range_from', '<=',floatval($total_shipping_points)],['range_to', '>=',floatval($total_shipping_points)],['region', '=',$si['country']]])->get();
+				if ($_psf != null)
+				{
+					$_pt = DB::table('packaging_type')->where([['id', '=',floatval($_psf[0]->packaging_type_id)]])->get();
+					//var_dump($_pt);
+					$shipping = $_pt != null ? $_pt[0]->unit_price : 0;
+				}
+				else{
+					$shipping = 0;
+				}
+			}
+
             foreach (Session::get('cart') as $key => $cartItem){
                 $product = Product::find($cartItem['id']);
+
 
                 if ($cartItem['shipping_type'] == 'home_delivery') {
                     $subtotal += $cartItem['price']*$cartItem['quantity'];
                     $tax += $cartItem['tax']*$cartItem['quantity'];
-                    $shipping += \App\Product::find($cartItem['id'])->shipping_cost*$cartItem['quantity'];
+                    //$shipping += \App\Product::find($cartItem['id'])->shipping_cost*$cartItem['quantity'];
                 }
 
                 $product_variation = null;
@@ -213,7 +235,7 @@ class OrderController extends Controller
                 $order_detail->shipping_type = $cartItem['shipping_type'];
 
                 if ($cartItem['shipping_type'] == 'home_delivery') {
-                    $order_detail->shipping_cost = \App\Product::find($cartItem['id'])->shipping_cost*$cartItem['quantity'];
+                    $order_detail->shipping_cost = $shipping;// \App\Product::find($cartItem['id'])->shipping_cost*$cartItem['quantity'];
                 }
                 else{
                     $order_detail->shipping_cost = 0;
@@ -303,12 +325,12 @@ class OrderController extends Controller
 				{
 					//$_userC = DB::table('users')->where('id', $commissionItem->shopUserId)->increment('balance' , floatval($commissionItem->reward));
 
-					$wallet = new Wallet;
-					$wallet->user_id = $commissionItem->shopUserId;
-					$wallet->amount = $commissionItem->reward;
-					$wallet->payment_method = 'Product Commission';
-					$wallet->payment_details = 'Product Commission';
-					$wallet->save();
+					//$wallet = new Wallet;
+					//$wallet->user_id = $commissionItem->shopUserId;
+					//$wallet->amount = $commissionItem->reward;
+					//$wallet->payment_method = 'Product Commission';
+					//$wallet->payment_details = 'Product Commission';
+					//$wallet->save();
 				}
 
 
