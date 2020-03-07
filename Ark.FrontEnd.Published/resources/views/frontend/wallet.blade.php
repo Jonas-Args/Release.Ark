@@ -55,7 +55,7 @@
              if(isset($wallets) && $wallets != null){
 				 foreach ($wallets as $item)
 				 {
-					 $CredittotalAmount += floatval($userIncomeTransactionItem->incomePercentage);
+					 $CredittotalAmount += floatval($item->incomePercentage);
 				 }
 			 }
 
