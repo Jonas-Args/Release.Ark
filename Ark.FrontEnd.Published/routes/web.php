@@ -71,10 +71,11 @@ Route::get('/checkout/payment_select', 'CheckoutController@get_payment_info')->n
 Route::post('/checkout/apply_coupon_code', 'CheckoutController@apply_coupon_code')->name('checkout.apply_coupon_code');
 Route::post('/checkout/remove_coupon_code', 'CheckoutController@remove_coupon_code')->name('checkout.remove_coupon_code');
 
-
 //Paynamics Start
 Route::post('/checkout/paynamics', 'PaynamicsController@initializePayment')->name('payment.checkout.paynamics');
-Route::post('/checkout/paynamics/proccess', 'CheckoutController@remove_coupon_code')->name('checkout.paynamics.proccess');
+Route::get('/checkout/payment/cancel', 'PaynamicsController@cancelPayment')->name('checkout.paynamics.cancel');
+Route::post('/checkout/payment/callback', 'CheckoutController@callbackPayment')->name('checkout.paynamics.callback');
+Route::post('/checkout/payment/response', 'CheckoutController@responsePayment')->name('checkout.paynamics.response');
 
 //Paypal START
 Route::get('/paypal/payment/done', 'PaypalController@getDone')->name('payment.done');
