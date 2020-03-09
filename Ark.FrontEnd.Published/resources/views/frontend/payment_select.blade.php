@@ -33,7 +33,7 @@ else{
         <section class="slice-xs sct-color-2 border-bottom">
             <div class="container container-sm">
                 <div class="row cols-delimited justify-content-center">
-                    <div class="col-4">
+                    <div class="col-3">
                         <div class="icon-block icon-block--style-1-v5 text-center">
                             <div class="block-icon c-gray-light mb-0">
                                 <i class="la la-shopping-cart"></i>
@@ -44,7 +44,7 @@ else{
                         </div>
                     </div>
 
-                    <div class="col-4">
+                    <div class="col-3">
                         <div class="icon-block icon-block--style-1-v5 text-center">
                             <div class="block-icon c-gray-light mb-0">
                                 <i class="la la-truck"></i>
@@ -66,7 +66,7 @@ else{
 						</div>
 					</div>
 
-                    <div class="col-4">
+                    <div class="col-3">
                         <div class="icon-block icon-block--style-1-v5 text-center active">
                             <div class="block-icon mb-0">
                                 <i class="la la-credit-card"></i>

@@ -66,11 +66,15 @@ Route::group(['middleware' => ['checkout']], function(){
 });
 
 Route::post('/checkout/payment', 'CheckoutController@checkout')->name('payment.checkout');
-Route::post('/checkout/paynamics', 'CheckoutController@paynamics')->name('payment.checkout.paynamics');
 Route::post('/get_pick_ip_points', 'HomeController@get_pick_ip_points')->name('shipping_info.get_pick_ip_points');
 Route::get('/checkout/payment_select', 'CheckoutController@get_payment_info')->name('checkout.payment_info');
 Route::post('/checkout/apply_coupon_code', 'CheckoutController@apply_coupon_code')->name('checkout.apply_coupon_code');
 Route::post('/checkout/remove_coupon_code', 'CheckoutController@remove_coupon_code')->name('checkout.remove_coupon_code');
+
+
+//Paynamics Start
+Route::post('/checkout/paynamics', 'PaynamicsController@initializePayment')->name('payment.checkout.paynamics');
+Route::post('/checkout/paynamics/proccess', 'CheckoutController@remove_coupon_code')->name('checkout.paynamics.proccess');
 
 //Paypal START
 Route::get('/paypal/payment/done', 'PaypalController@getDone')->name('payment.done');

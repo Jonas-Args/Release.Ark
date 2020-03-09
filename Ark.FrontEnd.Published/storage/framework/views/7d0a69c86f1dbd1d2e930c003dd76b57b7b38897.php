@@ -193,7 +193,7 @@
 
 										<select class="form-control col-md-4" id="packageAmount_option" name="AmountPaid" style="display:none">
 											<?php $__currentLoopData = $businessPackages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $businessPackage): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-											<option value="<?php echo e($businessPackage->valueFrom); ?>"><?php echo e(number_format($businessPackage->valueTo)); ?>)</option>
+											<option value="<?php echo e($businessPackage->valueTo); ?>"><?php echo e(number_format($businessPackage->valueTo)); ?>)</option>
 											<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 										</select>
 										
@@ -233,17 +233,15 @@
 											<?php $__currentLoopData = $businessPackages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $businessPackage): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
 											<div class="col-md-4">
-
 												<img class="dashboard-widget" src="<?php echo e(asset('uploads/packages/' . $businessPackage->imageFile)); ?>" onclick="SelectPackage('<?php echo e($businessPackage->id); ?>');" alt="Alternate Text" style="width:100%" />
-
-												
 											</div>
 
 											<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-										</div>
 
-										
-										
+											<div class="col-md-4">
+												<img class="dashboard-widget" src="<?php echo e(asset('uploads/packages/DIRECT_REFERRAL_REWARD.png')); ?>" onclick="SelectPackage('<?php echo e($businessPackage->id); ?>');" alt="Alternate Text" style="width:100%" />
+											</div>
+										</div>
 
 									</div>
 									
@@ -387,9 +385,9 @@
 													<tr>
 														<th><?php echo e(__('Date')); ?></th>
 														<th><?php echo e(__('User')); ?></th>
-														<th><?php echo e(__('Amount')); ?></th>
 														<th><?php echo e(__('Reward Name')); ?></th>
 														<th><?php echo e(__('Computation')); ?></th>
+														<th><?php echo e(__('Amount')); ?></th>
 													</tr>
 												</thead>
 												<tbody>
@@ -400,19 +398,28 @@
 													<tr>
 														<td><?php echo e(date_format(date_create($userIncomeTransactionItem->createdOn),"Y/m/d H:i:s")); ?></td>
 														<td><?php echo e($userIncomeTransactionItem->userAuth->userInfo->firstName . ' ' .  $userIncomeTransactionItem->userAuth->userInfo->lastName); ?></td>
-														<td><?php echo e(number_format($userIncomeTransactionItem->incomePercentage,3)); ?></td>
 														<td><?php echo e($userIncomeTransactionItem->incomeType->incomeTypeName); ?></td>
 														<td><?php echo e($userIncomeTransactionItem->remarks); ?></td>
+														<td><?php echo e(number_format($userIncomeTransactionItem->incomePercentage,3)); ?></td>
 													</tr>
 													<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
 													<tr>
 													 <td></td>
-													 <td><b>Total</b></td>
+													 <td></td>
+													 <td></td>
+													 <td></td>
 													 <td><b><?php echo e($totalAmount); ?></b></td>
-													 <td></td>
-													 <td></td>
+														
 												 </tr>
+												<?php else: ?>
+											         <tr>
+                                                        <td class="text-center pt-5 h4" colspan="100%">
+                                                            <i class="la la-meh-o d-block heading-1 alpha-5"></i>
+                                                        <span class="d-block"><?php echo e(__('No history found.')); ?></span>
+                                                        </td>
+                                                    </tr>
+
 												<?php endif; ?>
 
 												 

@@ -115,50 +115,6 @@ class CheckoutController extends Controller
             }
         }
     }
-
-    public function paynamics(Request $request)
-    {
-        //$orderController = new OrderController;
-        //$orderController->store($request);
-       $subtotal = 0;
-       $Items = [];
-       foreach (Session::get('cart') as $key => $cartItem){
-	   $subtotal += $cartItem['price']*$cartItem['quantity'];
-       $product = Product::find($cartItem['id']);
-       $Items = ["itemname" => $product->name, "quantity" => $cartItem['quantity'], "amount" => $cartItem['price']];
-	   }
-
-		$_s = Session::get('apiSession');
-
-        $data = array(
-			'orders' => ["items" => ["Items" => $Items]],
-			'amount' => $subtotal - floatval(Auth::user()->balance),
-			'country' => "Philippines",
-			'state' => $request->session()->get('shipping_info')['country'],
-			'city' => $request->session()->get('shipping_info')['city'],
-			'address1' => $request->session()->get('shipping_info')['address']
-			);
-		$url = 'http://localhost:55006/api/paynamics';
-		$options = array(
-			'http' => array(
-				'method'  => 'POST',
-                'content' => json_encode($data),
-				'header'    => "Accept-language: en\r\n" .
-					"Cookie: .AspNetCore.Session=". $_s ."\r\n" .
-					"Content-type: application/json" . "\r\n"
-			)
-		);
-		$context  = stream_context_create($options);
-		$result = file_get_contents($url, false, $context);
-		$_r = json_decode($result);
-
-
-
-        //$request->session()->put('payment_type', 'cart_payment');
-        return view(var_dump($_r->apiResponse));
-        //return $this->checkout_done($request->session()->get('order_id'), null);
-    }
-
     //redirects to this method after a successfull checkout
     public function checkout_done($order_id, $payment)
     {

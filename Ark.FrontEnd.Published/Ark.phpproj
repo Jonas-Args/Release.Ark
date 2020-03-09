@@ -63,6 +63,7 @@
     <Compile Include="app\Http\Controllers\ProfileController.php" />
     <Compile Include="app\Http\Controllers\PublicSslCommerzPaymentController.php" />
     <Compile Include="app\Http\Controllers\PurchaseHistoryController.php" />
+    <Compile Include="app\Http\Controllers\PaynamicsController.php" />
     <Compile Include="app\Http\Controllers\RazorpayController.php" />
     <Compile Include="app\Http\Controllers\ReportController.php" />
     <Compile Include="app\Http\Controllers\ReviewController.php" />
@@ -1160,6 +1161,7 @@
     <Compile Include="resources\views\frontend\partials\wishlist.blade.php" />
     <Compile Include="resources\views\frontend\partials\withdraw_message_modal.blade.php" />
     <Compile Include="resources\views\frontend\payment\stripe.blade.php" />
+    <Compile Include="resources\views\frontend\payWithPaynamics.blade.php" />
     <Compile Include="resources\views\frontend\policies\privacypolicy.blade.php" />
     <Compile Include="resources\views\frontend\policies\returnpolicy.blade.php" />
     <Compile Include="resources\views\frontend\policies\sellerpolicy.blade.php" />
@@ -1583,6 +1585,8 @@
     <Folder Include="tests" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Paynamics Reference.xml" />
     <Content Include="XMLFile1.xml" />
+    <Content Include="XMLFile2.xml" />
   </ItemGroup>
 </Project>

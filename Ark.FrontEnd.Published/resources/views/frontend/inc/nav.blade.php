@@ -1,20 +1,26 @@
 @php
-
-			 $_s = Session::get('apiSession');
-			 $url = 'http://localhost:55006/api/user/Wallet';
-			 $options = array(
-				 'http' => array(
-					 'method'  => 'GET',
-					 'header'    => "Accept-language: en\r\n" .
-						 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
-				 )
-			 );
-			 $context  = stream_context_create($options);
-			 $result = file_get_contents($url, false, $context);
-			 $UserWallet = json_decode($result);
-			 $UserWallet = $UserWallet->userWallet;
-
-			 function number_format_short( $n, $precision = 1 ) {
+     try
+	 {
+	 $_s = Session::get('apiSession');
+	 $url = 'http://localhost:55006/api/user/Wallet';
+	 $options = array(
+		 'http' => array(
+			 'method'  => 'GET',
+			 'header'    => "Accept-language: en\r\n" .
+				 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
+		 )
+	 );
+	 $context  = stream_context_create($options);
+	 $result = file_get_contents($url, false, $context);
+	 $UserWallet = json_decode($result);
+     
+     $UserWallet = $UserWallet->userWallet;
+	 }
+	 catch (Exception $exception)
+	 {
+		 echo '<script>window.location = "' .  route('logout') . '"</script>';
+	 }
+	 function number_format_short( $n, $precision = 1 ) {
 				 if ($n < 900) {
 					 // 0 - 900
 					 $n_format = number_format($n, $precision);
@@ -65,7 +71,7 @@
 
                          <li class="dropdown" id="lang-change" style="float:right">                         
                             <a href="#" class="top-bar-item d-lg-none">
-                              <i class="la la-wallet d-inline-block nav-box-icon" style="color:#fa5c7c"></i>  Ark Cash: <b>₱{{ number_format($UserWallet[array_search('ACW', array_column($UserWallet, 'walletCode'))]->balance,2) }}</b> 
+                              <i class="la la-wallet d-inline-block nav-box-icon" style="color:#fa5c7c"></i>  Ark Cash: <b>₱{{ count($UserWallet) > 0 ? number_format($UserWallet[array_search('ACW', array_column($UserWallet, 'walletCode'))]->balance,2) : "0"}}</b> 
                             </a>
                         </li>
                         @endauth

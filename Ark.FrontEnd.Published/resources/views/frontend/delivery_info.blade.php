@@ -6,7 +6,7 @@
         <section class="slice-xs sct-color-2 border-bottom">
             <div class="container container-sm">
                 <div class="row cols-delimited justify-content-center">
-                    <div class="col-4">
+                    <div class="col-3">
                         <div class="icon-block icon-block--style-1-v5 text-center ">
                             <div class="block-icon mb-0 c-gray-light">
                                 <i class="la la-shopping-cart"></i>
@@ -17,7 +17,7 @@
                         </div>
                     </div>
 
-                    <div class="col-4">
+                    <div class="col-3">
                         <div class="icon-block icon-block--style-1-v5 text-center ">
                             <div class="block-icon mb-0 c-gray-light">
                                 <i class="la la-map-o"></i>
@@ -39,7 +39,7 @@
                         </div>
                     </div>
 
-                    <div class="col-4">
+                    <div class="col-3">
                         <div class="icon-block icon-block--style-1-v5 text-center">
                             <div class="block-icon mb-0 c-gray-light">
                                 <i class="la la-credit-card"></i>

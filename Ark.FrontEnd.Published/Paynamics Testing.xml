@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-16"?>
+<Request xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <orders>
+        <items>
+            <Items>
+                <itemname>LETANG A10 Speaker</itemname>
+                <quantity>25</quantity>
+                <amount>601</amount>
+            </Items>
+        </items>
+    </orders>
+    <mid>00000005032065BA9A30</mid>
+    <request_id>66106c17-5e21-485b-a6c1-f0480f9a6863</request_id>
+    <notification_url>https://testpti.payserv.net/webpayment/default.aspx</notification_url>
+    <response_url>https://testpti.payserv.net/webpayment/default.aspx</response_url>
+    <cancel_url>https://testpti.payserv.net/webpayment/default.aspx</cancel_url>
+    <fname>Joseph</fname>
+    <lname>Eraldo</lname>
+    <address1>not applicable  available</address1>
+    <city>Na</city>
+    <state>NCR</state>
+    <country>Philippines</country>
+    <secure3d>try3d</secure3d>
+    <trxtype>sale</trxtype>
+    <email>jjeeraldo@gmail.com</email>
+    <amount>2025</amount>
+    <currency>PHP</currency>
+    <signature>7e9be69a9a875b77d83109f4a49fe6e774fa609a4f41af9b7ce18dc93652b9026b3856bf339951a5ba90ba8e82fd372be40bbe18fa8648ad19c364b48ffd7920</signature>
+</Request>
+
+
+=============================== REQUEST URL ===================================
+
+POST /webpayment/Default.aspx HTTP/1.1
+Host: ptiapps.paynamics.net
+Content-Type: application/x-www-form-urlencoded
+
+paymentrequest=PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTE2Ij8+PFJlcXVlc3QgeG1sbnM6eHNpPSJodHRwOi8vd3d3LnczLm9yZy8yMDAxL1hNTFNjaGVtYS1pbnN0YW5jZSIgeG1sbnM6eHNkPSJodHRwOi8vd3d3LnczLm9yZy8yMDAxL1hNTFNjaGVtYSI+PG9yZGVycz48aXRlbXM+PEl0ZW1zPjxpdGVtbmFtZT5MRVRBTkcgQTEwIFNwZWFrZXI8L2l0ZW1uYW1lPjxxdWFudGl0eT4yNTwvcXVhbnRpdHk+PGFtb3VudD42MDE8L2Ftb3VudD48L0l0ZW1zPjwvaXRlbXM+PC9vcmRlcnM+PG1pZD4wMDAwMDAwNTAzMjA2NUJBOUEzMDwvbWlkPjxyZXF1ZXN0X2lkPjY2MTA2YzE3LTVlMjEtNDg1Yi1hNmMxLWYwNDgwZjlhNjg2MzwvcmVxdWVzdF9pZD48bm90aWZpY2F0aW9uX3VybD5odHRwczovL3Rlc3RwdGkucGF5c2Vydi5uZXQvd2VicGF5bWVudC9kZWZhdWx0LmFzcHg8L25vdGlmaWNhdGlvbl91cmw+PHJlc3BvbnNlX3VybD5odHRwczovL3Rlc3RwdGkucGF5c2Vydi5uZXQvd2VicGF5bWVudC9kZWZhdWx0LmFzcHg8L3Jlc3BvbnNlX3VybD48Y2FuY2VsX3VybD5odHRwczovL3Rlc3RwdGkucGF5c2Vydi5uZXQvd2VicGF5bWVudC9kZWZhdWx0LmFzcHg8L2NhbmNlbF91cmw+PGZuYW1lPkpvc2VwaDwvZm5hbWU+PGxuYW1lPkVyYWxkbzwvbG5hbWU+PGFkZHJlc3MxPm5vdCBhcHBsaWNhYmxlICBhdmFpbGFibGU8L2FkZHJlc3MxPjxjaXR5Pk5hPC9jaXR5PjxzdGF0ZT5OQ1I8L3N0YXRlPjxjb3VudHJ5PlBoaWxpcHBpbmVzPC9jb3VudHJ5PjxzZWN1cmUzZD50cnkzZDwvc2VjdXJlM2Q+PHRyeHR5cGU+c2FsZTwvdHJ4dHlwZT48ZW1haWw+amplZXJhbGRvQGdtYWlsLmNvbTwvZW1haWw+PGFtb3VudD4yMDI1PC9hbW91bnQ+PGN1cnJlbmN5PlBIUDwvY3VycmVuY3k+PHNpZ25hdHVyZT43ZTliZTY5YTlhODc1Yjc3ZDgzMTA5ZjRhNDlmZTZlNzc0ZmE2MDlhNGY0MWFmOWI3Y2UxOGRjOTM2NTJiOTAyNmIzODU2YmYzMzk5NTFhNWJhOTBiYThlODJmZDM3MmJlNDBiYmUxOGZhODY0OGFkMTljMzY0YjQ4ZmZkNzkyMDwvc2lnbmF0dXJlPjwvUmVxdWVzdD4=
+
+=============================== RESPONSE ===================================
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="shortcut icon" href="https://www.paynamics.com/wp-content/themes/richer/favicon.ico" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <title>
+            Paygate Web Payment
+        </title>
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+        <meta name="viewport" content="width=device-width" />
+
+        <!-- Bootstrap core CSS -->
+        <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+        <!-- Custom CSS -->
+        <link href="assets/paynamics/css/custom.css" rel="stylesheet" />
+
+        <!-- FontAwesome -->
+        <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />-->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous" />
+
+        <!-- Credit Card -->
+        <script src="assets/paynamics/js/credit-card.js"></script>
+
+        <!-- BancNet Bank List -->
+        <script src="assets/paynamics/js/bancnet-bank-list.js"></script>
+    </head>
+    <body>
+        <form name="form1" method="post" action="./ResponsePage.aspx" id="form1">
+            <input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTE1OTI1NjczOTIPFgIeE1ZhbGlkYXRlUmVxdWVzdE1vZGUCARYCAgMPZBYEAgEPFgIeBXN0eWxlBQ5kaXNwbGF5OmJsb2NrOxYEAgMPFgIeCWlubmVyaHRtbAXWATxoNSBjbGFzcz0iY2FyZC10aXRsZSB0ZXh0LXNlY29uZGFyeSBmb250LXdlaWdodC1ib2xkIj48aSBjbGFzcz0iZmFyIGZhLXRpbWVzLWNpcmNsZSI+PC9pPiZuYnNwO1RyYW5zYWN0aW9uIEZhaWxlZDwvaDU+PHNwYW4gY2xhc3M9ImNhcmQtc3VidGl0bGUgbWItMiB0ZXh0LW11dGVkIHNtYWxsIj5XZSdyZSBzb3JyeSwgYnV0IHNvbWV0aGluZyB3ZW50IHdyb25nLjwvc3Bhbj5kAgUPFgIfAgWNBDx0YWJsZSBjbGFzcz0idGFibGUgc21hbGwgbWItMSI+PHRib2R5Pjx0cj48dGggc2NvcGU9InJvdyI+TWVyY2hhbnQgUmVmZXJlbmNlIE5vLjwvdGg+PHRkIGNsYXNzPSJ0ZXh0LXBydXNzaWFuLWJsdWUgZm9udC13ZWlnaHQtYm9sZCI+PC90ZD48L3RyPjx0cj48dGggc2NvcGU9InJvdyI+UGF5bmFtaWNzIFJlZmVyZW5jZSBOby48L3RoPjx0ZCBjbGFzcz0idGV4dC1wcnVzc2lhbi1ibHVlIGZvbnQtd2VpZ2h0LWJvbGQiPjcyNjY2NDU2NzQzNzUyOTE2MTY5PC90ZD48L3RyPjx0cj48dGggc2NvcGU9InJvdyI+VHJhbnNhY3Rpb24gQW1vdW50PC90aD48dGQgY2xhc3M9InRleHQtcHJ1c3NpYW4tYmx1ZSBmb250LXdlaWdodC1ib2xkIj4wLjAwPC90ZD48L3RyPjx0cj48dGQgY29sc3Bhbj0iMiI+PGJ1dHRvbiB0eXBlPSJidXR0b24iIGNsYXNzPSJidG4gYnRuLXNlY29uZGFyeSBidG4tYmxvY2siIG9uY2xpY2s9InJldHVyblRvTWVyY2hhbnQoKSI+Q29udGludWU8L2J1dHRvbj48L3RkPjwvdHI+PC90Ym9keT48L3RhYmxlPmQCAw8PFgIeBFRleHQFPWh0dHBzOi8vcHRpYXBwcy5wYXluYW1pY3MubmV0L3dlYnBheW1lbnQvZXJyb3IvRXJyb3JQYWdlLmFzcHhkZGRL4gxlLUEn2mZMo3PMltcxquwReBrbEGbYvq71BGMdqA==" />
+
+            <input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="15D41F5D" />
+            <div id="responseForm" class="wrapper" style="display:block;">
+                <div id="merchant_logo" class="merchant-logo">
+                    <img id="mlogo" />
+                </div>
+                <div class="result">
+                    <div class="container">
+                        <div class="card w-50 m-auto">
+                            <div id="respMsg" class="card-body font-weight-normal p-3">
+                                <h5 class="card-title text-secondary font-weight-bold">
+                                    <i class="far fa-times-circle"></i>&nbsp;Transaction Failed
+                                </h5>
+                                <span class="card-subtitle mb-2 text-muted small">We're sorry, but something went wrong.</span>
+                            </div>
+                            <div id="respTbl">
+                                <table class="table small mb-1">
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Merchant Reference No.</th>
+                                            <td class="text-prussian-blue font-weight-bold"></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Paynamics Reference No.</th>
+                                            <td class="text-prussian-blue font-weight-bold">72666456743752916169</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Transaction Amount</th>
+                                            <td class="text-prussian-blue font-weight-bold">0.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <button type="button" class="btn btn-secondary btn-block" onclick="returnToMerchant()">Continue</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="container">
+                        <div class="text-center mb-3">
+                            <div class="footer-logo col-md-12">
+                                <img src="../resources/images/powered.png" alt="Powered by Paynamics" class="footer-logo" />
+                            </div>
+                            <div class="security-badge col-md-12">
+                                <img src="../resources/images/security-badges.png" alt="SSL" class="footer-logo" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <span id="respURL" class="d-none">https://ptiapps.paynamics.net/webpayment/error/ErrorPage.aspx</span>
+        </form>
+        <!-- Bootstrap core JavaScript
+    ==================================================
+-->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script>
+            window.jQuery || document.write('<script src="assets/dist/js/vendor/jquery-slim.min.js">
+                <\/script>')
+            </script>
+            <script src="assets/dist/js/vendor/popper.min.js"></script>
+            <script src="assets/dist/js/bootstrap.min.js"></script>
+            <script src="assets/dist/js/vendor/holder.min.js"></script>
+            <script>
+                Holder.addTheme('thumb', {
+                bg: '#55595c',
+                fg: '#eceeef',
+                text: 'Thumbnail'
+                });
+
+                function returnToMerchant() {
+                window.parent.location.href = document.getElementById("respURL").innerText;
+                }
+            </script>
+        </body>
+</html>

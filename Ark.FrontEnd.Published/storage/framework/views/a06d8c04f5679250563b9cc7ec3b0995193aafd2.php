@@ -1,5 +1,26 @@
 <?php
-			 function number_format_short( $n, $precision = 1 ) {
+     try
+	 {
+	 $_s = Session::get('apiSession');
+	 $url = 'http://localhost:55006/api/user/Wallet';
+	 $options = array(
+		 'http' => array(
+			 'method'  => 'GET',
+			 'header'    => "Accept-language: en\r\n" .
+				 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
+		 )
+	 );
+	 $context  = stream_context_create($options);
+	 $result = file_get_contents($url, false, $context);
+	 $UserWallet = json_decode($result);
+     
+     $UserWallet = $UserWallet->userWallet;
+	 }
+	 catch (Exception $exception)
+	 {
+		 echo '<script>window.location = "' .  route('logout') . '"</script>';
+	 }
+	 function number_format_short( $n, $precision = 1 ) {
 				 if ($n < 900) {
 					 // 0 - 900
 					 $n_format = number_format($n, $precision);
@@ -40,8 +61,21 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-7 col">
-                    <ul class="inline-links d-lg-inline-block d-flex justify-content-between">
-                        <li class="dropdown" id="lang-change">
+                    <ul class="inline-links d-lg-inline-block d-flex justify-content-between" >
+                        <?php if(auth()->guard()->check()): ?>
+                        <li class="dropdown" id="lang-change" style="float:right">                         
+                            <a href="#" class="top-bar-item d-lg-none">
+                              <i class="la la-wallet d-inline-block nav-box-icon" style="color:#0acf97"></i>  Ark Credit: <b>₱<?php echo e(number_format(floatval(Auth::user()->balance))); ?> </b> 
+                            </a>
+                        </li>
+
+                         <li class="dropdown" id="lang-change" style="float:right">                         
+                            <a href="#" class="top-bar-item d-lg-none">
+                              <i class="la la-wallet d-inline-block nav-box-icon" style="color:#fa5c7c"></i>  Ark Cash: <b>₱<?php echo e(count($UserWallet) > 0 ? number_format($UserWallet[array_search('ACW', array_column($UserWallet, 'walletCode'))]->balance,2) : "0"); ?></b> 
+                            </a>
+                        </li>
+                        <?php endif; ?>
+                        <li class="dropdown" id="lang-change" style="display:none!important">
                             <?php
                                 if(Session::has('locale')){
                                     $locale = Session::get('locale', Config::get('app.locale'));
@@ -62,7 +96,7 @@
                             </ul>
                         </li>
 
-                        <li class="dropdown" id="currency-change">
+                        <li class="dropdown" id="currency-change" style="display:none!important">
                             <?php
                                 if(Session::has('currency_code')){
                                     $currency_code = Session::get('currency_code');
@@ -118,14 +152,14 @@
         <div class="side-menu-overlay opacity-0" onclick="sideMenuClose()" style="transition-duration: 0s!important;transition: none!important;"></div>
         <div class="side-menu-wrap opacity-0"  style="transition-duration: 0s!important;transition: none!important;">
             <div class="side-menu closed">
-                <div class="side-menu-header" style="background-image:url('<?php echo e(asset("img/DASHBOARD_HEADER_LOGGED_IN.png")); ?>')">
+                <div class="side-menu-header"  <?php if(auth()->guard()->check()): ?> style="background-image:url('<?php echo e(asset("img/DASHBOARD_HEADER_LOGGED_IN.png")); ?>')"  <?php else: ?> style="background-image:url('<?php echo e(asset("img/DASHBOARD_HEADER_LOGGED_OUT.png")); ?>')" <?php endif; ?>>
                     <div class="side-menu-close" onclick="sideMenuClose()">
                         <i class="la la-close"></i>
                     </div>
 
                     <?php if(auth()->guard()->check()): ?>
                         <div class="widget-profile-box px-3 py-4 d-flex align-items-center">
-                                <div class="image " style="border:none!important;background-image:url('<?php echo e(asset(Auth::user()->avatar_original)); ?>')"></div>
+                                <div class="image " style="border:none!important;background-image:url('<?php echo e(Auth::user()->avatar_original != "" ? asset(Auth::user()->avatar_original) : asset('frontend/images/user.png')); ?>')"></div>
                                 <div class="name"><?php echo e(Auth::user()->name); ?></div>
                         </div>
                         <div class="side-login px-3 pb-3">
