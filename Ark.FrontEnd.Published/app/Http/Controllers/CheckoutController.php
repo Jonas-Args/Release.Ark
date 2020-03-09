@@ -107,10 +107,7 @@ class CheckoutController extends Controller
                 $user = Auth::user();
                 $user->balance -= $grandTotal;
                 $user->save();
-
-
-
-
+                                             
 				 return $this->checkout_done($request->session()->get('order_id'), null);
             }
         }

@@ -110,24 +110,6 @@ class PaynamicsController extends Controller
 
     }
 
-    public function payWithRazorpay($request)
-    {
-        if(Session::has('payment_type')){
-            if(Session::get('payment_type') == 'cart_payment'){
-                $order = Order::findOrFail(Session::get('order_id'));
-                return view('frontend.payWithRazorpay', compact('order'));
-            }
-            elseif (Session::get('payment_type') == 'seller_payment') {
-                $seller = Seller::findOrFail(Session::get('payment_data')['seller_id']);
-                return view('razorpay.payWithRazorpay', compact('seller'));
-            }
-            elseif (Session::get('payment_type') == 'wallet_payment') {
-                return view('frontend.razor_wallet.payWithRazorpay');
-            }
-        }
-
-    }
-
 	public function cancelPayment(Request $request)
     {
         flash(__('Transaction Cancelled'))->error();
@@ -142,8 +124,9 @@ class PaynamicsController extends Controller
 
     public function responsePayment(Request $request)
     {
-
-        return redirect(route('checkout.payment_info'));
+        flash("Your order has been placed successfully")->success();
+		return redirect()->route('home');
+		//return redirect(route('checkout.payment_info'));
     }
 
     public function payment()
