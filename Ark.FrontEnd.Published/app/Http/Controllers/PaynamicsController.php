@@ -18,7 +18,7 @@ class PaynamicsController extends Controller
 {
     public function initializePayment(Request $request)
     {
-		$subtotal = 0;
+		$subtotal = 0.00;
 		$itemcount = 0;
         $initUserBalance = floatval(Auth::user()->balance);
         $Items = [];
@@ -26,7 +26,7 @@ class PaynamicsController extends Controller
 
 
         foreach (Session::get('cart') as $key1 => $cartItem1){
-			$subtotal += $cartItem1['price']*$cartItem1['quantity'];
+
             $prod_price = $cartItem1['price']*$cartItem1['quantity'];
             $itemcount += $cartItem1['quantity'];
 			$product_price_less_credit[$key1] = (1 / $cartItem1['quantity']) * ($prod_price - ($prod_price - $initUserBalance));
@@ -36,6 +36,7 @@ class PaynamicsController extends Controller
 
 		foreach (Session::get('cart') as $key => $cartItem){
 			$product = Product::find($cartItem['id']);
+            $subtotal += floatval(number_format($cartItem['price'] - $product_price_less_credit[$key], 2, '.', '')) * $cartItem['quantity'];
 			$Items_itm = ["itemname" => $product->name,
                       "quantity" => $cartItem['quantity'],
                       "amount" => number_format($cartItem['price'] - $product_price_less_credit[$key], 2, '.', '')];
@@ -76,7 +77,7 @@ class PaynamicsController extends Controller
 
         $data = array(
 			'orders' => ["items" => ["Items" => $Items]],
-			'amount' => number_format(($subtotal - floatval(Auth::user()->balance)), 2, '.', ''),
+			'amount' => number_format(($subtotal), 2, '.', ''),
 			'country' => "PH",
 			'mname' => "",
 			'state' => $request->session()->get('shipping_info')['country'],
@@ -125,6 +126,24 @@ class PaynamicsController extends Controller
             }
         }
 
+    }
+
+	public function cancelPayment(Request $request)
+    {
+        flash(__('Transaction Cancelled'))->error();
+        return redirect(route('checkout.payment_info'));
+    }
+
+    public function callbackPayment(Request $request)
+    {
+        return view('checkout.payment_info');
+
+    }
+
+    public function responsePayment(Request $request)
+    {
+
+        return redirect(route('checkout.payment_info'));
     }
 
     public function payment()
