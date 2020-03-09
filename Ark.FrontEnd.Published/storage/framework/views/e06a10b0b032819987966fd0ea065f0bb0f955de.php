@@ -12,6 +12,8 @@
 
 
                 <?php
+            try
+			 {
 
 			 $_s = Session::get('apiSession');
 			 $url = 'http://localhost:55006/api/user/Wallet';
@@ -53,11 +55,15 @@
              if(isset($wallets) && $wallets != null){
 				 foreach ($wallets as $item)
 				 {
-					 $CredittotalAmount += floatval($userIncomeTransactionItem->incomePercentage);
+					 $CredittotalAmount += floatval($item->incomePercentage);
 				 }
 			 }
 
-
+			 }
+			 catch (Exception $exception)
+			 {
+				 echo '<script>window.location = "' .  route('logout') . '"</script>';
+			 }
                 ?>
 
 

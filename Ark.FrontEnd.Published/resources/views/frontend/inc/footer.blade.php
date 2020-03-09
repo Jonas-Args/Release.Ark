@@ -40,7 +40,7 @@
 
 
 <!-- FOOTER -->
-<footer id="footer" class="footer">
+<footer id="footer" class="footer d-md-block d-none">
     <div class="footer-top">
         <div class="container">
             <div class="row cols-xs-space cols-sm-space cols-md-space">
@@ -165,7 +165,7 @@
         </div>
     </div>
 
-    <div class="footer-bottom py-3 sct-color-3">
+    <div class="footer-bottom py-3 sct-color-3  d-md-block d-none">
         <div class="container">
             <div class="row row-cols-xs-spaced flex flex-items-xs-middle">
                 <div class="col-md-4">
