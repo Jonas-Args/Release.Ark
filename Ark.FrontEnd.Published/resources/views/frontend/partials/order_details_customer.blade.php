@@ -150,7 +150,7 @@
                             <tr>
                                 <th>{{__('Shipping')}}</th>
                                 <td class="text-right">
-                                    <span class="text-italic">{{ single_price($order->orderDetails->sum('shipping_cost')) }}</span>
+                                    <span class="text-italic">{{ single_price($order->orderDetails->avg('shipping_cost')) }}</span>
                                 </td>
                             </tr>
                           <!-- <tr>

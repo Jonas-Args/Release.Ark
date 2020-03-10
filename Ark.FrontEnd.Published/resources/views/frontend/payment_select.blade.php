@@ -81,8 +81,6 @@ else{
         </section>
 
 
-
-
         <section class="py-3 gry-bg">
             <div class="container">
                 <div class="row cols-xs-space cols-sm-space cols-md-space">
@@ -170,7 +168,7 @@ else{
 												</div>
 												@endif
 												<input type="radio" id="" name="payment_option" value="cash_on_delivery" checked style="display:none" />
-												@if(\App\BusinessSetting::where('type', 'cash_payment')->first()->value == 1)
+												@if(\App\BusinessSetting::where('type', 'cash_payment')->first()->value == 1 && Auth::user()->balance< $total && $isactivated== true)
 												<div class="col-6">
 													<label class="payment_option mb-4" data-toggle="tooltip" data-title="Cash on Delivery">
 														<input type="radio" id="" name="payment_option" value="cash_on_delivery" checked />

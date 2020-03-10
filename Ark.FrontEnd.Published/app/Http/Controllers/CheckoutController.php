@@ -107,7 +107,7 @@ class CheckoutController extends Controller
                 $user = Auth::user();
                 $user->balance -= $grandTotal;
                 $user->save();
-                                             
+
 				 return $this->checkout_done($request->session()->get('order_id'), null);
             }
         }
@@ -229,16 +229,36 @@ class CheckoutController extends Controller
 
             $request->session()->put('cart', $cart);
 
+            $total_shipping_points = 0;
             $subtotal = 0;
             $tax = 0;
             $shipping = 0;
+
             foreach (Session::get('cart') as $key => $cartItem){
+				$product = \App\Product::find($cartItem['id']);
+				$product_price = DB::table('product_shipping_points')->where([['product_id', '=', $product->id]])->get();
+				$total_shipping_points += $product_price[0]->point_value*$cartItem['quantity'];
+
                 $subtotal += $cartItem['price']*$cartItem['quantity'];
                 $tax += $cartItem['tax']*$cartItem['quantity'];
                 $shipping += $cartItem['shipping']*$cartItem['quantity'];
             }
 
-            $total = $subtotal + $tax + $shipping;
+            $si = Session::get('shipping_info');
+			if ($si != null)
+			{
+				$_psf = DB::table('shipping_fee_type')->where([['range_from', '<=',floatval($total_shipping_points)],['range_to', '>=',floatval($total_shipping_points)],['region', '=',$si['country']]])->get();
+				if ($_psf != null)
+				{
+					$_pt = DB::table('packaging_type')->where([['id', '=',floatval($_psf[0]->packaging_type_id)]])->get();
+					$shipping = $_pt != null ? $_pt[0]->unit_price : 0;
+				}
+				else{
+					$shipping = 0;
+				}
+			}
+
+            $total = $subtotal + $shipping;
 
             if(Session::has('coupon_discount')){
                     $total -= Session::get('coupon_discount');
@@ -259,13 +279,33 @@ class CheckoutController extends Controller
         $subtotal = 0;
         $tax = 0;
         $shipping = 0;
+        $total_shipping_points = 0;
+
         foreach (Session::get('cart') as $key => $cartItem){
+            $product = \App\Product::find($cartItem['id']);
+            $product_price = DB::table('product_shipping_points')->where([['product_id', '=', $product->id]])->get();
+			$total_shipping_points += $product_price[0]->point_value*$cartItem['quantity'];
+
             $subtotal += $cartItem['price']*$cartItem['quantity'];
             $tax += $cartItem['tax']*$cartItem['quantity'];
-            $shipping += $cartItem['shipping']*$cartItem['quantity'];
+            //$shipping += $cartItem['shipping']*$cartItem['quantity'];
         }
 
-        $total = $subtotal + $tax + $shipping;
+		$si = Session::get('shipping_info');
+		if ($si != null)
+		{
+			$_psf = DB::table('shipping_fee_type')->where([['range_from', '<=',floatval($total_shipping_points)],['range_to', '>=',floatval($total_shipping_points)],['region', '=',$si['country']]])->get();
+			if ($_psf != null)
+			{
+				$_pt = DB::table('packaging_type')->where([['id', '=',floatval($_psf[0]->packaging_type_id)]])->get();
+				$shipping = $_pt != null ? $_pt[0]->unit_price : 0;
+			}
+			else{
+				$shipping = 0;
+			}
+		}
+
+        $total = $subtotal + $shipping;
 
         if(Session::has('coupon_discount')){
                 $total -= Session::get('coupon_discount');
