@@ -249,97 +249,103 @@ class OrderController extends Controller
                 $product->save();
             }
 
-            $order->grand_total = $subtotal + $tax + $shipping;
-            $netValue = ($subtotal / 1.12) * 0.9;
+            // PROCCESS COMISSIONS
 
-             $_s = Session::get('apiSession');
+            if ($request->payment_option == 'wallet')
+			{
+				$order->grand_total = $subtotal + $tax + $shipping;
+				$netValue = ($subtotal / 1.12) * 0.9;
 
-				 $url = 'http://localhost:55006/api/user/BusinessPackages';
-				 $options = array(
-					 'http' => array(
-						 'method'  => 'GET',
-						 'header'    => "Accept-language: en\r\n" .
-							 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
-					 )
-				 );
-			$context  = stream_context_create($options);
-			$result = file_get_contents($url, false, $context);
-			$_r = json_decode($result);
+				$_s = Session::get('apiSession');
 
-			if(count($_r->businessPackages) != 0){
-				if ($_r->businessPackages[0]->packageStatus == "2")
-				{
-                    $user = Auth::user();
-					switch($_r->businessPackages[0]->businessPackage->packageCode){
-						case "EPKG1":
-							$user->balance += ($netValue * 0.0025);
-							$_rewards = ($netValue * 0.0025);
-							$user->save();
-							break;
+				$url = 'http://localhost:55006/api/user/BusinessPackages';
+				$options = array(
+					'http' => array(
+						'method'  => 'GET',
+						'header'    => "Accept-language: en\r\n" .
+							"Cookie: .AspNetCore.Session=". $_s ."\r\n"
+					)
+				);
+				$context  = stream_context_create($options);
+				$result = file_get_contents($url, false, $context);
+				$_r = json_decode($result);
 
-						case "EPKG2":
-							$user->balance += ($netValue * 0.005);
-							$_rewards = ($netValue * 0.005);
-							$user->save();
-							break;
+				if(count($_r->businessPackages) != 0){
+					if ($_r->businessPackages[0]->packageStatus == "2")
+					{
+						$user = Auth::user();
+						switch($_r->businessPackages[0]->businessPackage->packageCode){
+							case "EPKG1":
+								$user->balance += ($netValue * 0.0025);
+								$_rewards = ($netValue * 0.0025);
+								$user->save();
+								break;
 
-						case "EPKG3":
-							$user->balance += ($netValue * 0.01);
-							$_rewards = ($netValue * 0.01);
-							$user->save();
-							break;
+							case "EPKG2":
+								$user->balance += ($netValue * 0.005);
+								$_rewards = ($netValue * 0.005);
+								$user->save();
+								break;
 
+							case "EPKG3":
+								$user->balance += ($netValue * 0.01);
+								$_rewards = ($netValue * 0.01);
+								$user->save();
+								break;
+
+						}
+
+						$wallet = new Wallet;
+						$wallet->user_id = $user->id;
+						$wallet->amount = $_rewards;
+						$wallet->payment_method = 'Product Rebates';
+						$wallet->payment_details = 'Product Rebates';
+						$wallet->save();
 					}
 
-					$wallet = new Wallet;
-					$wallet->user_id = $user->id;
-					$wallet->amount = $_rewards;
-					$wallet->payment_method = 'Product Rebates';
-					$wallet->payment_details = 'Product Rebates';
-					$wallet->save();
 				}
 
-			}
+				$url = 'http://localhost:55006/api/Affiliate/Commission';
+				$data = array(
+					'amountPaid' => floatval($netValue)
+					);
 
-			$url = 'http://localhost:55006/api/Affiliate/Commission';
-			$data = array(
-				'amountPaid' => floatval($netValue)
+				// use key 'http' even if you send the request to https://...
+				$options = array(
+					'http' => array(
+						'header'  => "Content-type: application/json \r\n" .
+							   "Cookie: .AspNetCore.Session=". $_s ."\r\n",
+						'method'  => 'POST',
+						'content' => json_encode($data)
+					)
 				);
+				$context  = stream_context_create($options);
+				$result = file_get_contents($url, false, $context);
+				$_r = json_decode($result);
 
-			// use key 'http' even if you send the request to https://...
-			$options = array(
-				'http' => array(
-					'header'  => "Content-type: application/json \r\n" .
-						   "Cookie: .AspNetCore.Session=". $_s ."\r\n",
-					'method'  => 'POST',
-					'content' => json_encode($data)
-				)
-			);
-			$context  = stream_context_create($options);
-			$result = file_get_contents($url, false, $context);
-			$_r = json_decode($result);
-
-			if ($_r->httpStatusCode == "200")
-			{
-				foreach ($_r->commission as $commissionItem)
+				if ($_r->httpStatusCode == "200")
 				{
-					//$_userC = DB::table('users')->where('id', $commissionItem->shopUserId)->increment('balance' , floatval($commissionItem->reward));
+					foreach ($_r->commission as $commissionItem)
+					{
+						//$_userC = DB::table('users')->where('id', $commissionItem->shopUserId)->increment('balance' , floatval($commissionItem->reward));
 
-					//$wallet = new Wallet;
-					//$wallet->user_id = $commissionItem->shopUserId;
-					//$wallet->amount = $commissionItem->reward;
-					//$wallet->payment_method = 'Product Commission';
-					//$wallet->payment_details = 'Product Commission';
-					//$wallet->save();
+						//$wallet = new Wallet;
+						//$wallet->user_id = $commissionItem->shopUserId;
+						//$wallet->amount = $commissionItem->reward;
+						//$wallet->payment_method = 'Product Commission';
+						//$wallet->payment_details = 'Product Commission';
+						//$wallet->save();
+					}
+
+
+					//flash(__('An error occured: ' . $_r->message))->error();
+
 				}
+				else{
 
-
-				//flash(__('An error occured: ' . $_r->message))->error();
-
+				}
 			}
-			else{
 
-			}
 
             if(Session::has('coupon_discount')){
                 $order->grand_total -= Session::get('coupon_discount');

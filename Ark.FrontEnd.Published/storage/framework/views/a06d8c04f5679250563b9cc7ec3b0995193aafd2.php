@@ -514,7 +514,7 @@
                                 </div>
                                 <div class="d-none d-lg-inline-block">
                                     <div class="nav-compare-box" id="compare" style="width:100px">
-                                        <a href="#"  class="nav-box-link">
+                                        <a href="<?php echo e(route('wallet.index')); ?>"  class="nav-box-link">
                                             <i class="la la-wallet d-inline-block nav-box-icon"></i>
                                             <span class="nav-box-text d-none d-xl-inline-block"><?php echo e(__('Ark Credits')); ?></span>
                                            <span class="nav-box-number" style="width: max-content;padding: 0px 10px; background-color:#0acf97!important">

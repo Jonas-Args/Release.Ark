@@ -65,6 +65,10 @@ class CheckoutController extends Controller
                 $voguePay = new VoguePayController;
                 return $voguePay->customer_showForm();
             }
+            elseif ($request->payment_option == 'paynamics') {
+                $PaynamicsController = new PaynamicsController;
+                return $PaynamicsController->initializePayment($request);
+            }
             elseif ($request->payment_option == 'cash_on_delivery') {
                 $order = Order::findOrFail($request->session()->get('order_id'));
                 if (BusinessSetting::where('type', 'category_wise_commission')->first()->value != 1) {

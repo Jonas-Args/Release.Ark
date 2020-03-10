@@ -85,7 +85,7 @@ else{
             <div class="container">
                 <div class="row cols-xs-space cols-sm-space cols-md-space">
                     <div class="col-lg-8">
-						<form action="{{ Auth::user()->balance < $total ? route('payment.checkout.paynamics') : route('payment.checkout')  }}" class="form-default" data-toggle="validator" role="form" method="POST" id="checkout-form">
+						<form action="{{ route('payment.checkout')  }}" class="form-default" data-toggle="validator" role="form" method="POST" id="checkout-form">
 							@csrf
 							<div class="card">
 								<div class="card-title px-4 py-3">
@@ -168,7 +168,7 @@ else{
 												</div>
 												@endif
 												<input type="radio" id="" name="payment_option" value="cash_on_delivery" checked style="display:none" />
-												@if(\App\BusinessSetting::where('type', 'cash_payment')->first()->value == 1 && Auth::user()->balance< $total && $isactivated== true)
+												@if(\App\BusinessSetting::where('type', 'cash_payment')->first()->value == 1 && Auth::user()->balance< $total && $isActivated== true)
 												<div class="col-6">
 													<label class="payment_option mb-4" data-toggle="tooltip" data-title="Cash on Delivery">
 														<input type="radio" id="" name="payment_option" value="cash_on_delivery" checked />
@@ -182,7 +182,7 @@ else{
 												@if(Auth::user()->balance < $total && $isActivated== true)
 												<div class="col-6">
 													<label class="payment_option mb-4" data-toggle="tooltip" data-title="Pay with Paynamics">
-														<input type="radio" id="" name="payment_option" value="cash_on_delivery" checked />
+														<input type="radio" id="" name="payment_option" value="paynamics" checked />
 														<span>
 															<img loading="lazy" src="{{ asset('frontend/images/icons/cards/sslcommerz.png')}}" class="img-fluid" />
 														</span>
