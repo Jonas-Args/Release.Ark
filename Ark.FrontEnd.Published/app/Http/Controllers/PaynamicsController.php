@@ -148,15 +148,15 @@ class PaynamicsController extends Controller
                     break;
                 case "Error":
                     // Transaction Successful with 3DS
-                    return $checkoutController->checkout_failed($PaynamicsResponse->rawDetails->request_id, $request->rawDetails);
+                    return $checkoutController->checkout_failed($PaynamicsResponse->orderID, $request->rawDetails, true);
                     break;
                 case "Pending":
                     // Transaction Failed
-                    return $checkoutController->checkout_pending($PaynamicsResponse->rawDetails->request_id, $request->rawDetails);
+                    return $checkoutController->checkout_pending($PaynamicsResponse->orderID, $request->rawDetails, true);
                     break;
                 case "Cancelled":
                     // Transaction Pending
-                    return $checkoutController->checkout_cancelled($PaynamicsResponse->rawDetails->request_id, $request->rawDetails);
+                    return $checkoutController->checkout_cancelled($PaynamicsResponse->orderID, $request->rawDetails, true);
                     break;
                 default:
                     return response('Callback Error or Expired', 500)->header('Content-Type', 'text/plain');

@@ -255,8 +255,13 @@ class CheckoutController extends Controller
 		}
     }
 
-    public function checkout_failed($order_id, $payment)
+    public function checkout_failed($order_id, $payment, $isExternal = false)
     {
+        if ($isExternal)
+		{
+            $orderObj = DB::table('orders')->where('code', '=', $order_id)->first();
+            $order_id = $orderObj->id;
+		}
         $order = Order::findOrFail($order_id);
         $order->payment_status = 'failed';
         $order->payment_details = $payment;
@@ -282,12 +287,19 @@ class CheckoutController extends Controller
         Session::forget('coupon_id');
         Session::forget('coupon_discount');
 
-        flash(__('Payment failed'))->error();
-        return redirect()->route('home');
+		if ($isExternal)
+		{
+            return response('Callback Successful: Transaction Failed', 200)->header('Content-Type', 'text/plain');
+		}
     }
 
-    public function checkout_cancelled($order_id, $payment)
+    public function checkout_cancelled($order_id, $payment, $isExternal = false)
     {
+        if ($isExternal)
+		{
+            $orderObj = DB::table('orders')->where('code', '=', $order_id)->first();
+            $order_id = $orderObj->id;
+		}
         $order = Order::findOrFail($order_id);
         $order->payment_status = 'cancelled';
         $order->payment_details = $payment;
@@ -313,12 +325,19 @@ class CheckoutController extends Controller
         Session::forget('coupon_id');
         Session::forget('coupon_discount');
 
-        flash(__('Payment failed'))->error();
-        return redirect()->route('home');
+        if ($isExternal)
+		{
+            return response('Callback Successful: Transaction Cancelled', 200)->header('Content-Type', 'text/plain');
+		}
     }
 
-    public function checkout_pending($order_id, $payment)
+    public function checkout_pending($order_id, $payment, $isExternal = false)
     {
+		if ($isExternal)
+		{
+            $orderObj = DB::table('orders')->where('code', '=', $order_id)->first();
+            $order_id = $orderObj->id;
+		}
         $order = Order::findOrFail($order_id);
         $order->payment_status = 'pending';
         $order->payment_details = $payment;
@@ -344,8 +363,10 @@ class CheckoutController extends Controller
         Session::forget('coupon_id');
         Session::forget('coupon_discount');
 
-        flash(__('Payment failed'))->error();
-        return redirect()->route('home');
+        if ($isExternal)
+		{
+            return response('Callback Successful: Transaction Pending', 200)->header('Content-Type', 'text/plain');
+		}
     }
 
     public function get_shipping_info(Request $request)
