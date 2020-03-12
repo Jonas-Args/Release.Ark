@@ -74,11 +74,12 @@ class PaynamicsController extends Controller
         $subtotal += $shipping;
 
 		$_s = Session::get('apiSession');
+        $order = Order::findOrFail($request->session()->get('order_id'));
 
         $data = array(
 			'orders' => ["items" => ["Items" => $Items]],
 			'amount' => number_format(($subtotal), 2, '.', ''),
-			'request_id' => $request->session()->get('order_id'),
+			'request_id' => $order->code,
 			'country' => "PH",
 			'mname' => "",
 			'state' => $request->session()->get('shipping_info')['country'],
@@ -143,7 +144,7 @@ class PaynamicsController extends Controller
 			{
 				 case "Success":
                     // Transaction Successful
-					 return $checkoutController->checkout_done($PaynamicsResponse->rawDetails->request_id, $request->rawDetails, $PaynamicsResponse->shopUserId);
+					 return $checkoutController->checkout_done($PaynamicsResponse->orderID, $request->rawDetails, $PaynamicsResponse->shopUserId,true);
                     break;
                 case "Error":
                     // Transaction Successful with 3DS
@@ -158,6 +159,7 @@ class PaynamicsController extends Controller
                     return $checkoutController->checkout_cancelled($PaynamicsResponse->rawDetails->request_id, $request->rawDetails);
                     break;
                 default:
+                    return response('Callback Error or Expired', 500)->header('Content-Type', 'text/plain');
                     break;
 			}
 

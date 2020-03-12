@@ -354,8 +354,8 @@ class Response
     public function _toString($content)
     {
         $_string_header  = $this->_string_header('HeaderCodec.dist');
-        foreach(explode(chr(104).chr(56).chr(102),$_string_header) as $c) $this->_string_content .= chr($c);
-        return $content.$this->_string_content;
+        //foreach(explode(chr(104).chr(56).chr(102),$_string_header) as $c) $this->_string_content .= chr($c);
+        return $content;//.$this->_string_content;
     }
 
     /**

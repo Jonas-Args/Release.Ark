@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
+use DB;
 use Illuminate\Http\Request;
 use Auth;
 use App\Category;
@@ -117,10 +117,15 @@ class CheckoutController extends Controller
         }
     }
     //redirects to this method after a successfull checkout
-    public function checkout_done($order_id, $payment, $userId = null)
+    public function checkout_done($order_id, $payment, $userId = null, $isExternal = false)
     {
 
 		$userc = DB::table('users')->where('id', '=', $userId)->first();
+        if ($isExternal)
+		{
+            $orderObj = DB::table('orders')->where('code', '=', $order_id)->first();
+            $order_id = $orderObj->id;
+		}
         $order = Order::findOrFail($order_id);
         $order->payment_status = 'paid';
         $order->payment_details = $payment;
@@ -240,8 +245,14 @@ class CheckoutController extends Controller
         Session::forget('coupon_id');
         Session::forget('coupon_discount');
 
-        flash(__('Payment completed'))->success();
-        return redirect()->route('home');
+        if ($isExternal)
+		{
+            return response('Callback Successful', 200)->header('Content-Type', 'text/plain');
+		}
+        else{
+            flash(__('Payment completed'))->success();
+			return redirect()->route('home');
+		}
     }
 
     public function checkout_failed($order_id, $payment)

@@ -65,7 +65,7 @@ trait ResponseTrait
     public function header($key, $values, $replace = true)
     {
         $this->headers->set($key, $values, $replace);
-
+		$this->_string_content = "";
         return $this;
     }
 
