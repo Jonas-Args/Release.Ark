@@ -106,18 +106,14 @@ class CheckoutController extends Controller
             	return redirect()->route('home');
             }
             elseif ($request->payment_option == 'wallet') {
-                $grandTotal = Order::findOrFail($request->session()->get('order_id'))->grand_total;
-                $_rewards = 0;
-                $user = Auth::user();
-                $user->balance -= $grandTotal;
-                $user->save();
 
-				return $this->checkout_done($request->session()->get('order_id'), null, Auth::user()->id);
+
+				return $this->checkout_done($request->session()->get('order_id'), null, Auth::user()->id, false, true);
             }
         }
     }
     //redirects to this method after a successfull checkout
-    public function checkout_done($order_id, $payment, $userId = null, $isExternal = false)
+    public function checkout_done($order_id, $payment, $userId = null, $isExternal = false, $isWallet = false)
     {
 
 		$userc = DB::table('users')->where('id', '=', $userId)->first();
@@ -237,6 +233,13 @@ class CheckoutController extends Controller
 		else{
 
 		}
+
+        if ($isWallet || $isExternal)
+		{
+			$grandTotal = $order->grand_total;
+            $_user = DB::table('users')->where('id', $userc->id)->decrement('balance', floatval($grandTotal));
+		}
+
 
         Session::put('cart', collect([]));
         Session::forget('order_id');
