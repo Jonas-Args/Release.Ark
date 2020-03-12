@@ -8,7 +8,7 @@
             </div>
             <div class="caorusel-box">
                 <div class="slick-carousel" data-slick-items="6" data-slick-xl-items="5" data-slick-lg-items="4"  data-slick-md-items="3" data-slick-sm-items="2" data-slick-xs-items="2">
-                    <?php $__currentLoopData = filter_products(\App\Product::where('category_id', \App\Category::where('name','COMING SOON')->first()->id))->limit(12)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php $__currentLoopData = \App\Product::where('category_id', \App\Category::where('name','COMING SOON')->first()->id)->limit(12)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <div class="product-card-2 card card-product m-2 shop-cards shop-tech">
                         <div class="card-body p-0">
 

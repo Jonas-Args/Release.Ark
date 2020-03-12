@@ -500,7 +500,7 @@
 					</div>
 					<div class="seller-top-products-box bg-white sidebar-box mb-3">
 						<div class="box-title">
-							<?php echo e(__('Top Selling Products From This Seller')); ?>
+							<?php echo e(__('Top Selling Products')); ?>
 
 						</div>
 						<div class="box-content">

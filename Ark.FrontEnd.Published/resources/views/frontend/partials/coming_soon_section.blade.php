@@ -8,7 +8,7 @@
             </div>
             <div class="caorusel-box">
                 <div class="slick-carousel" data-slick-items="6" data-slick-xl-items="5" data-slick-lg-items="4"  data-slick-md-items="3" data-slick-sm-items="2" data-slick-xs-items="2">
-                    @foreach (filter_products(\App\Product::where('category_id', \App\Category::where('name','COMING SOON')->first()->id))->limit(12)->get() as $key => $product)
+                    @foreach (\App\Product::where('category_id', \App\Category::where('name','COMING SOON')->first()->id)->limit(12)->get() as $key => $product)
                     <div class="product-card-2 card card-product m-2 shop-cards shop-tech">
                         <div class="card-body p-0">
 

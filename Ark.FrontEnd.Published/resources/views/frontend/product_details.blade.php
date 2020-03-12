@@ -501,7 +501,7 @@
 					</div>
 					<div class="seller-top-products-box bg-white sidebar-box mb-3">
 						<div class="box-title">
-							{{__('Top Selling Products From This Seller')}}
+							{{__('Top Selling Products')}}
 						</div>
 						<div class="box-content">
 							@foreach (filter_products(\App\Product::where('user_id', $product->user_id)->orderBy('num_of_sale', 'desc'))->limit(4)->get() as $key => $top_product)
