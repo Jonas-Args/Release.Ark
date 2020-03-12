@@ -171,7 +171,9 @@
                                             <th>#</th>
                                             <th>{{__('Date') }}</th>
                                             <th>{{__('Description')}}</th>
+                                            <th>{{__('From User')}}</th>
                                             <th>{{__('Amount')}}</th>
+                                            <th>{{__('Computation')}}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -182,7 +184,9 @@
                                                         <td>{{ $key+1 }}</td>
 														<td>{{ date_format(date_create($userIncomeTransactionItem->createdOn),"Y/m/d H:i:s")  }}</td>
 														<td>{{ $userIncomeTransactionItem->incomeType->incomeTypeName}}</td>
+														<td>{{ $userIncomeTransactionItem->userAuth->userInfo->firstName . ' ' .  $userIncomeTransactionItem->userAuth->userInfo->lastName}}</td>
 														<td>{{ number_format($userIncomeTransactionItem->incomePercentage,3) }}</td>
+														<td>{{ $userIncomeTransactionItem->remarks }}</td>
 													</tr>
 													@endforeach
 

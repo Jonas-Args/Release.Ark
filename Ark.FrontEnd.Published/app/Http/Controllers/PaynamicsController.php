@@ -78,6 +78,7 @@ class PaynamicsController extends Controller
         $data = array(
 			'orders' => ["items" => ["Items" => $Items]],
 			'amount' => number_format(($subtotal), 2, '.', ''),
+			'request_id' => $request->session()->get('order_id'),
 			'country' => "PH",
 			'mname' => "",
 			'state' => $request->session()->get('shipping_info')['country'],
@@ -118,6 +119,53 @@ class PaynamicsController extends Controller
 
     public function callbackPayment(Request $request)
     {
+        $data = array(
+			'RawBase64' => $request['paymentrequest']
+			);
+
+        $url = 'http://localhost:55006/api/paynamics/ProcessCallbackRequest';
+		$options = array(
+			'http' => array(
+				'header'  => "Content-type: application/json",
+				'method'  => 'POST',
+				'content' => json_encode($data)
+			)
+		);
+		$context  = stream_context_create($options);
+		$result = file_get_contents($url, false, $context);
+		$_r = json_decode($result);
+
+        if ($_r->httpStatusCode == "200")
+		{
+            $PaynamicsResponse = $_r->paymentResponse;
+            $checkoutController = new CheckoutController;
+            switch ($PaynamicsResponse->status)
+			{
+				 case "Success":
+                    // Transaction Successful
+					 return $checkoutController->checkout_done($PaynamicsResponse->rawDetails->request_id, $request->rawDetails, $PaynamicsResponse->shopUserId);
+                    break;
+                case "Error":
+                    // Transaction Successful with 3DS
+                    return $checkoutController->checkout_failed($PaynamicsResponse->rawDetails->request_id, $request->rawDetails);
+                    break;
+                case "Pending":
+                    // Transaction Failed
+                    return $checkoutController->checkout_pending($PaynamicsResponse->rawDetails->request_id, $request->rawDetails);
+                    break;
+                case "Cancelled":
+                    // Transaction Pending
+                    return $checkoutController->checkout_cancelled($PaynamicsResponse->rawDetails->request_id, $request->rawDetails);
+                    break;
+                default:
+                    break;
+			}
+
+
+		}
+
+
+
         return view('checkout.payment_info');
 
     }

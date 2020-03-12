@@ -170,7 +170,9 @@
                                             <th>#</th>
                                             <th><?php echo e(__('Date')); ?></th>
                                             <th><?php echo e(__('Description')); ?></th>
+                                            <th><?php echo e(__('From User')); ?></th>
                                             <th><?php echo e(__('Amount')); ?></th>
+                                            <th><?php echo e(__('Computation')); ?></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -181,7 +183,9 @@
                                                         <td><?php echo e($key+1); ?></td>
 														<td><?php echo e(date_format(date_create($userIncomeTransactionItem->createdOn),"Y/m/d H:i:s")); ?></td>
 														<td><?php echo e($userIncomeTransactionItem->incomeType->incomeTypeName); ?></td>
+														<td><?php echo e($userIncomeTransactionItem->userAuth->userInfo->firstName . ' ' .  $userIncomeTransactionItem->userAuth->userInfo->lastName); ?></td>
 														<td><?php echo e(number_format($userIncomeTransactionItem->incomePercentage,3)); ?></td>
+														<td><?php echo e($userIncomeTransactionItem->remarks); ?></td>
 													</tr>
 													<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 

@@ -200,24 +200,24 @@ use Illuminate\Support\Facades\DB;
 			<div class="col-lg-12">
 				<div class="section-title-1 clearfix">
 					<h3 class="heading-5 strong-700 mb-0 float-left">
-						<span class="mr-4">{{__('Catogories')}}</span>
+						<span class="mr-4">{{__('Categories')}}</span>
 					</h3>
 					<ul class="float-right inline-links">
 						<li>
-							<!--<a href="{{ route('categories.all') }}" class="active">{{__('View All Catogories')}}</a>-->
+							<!--<a href="{{ route('categories.all') }}" class="active">{{__('View All Categories')}}</a>-->
 						</li>
 					</ul>
 				</div>
 				<div class="row gutters-5">
 					@foreach (\App\Category::get() as $category)
 					<div class="mb-3 col-12">
-						<a href="{{ route('products.category', $category->slug) }}" style="background: url('{{ asset($category->banner) }}')" class="bg-white border d-block c-base-2 box-2 icon-anim pl-2">
+						<a href="{{ route('products.category', $category->slug) }}" style="background: url('{{ asset($category->banner) }}'); background-repeat: no-repeat; background-size:cover" class="bg-white border d-block c-base-2 box-2 icon-anim pl-2">
 							<div class="row align-items-center no-gutters" style="height:128px!important">
 								<div class="col-3 text-center" style="display:none">
 									<img src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($category->banner) }}" alt="{{ __($category->name) }}" class="img-fluid img lazyload" />
 								</div>
 								<div class="info col-10">
-									<div class="name pl-3 py-4"> <b>{{ __($category->name) }}</b></div>
+								 <!--	<div class="name pl-3 py-4"> <b>{{ __($category->name) }}</b></div>-->
 								</div>
 								<div class="col-2">
 									<i class="la la-angle-right c-base-1"></i>

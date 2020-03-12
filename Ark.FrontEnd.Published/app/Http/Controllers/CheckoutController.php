@@ -112,40 +112,155 @@ class CheckoutController extends Controller
                 $user->balance -= $grandTotal;
                 $user->save();
 
-				 return $this->checkout_done($request->session()->get('order_id'), null);
+				return $this->checkout_done($request->session()->get('order_id'), null, Auth::user()->id);
             }
         }
     }
     //redirects to this method after a successfull checkout
-    public function checkout_done($order_id, $payment)
+    public function checkout_done($order_id, $payment, $userId = null)
     {
+
+		$userc = DB::table('users')->where('id', '=', $userId)->first();
         $order = Order::findOrFail($order_id);
         $order->payment_status = 'paid';
         $order->payment_details = $payment;
         $order->save();
 
+        $shipping = 0;
+        $subtotal = 0;
+        $netValue = 0;
+
+		foreach ($order->orderDetails as $key => $orderDetail) {
+			$orderDetail->payment_status = 'paid';
+			$orderDetail->save();
+			$shipping = $shipping == 0 ? $orderDetail->shipping_cost : $shipping;
+			if($orderDetail->product->user->user_type == 'seller'){
+				$commission_percentage = $orderDetail->product->category->commision_rate;
+				$seller = $orderDetail->product->user->seller;
+				$seller->admin_to_pay = $seller->admin_to_pay + ($orderDetail->price*(100-$commission_percentage))/100;
+				$seller->save();
+			}
+		}
+
+        $subtotal = $order->grand_total - $shipping;
+		$netValue = ($subtotal / 1.12) * 0.9;
+
+		$_s = Session::get('apiSession');
+
+        $data = array(
+			'ShopUserId' => $userc->id
+			);
+
+		$url = 'http://localhost:55006/api/BusinessPackage/UserBusinessPackages';
+		$options = array(
+			'http' => array(
+				'header'  => "Content-type: application/json",
+				'method'  => 'POST',
+				'content' => json_encode($data)
+			)
+		);
+		$context  = stream_context_create($options);
+		$result = file_get_contents($url, false, $context);
+		$_r = json_decode($result);
+
+		if(count($_r->businessPackages) != 0){
+			if ($_r->businessPackages[0]->packageStatus == "2")
+			{
+				switch($_r->businessPackages[0]->businessPackage->packageCode){
+					case "EPKG1":
+						$_rewards = ($netValue * 0.0025);
+						break;
+
+					case "EPKG2":
+						$_rewards = ($netValue * 0.005);
+						break;
+
+					case "EPKG3":
+						$_rewards = ($netValue * 0.01);
+						break;
+
+				}
+                $_userC = DB::table('users')->where('id', $userc->id)->increment('balance' , floatval($_rewards));
+
+				$wallet = new Wallet;
+				$wallet->user_id = $userc->id;
+				$wallet->amount = $_rewards;
+				$wallet->payment_method = 'Product Rebates';
+				$wallet->payment_details = 'Product Rebates';
+				$wallet->save();
+			}
+
+		}
+
+		$url = 'http://localhost:55006/api/Affiliate/Commission';
+		$data = array(
+			'amountPaid' => floatval($netValue),
+			'ShopUserId' => $userc->id
+			);
+
+		// use key 'http' even if you send the request to https://...
+		$options = array(
+			'http' => array(
+				'header'  => "Content-type: application/json \r\n" .
+					   "Cookie: .AspNetCore.Session=". $_s ."\r\n",
+				'method'  => 'POST',
+				'content' => json_encode($data)
+			)
+		);
+		$context  = stream_context_create($options);
+		$result = file_get_contents($url, false, $context);
+		$_r = json_decode($result);
+
+		if ($_r->httpStatusCode == "200")
+		{
+			foreach ($_r->commission as $commissionItem)
+			{
+				//$_userC = DB::table('users')->where('id', $commissionItem->shopUserId)->increment('balance' , floatval($commissionItem->reward));
+
+				//$wallet = new Wallet;
+				//$wallet->user_id = $commissionItem->shopUserId;
+				//$wallet->amount = $commissionItem->reward;
+				//$wallet->payment_method = 'Product Commission';
+				//$wallet->payment_details = 'Product Commission';
+				//$wallet->save();
+			}
+
+
+			//flash(__('An error occured: ' . $_r->message))->error();
+
+		}
+		else{
+
+		}
+
+        Session::put('cart', collect([]));
+        Session::forget('order_id');
+        Session::forget('payment_type');
+        Session::forget('delivery_info');
+        Session::forget('coupon_id');
+        Session::forget('coupon_discount');
+
+        flash(__('Payment completed'))->success();
+        return redirect()->route('home');
+    }
+
+    public function checkout_failed($order_id, $payment)
+    {
+        $order = Order::findOrFail($order_id);
+        $order->payment_status = 'failed';
+        $order->payment_details = $payment;
+        $order->save();
+
         if (BusinessSetting::where('type', 'category_wise_commission')->first()->value != 1) {
-            $commission_percentage = BusinessSetting::where('type', 'vendor_commission')->first()->value;
             foreach ($order->orderDetails as $key => $orderDetail) {
-                $orderDetail->payment_status = 'paid';
+                $orderDetail->payment_status = 'failed';
                 $orderDetail->save();
-                if($orderDetail->product->user->user_type == 'seller'){
-                    $seller = $orderDetail->product->user->seller;
-                    $seller->admin_to_pay = $seller->admin_to_pay + ($orderDetail->price*(100-$commission_percentage))/100;
-                    $seller->save();
-                }
             }
         }
         else{
             foreach ($order->orderDetails as $key => $orderDetail) {
-                $orderDetail->payment_status = 'paid';
+                $orderDetail->payment_status = 'failed';
                 $orderDetail->save();
-                if($orderDetail->product->user->user_type == 'seller'){
-                    $commission_percentage = $orderDetail->product->category->commision_rate;
-                    $seller = $orderDetail->product->user->seller;
-                    $seller->admin_to_pay = $seller->admin_to_pay + ($orderDetail->price*(100-$commission_percentage))/100;
-                    $seller->save();
-                }
             }
         }
 
@@ -156,7 +271,69 @@ class CheckoutController extends Controller
         Session::forget('coupon_id');
         Session::forget('coupon_discount');
 
-        flash(__('Payment completed'))->success();
+        flash(__('Payment failed'))->error();
+        return redirect()->route('home');
+    }
+
+    public function checkout_cancelled($order_id, $payment)
+    {
+        $order = Order::findOrFail($order_id);
+        $order->payment_status = 'cancelled';
+        $order->payment_details = $payment;
+        $order->save();
+
+        if (BusinessSetting::where('type', 'category_wise_commission')->first()->value != 1) {
+            foreach ($order->orderDetails as $key => $orderDetail) {
+                $orderDetail->payment_status = 'cancelled';
+                $orderDetail->save();
+            }
+        }
+        else{
+            foreach ($order->orderDetails as $key => $orderDetail) {
+                $orderDetail->payment_status = 'cancelled';
+                $orderDetail->save();
+            }
+        }
+
+        Session::put('cart', collect([]));
+        Session::forget('order_id');
+        Session::forget('payment_type');
+        Session::forget('delivery_info');
+        Session::forget('coupon_id');
+        Session::forget('coupon_discount');
+
+        flash(__('Payment failed'))->error();
+        return redirect()->route('home');
+    }
+
+    public function checkout_pending($order_id, $payment)
+    {
+        $order = Order::findOrFail($order_id);
+        $order->payment_status = 'pending';
+        $order->payment_details = $payment;
+        $order->save();
+
+        if (BusinessSetting::where('type', 'category_wise_commission')->first()->value != 1) {
+            foreach ($order->orderDetails as $key => $orderDetail) {
+                $orderDetail->payment_status = 'pending';
+                $orderDetail->save();
+            }
+        }
+        else{
+            foreach ($order->orderDetails as $key => $orderDetail) {
+                $orderDetail->payment_status = 'pending';
+                $orderDetail->save();
+            }
+        }
+
+        Session::put('cart', collect([]));
+        Session::forget('order_id');
+        Session::forget('payment_type');
+        Session::forget('delivery_info');
+        Session::forget('coupon_id');
+        Session::forget('coupon_discount');
+
+        flash(__('Payment failed'))->error();
         return redirect()->route('home');
     }
 
