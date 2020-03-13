@@ -211,7 +211,7 @@ use Illuminate\Support\Facades\DB;
 				<div class="row gutters-5">
 					@foreach (\App\Category::get() as $category)
 					<div class="mb-3 col-12">
-						<img onclick="location.href('{{ route('products.category', $category->slug) }}')" src="{{ asset($category->banner) }}" style="width:100%" class=" d-block c-base-2 box-2 icon-anim">
+						<img onclick="location.href = '{{ route('products.category', $category->slug) }}'" src="{{ asset($category->banner) }}" style="width:100%" class=" d-block c-base-2 box-2 icon-anim">
 					</div>
 					@endforeach
 				</div>
