@@ -211,19 +211,7 @@ use Illuminate\Support\Facades\DB;
 				<div class="row gutters-5">
 					@foreach (\App\Category::get() as $category)
 					<div class="mb-3 col-12">
-						<a href="{{ route('products.category', $category->slug) }}" style="background: url('{{ asset($category->banner) }}'); background-repeat: no-repeat; background-size:cover" class="bg-white border d-block c-base-2 box-2 icon-anim pl-2">
-							<div class="row align-items-center no-gutters" style="height:128px!important">
-								<div class="col-3 text-center" style="display:none">
-									<img src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($category->banner) }}" alt="{{ __($category->name) }}" class="img-fluid img lazyload" />
-								</div>
-								<div class="info col-10">
-								 <!--	<div class="name pl-3 py-4"> <b>{{ __($category->name) }}</b></div>-->
-								</div>
-								<div class="col-2">
-									<i class="la la-angle-right c-base-1"></i>
-								</div>
-							</div>
-						</a>
+						<img href="{{ route('products.category', $category->slug) }}" src="{{ asset($category->banner) }}" style="width:100%" class=" d-block c-base-2 box-2 icon-anim pl-2">
 					</div>
 					@endforeach
 				</div>
