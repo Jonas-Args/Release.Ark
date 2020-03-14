@@ -182,8 +182,8 @@
 										{{__('Payment Method')}}
 									</div>
 									<div  class="form-box-content p-3">
-										<form id="packageForm" onsubmit="return SelectPaymentMethod();" >
-										
+										<form id="packageForm" method="post" action="{{ route('payment.checkout.paynamics') }}" onsubmit="return SelectPaymentMethod();" >
+										@csrf
 										<label><b>Selected Package</b></label>
 										<select class="form-control col-md-4" id="packageBuy_option" name="BusinessPackageID" oninput="UpdateSelectedAmount()">
 											@foreach ($businessPackages as $key => $businessPackage)
@@ -208,11 +208,7 @@
 											<option value="CASH VIA ADMIN">CASH VIA ADMIN</option>
 											<option value="DEPOSIT VIA BANK">DEPOSIT VIA BANK</option>
 										<!--<option value="ACW">ARK CASH WALLET | PHP {{ $UserWallet[9]->balance }}</option>-->	
-											<option value="G Cash" disabled>G-Cash (Coming Soon)</option>
-											<option value="Paymaya" disabled>Paymaya (Coming Soon)</option>
-											<option value="7 Eleven" disabled>7 - Eleven (Coming Soon)</option>
-											<option value="Cebuana" disabled>Cebuana Lhuillier (Coming Soon)</option>
-											<option value="Palawan" disabled>Palawan Pawnshop (Coming Soon)</option>
+											<option value="PAYNAMICS">3rd Party Cash in (7-Eleven, G-Cash, Paymaya, Etc)</option>
 										</select>
 										<hr />
 										<button type="submit" class="btn btn-styled btn-base-1 col-md-2" style="">Next</button>
@@ -239,7 +235,7 @@
 											@endforeach
 
 											<div class="col-md-4">
-												<img class="dashboard-widget" src="{{asset('uploads/packages/DIRECT_REFERRAL_REWARD.png')}}" onclick="SelectPackage('{{ $businessPackage->id }}');" alt="Alternate Text" style="width:100%" />
+												<img class="dashboard-widget" src="{{asset('uploads/packages/DIRECT_REFERRAL_REWARD.png')}}"  alt="Alternate Text" style="width:100%" />
 											</div>
 										</div>
 
@@ -479,6 +475,9 @@
 				break;
 			case 'DEPOSIT VIA BANK':
 				document.getElementById('packageBuy_method_depositSlip').style.display = "block";
+				break;
+			case 'PAYNAMICS':
+				return true;
 				break;
 			default:
 				break;
