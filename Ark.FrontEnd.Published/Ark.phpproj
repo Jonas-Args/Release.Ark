@@ -1586,6 +1586,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Paynamics Reference.xml" />
+    <Content Include="public\uploads\logo\ZDTyUE7PUFFK8FUwPxI5mQFVNujByWtHkWfmK2dy.png" />
     <Content Include="XMLFile1.xml" />
     <Content Include="XMLFile2.xml" />
   </ItemGroup>

@@ -66,6 +66,7 @@ class CheckoutController extends Controller
                 return $voguePay->customer_showForm();
             }
             elseif ($request->payment_option == 'paynamics') {
+
                 $PaynamicsController = new PaynamicsController;
                 return $PaynamicsController->initializePayment($request);
             }
@@ -106,8 +107,17 @@ class CheckoutController extends Controller
             	return redirect()->route('home');
             }
             elseif ($request->payment_option == 'wallet') {
+                $order = Order::findOrFail($request->session()->get('order_id'));
+                $grandTotal = $order->grand_total;
 
+                $user = Auth::user();
+                $user->balance -= $grandTotal;
+                $user->save();
 
+                $order->wallet_deduction = $grandTotal;
+				$order->save();
+
+				//$_user = DB::table('users')->where('id', Auth::user()->id)->decrement('balance', floatval($grandTotal));
 				return $this->checkout_done($request->session()->get('order_id'), null, Auth::user()->id, false, true);
             }
         }
@@ -179,16 +189,26 @@ class CheckoutController extends Controller
 					case "EPKG3":
 						$_rewards = ($netValue * 0.01);
 						break;
+					default:
+                        $_rewards = 0;
+                        break;
 
 				}
-                $_userC = DB::table('users')->where('id', $userc->id)->increment('balance' , floatval($_rewards));
 
-				$wallet = new Wallet;
-				$wallet->user_id = $userc->id;
-				$wallet->amount = $_rewards;
-				$wallet->payment_method = 'Product Rebates';
-				$wallet->payment_details = 'Product Rebates';
-				$wallet->save();
+                if ($_rewards > 0)
+				{
+					$_userC = DB::table('users')->where('id', $userc->id)->increment('balance' , floatval($_rewards));
+
+					$wallet = new Wallet;
+					$wallet->user_id = $userc->id;
+					$wallet->amount = $_rewards;
+					$wallet->payment_method = 'Product Rebates';
+					$wallet->payment_details = 'Product Rebates';
+					$wallet->save();
+				}
+
+
+
 			}
 
 		}
@@ -234,11 +254,11 @@ class CheckoutController extends Controller
 
 		}
 
-        if ($isWallet || $isExternal)
-		{
-			$grandTotal = $order->grand_total;
-            $_user = DB::table('users')->where('id', $userc->id)->decrement('balance', floatval($grandTotal));
-		}
+		//if ($isWallet || $isExternal)
+		//{
+		//    $grandTotal = $order->grand_total;
+		//    $_user = DB::table('users')->where('id', $userc->id)->decrement('balance', floatval($grandTotal));
+		//}
 
 
         Session::put('cart', collect([]));
@@ -269,6 +289,8 @@ class CheckoutController extends Controller
         $order->payment_status = 'failed';
         $order->payment_details = $payment;
         $order->save();
+
+        $_user = DB::table('users')->where('id', $order->user_id)->increment('balance', floatval($order->wallet_deduction));
 
         if (BusinessSetting::where('type', 'category_wise_commission')->first()->value != 1) {
             foreach ($order->orderDetails as $key => $orderDetail) {
@@ -307,6 +329,8 @@ class CheckoutController extends Controller
         $order->payment_status = 'cancelled';
         $order->payment_details = $payment;
         $order->save();
+
+		//$_user = DB::table('users')->where('id', $order->user_id)->increment('balance', floatval($order->wallet_deduction));
 
         if (BusinessSetting::where('type', 'category_wise_commission')->first()->value != 1) {
             foreach ($order->orderDetails as $key => $orderDetail) {

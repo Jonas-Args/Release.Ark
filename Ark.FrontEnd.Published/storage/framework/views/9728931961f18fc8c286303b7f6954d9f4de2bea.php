@@ -21,9 +21,7 @@
                             <div class="p-md-3 p-2">
                                 <div class="price-box">
                                     <?php if(home_base_price($product->id) != home_discounted_base_price($product->id)): ?>
-                                        <del class="old-product-price strong-400"><?php echo e(single_price_dashboard($product->id)); ?></del>
                                     <?php endif; ?>
-                                    <span class="product-price strong-600"><?php echo e(single_price_dashboard($product->id)); ?></span>
                                 </div>
                                 <div class="star-rating star-rating-sm mt-1">
                                     <?php echo e(renderStarRating($product->rating)); ?>

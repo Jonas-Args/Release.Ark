@@ -108,12 +108,28 @@ class PaynamicsController extends Controller
 		$_r = json_decode($result);
 		$_r = $_r->apiResponse;
 
+        $order = Order::findOrFail($request->session()->get('order_id'));
+		$user = Auth::user();
+		$grandTotal = $user->balance;
+
+		$user->balance -= $grandTotal;
+		$user->save();
+
+		$order->wallet_deduction = $grandTotal;
+		$order->save();
+
 		return view('frontend.payWithPaynamics', compact('_r'));
 
     }
 
 	public function cancelPayment(Request $request)
     {
+		$order = Order::findOrFail($request->session()->get('order_id'));
+		$user = Auth::user();
+
+		$user->balance += $order->wallet_deduction;
+		$user->save();
+
         flash(__('Transaction Cancelled'))->error();
         return redirect(route('checkout.payment_info'));
     }
@@ -145,31 +161,20 @@ class PaynamicsController extends Controller
 				 case "Success":
                     // Transaction Successful
 					 return $checkoutController->checkout_done($PaynamicsResponse->orderID, $request->rawDetails, $PaynamicsResponse->shopUserId,true);
-                    break;
                 case "Error":
                     // Transaction Successful with 3DS
                     return $checkoutController->checkout_failed($PaynamicsResponse->orderID, $request->rawDetails, true);
-                    break;
                 case "Pending":
                     // Transaction Failed
                     return $checkoutController->checkout_pending($PaynamicsResponse->orderID, $request->rawDetails, true);
-                    break;
                 case "Cancelled":
                     // Transaction Pending
                     return $checkoutController->checkout_cancelled($PaynamicsResponse->orderID, $request->rawDetails, true);
-                    break;
                 default:
                     return response('Callback Error or Expired', 500)->header('Content-Type', 'text/plain');
-                    break;
 			}
-
-
 		}
-
-
-
         return view('checkout.payment_info');
-
     }
 
     public function responsePayment(Request $request)

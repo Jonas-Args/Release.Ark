@@ -211,19 +211,7 @@ use Illuminate\Support\Facades\DB;
 				<div class="row gutters-5">
 					<?php $__currentLoopData = \App\Category::get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 					<div class="mb-3 col-12">
-						<a href="<?php echo e(route('products.category', $category->slug)); ?>" style="background: url('<?php echo e(asset($category->banner)); ?>'); background-repeat: no-repeat; background-size:cover" class="bg-white border d-block c-base-2 box-2 icon-anim pl-2">
-							<div class="row align-items-center no-gutters" style="height:128px!important">
-								<div class="col-3 text-center" style="display:none">
-									<img src="<?php echo e(asset('frontend/images/placeholder.jpg')); ?>" data-src="<?php echo e(asset($category->banner)); ?>" alt="<?php echo e(__($category->name)); ?>" class="img-fluid img lazyload" />
-								</div>
-								<div class="info col-10">
-								 <!--	<div class="name pl-3 py-4"> <b><?php echo e(__($category->name)); ?></b></div>-->
-								</div>
-								<div class="col-2">
-									<i class="la la-angle-right c-base-1"></i>
-								</div>
-							</div>
-						</a>
+						<img onclick="location.href = '<?php echo e(route('products.category', $category->slug)); ?>'" src="<?php echo e(asset($category->banner)); ?>" style="width:100%" class=" d-block c-base-2 box-2 icon-anim">
 					</div>
 					<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 				</div>

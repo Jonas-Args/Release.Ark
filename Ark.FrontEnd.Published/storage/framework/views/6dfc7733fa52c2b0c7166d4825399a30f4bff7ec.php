@@ -169,7 +169,7 @@
 
 		return false
 	}
-	AutoRefresh(10000);
+	//AutoRefresh(10000);
 	function AutoRefresh(t) {
 		setTimeout("location.reload(true);", t);
 	}

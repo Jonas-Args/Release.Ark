@@ -143,8 +143,8 @@
 									<div class="col-10">
 										<div class="product-price-old">
 											<del>
-												{{ home_price($product->id) }}
-												<span>/{{ $product->unit }}</span>
+												{{ home_price($product->id) != '₱0.00' ? home_price($product->id) : __('Coming Soon')}}
+												<span class="piece" style="display:{{  home_price($product->id) != '₱0.00' ? __('inline') : __('none') }}">/{{ $product->unit }}</span>
 											</del>
 										</div>
 									</div>
@@ -157,9 +157,9 @@
 									<div class="col-10">
 										<div class="product-price">
 											<strong id="unit_price">
-												{{ home_discounted_price($product->id) }}
+												{{ home_discounted_price($product->id)!= '₱0.00' ? home_discounted_price($product->id) : __('Coming Soon')}}
 											</strong>
-											<span class="piece">/{{ $product->unit }}</span>
+											<span class="piece" style="display:{{  home_discounted_price($product->id) != '₱0.00' ? __('inline') : __('none') }}">/{{ $product->unit }}</span>
 										</div>
 									</div>
 								</div>
@@ -171,15 +171,17 @@
 									<div class="col-10">
 										<div class="product-price">
 											<strong id="unit_price">
-												{{ home_discounted_price($product->id) }}
+												{{ home_discounted_price($product->id)!= '₱0.00' ? home_discounted_price($product->id) : __('Coming Soon')}}
 											</strong>
-											<span class="piece">/{{ $product->unit }}</span>
+											<span class="piece" style="display:{{  home_discounted_price($product->id) != '₱0.00' ? __('inline') : __('none') }}">/{{ $product->unit }}</span>
 										</div>
 									</div>
 								</div>
 							@endif
 							<br />
-							<p>Quantity Variations ({{ $product->unit }})</p>
+							<p style="display:{{  home_discounted_price($product->id) != '₱0.00' ? __('block') : __('none') }}">Quantity Variations ({{ $product->unit }})</p>
+
+							@if(count($product_price) > 0)		
 
 							@foreach ($product_price as $k1 => $product_priceItem)
 							@if($product_priceItem->range_from != $product_priceItem->range_to)
@@ -188,6 +190,7 @@
 							@endif
 							@endforeach
 
+							@endif
 							<hr>
 
 							<form id="option-choice-form">
@@ -487,7 +490,7 @@
 													</button>
 													<div id="subCategory-{{ $subcategory->subcategory_id }}" class="collapse show">
 														<ul class="sub-sub-category-list">
-															@foreach (\App\Product::where('user_id', $product->user_id)->where('category_id',            $category->category_id)->where('subcategory_id', $subcategory->subcategory_id)->select('subsubcategory_id')->distinct()->get() as $subsubcategory)
+															@foreach (\App\Product::where('user_id', $product->user_id)->where('category_id',$category->category_id)->where('subcategory_id', $subcategory->subcategory_id)->select('subsubcategory_id')->distinct()->get() as $subsubcategory)
 																<li><a href="{{ route('products.subsubcategory', App\SubSubCategory::findOrFail($subsubcategory->subsubcategory_id)->slug) }}">{{ App\SubSubCategory::findOrFail($subsubcategory->subsubcategory_id)->name }}</a></li>
 															@endforeach
 													</div>

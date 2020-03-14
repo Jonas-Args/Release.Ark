@@ -154,10 +154,10 @@ if (! function_exists('combinations')) {
 if (! function_exists('filter_products')) {
     function filter_products($products) {
         if(BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1){
-            return $products->where('published', '1');
+            return $products->where('published', '1')->where('category_id', '!=' , '15');
         }
         else{
-            return $products->where('published', '1')->where('added_by', 'admin');
+            return $products->where('published', '1')->where('category_id', '!=' , '15');
         }
     }
 }
@@ -237,8 +237,15 @@ if (! function_exists('home_price')) {
     {
         $product = Product::findOrFail($id);
         $product_price = DB::table('product_price')->where([['product_id', '=', $product->id]])->get();
-        $lowest_price = $product_price[0]->unit_price;
-        $highest_price = $product_price[0]->unit_price;
+		if (count($product_price) != 0)
+		{
+			$lowest_price = $product_price[0]->unit_price;
+			$highest_price = $product_price[0]->unit_price;
+		}
+        else{
+            $lowest_price = 0;
+			$highest_price = 0;
+		}
 
 		//foreach (json_decode($product->variations) as $key => $variation) {
 		//    if($lowest_price > $variation->price){
@@ -276,8 +283,17 @@ if (! function_exists('home_discounted_price')) {
     {
         $product = Product::findOrFail($id);
         $product_price = DB::table('product_price')->where([['product_id', '=', $product->id]])->get();
-        $lowest_price = $product_price[0]->unit_price;
-        $highest_price = $product_price[0]->unit_price;
+        if (count($product_price) != 0)
+		{
+			$lowest_price = $product_price[0]->unit_price;
+			$highest_price = $product_price[0]->unit_price;
+		}
+        else{
+            $lowest_price = 0;
+			$highest_price = 0;
+		}
+
+
 
 		//foreach (json_decode($product->variations) as $key => $variation) {
 		//    if($lowest_price > $variation->price){

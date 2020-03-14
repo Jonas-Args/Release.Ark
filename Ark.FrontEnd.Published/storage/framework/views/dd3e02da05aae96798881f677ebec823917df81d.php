@@ -138,9 +138,9 @@
 									<div class="col-10">
 										<div class="product-price-old">
 											<del>
-												<?php echo e(home_price($product->id)); ?>
+												<?php echo e(home_price($product->id) != '₱0.00' ? home_price($product->id) : __('Coming Soon')); ?>
 
-												<span>/<?php echo e($product->unit); ?></span>
+												<span class="piece" style="display:<?php echo e(home_price($product->id) != '₱0.00' ? __('inline') : __('none')); ?>">/<?php echo e($product->unit); ?></span>
 											</del>
 										</div>
 									</div>
@@ -153,10 +153,10 @@
 									<div class="col-10">
 										<div class="product-price">
 											<strong id="unit_price">
-												<?php echo e(home_discounted_price($product->id)); ?>
+												<?php echo e(home_discounted_price($product->id)!= '₱0.00' ? home_discounted_price($product->id) : __('Coming Soon')); ?>
 
 											</strong>
-											<span class="piece">/<?php echo e($product->unit); ?></span>
+											<span class="piece" style="display:<?php echo e(home_discounted_price($product->id) != '₱0.00' ? __('inline') : __('none')); ?>">/<?php echo e($product->unit); ?></span>
 										</div>
 									</div>
 								</div>
@@ -168,16 +168,18 @@
 									<div class="col-10">
 										<div class="product-price">
 											<strong id="unit_price">
-												<?php echo e(home_discounted_price($product->id)); ?>
+												<?php echo e(home_discounted_price($product->id)!= '₱0.00' ? home_discounted_price($product->id) : __('Coming Soon')); ?>
 
 											</strong>
-											<span class="piece">/<?php echo e($product->unit); ?></span>
+											<span class="piece" style="display:<?php echo e(home_discounted_price($product->id) != '₱0.00' ? __('inline') : __('none')); ?>">/<?php echo e($product->unit); ?></span>
 										</div>
 									</div>
 								</div>
 							<?php endif; ?>
 							<br />
-							<p>Quantity Variations (<?php echo e($product->unit); ?>)</p>
+							<p style="display:<?php echo e(home_discounted_price($product->id) != '₱0.00' ? __('block') : __('none')); ?>">Quantity Variations (<?php echo e($product->unit); ?>)</p>
+
+							<?php if(count($product_price) > 0): ?>		
 
 							<?php $__currentLoopData = $product_price; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k1 => $product_priceItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 							<?php if($product_priceItem->range_from != $product_priceItem->range_to): ?>
@@ -186,6 +188,7 @@
 							<?php endif; ?>
 							<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
+							<?php endif; ?>
 							<hr>
 
 							<form id="option-choice-form">
@@ -486,7 +489,7 @@
 													</button>
 													<div id="subCategory-<?php echo e($subcategory->subcategory_id); ?>" class="collapse show">
 														<ul class="sub-sub-category-list">
-															<?php $__currentLoopData = \App\Product::where('user_id', $product->user_id)->where('category_id',            $category->category_id)->where('subcategory_id', $subcategory->subcategory_id)->select('subsubcategory_id')->distinct()->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $subsubcategory): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+															<?php $__currentLoopData = \App\Product::where('user_id', $product->user_id)->where('category_id',$category->category_id)->where('subcategory_id', $subcategory->subcategory_id)->select('subsubcategory_id')->distinct()->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $subsubcategory): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 																<li><a href="<?php echo e(route('products.subsubcategory', App\SubSubCategory::findOrFail($subsubcategory->subsubcategory_id)->slug)); ?>"><?php echo e(App\SubSubCategory::findOrFail($subsubcategory->subsubcategory_id)->name); ?></a></li>
 															<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 													</div>
