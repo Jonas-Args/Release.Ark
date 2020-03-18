@@ -13,6 +13,7 @@ use Razorpay\Api\Api;
 use Illuminate\Support\Facades\Input;
 use Auth;
 use DB;
+use Illuminate\Support\Facades\Log;
 
 class PaynamicsController extends Controller
 {
@@ -255,6 +256,8 @@ class PaynamicsController extends Controller
 
     public function callbackPayment(Request $request)
     {
+		Log::info(json_encode($request['paymentresponse']));
+
         $data = array(
 			'RawBase64' => $request['paymentresponse']
 			);
