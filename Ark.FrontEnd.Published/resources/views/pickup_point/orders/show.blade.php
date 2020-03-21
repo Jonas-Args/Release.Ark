@@ -26,7 +26,7 @@
                     <select class="form-control demo-select2"  data-minimum-results-for-search="Infinity" id="update_delivery_status">
                         <option value="pending" @if ($delivery_status == 'pending') selected @endif>{{__('Pending')}}</option>
                         <option value="on_review" @if ($delivery_status == 'on_review') selected @endif>{{__('On review')}}</option>
-                        <option value="on_delivery" @if ($delivery_status == 'on_delivery') selected @endif>{{__('On delivery')}}</option>
+                        <option value="on_delivery" @if ($delivery_status == 'on_delivery') selected @endif>{{__('For delivery')}}</option>
                         <option value="delivered" @if ($delivery_status == 'delivered') selected @endif>{{__('Delivered')}}</option>
                     </select>
                 </div>

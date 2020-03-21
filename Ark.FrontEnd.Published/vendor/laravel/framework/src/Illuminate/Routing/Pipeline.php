@@ -84,8 +84,9 @@ class Pipeline extends BasePipeline
 
         if (method_exists($response, 'withException')) {
             $response->withException($e);
+			//return redirect(route('user.logout'));
         }
-
-        return $response;
+        //
+         return $response;
     }
 }

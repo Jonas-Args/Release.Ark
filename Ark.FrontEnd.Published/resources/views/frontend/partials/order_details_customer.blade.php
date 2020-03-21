@@ -22,7 +22,7 @@
             </li>
             <li @if($status == 'on_delivery') class="active" @elseif($status == 'delivered') class="done" @endif>
                 <div class="icon">3</div>
-                <div class="title">{{__('On delivery')}}</div>
+                <div class="title">{{__('For delivery')}}</div>
             </li>
             <li @if($status == 'delivered') class="done" @endif>
                 <div class="icon">4</div>

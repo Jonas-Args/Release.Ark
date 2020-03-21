@@ -20,7 +20,7 @@
 	 {
 		 echo '<script>window.location = "' .  route('logout') . '"</script>';
 	 }
-	 function number_format_short( $n, $precision = 1 ) {
+	 function number_format_short( $n, $precision = 2 ) {
 				 if ($n < 900) {
 					 // 0 - 900
 					 $n_format = number_format($n, $precision);

@@ -280,38 +280,56 @@ use Illuminate\Support\Facades\DB;
     <script type="text/javascript">
 		//$('#maintenance-update').modal('show')
 
-        
+		if (window.localStorage.section_featured != undefined) {
+			$('#section_featured').html(window.localStorage.section_featured);
+		}
             $.post('<?php echo e(route('home.section.featured')); ?>', {_token:'<?php echo e(csrf_token()); ?>'}, function(data){
-                $('#section_featured').html(data);
+				window.localStorage.section_featured = data;
+				$('#section_featured').html(data);
                 slickInit();
             });
-                
+		if (window.localStorage.section_coming_soon != undefined) {
+			$('#section_coming_soon').html(window.localStorage.section_coming_soon);
+		}
             $.post('<?php echo e(route('home.section.coming_soon')); ?>', {_token:'<?php echo e(csrf_token()); ?>'}, function(data){
+				window.localStorage.section_coming_soon = data;
 				$('#section_coming_soon').html(data);
                 slickInit();
             });
-
+		if (window.localStorage.section_ark_products != undefined) {
+			$('#section_ark_products').html(window.localStorage.section_ark_products);
+		}
 			$.post('<?php echo e(route('home.section.ark_products')); ?>', { _token: '<?php echo e(csrf_token()); ?>' }, function (data) {
+				window.localStorage.section_ark_products = data;
 				$('#section_ark_products').html(data);
                 slickInit();
             });
-
+		if (window.localStorage.section_best_selling != undefined) {
+			$('#section_best_selling').html(window.localStorage.section_best_selling);
+		}
             $.post('<?php echo e(route('home.section.best_selling')); ?>', {_token:'<?php echo e(csrf_token()); ?>'}, function(data){
-                $('#section_best_selling').html(data);
+				window.localStorage.section_best_selling = data;
+				$('#section_best_selling').html(data);
                 slickInit();
             });
-
+		if (window.localStorage.section_home_categories != undefined) {
+			$('#section_home_categories').html(window.localStorage.section_home_categories);
+		}
             $.post('<?php echo e(route('home.section.home_categories')); ?>', {_token:'<?php echo e(csrf_token()); ?>'}, function(data){
-                $('#section_home_categories').html(data);
+				window.localStorage.section_home_categories = data;
+				$('#section_home_categories').html(data);
+                slickInit();
+            });
+		if (window.localStorage.section_best_sellers != undefined) {
+			$('#section_best_sellers').html(window.localStorage.section_best_sellers);
+		}
+            $.post('<?php echo e(route('home.section.best_sellers')); ?>', {_token:'<?php echo e(csrf_token()); ?>'}, function(data){
+				window.localStorage.section_best_sellers = data;
+				$('#section_best_sellers').html(data);
                 slickInit();
             });
 
-            $.post('<?php echo e(route('home.section.best_sellers')); ?>', {_token:'<?php echo e(csrf_token()); ?>'}, function(data){
-                $('#section_best_sellers').html(data);
-                slickInit();
-            });
-        
-    </script>
+</script>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('frontend.layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Projects\Published\Release.Ark\Ark.FrontEnd.Published\resources\views/frontend/index.blade.php ENDPATH**/ ?>

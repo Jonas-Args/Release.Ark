@@ -127,11 +127,11 @@ class PaynamicsController extends Controller
 
 			foreach (Session::get('cart') as $key => $cartItem){
 				$product = Product::find($cartItem['id']);
-				$subtotal += floatval(number_format($cartItem['price'] - $product_price_less_credit[$key], 2, '.', '')) * $cartItem['quantity'];
-				$Items_itm = ["itemname" => $product->name,
-						  "quantity" => $cartItem['quantity'],
-						  "amount" => number_format($cartItem['price'] - $product_price_less_credit[$key], 2, '.', '')];
-				array_push($Items,$Items_itm);
+				$subtotal += floatval($cartItem['price'] - $product_price_less_credit[$key]) * $cartItem['quantity'];
+				//$Items_itm = ["itemname" => $product->name,
+				//		  "quantity" => $cartItem['quantity'],
+				//		  "amount" => number_format($cartItem['price'] - floatval(number_format($product_price_less_credit[$key], 2, '.', '')), 2, '.', '')];
+				//array_push($Items,$Items_itm);
 			}
 
 			// ADD SHIPPING FEE
@@ -158,11 +158,17 @@ class PaynamicsController extends Controller
 				}
 			}
 
+			$subtotal += $shipping;
+			$Items_itm = ["itemname" => "Ark Transaction",
+					  "quantity" => 1,
+					  "amount" => number_format($subtotal, 2, '.', '')];
+			array_push($Items,$Items_itm);
+
 			$Items_itm = ["itemname" => "Shipping Fee",
 					  "quantity" => 1,
 					  "amount" => number_format($shipping, 2, '.', '')];
-			array_push($Items,$Items_itm);
-			$subtotal += $shipping;
+			//array_push($Items,$Items_itm);
+
 
 			$_s = Session::get('apiSession');
 			$order = Order::findOrFail($request->session()->get('order_id'));
@@ -336,7 +342,7 @@ class PaynamicsController extends Controller
 			//return redirect(route('checkout.payment_info'));
 		}
 		else{
-			flash("Package purchase has been placed successfully. Please refresh after few moments.")->success();
+			flash("Package payment has been placed. Please refresh after few moments.")->success();
 			return redirect(route('dashboard'));
 		}
     }

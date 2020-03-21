@@ -19,27 +19,33 @@
    $result = file_get_contents($url, false, $context);
    $_r = json_decode($result);
 
-   if(count($_r->businessPackages) != 0 && $_r->businessPackages[0]->packageStatus == "2"){
-	   $url = 'http://localhost:55006/api/Affiliate/InvitationLink';
-	   $data = array(
-		   'DirectSponsorID' => Session::get('userName'),
-		   'BinarySponsorID' => Session::get('userName'),
-		   'BinaryPosition' => '1'
+   if ($_r->httpStatusCode == "200")
+   {
+	   if(count($_r->businessPackages) != 0 && $_r->businessPackages[0]->packageStatus == "2"){
+		   $url = 'http://localhost:55006/api/Affiliate/InvitationLink';
+		   $data = array(
+			   'DirectSponsorID' => Session::get('userName'),
+			   'BinarySponsorID' => Session::get('userName'),
+			   'BinaryPosition' => '1'
+			   );
+		   $options = array(
+			   'http' => array(
+				   'content' => json_encode($data),
+				   'method'  => 'POST',
+				   'header'    => "Accept-language: en\r\n" .  "Content-type: application/json\r\n" .
+					   "Cookie: .AspNetCore.Session=". $_s ."\r\n"
+			   )
 		   );
-	   $options = array(
-		   'http' => array(
-			   'content' => json_encode($data),
-			   'method'  => 'POST',
-			   'header'    => "Accept-language: en\r\n" .  "Content-type: application/json\r\n" .
-				   "Cookie: .AspNetCore.Session=". $_s ."\r\n"
-		   )
-	   );
-	   $context  = stream_context_create($options);
-	   $result = file_get_contents($url, false, $context);
-	   $_res = json_decode($result);
-	   $userLink = $_res->affiliateMapBO;
-   }
+		   $context  = stream_context_create($options);
+		   $result = file_get_contents($url, false, $context);
+		   $_res = json_decode($result);
+		   $userLink = $_res->affiliateMapBO;
+	   }
 
+   }
+   
+
+   
    }
 	catch (Exception $exception)
 	{

@@ -44,7 +44,7 @@
 
 					$total_shipping_points += $product_price[0]->point_value*$cartItem['quantity'];
 
-					$subtotal += $cartItem['price']*$cartItem['quantity'];
+					$subtotal += floatval(number_format($cartItem['price'], 2, '.', '')) *$cartItem['quantity'];
 					$tax += $cartItem['tax']*$cartItem['quantity'];
 					$shipping += $cartItem['shipping']*$cartItem['quantity'];
 					$product_name_with_choice = $product->name;
@@ -139,7 +139,7 @@
 				<tr class="cart-shipping">
 					<th>{{__('Sub Total')}}</th>
 					<td class="text-right">
-						<span class="text-italic">{{ number_format(floatval($subtotal) + floatval($shipping),2)  }}</span>
+						<span class="text-italic">{{ number_format(floatval(number_format($subtotal,2, '.', '')) + floatval(number_format($shipping, 2, '.', '')), 2)  }}</span>
 					</td>
 				</tr>
 
@@ -174,7 +174,7 @@
 						@if ((floatval($user_balance) - floatval($total)) < 0)
 
 <strong>
-	<span>{{ number_format(abs(floatval($user_balance) - floatval($total)),2) }}</span>
+	<span>{{ number_format(abs(floatval(number_format($user_balance, 2, '.', '')) - floatval(number_format($total, 2, '.', ''))),2) }}</span>
 </strong>
 						@else 
 						<strong>

@@ -174,6 +174,7 @@ else{
 														<input type="radio" id="" name="payment_option" value="cash_on_delivery" checked />
 														<span>
 															<img loading="lazy" src="{{ asset('frontend/images/icons/cards/cod.png')}}" class="img-fluid" />
+															<p style="margin:10px 0px; font-weight:bold">Cash on Delivery</p>
 														</span>
 													</label>
 												</div>
@@ -181,10 +182,11 @@ else{
 
 												@if(Auth::user()->balance < $total && $isActivated== true)
 												<div class="col-6">
-													<label class="payment_option mb-4" data-toggle="tooltip" data-title="Pay with Paynamics">
+													<label class="payment_option mb-4" data-toggle="tooltip" data-title="Other Payment Method">
 														<input type="radio" id="" name="payment_option" value="paynamics" checked />
 														<span>
 															<img loading="lazy" src="{{ asset('frontend/images/icons/cards/sslcommerz.png')}}" class="img-fluid" />
+															<p style="margin:10px 0px; font-weight:bold">Other Payment Method</p>
 														</span>
 													</label>
 												</div>

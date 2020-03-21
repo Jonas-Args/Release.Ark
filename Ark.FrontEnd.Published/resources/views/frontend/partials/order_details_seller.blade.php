@@ -23,7 +23,7 @@
             </li>
             <li @if($status == 'on_delivery') class="active" @elseif($status == 'delivered') class="done" @endif>
                 <div class="icon">3</div>
-                <div class="title">{{__('On delivery')}}</div>
+                <div class="title">{{__('For delivery')}}</div>
             </li>
             <li @if($status == 'delivered') class="done" @endif>
                 <div class="icon">4</div>
@@ -46,7 +46,7 @@
                 <select class="form-control selectpicker form-control-sm"  data-minimum-results-for-search="Infinity" id="update_delivery_status">
                     <option value="pending" @if ($status == 'pending') selected @endif>{{__('Pending')}}</option>
                     <option value="on_review" @if ($status == 'on_review') selected @endif>{{__('On review')}}</option>
-                    <option value="on_delivery" @if ($status == 'on_delivery') selected @endif>{{__('On delivery')}}</option>
+                    <option value="on_delivery" @if ($status == 'on_delivery') selected @endif>{{__('For delivery')}}</option>
                     <option value="delivered" @if ($status == 'delivered') selected @endif>{{__('Delivered')}}</option>
                 </select>
                 <label class="my-2" >{{__('Delivery Status')}}</label>

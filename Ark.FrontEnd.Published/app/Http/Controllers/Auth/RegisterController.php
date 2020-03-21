@@ -68,6 +68,12 @@ class RegisterController extends Controller
 	 */
 	protected function create(array $data)
 	{
+		if ($data['special_code'] != "" && $data['special_code'] != "ARKPH2020")
+		{
+			flash(__('Invalid Discount Code'))->error();
+			return redirect()->route('user.registration');
+		}
+
 		$user = User::create([
 		'name' => $data['fname'] . ' ' . $data['lname'],
 		'fname' => $data['fname'],

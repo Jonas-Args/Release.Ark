@@ -119,10 +119,10 @@
 							</button>
 							<ul class="dropdown-menu dropdown-menu-right">
 								<li>
-									<a onclick="UpdateDepositRequest('{{ $req->userBusinessPackage->id }}');">{{__('Approve')}}</a>
+									<a onclick="UpdateDepositRequest('{{ $req->userBusinessPackage->id }}', 3);">{{__('Approve')}}</a>
 								</li>
 								<li>
-									<a onclick="UpdateDepositRequest('{{ $req->userBusinessPackage->id }}');">{{__('Decline')}}</a>
+									<a onclick="UpdateDepositRequest('{{ $req->userBusinessPackage->id }}', 8);">{{__('Cancel')}}</a>
 								</li>
 							</ul>
 						</div>
@@ -138,10 +138,11 @@
 
 
 <script>
-	function UpdateDepositRequest(a) {
+	function UpdateDepositRequest(a,_p) {
 
 		var UserBusinessPackageBO = {
-			UserPackageID : parseFloat(a)
+			UserPackageID: parseFloat(a),
+			DepositStatus: _p
 		}
 
 		$.ajax({
@@ -155,7 +156,7 @@
 					alert(data.message);
 				}
 				//window.location = data.RedirectUrl;
-				window.location.replace(data.redirectUrl);
+				window.location.reload();
 			},
 			error: function (data, textStatus, jqXHR) {
 				console.log(data.responseJSON);
@@ -163,6 +164,7 @@
 				if (data.responseJSON.message != undefined && data.responseJSON.httpStatusCode == "500") {
 					alert(data.responseJSON.message);
 				}
+				window.location.reload();
 				//$('#myModal').modal('show');
 				//window.location.href = data.responseJSON.RedirectUrl;
 			},
