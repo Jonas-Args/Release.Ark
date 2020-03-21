@@ -1,6 +1,11 @@
 @extends('layouts.blank')
 
 @section('content')
+
+<script>
+	window.location.replace('/logout');
+</script>
+
 <div class="text-center">
     <h1 class="error-code text-danger">{{__('500')}}</h1>
     <p class="h4 text-uppercase text-bold">{{__('OOPS!')}}</p>
