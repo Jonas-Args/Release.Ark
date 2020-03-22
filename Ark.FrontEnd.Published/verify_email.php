@@ -29,3 +29,18 @@ $url = 'http://localhost:55006/api/user/VerifyEmail';
 
 
 ?>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head><title>Ark PH | Email Verified</title></head>
+    <body>
+		<img style="margin-left:auto; margin-right:auto; display:block; max-width:90%" src="http://nightly.ark.com.ph/img/email_materials/EMAIL_SUCCESSFULLY_ACTIVATED.png" alt="Alternate Text" />
+	</body>
+
+<script>
+	function _redirect() {
+		window.location.replace('/logout');
+	}
+	window.setTimeout(_redirect, 5000);	
+</script>
+
+</html>
