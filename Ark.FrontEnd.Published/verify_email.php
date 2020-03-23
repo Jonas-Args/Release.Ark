@@ -38,7 +38,7 @@ $url = 'http://localhost:55006/api/user/VerifyEmail';
 
 <script>
 	function _redirect() {
-		window.location.replace('/logout');
+		window.location.replace('/users/login');
 	}
 	window.setTimeout(_redirect, 5000);	
 </script>
