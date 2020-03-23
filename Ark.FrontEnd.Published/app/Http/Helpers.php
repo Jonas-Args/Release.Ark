@@ -227,10 +227,11 @@ if (! function_exists('single_price_dashboard')) {
     {
         $product_price = DB::table('product_price')->where('product_id', '=', $id)->get();
 
-        $_price_from = count($product_price) > 0 ? single_price(number_format($product_price[count($product_price) - 1]->unit_price,2)) : single_price(0);
-        $_price_to  = count($product_price) > 0 ? single_price(number_format($product_price[0]->unit_price,2)) : single_price(0);
+        $_price_from = count($product_price) > 0 ? single_price($product_price[count($product_price) - 1]->unit_price) : single_price(0);
+        $_price_to  = count($product_price) > 0 ? single_price($product_price[0]->unit_price) : single_price(0);
 
         $price = $_price_from != $_price_to ? $_price_from . ' - ' . $_price_to : $_price_from;
+
         return $price;
     }
 }
