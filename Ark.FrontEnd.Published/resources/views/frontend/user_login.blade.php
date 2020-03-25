@@ -9,7 +9,7 @@
                         <div class="card">
                             <div class="text-center px-35 pt-5">
                                 <h3 class="heading heading-4 strong-500">
-                                    {{__('Login to your account.')}}
+                                    {{__('Welcome to Ark PH! Please log in.')}}
                                 </h3>
                             </div>
                             <div class="px-5 py-3 py-lg-5">
@@ -94,7 +94,7 @@
                             </div>
                             <div class="text-center px-35 pb-3">
                                 <p class="text-md">
-                                    {{__('Need an account?')}} <a href="{{ route('user.registration') }}" class="strong-600">{{__('Register Now')}}</a>
+                                    {{__('New to Ark PH?')}} <a href="{{ route('user.registration') }}" class="strong-600">{{__('Register Here')}}</a>
                                 </p>
                             </div>
                         </div>

@@ -172,7 +172,7 @@
                         <div class="side-login px-3 pb-3">
                           <!-- <a href="<?php echo e(route('user.login')); ?>"><?php echo e(__('Sign In')); ?></a>
                             <a href="<?php echo e(route('user.registration')); ?>"><?php echo e(__('Registration')); ?></a>--> 
-                            <a href="#"><?php echo e(__('Ark Philippines')); ?></a>
+                            <a href="#"><?php echo e(__('Welcome to ARK PH!')); ?></a>
                         </div>
                     <?php endif; ?>
                 </div>
@@ -471,7 +471,7 @@
                                         <div class="w-100">
                                             <input type="text" aria-label="Search" id="search" name="q" class="w-100" placeholder="I'm shopping for..." autocomplete="off">
                                         </div>
-                                        <div class="form-group category-select d-none d-xl-block">
+                                        <div class="form-group category-select d-none d-xl-block" style="display:none!important">
                                             <select class="form-control selectpicker" name="category">
                                                 <option value=""><?php echo e(__('All Categories')); ?></option>
                                                 <?php $__currentLoopData = \App\Category::all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -721,7 +721,7 @@
             <div class="container">
                 <div class="collapse navbar-collapse align-items-center justify-content-center" id="navbar_main">
                     <!-- Navbar links -->
-                    <ul class="navbar-nav">
+                    <ul class="navbar-nav" style="display:none">
                         <?php $__currentLoopData = \App\Search::orderBy('count', 'desc')->get()->take(5); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $search): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <li class="nav-item">
                                 <a class="nav-link" href="<?php echo e(route('suggestion.search', $search->query)); ?>"><?php echo e($search->query); ?></a>

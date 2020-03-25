@@ -70,7 +70,9 @@
                                     {{__('Actions')}} <i class="dropdown-caret"></i>
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-right">
-                                   
+									<li>
+										<a onclick="confirm_modal('{{route('customers.destroy', $customer->id)}}');">{{__('Delete')}}</a>
+									</li>
                                 </ul>
                             </div>
                         </td>

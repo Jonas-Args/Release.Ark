@@ -171,7 +171,7 @@
                         <div class="side-login px-3 pb-3">
                           <!-- <a href="{{ route('user.login') }}">{{__('Sign In')}}</a>
                             <a href="{{ route('user.registration') }}">{{__('Registration')}}</a>--> 
-                            <a href="#">{{__('Ark Philippines')}}</a>
+                            <a href="#">{{__('Welcome to ARK PH!')}}</a>
                         </div>
                     @endauth
                 </div>
@@ -464,7 +464,7 @@
                                         <div class="w-100">
                                             <input type="text" aria-label="Search" id="search" name="q" class="w-100" placeholder="I'm shopping for..." autocomplete="off">
                                         </div>
-                                        <div class="form-group category-select d-none d-xl-block">
+                                        <div class="form-group category-select d-none d-xl-block" style="display:none!important">
                                             <select class="form-control selectpicker" name="category">
                                                 <option value="">{{__('All Categories')}}</option>
                                                 @foreach (\App\Category::all() as $key => $category)
@@ -737,7 +737,7 @@
             <div class="container">
                 <div class="collapse navbar-collapse align-items-center justify-content-center" id="navbar_main">
                     <!-- Navbar links -->
-                    <ul class="navbar-nav">
+                    <ul class="navbar-nav" style="display:none">
                         @foreach (\App\Search::orderBy('count', 'desc')->get()->take(5) as $key => $search)
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('suggestion.search', $search->query) }}">{{ $search->query }}</a>

@@ -7,7 +7,7 @@
                         <div class="card">
                             <div class="text-center px-35 pt-5">
                                 <h3 class="heading heading-4 strong-500">
-                                    <?php echo e(__('Login to your account.')); ?>
+                                    <?php echo e(__('Welcome to Ark PH! Please log in.')); ?>
 
                                 </h3>
                             </div>
@@ -97,7 +97,7 @@
                             </div>
                             <div class="text-center px-35 pb-3">
                                 <p class="text-md">
-                                    <?php echo e(__('Need an account?')); ?> <a href="<?php echo e(route('user.registration')); ?>" class="strong-600"><?php echo e(__('Register Now')); ?></a>
+                                    <?php echo e(__('New to Ark PH?')); ?> <a href="<?php echo e(route('user.registration')); ?>" class="strong-600"><?php echo e(__('Register Here')); ?></a>
                                 </p>
                             </div>
                         </div>

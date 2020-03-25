@@ -58,7 +58,7 @@ use Illuminate\Support\Facades\DB;
                                                     </div>
                                                 </div>
 
-                                                <div class="col-3">
+                                                <div class="col-3" style="display:none!important">
                                                     <div class="sub-cat-brand">
                                                         <ul class="sub-brand-list">
                                                             <?php $__currentLoopData = $brands; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $brand_id): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>

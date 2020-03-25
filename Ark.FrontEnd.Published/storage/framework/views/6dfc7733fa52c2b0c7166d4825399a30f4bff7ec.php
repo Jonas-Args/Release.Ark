@@ -68,7 +68,9 @@
                                     <?php echo e(__('Actions')); ?> <i class="dropdown-caret"></i>
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-right">
-                                   
+									<li>
+										<a onclick="confirm_modal('<?php echo e(route('customers.destroy', $customer->id)); ?>');"><?php echo e(__('Delete')); ?></a>
+									</li>
                                 </ul>
                             </div>
                         </td>

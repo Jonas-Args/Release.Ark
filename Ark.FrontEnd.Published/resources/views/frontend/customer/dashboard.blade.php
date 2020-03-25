@@ -151,7 +151,7 @@
 
 
 						<div class="col-md-4">
-							<div class="dashboard-widget text-center green-widget mt-4 c-pointer">
+							<div class="dashboard-widget text-center blue-widget mt-4 c-pointer" style="background-color:#12CBC4!important">
 								<a href="javascript:;" class="d-block">
 									<i class="fa fa-shopping-cart"></i>
 									@if(Session::has('cart'))

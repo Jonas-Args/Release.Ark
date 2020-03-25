@@ -208,7 +208,7 @@
 											<option value="CASH VIA ADMIN">CASH VIA ADMIN</option>
 											<option value="DEPOSIT VIA BANK">DEPOSIT VIA BANK</option>
 										<!--<option value="ACW">ARK CASH WALLET | PHP <?php echo e($UserWallet[9]->balance); ?></option>-->	
-											<option value="PAYNAMICS">3rd Party Cash in (7-Eleven, G-Cash, Paymaya, Etc)</option>
+											<option value="PAYNAMICS">Other Payment Method (7-Eleven, G-Cash, Paymaya, Etc)</option>
 										</select>
 										<hr />
 										<button type="submit" class="btn btn-styled btn-base-1 col-md-2" style="">Next</button>

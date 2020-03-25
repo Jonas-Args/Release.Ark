@@ -470,7 +470,7 @@
 							@endif
 						</div>
 					</div>
-					<div class="seller-category-box bg-white sidebar-box mb-3">
+					<div class="seller-category-box bg-white sidebar-box mb-3" style="display:none!important">
 						<div class="box-title">
 							{{__("This Seller's Categories")}}
 						</div>

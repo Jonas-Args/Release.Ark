@@ -101,7 +101,7 @@
                                 </div>
                             </div>
                             <div class="col-md-4 ">
-                                <div class="dashboard-widget text-center green-widget text-white mt-4 c-pointer">
+                                <div class="dashboard-widget text-center green-widget text-white mt-4 c-pointer" style="background-color:#12CBC4!important">
                                     <i class="la la-wallet" style="font-size:24px;"></i>
                                     <span class="d-block title heading-3 strong-400"><?php echo e(single_price(Auth::user()->balance)); ?></span>
                                     <span class="d-block sub-title"><?php echo e(__('Ark Credit Balance')); ?></span>

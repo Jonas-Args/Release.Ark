@@ -1,4 +1,9 @@
 <?php $__env->startSection('content'); ?>
+
+<script>
+	window.location.replace('/logout');
+</script>
+
 <div class="text-center">
     <h1 class="error-code text-danger"><?php echo e(__('500')); ?></h1>
     <p class="h4 text-uppercase text-bold"><?php echo e(__('OOPS!')); ?></p>

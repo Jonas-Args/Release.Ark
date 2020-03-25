@@ -409,7 +409,15 @@ select + .select2-container{
 
 
 
-
+@media only screen and (max-width: 600px) {
+    /* Change a menu to fit the screen better, etc... */
+    .logo-bar-area .navbar-brand img {
+        max-width: 100%;
+        width: auto;
+        height: auto;
+        max-height: 40px!important;
+    }
+}
 
 
 
@@ -428,7 +436,7 @@ select + .select2-container{
     max-width: 100%;
     width: auto;
     height: auto;
-    max-height: 40px;
+    max-height: 70px;
 }
 .category-menu-icon-box{
     width: 46px;
