@@ -233,6 +233,12 @@ class PaynamicsController extends Controller
 			$user->balance += $order->wallet_deduction;
 			$user->save();
 
+			$order_id_obj = DB::table('orders')->where([['code', '=', base64_decode($request['requestid'])]])->get();
+
+			$order_id = $order_id_obj[0]->id;
+			$order = Order::findOrFail($order_id);
+			$order->destroy($order_id);
+
 			flash(__('Transaction Cancelled'))->error();
 			return redirect(route('checkout.payment_info'));
 		}
