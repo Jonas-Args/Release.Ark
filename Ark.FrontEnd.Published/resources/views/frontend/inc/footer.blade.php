@@ -51,9 +51,10 @@
                     <div class="col">
                         <a href="{{ route('home') }}" class="d-block">
                             @if($generalsetting->logo != null)
-                                <img loading="lazy"  src="{{ asset($generalsetting->logo) }}" class="" height="44">
+                             <!--<img loading="lazy"  src="{{ asset($generalsetting->logo) }}" class="" height="44">-->
+                            <img loading="lazy"  src="{{ asset('img/ARK_LOGO_BOTTOM.png') }}" class="" height="64">
                             @else
-                                <img loading="lazy"  src="{{ asset('frontend/images/logo/logo.png') }}" class="" height="44">
+                                <img loading="lazy"  src="{{ asset('img/ARK_LOGO_BOTTOM.png') }}" class="" height="64">
                             @endif
                         </a>
                         <p class="mt-3">{{ $generalsetting->description }}</p>
@@ -222,7 +223,7 @@
                         @endif
                     </ul>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4" style="display:none!important">
                     <div class="text-center text-md-right">
                         <ul class="inline-links">
                             @if (\App\BusinessSetting::where('type', 'paypal_payment')->first()->value == 1)

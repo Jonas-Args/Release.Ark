@@ -444,9 +444,10 @@
                                     $generalsetting = \App\GeneralSetting::first();
                                 ?>
                                 <?php if($generalsetting->logo != null): ?>
-                                    <img src="<?php echo e(asset($generalsetting->logo)); ?>" alt="<?php echo e(env('APP_NAME')); ?>">
+                                  <!--  <img src="<?php echo e(asset($generalsetting->logo)); ?>" alt="<?php echo e(env('APP_NAME')); ?>">-->
+                                    <img src="<?php echo e(asset('img/ARK_LOGO_TOP.png')); ?>" alt="<?php echo e(env('APP_NAME')); ?>">
                                 <?php else: ?>
-                                    <img src="<?php echo e(asset('frontend/images/logo/logo.png')); ?>" alt="<?php echo e(env('APP_NAME')); ?>">
+                                    <img src="<?php echo e(asset('img/ARK_LOGO_206X70.png')); ?>" alt="<?php echo e(env('APP_NAME')); ?>">
                                 <?php endif; ?>
                             </a>
 

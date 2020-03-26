@@ -51,9 +51,10 @@
                     <div class="col">
                         <a href="<?php echo e(route('home')); ?>" class="d-block">
                             <?php if($generalsetting->logo != null): ?>
-                                <img loading="lazy"  src="<?php echo e(asset($generalsetting->logo)); ?>" class="" height="44">
+                             <!--<img loading="lazy"  src="<?php echo e(asset($generalsetting->logo)); ?>" class="" height="44">-->
+                            <img loading="lazy"  src="<?php echo e(asset('img/ARK_LOGO_BOTTOM.png')); ?>" class="" height="64">
                             <?php else: ?>
-                                <img loading="lazy"  src="<?php echo e(asset('frontend/images/logo/logo.png')); ?>" class="" height="44">
+                                <img loading="lazy"  src="<?php echo e(asset('img/ARK_LOGO_BOTTOM.png')); ?>" class="" height="64">
                             <?php endif; ?>
                         </a>
                         <p class="mt-3"><?php echo e($generalsetting->description); ?></p>
@@ -235,7 +236,7 @@
                         <?php endif; ?>
                     </ul>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4" style="display:none!important">
                     <div class="text-center text-md-right">
                         <ul class="inline-links">
                             <?php if(\App\BusinessSetting::where('type', 'paypal_payment')->first()->value == 1): ?>

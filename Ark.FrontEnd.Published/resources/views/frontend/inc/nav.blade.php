@@ -437,9 +437,10 @@
                                     $generalsetting = \App\GeneralSetting::first();
                                 @endphp
                                 @if($generalsetting->logo != null)
-                                    <img src="{{ asset($generalsetting->logo) }}" alt="{{ env('APP_NAME') }}">
+                                  <!--  <img src="{{ asset($generalsetting->logo) }}" alt="{{ env('APP_NAME') }}">-->
+                                    <img src="{{ asset('img/ARK_LOGO_TOP.png') }}" alt="{{ env('APP_NAME') }}">
                                 @else
-                                    <img src="{{ asset('frontend/images/logo/logo.png') }}" alt="{{ env('APP_NAME') }}">
+                                    <img src="{{ asset('img/ARK_LOGO_206X70.png') }}" alt="{{ env('APP_NAME') }}">
                                 @endif
                             </a>
 
