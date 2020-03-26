@@ -174,7 +174,6 @@ else{
 														<input type="radio" id="" name="payment_option" value="cash_on_delivery" checked />
 														<span>
 															<img loading="lazy" src="{{ asset('img/CASH_ON_DELIVERY_LOGO.jpg')}}" class="img-fluid" />
-															<p style="margin:10px 0px; font-weight:bold">Cash on Delivery</p>
 														</span>
 													</label>
 												</div>
@@ -186,7 +185,6 @@ else{
 														<input type="radio" id="" name="payment_option" value="paynamics" checked />
 														<span>
 															<img loading="lazy" src="{{ asset('img/OTHER_PAYMENT_METHODS.jpg')}}" class="img-fluid" />
-															<p style="margin:10px 0px; font-weight:bold">Other Payment Method</p>
 														</span>
 													</label>
 												</div>
