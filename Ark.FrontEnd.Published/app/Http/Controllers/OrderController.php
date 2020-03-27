@@ -480,30 +480,47 @@ class OrderController extends Controller
     public function update_payment_status(Request $request)
     {
         $order = Order::findOrFail($request->order_id);
-        $order->payment_status_viewed = '0';
-        $order->save();
+        $request->status = $request->status == 'unpaid' ? 'paid' : 'unpaid';
 
-        if(Auth::user()->user_type == 'admin' || Auth::user()->user_type == 'seller'){
-            foreach($order->orderDetails->where('seller_id', Auth::user()->id) as $key => $orderDetail){
-                $orderDetail->payment_status = $request->status;
-                $orderDetail->save();
-            }
-        }
+        if ($order->payment_status != 'paid')
+		{
+			$order->payment_status_viewed = '0';
+			$order->save();
+            if ($order->payment_type == 'cash_on_delivery')
+			{
+				$CheckoutControllerProccess = new CheckoutController();
+				$CheckoutControllerProccess->checkout_done($order->code,"cod",$order->user_id,true);
+			}
+
+			if(Auth::user()->user_type == 'admin' || Auth::user()->user_type == 'seller'){
+				foreach($order->orderDetails->where('seller_id', Auth::user()->id) as $key => $orderDetail){
+					$orderDetail->payment_status = $request->status;
+					$orderDetail->save();
+				}
+			}
+			else{
+				foreach($order->orderDetails->where('seller_id', \App\User::where('user_type', 'admin')->first()->id) as $key => $orderDetail){
+					$orderDetail->payment_status = $request->status;
+					$orderDetail->save();
+				}
+			}
+
+			$status = 'paid';
+			foreach($order->orderDetails as $key => $orderDetail){
+				if($orderDetail->payment_status != 'paid'){
+					$status = 'unpaid';
+				}
+			}
+			$order->payment_status = $status;
+			$order->save();
+            return 1;
+		}
         else{
-            foreach($order->orderDetails->where('seller_id', \App\User::where('user_type', 'admin')->first()->id) as $key => $orderDetail){
-                $orderDetail->payment_status = $request->status;
-                $orderDetail->save();
-            }
-        }
+			return 0;
+		}
 
-        $status = 'paid';
-        foreach($order->orderDetails as $key => $orderDetail){
-            if($orderDetail->payment_status != 'paid'){
-                $status = 'unpaid';
-            }
-        }
-        $order->payment_status = $status;
-        $order->save();
-        return 1;
+
+
+
     }
 }

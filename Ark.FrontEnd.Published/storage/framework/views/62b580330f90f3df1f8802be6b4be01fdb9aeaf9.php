@@ -24,7 +24,7 @@
                     <select class="form-control demo-select2"  data-minimum-results-for-search="Infinity" id="update_delivery_status">
                         <option value="pending" <?php if($delivery_status == 'pending'): ?> selected <?php endif; ?>><?php echo e(__('Pending')); ?></option>
                         <option value="on_review" <?php if($delivery_status == 'on_review'): ?> selected <?php endif; ?>><?php echo e(__('On review')); ?></option>
-                        <option value="on_delivery" <?php if($delivery_status == 'on_delivery'): ?> selected <?php endif; ?>><?php echo e(__('On delivery')); ?></option>
+                        <option value="on_delivery" <?php if($delivery_status == 'on_delivery'): ?> selected <?php endif; ?>><?php echo e(__('For delivery')); ?></option>
                         <option value="delivered" <?php if($delivery_status == 'delivered'): ?> selected <?php endif; ?>><?php echo e(__('Delivered')); ?></option>
                     </select>
                 </div>
@@ -225,6 +225,9 @@
 
 <?php $__env->startSection('script'); ?>
     <script type="text/javascript">
+
+        
+
         $('#update_delivery_status').on('change', function(){
             var order_id = <?php echo e($order->id); ?>;
             var status = $('#update_delivery_status').val();
@@ -233,12 +236,27 @@
             });
         });
 
-        $('#update_payment_status').on('change', function(){
+		$('#update_payment_status').on('select2:selecting', function (e) {
             var order_id = <?php echo e($order->id); ?>;
             var status = $('#update_payment_status').val();
-            $.post('<?php echo e(route('orders.update_payment_status')); ?>', {_token:'<?php echo e(@csrf_token()); ?>',order_id:order_id,status:status}, function(data){
-                showAlert('success', 'Payment status has been updated');
-            });
+		$.post('<?php echo e(route('orders.update_payment_status')); ?>', { _token: '<?php echo e(@csrf_token()); ?>', order_id: order_id, status: status }, function (data) {
+			if (data == 1) {
+				showAlert('success', 'Payment status has been updated');
+			}
+			else {
+                 e.preventDefault();
+                 $('#update_payment_status').select2();
+                 $('#update_payment_status').val('paid').trigger('change'); 
+               showAlert('warning', 'Cannot change payment status of order already paid');
+			}
+                
+			})
+			.fail(function () {
+                  e.preventDefault();
+                 $('#update_payment_status').select2();
+                 $('#update_payment_status').val('paid').trigger('change'); 
+               showAlert('warning', 'Cannot change payment status of order already paid');
+             });
         });
     </script>
 <?php $__env->stopSection(); ?>

@@ -72,10 +72,13 @@ class CheckoutController extends Controller
             }
             elseif ($request->payment_option == 'cash_on_delivery') {
                 $order = Order::findOrFail($request->session()->get('order_id'));
+				$order->payment_status = 'unpaid';
+				$order->save();
+
                 if (BusinessSetting::where('type', 'category_wise_commission')->first()->value != 1) {
                     $commission_percentage = BusinessSetting::where('type', 'vendor_commission')->first()->value;
                     foreach ($order->orderDetails as $key => $orderDetail) {
-                        $orderDetail->payment_status = 'paid';
+                        $orderDetail->payment_status = 'unpaid';
                         $orderDetail->save();
                         if($orderDetail->product->user->user_type == 'seller'){
                             $seller = $orderDetail->product->user->seller;
@@ -86,7 +89,7 @@ class CheckoutController extends Controller
                 }
                 else{
                     foreach ($order->orderDetails as $key => $orderDetail) {
-                        $orderDetail->payment_status = 'paid';
+                        $orderDetail->payment_status = 'unpaid';
                         $orderDetail->save();
                         if($orderDetail->product->user->user_type == 'seller'){
                             $commission_percentage = $orderDetail->product->category->commision_rate;
@@ -222,8 +225,7 @@ class CheckoutController extends Controller
 		// use key 'http' even if you send the request to https://...
 		$options = array(
 			'http' => array(
-				'header'  => "Content-type: application/json \r\n" .
-					   "Cookie: .AspNetCore.Session=". $_s ."\r\n",
+				'header'  => "Content-type: application/json \r\n",
 				'method'  => 'POST',
 				'content' => json_encode($data)
 			)

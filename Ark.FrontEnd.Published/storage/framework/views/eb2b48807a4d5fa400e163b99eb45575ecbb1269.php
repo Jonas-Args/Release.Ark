@@ -1,7 +1,7 @@
 <?php $__env->startSection('content'); ?>
 
 <script>
-	window.location.replace('/logout');
+	//window.location.replace('/logout');
 </script>
 
 <div class="text-center">

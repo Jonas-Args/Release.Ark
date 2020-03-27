@@ -204,6 +204,9 @@
 
 @section('script')
     <script type="text/javascript">
+
+        
+
         $('#update_delivery_status').on('change', function(){
             var order_id = {{ $order->id }};
             var status = $('#update_delivery_status').val();
@@ -212,12 +215,27 @@
             });
         });
 
-        $('#update_payment_status').on('change', function(){
+		$('#update_payment_status').on('select2:selecting', function (e) {
             var order_id = {{ $order->id }};
             var status = $('#update_payment_status').val();
-            $.post('{{ route('orders.update_payment_status') }}', {_token:'{{ @csrf_token() }}',order_id:order_id,status:status}, function(data){
-                showAlert('success', 'Payment status has been updated');
-            });
+		$.post('{{ route('orders.update_payment_status') }}', { _token: '{{ @csrf_token() }}', order_id: order_id, status: status }, function (data) {
+			if (data == 1) {
+				showAlert('success', 'Payment status has been updated');
+			}
+			else {
+                 e.preventDefault();
+                 $('#update_payment_status').select2();
+                 $('#update_payment_status').val('paid').trigger('change'); 
+               showAlert('warning', 'Cannot change payment status of order already paid');
+			}
+                
+			})
+			.fail(function () {
+                  e.preventDefault();
+                 $('#update_payment_status').select2();
+                 $('#update_payment_status').val('paid').trigger('change'); 
+               showAlert('warning', 'Cannot change payment status of order already paid');
+             });
         });
     </script>
 @endsection
