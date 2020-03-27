@@ -169,7 +169,7 @@
     <div class="footer-bottom py-3 sct-color-3  d-md-block d-none">
         <div class="container">
             <div class="row row-cols-xs-spaced flex flex-items-xs-middle">
-                <div class="col-md-4">
+                <div class="col-md-4" style="display:none!important">
                     <div class="copyright text-center text-md-left">
                         <ul class="copy-links no-margin">
                             <li>
@@ -184,7 +184,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4" style="display:none!important">
                     <ul class="text-center my-3 my-md-0 social-nav model-2">
                         @if ($generalsetting->facebook != null)
                             <li>
