@@ -71,7 +71,6 @@ class OrderController extends Controller
         return view('sales.index', compact('orders'));
     }
 
-
     public function order_index(Request $request)
     {
         if (Auth::user()->user_type == 'staff') {

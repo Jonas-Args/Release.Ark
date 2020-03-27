@@ -184,6 +184,9 @@ class CheckoutController extends Controller
 					case "EPKG1":
 						$_rewards = ($netValue * 0.0025);
 						break;
+                    case "EPKG1TRL":
+					    $_rewards = ($netValue * 0.0025);
+					    break;
 
 					case "EPKG2":
 						$_rewards = ($netValue * 0.005);
