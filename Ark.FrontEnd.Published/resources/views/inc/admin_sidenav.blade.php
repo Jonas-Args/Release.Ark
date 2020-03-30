@@ -163,7 +163,7 @@
                         <li class="{{ areActiveRoutes(['orders.index.admin', 'orders.show'])}}">
                             <a class="nav-link" href="{{ route('orders.index.admin') }}">
                                 <i class="fa fa-shopping-basket"></i>
-                                <span class="menu-title">{{__('Inhouse orders')}} @if($orders > 0)<span class="pull-right badge badge-info">{{ $orders }}</span>@endif</span>
+                                <span class="menu-title">{{__('Orders')}} @if($orders > 0)<span class="pull-right badge badge-info">{{ $orders }}</span>@endif</span>
                             </a>
                         </li>
                         @endif
@@ -232,7 +232,9 @@
                                 <li class="{{ areActiveRoutes(['customers.index'])}}">
                                     <a class="nav-link" href="{{ route('customers.index') }}">{{__('Customer list')}}</a>
                                 </li>
-							
+								<li class="{{ areActiveRoutes(['customers.deposits'])}}">
+									<a class="nav-link" href="{{ route('customers.deposits') }}">{{__('Pending Deposits')}}</a>
+								</li>
                             </ul>
                         </li>
                         @endif
@@ -262,14 +264,14 @@
                                     <a class="nav-link" href="{{ route('stock_report.index') }}">{{__('Stock Report')}}</a>
                                 </li>
                                 <li class="{{ areActiveRoutes(['in_house_sale_report.index'])}}">
-                                    <a class="nav-link" href="{{ route('in_house_sale_report.index') }}">{{__('In House Sale Report')}}</a>
+                                    <a class="nav-link" href="{{ route('in_house_sale_report.index') }}">{{__('Sold Items Report')}}</a>
                                 </li>
-                                <li class="{{ areActiveRoutes(['seller_report.index'])}}">
+                             <!--   <li class="{{ areActiveRoutes(['seller_report.index'])}}">
                                     <a class="nav-link" href="{{ route('seller_report.index') }}">{{__('Seller Report')}}</a>
                                 </li>
                                 <li class="{{ areActiveRoutes(['seller_sale_report.index'])}}">
                                     <a class="nav-link" href="{{ route('seller_sale_report.index') }}">{{__('Seller Based Selling Report')}}</a>
-                                </li>
+                                </li>-->
                                 <li class="{{ areActiveRoutes(['wish_report.index'])}}">
                                     <a class="nav-link" href="{{ route('wish_report.index') }}">{{__('Product Wish Report')}}</a>
                                 </li>
@@ -402,11 +404,11 @@
                                         <a class="nav-link" href="{{route('coupon.index')}}">{{__('Coupon')}}</a>
                                     </li>
                                 </li>
-                                <li>
+                               <!-- <li>
                                     <li class="{{ areActiveRoutes(['pick_up_points.index','pick_up_points.create','pick_up_points.edit',])}}">
                                         <a class="nav-link" href="{{route('pick_up_points.index')}}">{{__('Pickup Point')}}</a>
                                     </li>
-                                </li>
+                                </li>-->
                             </ul>
                         </li>
                         @endif

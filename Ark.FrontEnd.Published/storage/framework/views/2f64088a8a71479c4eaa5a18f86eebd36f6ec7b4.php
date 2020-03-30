@@ -58,7 +58,7 @@
 
             <?php if(isset($userLink)): ?>
 	        <p style="margin-bottom:0px"><?php echo e($userLink->directSponsorID); ?></p>
-            <p style="color:#808080; font-size:9px">Your source code</p>
+            <p style="color:#808080; font-size:9px">Source code</p>
 	        
 	        <?php else: ?>
 	        <p>Please activate your account first</p>

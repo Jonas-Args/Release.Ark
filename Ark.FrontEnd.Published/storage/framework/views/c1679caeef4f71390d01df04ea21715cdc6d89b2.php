@@ -136,7 +136,7 @@
                         <li class="<?php echo e(areActiveRoutes(['orders.index.admin', 'orders.show'])); ?>">
                             <a class="nav-link" href="<?php echo e(route('orders.index.admin')); ?>">
                                 <i class="fa fa-shopping-basket"></i>
-                                <span class="menu-title"><?php echo e(__('Inhouse orders')); ?> <?php if($orders > 0): ?><span class="pull-right badge badge-info"><?php echo e($orders); ?></span><?php endif; ?></span>
+                                <span class="menu-title"><?php echo e(__('Orders')); ?> <?php if($orders > 0): ?><span class="pull-right badge badge-info"><?php echo e($orders); ?></span><?php endif; ?></span>
                             </a>
                         </li>
                         <?php endif; ?>
@@ -205,7 +205,9 @@
                                 <li class="<?php echo e(areActiveRoutes(['customers.index'])); ?>">
                                     <a class="nav-link" href="<?php echo e(route('customers.index')); ?>"><?php echo e(__('Customer list')); ?></a>
                                 </li>
-							
+								<li class="<?php echo e(areActiveRoutes(['customers.deposits'])); ?>">
+									<a class="nav-link" href="<?php echo e(route('customers.deposits')); ?>"><?php echo e(__('Pending Deposits')); ?></a>
+								</li>
                             </ul>
                         </li>
                         <?php endif; ?>
@@ -235,14 +237,14 @@
                                     <a class="nav-link" href="<?php echo e(route('stock_report.index')); ?>"><?php echo e(__('Stock Report')); ?></a>
                                 </li>
                                 <li class="<?php echo e(areActiveRoutes(['in_house_sale_report.index'])); ?>">
-                                    <a class="nav-link" href="<?php echo e(route('in_house_sale_report.index')); ?>"><?php echo e(__('In House Sale Report')); ?></a>
+                                    <a class="nav-link" href="<?php echo e(route('in_house_sale_report.index')); ?>"><?php echo e(__('Sold Items Report')); ?></a>
                                 </li>
-                                <li class="<?php echo e(areActiveRoutes(['seller_report.index'])); ?>">
+                             <!--   <li class="<?php echo e(areActiveRoutes(['seller_report.index'])); ?>">
                                     <a class="nav-link" href="<?php echo e(route('seller_report.index')); ?>"><?php echo e(__('Seller Report')); ?></a>
                                 </li>
                                 <li class="<?php echo e(areActiveRoutes(['seller_sale_report.index'])); ?>">
                                     <a class="nav-link" href="<?php echo e(route('seller_sale_report.index')); ?>"><?php echo e(__('Seller Based Selling Report')); ?></a>
-                                </li>
+                                </li>-->
                                 <li class="<?php echo e(areActiveRoutes(['wish_report.index'])); ?>">
                                     <a class="nav-link" href="<?php echo e(route('wish_report.index')); ?>"><?php echo e(__('Product Wish Report')); ?></a>
                                 </li>
@@ -375,11 +377,11 @@
                                         <a class="nav-link" href="<?php echo e(route('coupon.index')); ?>"><?php echo e(__('Coupon')); ?></a>
                                     </li>
                                 </li>
-                                <li>
+                               <!-- <li>
                                     <li class="<?php echo e(areActiveRoutes(['pick_up_points.index','pick_up_points.create','pick_up_points.edit',])); ?>">
                                         <a class="nav-link" href="<?php echo e(route('pick_up_points.index')); ?>"><?php echo e(__('Pickup Point')); ?></a>
                                     </li>
-                                </li>
+                                </li>-->
                             </ul>
                         </li>
                         <?php endif; ?>

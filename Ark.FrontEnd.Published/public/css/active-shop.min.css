@@ -1,4 +1,4 @@
-﻿#content-container:before {
+#content-container:before {
 	content:'';
 	display:block;
 	height:165px;
@@ -6425,10 +6425,10 @@ blockquote {
 	margin-left:-5px
 }
 .panel {
-	border:0;
-	border-radius:3px;
-	box-shadow:none !important;
-	margin-bottom:20px
+    border: 0;
+    border-radius: 3px;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1)!important;
+    margin-bottom:20px
 }
 .panel .panel-bg-cover {
 	max-height:180px;

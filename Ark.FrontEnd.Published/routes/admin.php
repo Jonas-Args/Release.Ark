@@ -10,7 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/admin', 'HomeController@admin_dashboard')->name('admin.dashboard')->middleware(['auth', 'admin']);
 Route::group(['prefix' =>'admin', 'middleware' => ['auth', 'admin']], function(){
 	Route::resource('categories','CategoryController');
@@ -43,9 +42,16 @@ Route::group(['prefix' =>'admin', 'middleware' => ['auth', 'admin']], function()
 	Route::get('/seller/payments', 'PaymentController@payment_histories')->name('sellers.payment_histories');
 	Route::get('/seller/payments/show/{id}', 'PaymentController@show')->name('sellers.payment_history');
 
+	Route::get('/customers/deposits', 'CustomerController@deposits')->name('customers.deposits');
+	Route::get('/customers/edit/{id}', 'CustomerController@edit')->name('customers.edit');
+	Route::get('/customers/wallet/{id}', 'CustomerController@wallet')->name('customers.wallet');
+	Route::get('/customers/wallet/send/{id}', 'CustomerController@wallet_send')->name('customers.wallet.send');
+
 	Route::resource('customers','CustomerController');
 	Route::get('/customers/destroy/{id}', 'CustomerController@destroy')->name('customers.destroy');
-	Route::get('/customers/deposits', 'CustomerController@deposits')->name('customers.deposits');
+	Route::post('/customers/update', 'CustomerController@update')->name('customers.update');
+	Route::post('/customers/password_change', 'CustomerController@password_change')->name('customers.password_change');
+	Route::post('/customers/auth_status_change', 'CustomerController@auth_status_change')->name('customers.auth_status_change');
 
 	Route::get('/newsletter', 'NewsletterController@index')->name('newsletters.index');
 	Route::post('/newsletter/send', 'NewsletterController@send')->name('newsletters.send');

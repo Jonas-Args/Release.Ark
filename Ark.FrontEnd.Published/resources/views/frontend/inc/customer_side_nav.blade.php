@@ -58,7 +58,7 @@
 
             @if (isset($userLink))
 	        <p style="margin-bottom:0px">{{ $userLink->directSponsorID }}</p>
-            <p style="color:#808080; font-size:9px">Your source code</p>
+            <p style="color:#808080; font-size:9px">Source code</p>
 	        
 	        @else
 	        <p>Please activate your account first</p>
