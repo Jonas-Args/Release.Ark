@@ -74,7 +74,7 @@
 									<li>
 										<a href="{{route('customers.wallet', $customer->shopUserId)}}"><i class="fa fa-credit-card" style="margin-right:12px; font-size:16px"></i>{{__('Wallet')}}</a>
 									</li>
-									<li>
+									<li style="display:none">
 										<a onclick="confirm_modal('{{route('customers.destroy', $customer->shopUserId)}}');"><i class="fa fa-ban" style="margin-right:12px; font-size:16px"></i>{{__('Delete')}}</a>
 									</li>
                                 </ul>

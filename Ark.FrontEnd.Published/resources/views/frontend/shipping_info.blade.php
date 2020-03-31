@@ -95,10 +95,10 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="control-label">{{__('Select your country')}}</label>
+                                                    <label class="control-label">{{__('Select your region')}}</label>
                                                     <select class="form-control selectpicker" data-live-search="true" name="country">
                                                         @foreach (\App\Country::all() as $key => $country)
-                                                            <option value="{{ $country->name }}" @if ($country->code == $user->country) selected @endif>{{ $country->name }}</option>
+                                                            <option value="{{ $country->code }}" @if ($country->code == $user->country) selected @endif>{{ $country->name }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -106,7 +106,12 @@
                                             <div class="col-md-6">
                                                 <div class="form-group has-feedback">
                                                     <label class="control-label">{{__('City')}}</label>
-                                                    <input type="text" class="form-control" value="{{ $user->city }}" name="city" required>
+                                                    <select class="form-control selectpicker" data-live-search="true" name="city">
+                                                      @foreach (Illuminate\Support\Facades\DB::table('city')->get() as $key => $country)
+                                                            <option value="{{ $country->citymunDesc }}">{{ $country->citymunDesc }}</option>
+                                                        @endforeach
+                                                      </select>
+                                                   <!-- <input type="text" class="form-control" value="{{ $user->city }}" name="city" required>-->
                                                 </div>
                                             </div>
                                         </div>

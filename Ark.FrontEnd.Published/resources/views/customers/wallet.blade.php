@@ -41,7 +41,7 @@
 				<div style="font-size:14px!important">
 					<label style="color:#808080">Current Wallet Balance:</label>
 					<h4 style="margin:0px">
-						<span>0.00</span>
+						<span>{{ number_format($customer->wallet_cash, 2) }} </span>
 						<span style="color:#82a9d8">PHP</span>
 					</h4>
 				</div>
@@ -75,23 +75,23 @@
 								<i class="fa fa-send" style="margin-right:12px; font-size:16px"></i>{{__('Send')}}
 							</a>
 						</li>
-						<li>
-							<a href="{{route('customers.wallet', $customer->Uid)}}">
+						<li class="disabled" disabled>
+							<a>
 								<i class="fa fa-cog" style="margin-right:12px; font-size:16px"></i>{{__('Top Up')}}
 							</a>
 						</li>
-						<li>
-							<a onclick="confirm_modal('{{route('customers.destroy', $customer->Uid)}}');">
+						<li class="disabled">
+							<a>
 								<i class="fa fa-refresh" style="margin-right:12px; font-size:16px"></i>{{__('Convert')}}
 							</a>
 						</li>
-						<li>
-							<a onclick="confirm_modal('{{route('customers.destroy', $customer->Uid)}}');">
+						<li class="disabled">
+							<a>
 								<i class="fa fa-upload" style="margin-right:12px; font-size:16px"></i>{{__('Withdraw')}}
 							</a>
 						</li>
-						<li>
-							<a onclick="confirm_modal('{{route('customers.destroy', $customer->Uid)}}');">
+						<li class="disabled">
+							<a>
 								<i class="fa fa-file-text" style="margin-right:12px; font-size:16px"></i>{{__('Transactions')}}
 							</a>
 						</li>
@@ -114,7 +114,7 @@
 				<div style="font-size:14px!important">
 					<label style="color:#808080">Current Wallet Balance:</label>
 					<h4 style="margin:0px">
-						<span>0.00</span>
+						<span>{{ number_format($customer->wallet_credit, 2) }}</span>
 						<span style="color:#82a9d8">PHP</span>
 					</h4>
 				</div>
@@ -151,23 +151,23 @@
 								<i class="fa fa-send" style="margin-right:12px; font-size:16px"></i>{{__('Send')}}
 							</a>
 						</li>
-						<li>
-							<a href="{{route('customers.wallet', $customer->Uid)}}">
+						<li class="disabled" disabled>
+							<a>
 								<i class="fa fa-cog" style="margin-right:12px; font-size:16px"></i>{{__('Top Up')}}
 							</a>
 						</li>
-						<li>
-							<a onclick="confirm_modal('{{route('customers.destroy', $customer->Uid)}}');">
+						<li class="disabled">
+							<a>
 								<i class="fa fa-refresh" style="margin-right:12px; font-size:16px"></i>{{__('Convert')}}
 							</a>
 						</li>
-						<li>
-							<a onclick="confirm_modal('{{route('customers.destroy', $customer->Uid)}}');">
+						<li class="disabled">
+							<a>
 								<i class="fa fa-upload" style="margin-right:12px; font-size:16px"></i>{{__('Withdraw')}}
 							</a>
 						</li>
-						<li>
-							<a onclick="confirm_modal('{{route('customers.destroy', $customer->Uid)}}');">
+						<li class="disabled">
+							<a>
 								<i class="fa fa-file-text" style="margin-right:12px; font-size:16px"></i>{{__('Transactions')}}
 							</a>
 						</li>

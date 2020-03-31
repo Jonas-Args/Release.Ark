@@ -115,6 +115,13 @@ class CustomerController extends Controller
 		$customer = User::where('id', $id)->first();
         $customer->LoginStatus = $_r->user->loginStatus;
         $customer->Uid = $_r->user->uid;
+        $customer->wallet_credit = $customer->balance;
+        $customer->wallet_cash = $_r->userWallets[array_search('ACW', array_column($_r->userWallets, 'walletCode'))]->balance;
+
+		//$customer->wallet_credit_tr
+		//$customer->wallet_credit_sr
+		//$customer->wallet_credit_td
+
         return view('customers.wallet',compact('customer'));
     }
 
