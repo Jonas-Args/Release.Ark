@@ -146,7 +146,7 @@
                                 @if(Auth::check())
                                     <a href="{{ route('checkout.shipping_info') }}" class="btn btn-styled btn-base-1">{{__('Next')}}</a>
                                 @else
-								<button class="btn btn-styled btn-base-1" onclick="$('#maintenance-update').modal('show');">{{__('Next')}}</button>
+								<a href="{{ route('user.login') }}" class="btn btn-styled btn-base-1">{{__('Next')}}</a>
                                 @endif
                             </div>
                         </div>
@@ -168,7 +168,7 @@
 
     <!-- Modal -->
     <div class="modal fade" id="GuestCheckout" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-zoom" role="document">
+        <div class="modal-dialog modal-md modal-dialog-zoom" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h6 class="modal-title" id="exampleModalLabel">{{__('Login')}}</h6>
@@ -211,7 +211,7 @@
 
                                         <div class="row align-items-center">
                                             <div class="col-md-6">
-                                                <a href="#" class="link link-xs link--style-3">{{__('Forgot password?')}}</a>
+                                                <a href="{{ route('user.registration') }}" class="link link-xs link--style-3">{{__('New to ARK PH?')}}</a>
                                             </div>
                                             <div class="col-md-6 text-right">
                                                 <button type="submit" class="btn btn-styled btn-base-1 px-4">{{__('Sign in')}}</button>
@@ -222,7 +222,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col" style="display:none!important">
                             <div class="card">
                                 <div class="card-body px-4">
                                     @if(\App\BusinessSetting::where('type', 'google_login')->first()->value == 1)
