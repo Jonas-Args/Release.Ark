@@ -108,9 +108,9 @@
                                                     <label class="control-label">{{__('City')}}</label>
                                                     <select class="form-control selectpicker" data-live-search="true" name="city">
                                                       @foreach (Illuminate\Support\Facades\DB::table('city')->get() as $key => $country)
-                                                            <option value="{{ $country->citymunDesc }}">{{ $country->citymunDesc }}</option>
+                                                            <option value="{{ $country->citymunDesc }}" @if ($country->citymunDesc == Auth::user()->city) selected @endif>{{ $country->citymunDesc }}</option>
                                                         @endforeach
-                                                      </select>
+                                                    </select>
                                                    <!-- <input type="text" class="form-control" value="{{ $user->city }}" name="city" required>-->
                                                 </div>
                                             </div>

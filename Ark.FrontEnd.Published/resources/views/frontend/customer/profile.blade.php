@@ -121,8 +121,12 @@
                                         <div class="col-md-2">
                                             <label>{{__('City')}}</label>
                                         </div>
-                                        <div class="col-md-10">
-                                            <input type="text" class="form-control mb-3" placeholder="Your City" name="city" value="{{ Auth::user()->city }}">
+                                        <div class="col-md-10 mb-3">
+                                             <select class="form-control selectpicker" data-live-search="true" name="city">
+                                                      @foreach (Illuminate\Support\Facades\DB::table('city')->get() as $key => $country)
+                                                            <option value="{{ $country->citymunDesc }}" @if ($country->citymunDesc == Auth::user()->city) selected @endif >{{ $country->citymunDesc }}</option>
+                                                        @endforeach
+                                             </select>
                                         </div>
                                     </div>
                                     <div class="row">
