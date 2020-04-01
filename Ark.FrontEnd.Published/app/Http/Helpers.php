@@ -152,12 +152,24 @@ if (! function_exists('combinations')) {
 
 //filter products based on vendor activation system
 if (! function_exists('filter_products')) {
-    function filter_products($products) {
+    function filter_products($products, $q = false) {
         if(BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1){
-            return $products->where('published', '1')->where('category_id', '!=' , '15');
+            if ($q)
+			{
+                return $products->where('published', '1');
+			}
+            else{
+                return $products->where('published', '1')->where('category_id', '!=' , '15');
+			}
         }
         else{
-            return $products->where('published', '1')->where('category_id', '!=' , '15');
+            if ($q)
+			{
+                return $products->where('published', '1');
+			}
+            else{
+                return $products->where('published', '1')->where('category_id', '!=' , '15');
+			}
         }
     }
 }

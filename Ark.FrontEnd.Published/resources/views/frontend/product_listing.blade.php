@@ -321,10 +321,12 @@
                                                 </div>
                                                 <div class="clearfix">
                                                     <div class="price-box float-left">
-                                                        @if(home_base_price($product->id) != home_discounted_base_price($product->id))
-                                                            <del class="old-product-price strong-400">{{ single_price_dashboard($product->id) }}</del>
+                                                        @if($category_id != '15')
+                                                            @if(home_base_price($product->id) != home_discounted_base_price($product->id))
+                                                                <del class="old-product-price strong-400">{{ single_price_dashboard($product->id) }}</del>
+                                                            @endif
+                                                            <span class="product-price strong-600">{{ single_price_dashboard($product->id) }}</span>
                                                         @endif
-                                                        <span class="product-price strong-600">{{ single_price_dashboard($product->id) }}</span>
                                                     </div>
                                                 </div>
                                             </div>

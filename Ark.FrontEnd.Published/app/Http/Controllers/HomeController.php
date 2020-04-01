@@ -419,7 +419,13 @@ class HomeController extends Controller
             }
         }
 
-        $products = filter_products($products)->paginate(12)->appends(request()->query());
+        if ($category_id == '15')
+		{
+            $products = filter_products($products,true)->paginate(25)->appends(request()->query());
+		}
+        else{
+			$products = filter_products($products)->paginate(25)->appends(request()->query());
+		}
 
         return view('frontend.product_listing', compact('products', 'query', 'category_id', 'subcategory_id', 'subsubcategory_id', 'brand_id', 'sort_by', 'seller_id','min_price', 'max_price'));
     }
