@@ -268,7 +268,7 @@ class PaynamicsController extends Controller
 
     public function callbackPayment(Request $request)
     {
-		Log::info(json_encode($request['paymentresponse']));
+		Log::info($request['paymentresponse']);
 		$request['paymentresponse'] = str_replace(" ","+",$request['paymentresponse']);
 
 
