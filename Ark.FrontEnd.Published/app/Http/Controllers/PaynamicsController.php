@@ -268,12 +268,12 @@ class PaynamicsController extends Controller
 
     public function callbackPayment(Request $request)
     {
-		Log::info(json_encode($request['paymentresponse']));
-		$request['paymentresponse'] = str_replace(" ","+",$request['paymentresponse']);
-		
+		$_req = $request->getContent();
+		Log::info(json_encode($_req));
+		$_req = str_replace("paymentresponse=","",$_req);
 
         $data = array(
-			'RawBase64' => $request['paymentresponse']
+			'RawBase64' => $_req
 			);
 
         $url = 'http://localhost:55006/api/paynamics/ProcessCallbackRequest';
