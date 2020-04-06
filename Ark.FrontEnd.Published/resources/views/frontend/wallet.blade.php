@@ -145,7 +145,7 @@
 													 <td></td>
 													 <td></td>
 													 <td></td>
-													 <td><b>₱{{ bcdiv($CredittotalAmount, 1, 3) }}</b></td>
+													 <td><b>₱ {{ bcdiv($CredittotalAmount, 1, 3) }}</b></td>
 														
 												 </tr>
                                         @else
@@ -195,7 +195,7 @@
 													 <td></td>
                                                      <td></td>
                                                      <td></td>
-													 <td><b>₱{{ bcdiv($CashtotalAmount, 1, 3) }}</b></td>
+													 <td><b>₱ {{ bcdiv($CashtotalAmount, 1, 3) }}</b></td>
                                                      <td></td>
 												 </tr>
                                         @else
