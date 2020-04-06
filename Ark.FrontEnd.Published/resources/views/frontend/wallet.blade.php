@@ -138,14 +138,14 @@
                                                     <td>{{ $key+1 }}</td>
                                                     <td>{{ date_format(date_create($wallet->created_at),"Y/m/d H:i:s") }}</td>
                                                     <td>{{ ucfirst(str_replace('_', ' ', $wallet ->payment_method)) }}</td>
-                                                    <td>{{ number_format($wallet->amount, 3) }}</td>
+                                                    <td>{{ floor($wallet->amount, 3) }}</td>
                                                 </tr>
                                             @endforeach
                                             <tr>
 													 <td></td>
 													 <td></td>
 													 <td></td>
-													 <td><b>₱{{ number_format($CredittotalAmount, 3) }}</b></td>
+													 <td><b>₱{{ floor($CredittotalAmount, 3) }}</b></td>
 														
 												 </tr>
                                         @else
@@ -185,7 +185,7 @@
 														<td>{{ date_format(date_create($userIncomeTransactionItem->createdOn),"Y/m/d H:i:s")  }}</td>
 														<td>{{ $userIncomeTransactionItem->incomeType->incomeTypeName}}</td>
 														<td>{{ $userIncomeTransactionItem->userAuth->userInfo->firstName . ' ' .  $userIncomeTransactionItem->userAuth->userInfo->lastName}}</td>
-														<td>{{ number_format($userIncomeTransactionItem->incomePercentage,3) }}</td>
+														<td>{{ floor($userIncomeTransactionItem->incomePercentage,3) }}</td>
 														<td>{{ $userIncomeTransactionItem->remarks }}</td>
 													</tr>
 													@endforeach
@@ -195,7 +195,7 @@
 													 <td></td>
                                                      <td></td>
                                                      <td></td>
-													 <td><b>{{ single_price($CashtotalAmount) }}</b></td>
+													 <td><b>₱{{ floor($CashtotalAmount, 3) }}</b></td>
                                                      <td></td>
 												 </tr>
                                         @else
