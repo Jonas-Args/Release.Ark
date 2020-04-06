@@ -96,7 +96,7 @@
                             <div class="col-md-4 ">
                                 <div class="dashboard-widget text-center red-widget text-white mt-4 c-pointer">
                                     <i class="la la-wallet" style="font-size:24px;"></i>
-                                    <span class="d-block title heading-3 strong-400"> ₱{{ number_format($UserWallet[array_search('ACW', array_column($UserWallet, 'walletCode'))]->balance,2) }}</span>
+                                    <span class="d-block title heading-3 strong-400"> ₱{{ number_format($UserWallet[array_search('ACW', array_column($UserWallet, 'walletCode'))]->balance,3) }}</span>
                                     <span class="d-block sub-title">{{ __('Ark Cash Balance') }}</span>
 
                                 </div>
@@ -104,7 +104,7 @@
                             <div class="col-md-4 ">
                                 <div class="dashboard-widget text-center green-widget text-white mt-4 c-pointer" style="background-color:#12CBC4!important">
                                     <i class="la la-wallet" style="font-size:24px;"></i>
-                                    <span class="d-block title heading-3 strong-400">{{ single_price(Auth::user()->balance) }}</span>
+                                    <span class="d-block title heading-3 strong-400">₱{{ number_format(Auth::user()->balance, 3) }}</span>
                                     <span class="d-block sub-title">{{ __('Ark Credit Balance') }}</span>
 
                                 </div>
@@ -138,14 +138,14 @@
                                                     <td>{{ $key+1 }}</td>
                                                     <td>{{ date_format(date_create($wallet->created_at),"Y/m/d H:i:s") }}</td>
                                                     <td>{{ ucfirst(str_replace('_', ' ', $wallet ->payment_method)) }}</td>
-                                                    <td>{{ single_price($wallet->amount) }}</td>
+                                                    <td>{{ number_format($wallet->amount, 3) }}</td>
                                                 </tr>
                                             @endforeach
                                             <tr>
 													 <td></td>
 													 <td></td>
 													 <td></td>
-													 <td><b>{{ single_price($CredittotalAmount) }}</b></td>
+													 <td><b>₱{{ number_format($CredittotalAmount, 3) }}</b></td>
 														
 												 </tr>
                                         @else
@@ -193,9 +193,10 @@
                                                     <tr>
 													 <td></td>
 													 <td></td>
-													 <td></td>
+                                                     <td></td>
+                                                     <td></td>
 													 <td><b>{{ single_price($CashtotalAmount) }}</b></td>
-														
+                                                     <td></td>
 												 </tr>
                                         @else
                                             <tr>
