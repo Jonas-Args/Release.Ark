@@ -13,7 +13,7 @@
                 </div>
 
 
-                @php
+         @php
             try
 			 {
 
@@ -96,7 +96,7 @@
                             <div class="col-md-4 ">
                                 <div class="dashboard-widget text-center red-widget text-white mt-4 c-pointer">
                                     <i class="la la-wallet" style="font-size:24px;"></i>
-                                    <span class="d-block title heading-3 strong-400"> ₱{{ number_format($UserWallet[array_search('ACW', array_column($UserWallet, 'walletCode'))]->balance,3) }}</span>
+                                    <span class="d-block title heading-3 strong-400"> ₱{{ bcdiv($UserWallet[array_search('ACW', array_column($UserWallet, 'walletCode'))]->balance,1, 3) }}</span>
                                     <span class="d-block sub-title">{{ __('Ark Cash Balance') }}</span>
 
                                 </div>
@@ -104,7 +104,7 @@
                             <div class="col-md-4 ">
                                 <div class="dashboard-widget text-center green-widget text-white mt-4 c-pointer" style="background-color:#12CBC4!important">
                                     <i class="la la-wallet" style="font-size:24px;"></i>
-                                    <span class="d-block title heading-3 strong-400">₱{{ number_format(Auth::user()->balance, 3) }}</span>
+                                    <span class="d-block title heading-3 strong-400">₱{{ bcdiv(Auth::user()->balance, 1, 3) }}</span>
                                     <span class="d-block sub-title">{{ __('Ark Credit Balance') }}</span>
 
                                 </div>
