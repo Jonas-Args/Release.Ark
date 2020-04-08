@@ -17,9 +17,9 @@ use Illuminate\Support\Facades\Log;
 
 class PaynamicsController extends Controller
 {
-    public function initializePayment(Request $request)
-    {
-        if (isset($request['Remarks']))
+	public function initializePayment(Request $request)
+	{
+		if (isset($request['Remarks']))
 		{
 			$subtotal = 0.00;
 			$itemcount = 0;
@@ -35,17 +35,17 @@ class PaynamicsController extends Controller
 				'DepositStatus' => $request['DepositStatus'],
 				'Remarks' => $request['Remarks'],
 				'Id' => $request['Id']
-				);
+			);
 
 			// use key 'http' even if you send the request to https://...
 			$options = array(
 				'http' => array(
-					'header'  => "Content-type: application/json",
-					'method'  => 'POST',
+					'header' => "Content-type: application/json",
+					'method' => 'POST',
 					'content' => json_encode($data)
 				)
 			);
-			$context  = stream_context_create($options);
+			$context = stream_context_create($options);
 			$results = file_get_contents($url, false, $context);
 			$_rs = json_decode($results);
 
@@ -55,20 +55,20 @@ class PaynamicsController extends Controller
 			$url = 'http://localhost:55006/api/BusinessPackage/GetByID?stringId=' . $request['BusinessPackageID'];
 			$options = array(
 				'http' => array(
-					'method'  => 'GET',
-					'header'    => "Accept-language: en\r\n" .
-						"Cookie: .AspNetCore.Session=". $_s ."\r\n"
+					'method' => 'GET',
+					'header' => "Accept-language: en\r\n" .
+					"Cookie: .AspNetCore.Session=" . $_s . "\r\n"
 				)
 			);
-			$context  = stream_context_create($options);
+			$context = stream_context_create($options);
 			$result = file_get_contents($url, false, $context);
 			$businessPackages = json_decode($result);
 			$businessPackages = $businessPackages->businessPackages;
 
 			$Items_itm = ["itemname" => $businessPackages[0]->packageName,
-					  "quantity" => 1,
-					  "amount" => number_format($businessPackages[0]->valueTo, 2, '.', '')];
-			array_push($Items,$Items_itm);
+				"quantity" => 1,
+				"amount" => number_format($businessPackages[0]->valueTo, 2, '.', '')];
+			array_push($Items, $Items_itm);
 			$subtotal += floatval($businessPackages[0]->valueTo);
 			$data = array(
 				'DepositId' => $_rs->userDepositRequests[0]->id,
@@ -87,18 +87,18 @@ class PaynamicsController extends Controller
 				'mtac_url' => url('aboutus'),
 				'pmethod' => '',
 				'zip' => 'zip',
-				);
+			);
 			$url = 'http://localhost:55006/api/paynamics';
 			$options = array(
 				'http' => array(
-					'method'  => 'POST',
+					'method' => 'POST',
 					'content' => json_encode($data),
-					'header'    => "Accept-language: en\r\n" .
-						"Cookie: .AspNetCore.Session=". $_s ."\r\n" .
-						"Content-type: application/json" . "\r\n"
+					'header' => "Accept-language: en\r\n" .
+					"Cookie: .AspNetCore.Session=" . $_s . "\r\n" .
+					"Content-type: application/json" . "\r\n"
 				)
 			);
-			$context  = stream_context_create($options);
+			$context = stream_context_create($options);
 			$result = file_get_contents($url, false, $context);
 			$_r = json_decode($result);
 			$_r = $_r->apiResponse;
@@ -108,7 +108,7 @@ class PaynamicsController extends Controller
 			return view('frontend.payWithPaynamics', compact('_r'));
 
 		}
-        else{
+		else {
 			$subtotal = 0.00;
 			$itemcount = 0;
 			$initUserBalance = floatval(Auth::user()->balance);
@@ -116,22 +116,22 @@ class PaynamicsController extends Controller
 			$product_price_less_credit = [];
 
 
-			foreach (Session::get('cart') as $key1 => $cartItem1){
+			foreach (Session::get('cart') as $key1 => $cartItem1) {
 
-				$prod_price = $cartItem1['price']*$cartItem1['quantity'];
+				$prod_price = $cartItem1['price'] * $cartItem1['quantity'];
 				$itemcount += $cartItem1['quantity'];
 				$product_price_less_credit[$key1] = (1 / $cartItem1['quantity']) * ($prod_price - ($prod_price - $initUserBalance));
 				$initUserBalance -= $product_price_less_credit[$key1] * $cartItem1['quantity'];
 			}
 
 
-			foreach (Session::get('cart') as $key => $cartItem){
+			foreach (Session::get('cart') as $key => $cartItem) {
 				$product = Product::find($cartItem['id']);
 				$subtotal += floatval($cartItem['price'] - $product_price_less_credit[$key]) * $cartItem['quantity'];
-				//$Items_itm = ["itemname" => $product->name,
-				//		  "quantity" => $cartItem['quantity'],
-				//		  "amount" => number_format($cartItem['price'] - floatval(number_format($product_price_less_credit[$key], 2, '.', '')), 2, '.', '')];
-				//array_push($Items,$Items_itm);
+			//$Items_itm = ["itemname" => $product->name,
+			//		  "quantity" => $cartItem['quantity'],
+			//		  "amount" => number_format($cartItem['price'] - floatval(number_format($product_price_less_credit[$key], 2, '.', '')), 2, '.', '')];
+			//array_push($Items,$Items_itm);
 			}
 
 			// ADD SHIPPING FEE
@@ -140,33 +140,33 @@ class PaynamicsController extends Controller
 			$total_shipping_points = 0;
 
 			$si = Session::get('shipping_info');
-			foreach (Session::get('cart') as $key => $cartItem){
+			foreach (Session::get('cart') as $key => $cartItem) {
 				$product = Product::find($cartItem['id']);
 
 				$product_price = DB::table('product_shipping_points')->where([['product_id', '=', $product->id]])->get();
-				$total_shipping_points += $product_price[0]->point_value*$cartItem['quantity'];
+				$total_shipping_points += $product_price[0]->point_value * $cartItem['quantity'];
 
-				$_psf = DB::table('shipping_fee_type')->where([['range_from', '<=',floatval($total_shipping_points)],['range_to', '>=',floatval($total_shipping_points)],['region', '=',$si['country']]])->get();
+				$_psf = DB::table('shipping_fee_type')->where([['range_from', '<=', floatval($total_shipping_points)], ['range_to', '>=', floatval($total_shipping_points)], ['region', '=', $si['country']]])->get();
 				if ($_psf != null)
 				{
-					$_pt = DB::table('packaging_type')->where([['id', '=',floatval($_psf[0]->packaging_type_id)]])->get();
+					$_pt = DB::table('packaging_type')->where([['id', '=', floatval($_psf[0]->packaging_type_id)]])->get();
 					//var_dump($_pt);
 					$shipping = $_pt != null ? $_pt[0]->unit_price : 0;
 				}
-				else{
+				else {
 					$shipping = 0;
 				}
 			}
 
 			$subtotal += $shipping;
 			$Items_itm = ["itemname" => "Ark Transaction",
-					  "quantity" => 1,
-					  "amount" => number_format($subtotal, 2, '.', '')];
-			array_push($Items,$Items_itm);
+				"quantity" => 1,
+				"amount" => number_format($subtotal, 2, '.', '')];
+			array_push($Items, $Items_itm);
 
 			$Items_itm = ["itemname" => "Shipping Fee",
-					  "quantity" => 1,
-					  "amount" => number_format($shipping, 2, '.', '')];
+				"quantity" => 1,
+				"amount" => number_format($shipping, 2, '.', '')];
 			//array_push($Items,$Items_itm);
 
 
@@ -189,18 +189,18 @@ class PaynamicsController extends Controller
 				'mtac_url' => url('aboutus'),
 				'pmethod' => '',
 				'zip' => 'zip',
-				);
+			);
 			$url = 'http://localhost:55006/api/paynamics';
 			$options = array(
 				'http' => array(
-					'method'  => 'POST',
+					'method' => 'POST',
 					'content' => json_encode($data),
-					'header'    => "Accept-language: en\r\n" .
-						"Cookie: .AspNetCore.Session=". $_s ."\r\n" .
-						"Content-type: application/json" . "\r\n"
+					'header' => "Accept-language: en\r\n" .
+					"Cookie: .AspNetCore.Session=" . $_s . "\r\n" .
+					"Content-type: application/json" . "\r\n"
 				)
 			);
-			$context  = stream_context_create($options);
+			$context = stream_context_create($options);
 			$result = file_get_contents($url, false, $context);
 			$_r = json_decode($result);
 			$_r = $_r->apiResponse;
@@ -220,10 +220,10 @@ class PaynamicsController extends Controller
 
 
 
-    }
+	}
 
 	public function cancelPayment(Request $request)
-    {
+	{
 		$_cart = Session::get('cart');
 		if ($_cart != null)
 		{
@@ -242,20 +242,20 @@ class PaynamicsController extends Controller
 			flash(__('Transaction Cancelled'))->error();
 			return redirect(route('checkout.payment_info'));
 		}
-		else{
+		else {
 			$data = array(
-			'RawBase64' => $request['requestid']
+				'RawBase64' => $request['requestid']
 			);
 
 			$url = 'http://localhost:55006/api/paynamics/ProcessCallbackRequestCancel';
 			$options = array(
 				'http' => array(
-					'header'  => "Content-type: application/json",
-					'method'  => 'POST',
+					'header' => "Content-type: application/json",
+					'method' => 'POST',
 					'content' => json_encode($data)
 				)
 			);
-			$context  = stream_context_create($options);
+			$context = stream_context_create($options);
 			$result = file_get_contents($url, false, $context);
 			$_r = json_decode($result);
 
@@ -264,34 +264,34 @@ class PaynamicsController extends Controller
 		}
 
 
-    }
+	}
 
-    public function callbackPayment(Request $request)
-    {
+	public function callbackPayment(Request $request)
+	{
 		$_req = $request->getContent();
 		Log::info(json_encode($_req));
-		$_req = str_replace("paymentresponse=","",$_req);
+		$_req = str_replace("paymentresponse=", "", $_req);
 
-        $data = array(
+		$data = array(
 			'RawBase64' => $_req
-			);
+		);
 
-        $url = 'http://localhost:55006/api/paynamics/ProcessCallbackRequest';
+		$url = 'http://localhost:55006/api/paynamics/ProcessCallbackRequest';
 		$options = array(
 			'http' => array(
-				'header'  => "Content-type: application/json",
-				'method'  => 'POST',
+				'header' => "Content-type: application/json",
+				'method' => 'POST',
 				'content' => json_encode($data)
 			)
 		);
-		$context  = stream_context_create($options);
+		$context = stream_context_create($options);
 		$result = file_get_contents($url, false, $context);
 		$_r = json_decode($result);
 
-        if ($_r->httpStatusCode == "200")
+		if ($_r->httpStatusCode == "200")
 		{
-            $PaynamicsResponse = $_r->paymentResponse;
-            $checkoutController = new CheckoutController;
+			$PaynamicsResponse = $_r->paymentResponse;
+			$checkoutController = new CheckoutController;
 
 			if ($PaynamicsResponse->transactionType == "SHOP")
 			{
@@ -299,7 +299,7 @@ class PaynamicsController extends Controller
 				{
 					case "Success":
 						// Transaction Successful
-						return $checkoutController->checkout_done($PaynamicsResponse->orderID, $request->rawDetails, $PaynamicsResponse->shopUserId,true);
+						return $checkoutController->checkout_done($PaynamicsResponse->orderID, $request->rawDetails, $PaynamicsResponse->shopUserId, true);
 					case "Error":
 						// Transaction Successful with 3DS
 						return $checkoutController->checkout_failed($PaynamicsResponse->orderID, $request->rawDetails, true);
@@ -313,7 +313,7 @@ class PaynamicsController extends Controller
 						return response('Callback Error or Expired', 500)->header('Content-Type', 'text/plain');
 				}
 			}
-			else if($PaynamicsResponse->transactionType == "BP"){
+			else if ($PaynamicsResponse->transactionType == "BP") {
 				switch ($PaynamicsResponse->status)
 				{
 					case "Success":
@@ -336,66 +336,68 @@ class PaynamicsController extends Controller
 
 
 		}
-        return view('checkout.payment_info');
-    }
+		Log::info(json_encode($_r));
+		return view('checkout.payment_info');
+	}
 
-    public function responsePayment(Request $request)
-    {
+	public function responsePayment(Request $request)
+	{
 		$_cart = Session::get('cart');
 		if ($_cart != null)
 		{
 			flash("Your order has been placed successfully")->success();
 			return redirect()->route('home');
-			//return redirect(route('checkout.payment_info'));
+		//return redirect(route('checkout.payment_info'));
 		}
-		else{
+		else {
 			flash("Package payment has been placed. Please refresh after few moments.")->success();
 			return redirect(route('dashboard'));
 		}
-    }
+	}
 
-    public function payment()
-    {
-        //Input items of form
-        $input = Input::all();
-        //get API Configuration
-        if(Session::get('payment_type') == 'cart_payment' || Session::get('payment_type') == 'wallet_payment'){
-            $api = new Api(env('RAZOR_KEY'), env('RAZOR_SECRET'));
-        }
-        elseif (Session::get('payment_type') == 'seller_payment') {
-            $seller = Seller::findOrFail(Session::get('payment_data')['seller_id']);
-            $api = new Api($seller->razorpay_api_key, $seller->razorpay_secret);
-        }
+	public function payment()
+	{
+		//Input items of form
+		$input = Input::all();
+		//get API Configuration
+		if (Session::get('payment_type') == 'cart_payment' || Session::get('payment_type') == 'wallet_payment') {
+			$api = new Api(env('RAZOR_KEY'), env('RAZOR_SECRET'));
+		}
+		elseif (Session::get('payment_type') == 'seller_payment') {
+			$seller = Seller::findOrFail(Session::get('payment_data')['seller_id']);
+			$api = new Api($seller->razorpay_api_key, $seller->razorpay_secret);
+		}
 
-        //Fetch payment information by razorpay_payment_id
-        $payment = $api->payment->fetch($input['razorpay_payment_id']);
+		//Fetch payment information by razorpay_payment_id
+		$payment = $api->payment->fetch($input['razorpay_payment_id']);
 
-        if(count($input)  && !empty($input['razorpay_payment_id'])) {
-            $payment_detalis = null;
-            try {
-                $response = $api->payment->fetch($input['razorpay_payment_id'])->capture(array('amount'=>$payment['amount']));
-                $payment_detalis = json_encode(array('id' => $response['id'],'method' => $response['method'],'amount' => $response['amount'],'currency' => $response['currency']));
-            } catch (\Exception $e) {
-                return  $e->getMessage();
-                \Session::put('error',$e->getMessage());
-                return redirect()->back();
-            }
+		if (count($input) && !empty($input['razorpay_payment_id'])) {
+			$payment_detalis = null;
+			try {
+				$response = $api->payment->fetch($input['razorpay_payment_id'])->capture(array('amount' => $payment['amount']));
+				$payment_detalis = json_encode(array('id' => $response['id'], 'method' => $response['method'], 'amount' => $response['amount'], 'currency' => $response['currency']));
+			}
+			catch (\Exception $e) {
+				return $e->getMessage();
+				\Session::put('error', $e->getMessage());
+				return redirect()->back();
+			}
 
-            // Do something here for store payment details in database...
-            if(Session::has('payment_type')){
-                if(Session::get('payment_type') == 'cart_payment'){
-                    $checkoutController = new CheckoutController;
-                    return $checkoutController->checkout_done(Session::get('order_id'), $payment_detalis);
-                }
-                elseif (Session::get('payment_type') == 'seller_payment') {
-                    $commissionController = new CommissionController;
-                    return $commissionController->seller_payment_done(Session::get('payment_data'), $payment_detalis);
-                }
-                elseif (Session::get('payment_type') == 'wallet_payment') {
-                    $walletController = new WalletController;
-                    return $walletController->wallet_payment_done(Session::get('payment_data'), $payment_detalis);
-                }
-            }
-        }
-    }
+			// Do something here for store payment details in database...
+			if (Session::has('payment_type')) {
+				if (Session::get('payment_type') == 'cart_payment') {
+					$checkoutController = new CheckoutController;
+					return $checkoutController->checkout_done(Session::get('order_id'), $payment_detalis);
+				}
+				elseif (Session::get('payment_type') == 'seller_payment') {
+					$commissionController = new CommissionController;
+					return $commissionController->seller_payment_done(Session::get('payment_data'), $payment_detalis);
+				}
+				elseif (Session::get('payment_type') == 'wallet_payment') {
+					$walletController = new WalletController;
+					return $walletController->wallet_payment_done(Session::get('payment_data'), $payment_detalis);
+				}
+			}
+		}
+	}
 }
