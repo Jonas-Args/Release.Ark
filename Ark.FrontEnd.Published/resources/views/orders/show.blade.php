@@ -15,14 +15,14 @@
                     $payment_status = $order->orderDetails->first()->payment_status;
                 @endphp
                 <div class="col-lg-offset-6 col-lg-3">
-                    <label for=update_payment_status"">{{__('Payment Status')}}</label>
+                    <label for="update_payment_status">{{__('Payment Status')}}</label>
                     <select class="form-control demo-select2"  data-minimum-results-for-search="Infinity" id="update_payment_status">
                         <option value="paid" @if ($payment_status == 'paid') selected @endif>{{__('Paid')}}</option>
-                        <option value="unpaid" @if ($payment_status == 'unpaid') selected @endif>{{__('Unpaid')}}</option>
+                        <option value="unpaid" @if ($payment_status == 'unpaid' || $payment_status == 'pending') selected @endif>{{__('Unpaid')}}</option>
                     </select>
                 </div>
                 <div class="col-lg-3">
-                    <label for=update_delivery_status"">{{__('Delivery Status')}}</label>
+                    <label for="update_delivery_status">{{__('Delivery Status')}}</label>
                     <select class="form-control demo-select2"  data-minimum-results-for-search="Infinity" id="update_delivery_status">
                         <option value="pending" @if ($delivery_status == 'pending') selected @endif>{{__('Pending')}}</option>
                         <option value="on_review" @if ($delivery_status == 'on_review') selected @endif>{{__('On review')}}</option>
