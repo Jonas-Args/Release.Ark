@@ -404,11 +404,11 @@
                                         <a class="nav-link" href="{{route('coupon.index')}}">{{__('Coupon')}}</a>
                                     </li>
                                 </li>
-                               <!-- <li>
+                                <li>
                                     <li class="{{ areActiveRoutes(['pick_up_points.index','pick_up_points.create','pick_up_points.edit',])}}">
                                         <a class="nav-link" href="{{route('pick_up_points.index')}}">{{__('Pickup Point')}}</a>
                                     </li>
-                                </li>-->
+                                </li>
                             </ul>
                         </li>
                         @endif

@@ -105,7 +105,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-2">
-                                            <label>{{__('Country')}}</label>
+                                            <label>{{__('Region')}}</label>
                                         </div>
                                         <div class="col-md-10">
                                             <div class="mb-3">
