@@ -121,7 +121,7 @@
                                                             <input type="radio" name="shipping_type_admin" value="pickup_point" class="d-none" onchange="show_pickup_point(this)" data-target=".pickup_point_id_admin">
                                                             <span class="radio-box"></span>
                                                             <span class="d-block ml-2 strong-600">
-                                                                {{ __('Local Pickup') }}
+                                                                {{ __('Pickup Point') }}
                                                             </span>
                                                         </label>
                                                     </div>
