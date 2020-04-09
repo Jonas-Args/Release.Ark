@@ -123,7 +123,7 @@ class RegisterController extends Controller
 				flash(__('Registration successful.'))->success();
 			}
 			else {
-				flash(__('Registration successful. Please verify your email.'))->success();
+				flash(__('Registration completed successfully! <br> <p>Please check your registered email for email verification.</p>'))->success();
 			}
 
 			$customer = new Customer;
