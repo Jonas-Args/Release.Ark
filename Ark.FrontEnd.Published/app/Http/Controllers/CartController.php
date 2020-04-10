@@ -33,7 +33,7 @@ class CartController extends Controller
     public function addToCart(Request $request)
     {
         $product = Product::find($request->id);
-        $product_price = DB::table('product_price')->where([['product_id', '=', $product->id],['range_from', '<=',floatval($request->quantity)],['range_to', '>=',floatval($request->quantity)]])->get();
+        $product_price = DB::table('product_price')->where([['product_id', '=', $product->id], ['range_from', '<=', floatval($request->quantity)], ['range_to', '>=', floatval($request->quantity)]])->get();
 
         $data = array();
         $data['id'] = $product->id;
@@ -41,7 +41,7 @@ class CartController extends Controller
         $tax = 0;
 
         //check the color enabled or disabled for the product
-        if($request->has('color')){
+        if ($request->has('color')) {
             $data['color'] = $request['color'];
             $str = Color::where('code', $request['color'])->first()->name;
         }
@@ -49,28 +49,28 @@ class CartController extends Controller
         //Gets all the choice values of customer choice option and generate a string like Black-S-Cotton
         foreach (json_decode(Product::find($request->id)->choice_options) as $key => $choice) {
             $data[$choice->name] = $request[$choice->name];
-            if($str != null){
-                $str .= '-'.str_replace(' ', '', $request[$choice->name]);
+            if ($str != null) {
+                $str .= '-' . str_replace(' ', '', $request[$choice->name]);
             }
-            else{
+            else {
                 $str .= str_replace(' ', '', $request[$choice->name]);
             }
         }
 
         //Check the string and decreases quantity for the stock
-        if($str != null){
+        if ($str != null) {
             $variations = json_decode($product->variations);
-            $price = $product_price[0]->unit_price;//$variations->$str->price;
-            if($variations->$str->qty >= $request['quantity']){
-                // $variations->$str->qty -= $request['quantity'];
-                // $product->variations = json_encode($variations);
-                // $product->save();
+            $price = $product_price[0]->unit_price; //$variations->$str->price;
+            if ($variations->$str->qty >= $request['quantity']) {
+            // $variations->$str->qty -= $request['quantity'];
+            // $product->variations = json_encode($variations);
+            // $product->save();
             }
-            else{
+            else {
                 return view('frontend.partials.outOfStockCart');
             }
         }
-        else{
+        else {
             $price = $product_price[0]->unit_price; //$product->unit_price;
         }
 
@@ -79,29 +79,29 @@ class CartController extends Controller
         $flash_deal = \App\FlashDeal::where('status', 1)->first();
         if ($flash_deal != null && strtotime(date('d-m-Y')) >= $flash_deal->start_date && strtotime(date('d-m-Y')) <= $flash_deal->end_date && \App\FlashDealProduct::where('flash_deal_id', $flash_deal->id)->where('product_id', $product->id)->first() != null) {
             $flash_deal_product = \App\FlashDealProduct::where('flash_deal_id', $flash_deal->id)->where('product_id', $product->id)->first();
-            if($flash_deal_product->discount_type == 'percent'){
-                $price -= ($price*$flash_deal_product->discount)/100;
+            if ($flash_deal_product->discount_type == 'percent') {
+                $price -= ($price * $flash_deal_product->discount) / 100;
             }
-            elseif($flash_deal_product->discount_type == 'amount'){
+            elseif ($flash_deal_product->discount_type == 'amount') {
                 $price -= $flash_deal_product->discount;
             }
         }
-        else{
-            if($product->discount_type == 'percent'){
-                $price -= ($price*$product->discount)/100;
+        else {
+            if ($product->discount_type == 'percent') {
+                $price -= ($price * $product->discount) / 100;
             }
-            elseif($product->discount_type == 'amount'){
+            elseif ($product->discount_type == 'amount') {
                 $price -= $product->discount;
             }
         }
 
-        if($product->tax_type == 'percent'){
-            $tax = ($price*$product->tax)/100;
-            //$price += $tax;
+        if ($product->tax_type == 'percent') {
+            $tax = ($price * $product->tax) / 100;
+        //$price += $tax;
         }
-        elseif($product->tax_type == 'amount'){
+        elseif ($product->tax_type == 'amount') {
             $tax = $product->tax;
-            //$price += $tax;
+        //$price += $tax;
         }
 
         $data['quantity'] = $request['quantity'];
@@ -118,11 +118,11 @@ class CartController extends Controller
         //     $data['shipping'] = $product->shipping_cost;
         // }
 
-        if($request->session()->has('cart')){
+        if ($request->session()->has('cart')) {
             $cart = $request->session()->get('cart', collect([]));
             $cart->push($data);
         }
-        else{
+        else {
             $cart = collect([$data]);
             $request->session()->put('cart', $cart);
         }
@@ -133,13 +133,18 @@ class CartController extends Controller
     //removes from Cart
     public function removeFromCart(Request $request)
     {
-        if($request->session()->has('cart')){
+        if ($request->session()->has('cart')) {
             $cart = $request->session()->get('cart', collect([]));
             $cart->forget($request->key);
             $request->session()->put('cart', $cart);
+
+            if (count($cart) < 1) {
+                Session::forget('shipping_info');
+            }
         }
 
-        return view('frontend.partials.cart_details');;
+        return view('frontend.partials.cart_details');
+        ;
     }
 
     //updated the quantity for a cart item
@@ -147,9 +152,9 @@ class CartController extends Controller
     {
         $cart = $request->session()->get('cart', collect([]));
         $cart = $cart->map(function ($object, $key) use ($request) {
-            if($key == $request->key){
+            if ($key == $request->key) {
                 $product = Product::find($object['id']);
-				$product_price = DB::table('product_price')->where([['product_id', '=', $product->id],['range_from', '<=',floatval($request->quantity)],['range_to', '>=',floatval($request->quantity)]])->get();
+                $product_price = DB::table('product_price')->where([['product_id', '=', $product->id], ['range_from', '<=', floatval($request->quantity)], ['range_to', '>=', floatval($request->quantity)]])->get();
 
 
                 $object['quantity'] = $request->quantity;

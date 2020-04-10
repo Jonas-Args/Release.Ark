@@ -26,12 +26,12 @@ class OrderController extends Controller
     public function index()
     {
         $orders = DB::table('orders')
-                    ->orderBy('code', 'desc')
-                    ->join('order_details', 'orders.id', '=', 'order_details.order_id')
-                    ->where('order_details.seller_id', Auth::user()->id)
-                    ->select('orders.id')
-                    ->distinct()
-                    ->paginate(9);
+            ->orderBy('code', 'desc')
+            ->join('order_details', 'orders.id', '=', 'order_details.order_id')
+            ->where('order_details.seller_id', Auth::user()->id)
+            ->select('orders.id')
+            ->distinct()
+            ->paginate(9);
 
         foreach ($orders as $key => $value) {
             $order = \App\Order::find($value->id);
@@ -50,12 +50,12 @@ class OrderController extends Controller
     public function admin_orders(Request $request)
     {
         $orders = DB::table('orders')
-                    ->orderBy('code', 'desc')
-                    ->join('order_details', 'orders.id', '=', 'order_details.order_id')
-                    ->where('order_details.seller_id', Auth::user()->id)
-                    ->select('orders.id')
-                    ->distinct()
-                    ->get();
+            ->orderBy('code', 'desc')
+            ->join('order_details', 'orders.id', '=', 'order_details.order_id')
+            ->where('order_details.seller_id', Auth::user()->id)
+            ->select('orders.id')
+            ->distinct()
+            ->get();
 
         return view('orders.index', compact('orders'));
     }
@@ -76,24 +76,24 @@ class OrderController extends Controller
         if (Auth::user()->user_type == 'staff') {
             //$orders = Order::where('pickup_point_id', Auth::user()->staff->pick_up_point->id)->get();
             $orders = DB::table('orders')
-                        ->orderBy('code', 'desc')
-                        ->join('order_details', 'orders.id', '=', 'order_details.order_id')
-                        ->where('order_details.pickup_point_id', Auth::user()->staff->pick_up_point->id)
-                        ->select('orders.id')
-                        ->distinct()
-                        ->get();
+                ->orderBy('code', 'desc')
+                ->join('order_details', 'orders.id', '=', 'order_details.order_id')
+                ->where('order_details.pickup_point_id', Auth::user()->staff->pick_up_point->id)
+                ->select('orders.id')
+                ->distinct()
+                ->get();
 
             return view('pickup_point.orders.index', compact('orders'));
         }
-        else{
+        else {
             //$orders = Order::where('shipping_type', 'Pick-up Point')->get();
             $orders = DB::table('orders')
-                        ->orderBy('code', 'desc')
-                        ->join('order_details', 'orders.id', '=', 'order_details.order_id')
-                        ->where('order_details.shipping_type', 'pickup_point')
-                        ->select('orders.id')
-                        ->distinct()
-                        ->get();
+                ->orderBy('code', 'desc')
+                ->join('order_details', 'orders.id', '=', 'order_details.order_id')
+                ->where('order_details.shipping_type', 'pickup_point')
+                ->select('orders.id')
+                ->distinct()
+                ->get();
 
             return view('pickup_point.orders.index', compact('orders'));
         }
@@ -105,7 +105,7 @@ class OrderController extends Controller
             $order = Order::findOrFail(decrypt($id));
             return view('pickup_point.orders.show', compact('order'));
         }
-        else{
+        else {
             $order = Order::findOrFail(decrypt($id));
             return view('pickup_point.orders.show', compact('order'));
         }
@@ -129,7 +129,7 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
+    //
     }
 
     /**
@@ -141,10 +141,10 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $order = new Order;
-        if(Auth::check()){
+        if (Auth::check()) {
             $order->user_id = Auth::user()->id;
         }
-        else{
+        else {
             $order->guest_id = mt_rand(100000, 999999);
         }
 
@@ -157,6 +157,8 @@ class OrderController extends Controller
         //     $order->shipping_type = Session::get('delivery_info')['shipping_type'];
         //     $order->pickup_point_id = Session::get('delivery_info')['pickup_point_id'];
         // }
+        $shipping_type = Session::get('cart');
+        $shipping_type = $shipping_type[0]['shipping_type'];
 
         $order->payment_type = $request->payment_option;
         $order->delivery_viewed = '0';
@@ -164,56 +166,61 @@ class OrderController extends Controller
         $order->code = date('Ymd-his');
         $order->date = strtotime('now');
 
-        if($order->save()){
+        if ($order->save()) {
             $subtotal = 0;
             $tax = 0;
             $shipping = 0;
             $total_shipping_points = 0;
 
             $si = Session::get('shipping_info');
-            foreach (Session::get('cart') as $key => $cartItem){
-				$product = Product::find($cartItem['id']);
+            foreach (Session::get('cart') as $key => $cartItem) {
+                $product = Product::find($cartItem['id']);
 
-				$product_price = DB::table('product_shipping_points')->where([['product_id', '=', $product->id]])->get();
-				$total_shipping_points += $product_price[0]->point_value*$cartItem['quantity'];
+                $product_price = DB::table('product_shipping_points')->where([['product_id', '=', $product->id]])->get();
+                $total_shipping_points += $product_price[0]->point_value * $cartItem['quantity'];
 
-                $_psf = DB::table('shipping_fee_type')->where([['range_from', '<=',floatval($total_shipping_points)],['range_to', '>=',floatval($total_shipping_points)],['region', '=',$si['country']]])->get();
-				if ($_psf != null)
-				{
-					$_pt = DB::table('packaging_type')->where([['id', '=',floatval($_psf[0]->packaging_type_id)]])->get();
-					//var_dump($_pt);
-					$shipping = $_pt != null ? $_pt[0]->unit_price : 0;
-				}
-				else{
-					$shipping = 0;
-				}
-			}
+                if ($shipping_type == 'home_delivery') {
+                    $_psf = DB::table('shipping_fee_type')->where([['range_from', '<=', floatval($total_shipping_points)], ['range_to', '>=', floatval($total_shipping_points)], ['region', '=', $si['country']]])->get();
+                    if ($_psf != null)
+                    {
+                        $_pt = DB::table('packaging_type')->where([['id', '=', floatval($_psf[0]->packaging_type_id)]])->get();
+                        //var_dump($_pt);
+                        $shipping = $_pt != null ? $_pt[0]->unit_price : 0;
+                    }
+                    else {
+                        $shipping = 0;
+                    }
+                }
+                else {
+                    $shipping = 0;
+                }
+            }
 
-            foreach (Session::get('cart') as $key => $cartItem){
+            foreach (Session::get('cart') as $key => $cartItem) {
                 $product = Product::find($cartItem['id']);
 
 
                 if ($cartItem['shipping_type'] == 'home_delivery') {
-                    $subtotal += $cartItem['price']*$cartItem['quantity'];
-                    $tax += $cartItem['tax']*$cartItem['quantity'];
-                    //$shipping += \App\Product::find($cartItem['id'])->shipping_cost*$cartItem['quantity'];
+                    $subtotal += $cartItem['price'] * $cartItem['quantity'];
+                    $tax += $cartItem['tax'] * $cartItem['quantity'];
+                //$shipping += \App\Product::find($cartItem['id'])->shipping_cost*$cartItem['quantity'];
                 }
 
                 $product_variation = null;
-                if(isset($cartItem['color'])){
+                if (isset($cartItem['color'])) {
                     $product_variation .= Color::where('code', $cartItem['color'])->first()->name;
                 }
-                foreach (json_decode($product->choice_options) as $choice){
+                foreach (json_decode($product->choice_options) as $choice) {
                     $str = $choice->name; // example $str =  choice_0
                     if ($product_variation != null) {
-                        $product_variation .= '-'.str_replace(' ', '', $cartItem[$str]);
+                        $product_variation .= '-' . str_replace(' ', '', $cartItem[$str]);
                     }
                     else {
                         $product_variation .= str_replace(' ', '', $cartItem[$str]);
                     }
                 }
 
-                if($product_variation != null){
+                if ($product_variation != null) {
                     $variations = json_decode($product->variations);
                     $variations->$product_variation->qty -= $cartItem['quantity'];
                     $product->variations = json_encode($variations);
@@ -225,7 +232,7 @@ class OrderController extends Controller
                 }
 
                 $order_detail = new OrderDetail;
-                $order_detail->order_id  =$order->id;
+                $order_detail->order_id = $order->id;
                 $order_detail->seller_id = $product->user_id;
                 $order_detail->product_id = $product->id;
                 $order_detail->variation = $product_variation;
@@ -234,9 +241,9 @@ class OrderController extends Controller
                 $order_detail->shipping_type = $cartItem['shipping_type'];
 
                 if ($cartItem['shipping_type'] == 'home_delivery') {
-                    $order_detail->shipping_cost = $shipping;// \App\Product::find($cartItem['id'])->shipping_cost*$cartItem['quantity'];
+                    $order_detail->shipping_cost = $shipping; // \App\Product::find($cartItem['id'])->shipping_cost*$cartItem['quantity'];
                 }
-                else{
+                else {
                     $order_detail->shipping_cost = 0;
                     $order_detail->pickup_point_id = $cartItem['pickup_point'];
                 }
@@ -252,101 +259,101 @@ class OrderController extends Controller
             $order->grand_total = $subtotal + $shipping;
 
             if ($request->payment_option == 'wallet')
-			{
-				//$netValue = ($subtotal / 1.12) * 0.9;
+            {
+            //$netValue = ($subtotal / 1.12) * 0.9;
 
-				//$_s = Session::get('apiSession');
+            //$_s = Session::get('apiSession');
 
-				//$url = 'http://localhost:55006/api/user/BusinessPackages';
-				//$options = array(
-				//    'http' => array(
-				//        'method'  => 'GET',
-				//        'header'    => "Accept-language: en\r\n" .
-				//            "Cookie: .AspNetCore.Session=". $_s ."\r\n"
-				//    )
-				//);
-				//$context  = stream_context_create($options);
-				//$result = file_get_contents($url, false, $context);
-				//$_r = json_decode($result);
+            //$url = 'http://localhost:55006/api/user/BusinessPackages';
+            //$options = array(
+            //    'http' => array(
+            //        'method'  => 'GET',
+            //        'header'    => "Accept-language: en\r\n" .
+            //            "Cookie: .AspNetCore.Session=". $_s ."\r\n"
+            //    )
+            //);
+            //$context  = stream_context_create($options);
+            //$result = file_get_contents($url, false, $context);
+            //$_r = json_decode($result);
 
-				//if(count($_r->businessPackages) != 0){
-				//    if ($_r->businessPackages[0]->packageStatus == "2")
-				//    {
-				//        $user = Auth::user();
-				//        switch($_r->businessPackages[0]->businessPackage->packageCode){
-				//            case "EPKG1":
-				//                $user->balance += ($netValue * 0.0025);
-				//                $_rewards = ($netValue * 0.0025);
-				//                $user->save();
-				//                break;
+            //if(count($_r->businessPackages) != 0){
+            //    if ($_r->businessPackages[0]->packageStatus == "2")
+            //    {
+            //        $user = Auth::user();
+            //        switch($_r->businessPackages[0]->businessPackage->packageCode){
+            //            case "EPKG1":
+            //                $user->balance += ($netValue * 0.0025);
+            //                $_rewards = ($netValue * 0.0025);
+            //                $user->save();
+            //                break;
 
-				//            case "EPKG2":
-				//                $user->balance += ($netValue * 0.005);
-				//                $_rewards = ($netValue * 0.005);
-				//                $user->save();
-				//                break;
+            //            case "EPKG2":
+            //                $user->balance += ($netValue * 0.005);
+            //                $_rewards = ($netValue * 0.005);
+            //                $user->save();
+            //                break;
 
-				//            case "EPKG3":
-				//                $user->balance += ($netValue * 0.01);
-				//                $_rewards = ($netValue * 0.01);
-				//                $user->save();
-				//                break;
+            //            case "EPKG3":
+            //                $user->balance += ($netValue * 0.01);
+            //                $_rewards = ($netValue * 0.01);
+            //                $user->save();
+            //                break;
 
-				//        }
+            //        }
 
-				//        $wallet = new Wallet;
-				//        $wallet->user_id = $user->id;
-				//        $wallet->amount = $_rewards;
-				//        $wallet->payment_method = 'Product Rebates';
-				//        $wallet->payment_details = 'Product Rebates';
-				//        $wallet->save();
-				//    }
+            //        $wallet = new Wallet;
+            //        $wallet->user_id = $user->id;
+            //        $wallet->amount = $_rewards;
+            //        $wallet->payment_method = 'Product Rebates';
+            //        $wallet->payment_details = 'Product Rebates';
+            //        $wallet->save();
+            //    }
 
-				//}
+            //}
 
-				//$url = 'http://localhost:55006/api/Affiliate/Commission';
-				//$data = array(
-				//    'amountPaid' => floatval($netValue)
-				//    );
+            //$url = 'http://localhost:55006/api/Affiliate/Commission';
+            //$data = array(
+            //    'amountPaid' => floatval($netValue)
+            //    );
 
-				//// use key 'http' even if you send the request to https://...
-				//$options = array(
-				//    'http' => array(
-				//        'header'  => "Content-type: application/json \r\n" .
-				//               "Cookie: .AspNetCore.Session=". $_s ."\r\n",
-				//        'method'  => 'POST',
-				//        'content' => json_encode($data)
-				//    )
-				//);
-				//$context  = stream_context_create($options);
-				//$result = file_get_contents($url, false, $context);
-				//$_r = json_decode($result);
+            //// use key 'http' even if you send the request to https://...
+            //$options = array(
+            //    'http' => array(
+            //        'header'  => "Content-type: application/json \r\n" .
+            //               "Cookie: .AspNetCore.Session=". $_s ."\r\n",
+            //        'method'  => 'POST',
+            //        'content' => json_encode($data)
+            //    )
+            //);
+            //$context  = stream_context_create($options);
+            //$result = file_get_contents($url, false, $context);
+            //$_r = json_decode($result);
 
-				//if ($_r->httpStatusCode == "200")
-				//{
-				//    foreach ($_r->commission as $commissionItem)
-				//    {
-				//        //$_userC = DB::table('users')->where('id', $commissionItem->shopUserId)->increment('balance' , floatval($commissionItem->reward));
+            //if ($_r->httpStatusCode == "200")
+            //{
+            //    foreach ($_r->commission as $commissionItem)
+            //    {
+            //        //$_userC = DB::table('users')->where('id', $commissionItem->shopUserId)->increment('balance' , floatval($commissionItem->reward));
 
-				//        //$wallet = new Wallet;
-				//        //$wallet->user_id = $commissionItem->shopUserId;
-				//        //$wallet->amount = $commissionItem->reward;
-				//        //$wallet->payment_method = 'Product Commission';
-				//        //$wallet->payment_details = 'Product Commission';
-				//        //$wallet->save();
-				//    }
-
-
-				//    //flash(__('An error occured: ' . $_r->message))->error();
-
-				//}
-				//else{
-
-				//}
-			}
+            //        //$wallet = new Wallet;
+            //        //$wallet->user_id = $commissionItem->shopUserId;
+            //        //$wallet->amount = $commissionItem->reward;
+            //        //$wallet->payment_method = 'Product Commission';
+            //        //$wallet->payment_details = 'Product Commission';
+            //        //$wallet->save();
+            //    }
 
 
-            if(Session::has('coupon_discount')){
+            //    //flash(__('An error occured: ' . $_r->message))->error();
+
+            //}
+            //else{
+
+            //}
+            }
+
+
+            if (Session::has('coupon_discount')) {
                 $order->grand_total -= Session::get('coupon_discount');
                 $order->coupon_discount = Session::get('coupon_discount');
 
@@ -360,30 +367,31 @@ class OrderController extends Controller
 
             //stores the pdf for invoice
             $pdf = PDF::setOptions([
-                            'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true,
-                            'logOutputFile' => storage_path('logs/log.htm'),
-                            'tempDir' => storage_path('logs/')
-                        ])->loadView('invoices.customer_invoice', compact('order'));
+                'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true,
+                'logOutputFile' => storage_path('logs/log.htm'),
+                'tempDir' => storage_path('logs/')
+            ])->loadView('invoices.customer_invoice', compact('order'));
             //$output = $pdf->output();
-    		//file_put_contents('public/invoices/'.'Order#'.$order->code.'.pdf', $output);
+            //file_put_contents('public/invoices/'.'Order#'.$order->code.'.pdf', $output);
 
             $array['view'] = 'emails.invoice';
-            $array['subject'] = 'Order Placed - '.$order->code;
+            $array['subject'] = 'Order Placed - ' . $order->code;
             $array['from'] = env('MAIL_USERNAME');
             $array['content'] = 'Hi. Your order has been placed';
-            $array['file'] = 'public/invoices/Order#'.$order->code.'.pdf';
-            $array['file_name'] = 'Order#'.$order->code.'.pdf';
+            $array['file'] = 'public/invoices/Order#' . $order->code . '.pdf';
+            $array['file_name'] = 'Order#' . $order->code . '.pdf';
 
             //sends email to customer with the invoice pdf attached
-            if(env('MAIL_USERNAME') != null){
+            if (env('MAIL_USERNAME') != null) {
                 try {
-                   // Mail::to($request->session()->get('shipping_info')['email'])->queue(new InvoiceEmailManager($array));
-                } catch (\Exception $e) {
+                // Mail::to($request->session()->get('shipping_info')['email'])->queue(new InvoiceEmailManager($array));
+                }
+                catch (\Exception $e) {
 
                 }
 
             }
-           // unlink($array['file']);
+            // unlink($array['file']);
 
             $request->session()->put('order_id', $order->id);
         }
@@ -411,7 +419,7 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        //
+    //
     }
 
     /**
@@ -423,7 +431,7 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+    //
     }
 
     /**
@@ -435,14 +443,14 @@ class OrderController extends Controller
     public function destroy($id)
     {
         $order = Order::findOrFail($id);
-        if($order != null){
-            foreach($order->orderDetails as $key => $orderDetail){
+        if ($order != null) {
+            foreach ($order->orderDetails as $key => $orderDetail) {
                 $orderDetail->delete();
             }
             $order->delete();
             flash('Order has been deleted successfully')->success();
         }
-        else{
+        else {
             flash('Something went wrong')->error();
         }
         return back();
@@ -461,14 +469,14 @@ class OrderController extends Controller
         $order = Order::findOrFail($request->order_id);
         $order->delivery_viewed = '0';
         $order->save();
-        if(Auth::user()->user_type == 'admin' || Auth::user()->user_type == 'seller'){
-            foreach($order->orderDetails->where('seller_id', Auth::user()->id) as $key => $orderDetail){
+        if (Auth::user()->user_type == 'admin' || Auth::user()->user_type == 'seller') {
+            foreach ($order->orderDetails->where('seller_id', Auth::user()->id) as $key => $orderDetail) {
                 $orderDetail->delivery_status = $request->status;
                 $orderDetail->save();
             }
         }
-        else{
-            foreach($order->orderDetails->where('seller_id', \App\User::where('user_type', 'admin')->first()->id) as $key => $orderDetail){
+        else {
+            foreach ($order->orderDetails->where('seller_id', \App\User::where('user_type', 'admin')->first()->id) as $key => $orderDetail) {
                 $orderDetail->delivery_status = $request->status;
                 $orderDetail->save();
             }
@@ -482,41 +490,41 @@ class OrderController extends Controller
         $request->status = $request->status == 'unpaid' ? 'paid' : 'unpaid';
 
         if ($order->payment_status != 'paid')
-		{
-			$order->payment_status_viewed = '0';
-			$order->save();
+        {
+            $order->payment_status_viewed = '0';
+            $order->save();
             if ($order->payment_type == 'cash_on_delivery')
-			{
-				$CheckoutControllerProccess = new CheckoutController();
-				$CheckoutControllerProccess->checkout_done($order->code,"cod",$order->user_id,true);
-			}
+            {
+                $CheckoutControllerProccess = new CheckoutController();
+                $CheckoutControllerProccess->checkout_done($order->code, "cod", $order->user_id, true);
+            }
 
-			if(Auth::user()->user_type == 'admin' || Auth::user()->user_type == 'seller'){
-				foreach($order->orderDetails->where('seller_id', Auth::user()->id) as $key => $orderDetail){
-					$orderDetail->payment_status = $request->status;
-					$orderDetail->save();
-				}
-			}
-			else{
-				foreach($order->orderDetails->where('seller_id', \App\User::where('user_type', 'admin')->first()->id) as $key => $orderDetail){
-					$orderDetail->payment_status = $request->status;
-					$orderDetail->save();
-				}
-			}
+            if (Auth::user()->user_type == 'admin' || Auth::user()->user_type == 'seller') {
+                foreach ($order->orderDetails->where('seller_id', Auth::user()->id) as $key => $orderDetail) {
+                    $orderDetail->payment_status = $request->status;
+                    $orderDetail->save();
+                }
+            }
+            else {
+                foreach ($order->orderDetails->where('seller_id', \App\User::where('user_type', 'admin')->first()->id) as $key => $orderDetail) {
+                    $orderDetail->payment_status = $request->status;
+                    $orderDetail->save();
+                }
+            }
 
-			$status = 'paid';
-			foreach($order->orderDetails as $key => $orderDetail){
-				if($orderDetail->payment_status != 'paid'){
-					$status = 'unpaid';
-				}
-			}
-			$order->payment_status = $status;
-			$order->save();
+            $status = 'paid';
+            foreach ($order->orderDetails as $key => $orderDetail) {
+                if ($orderDetail->payment_status != 'paid') {
+                    $status = 'unpaid';
+                }
+            }
+            $order->payment_status = $status;
+            $order->save();
             return 1;
-		}
-        else{
-			return 0;
-		}
+        }
+        else {
+            return 0;
+        }
 
 
 

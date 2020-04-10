@@ -139,19 +139,27 @@ class PaynamicsController extends Controller
 			$shipping = 0;
 			$total_shipping_points = 0;
 
+			$shipping_type = Session::get('cart');
+			$shipping_type = $shipping_type[0]['shipping_type'];
+
 			$si = Session::get('shipping_info');
 			foreach (Session::get('cart') as $key => $cartItem) {
-				$product = Product::find($cartItem['id']);
+				if ($shipping_type == 'home_delivery') {
+					$product = Product::find($cartItem['id']);
 
-				$product_price = DB::table('product_shipping_points')->where([['product_id', '=', $product->id]])->get();
-				$total_shipping_points += $product_price[0]->point_value * $cartItem['quantity'];
+					$product_price = DB::table('product_shipping_points')->where([['product_id', '=', $product->id]])->get();
+					$total_shipping_points += $product_price[0]->point_value * $cartItem['quantity'];
 
-				$_psf = DB::table('shipping_fee_type')->where([['range_from', '<=', floatval($total_shipping_points)], ['range_to', '>=', floatval($total_shipping_points)], ['region', '=', $si['country']]])->get();
-				if ($_psf != null)
-				{
-					$_pt = DB::table('packaging_type')->where([['id', '=', floatval($_psf[0]->packaging_type_id)]])->get();
-					//var_dump($_pt);
-					$shipping = $_pt != null ? $_pt[0]->unit_price : 0;
+					$_psf = DB::table('shipping_fee_type')->where([['range_from', '<=', floatval($total_shipping_points)], ['range_to', '>=', floatval($total_shipping_points)], ['region', '=', $si['country']]])->get();
+					if ($_psf != null)
+					{
+						$_pt = DB::table('packaging_type')->where([['id', '=', floatval($_psf[0]->packaging_type_id)]])->get();
+						//var_dump($_pt);
+						$shipping = $_pt != null ? $_pt[0]->unit_price : 0;
+					}
+					else {
+						$shipping = 0;
+					}
 				}
 				else {
 					$shipping = 0;
@@ -227,15 +235,14 @@ class PaynamicsController extends Controller
 		$_cart = Session::get('cart');
 		if ($_cart != null)
 		{
-			$order = Order::findOrFail($request->session()->get('order_id'));
+			$order_id_obj = DB::table('orders')->where([['code', '=', base64_decode($request['requestid'])]])->get();
+			$order_id = $order_id_obj[0]->id;
+
 			$user = Auth::user();
 
-			$user->balance += $order->wallet_deduction;
+			$user->balance += $order_id_obj[0]->wallet_deduction;
 			$user->save();
 
-			$order_id_obj = DB::table('orders')->where([['code', '=', base64_decode($request['requestid'])]])->get();
-
-			$order_id = $order_id_obj[0]->id;
 			$order = Order::findOrFail($order_id);
 			$order->destroy($order_id);
 

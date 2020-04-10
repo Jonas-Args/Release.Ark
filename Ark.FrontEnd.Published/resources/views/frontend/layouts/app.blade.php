@@ -182,7 +182,7 @@
 </head>
 <body>
 
-
+<script src="{{ asset('frontend/js/lazysizes.min.js') }}"></script>
 <!-- MAIN WRAPPER -->
 <div class="body-wrap shop-default shop-cards shop-tech gry-bg">
 
@@ -270,7 +270,7 @@
 <script src="{{ asset('frontend/js/active-shop.js') }}"></script>
 <script src="{{ asset('frontend/js/main.js') }}"></script>
 <script src="{{ asset('frontend/js/fb-script.js') }}"></script>
-<script src="{{ asset('frontend/js/lazysizes.min.js') }}" async=""></script>
+
 
 <script>
 
