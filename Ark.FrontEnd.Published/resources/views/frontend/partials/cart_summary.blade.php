@@ -138,7 +138,8 @@
             <tr class="cart-shipping">
                 <th>{{__('Shipping Fee')}}</th>
                 <td class="text-right">
-                    <span class="text-italic">{{ single_price($shipping) }}</span>
+                    <span class="text-italic" id="shipping_fee_display_home">{{ single_price($shipping) }}</span>
+                    <span class="text-italic" id="shipping_fee_display_other" style="display:none">{{ single_price(0) }}</span>
                 </td>
             </tr>
 

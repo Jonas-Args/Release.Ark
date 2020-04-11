@@ -3,18 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\Order;
 use App\Product;
 use App\Color;
 use App\OrderDetail;
 use App\CouponUsage;
-use Auth;
 use Session;
-use DB;
 use PDF;
 use Mail;
 use App\Mail\InvoiceEmailManager;
 use App\Wallet;
+
+
+
 
 class OrderController extends Controller
 {
@@ -199,12 +202,9 @@ class OrderController extends Controller
             foreach (Session::get('cart') as $key => $cartItem) {
                 $product = Product::find($cartItem['id']);
 
+                $subtotal += $cartItem['price'] * $cartItem['quantity'];
+                $tax += $cartItem['tax'] * $cartItem['quantity'];
 
-                if ($cartItem['shipping_type'] == 'home_delivery') {
-                    $subtotal += $cartItem['price'] * $cartItem['quantity'];
-                    $tax += $cartItem['tax'] * $cartItem['quantity'];
-                //$shipping += \App\Product::find($cartItem['id'])->shipping_cost*$cartItem['quantity'];
-                }
 
                 $product_variation = null;
                 if (isset($cartItem['color'])) {

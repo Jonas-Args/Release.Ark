@@ -259,9 +259,13 @@
         	if(value == 'home_delivery'){
                 if(!$(target).hasClass('d-none')){
                     $(target).addClass('d-none');
+                    document.getElementById('shipping_fee_display_home').style.display = 'block';
+                    document.getElementById('shipping_fee_display_other').style.display = 'none';
                 }
         	}else{
-        		$(target).removeClass('d-none');
+                $(target).removeClass('d-none');
+                document.getElementById('shipping_fee_display_home').style.display = 'none';
+                document.getElementById('shipping_fee_display_other').style.display = 'block';
         	}
         }
 
