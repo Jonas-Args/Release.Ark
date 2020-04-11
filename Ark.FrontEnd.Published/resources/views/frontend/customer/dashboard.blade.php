@@ -205,7 +205,7 @@
 											<td class="p-2">{{ Auth::user()->address }}</td>
 										</tr>
 										<tr>
-											<td>{{__('Country')}}:</td>
+											<td>{{__('Region')}}:</td>
 											<td class="p-2">
 												@if (Auth::user()->country != null)
                                                         {{ \App\Country::where('code', Auth::user()->country)->first()->name }}
