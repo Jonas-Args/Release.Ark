@@ -234,7 +234,7 @@
 <script src="{{ asset('frontend/js/jquery.countdown.min.js') }}"></script>
 <script src="{{ asset('frontend/js/select2.min.js') }}"></script>
 <script src="{{ asset('frontend/js/nouislider.min.js') }}"></script>
-
+<script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 
 <script src="{{ asset('frontend/js/sweetalert2.min.js') }}"></script>
 <script src="{{ asset('frontend/js/slick.min.js') }}"></script>

@@ -256,17 +256,32 @@
 
             console.log(value);
 
+             var shipping_fee = parseFloat(document.getElementById('shipping_fee_display_home').innerHTML.substr(1));
+             var sub_total_fee = parseFloat(document.getElementById('sub_total_fee_display').innerHTML.substr(1));
+             var grand_total_fee = parseFloat(document.getElementById('grand_total_fee_display').innerHTML.substr(1));
+
         	if(value == 'home_delivery'){
                 if(!$(target).hasClass('d-none')){
                     $(target).addClass('d-none');
                     document.getElementById('shipping_fee_display_home').style.display = 'block';
                     document.getElementById('shipping_fee_display_other').style.display = 'none';
+
+                    // Compute New Data
+                    sub_total_fee = sub_total_fee + shipping_fee;
+                    grand_total_fee = grand_total_fee + shipping_fee;
                 }
         	}else{
                 $(target).removeClass('d-none');
                 document.getElementById('shipping_fee_display_home').style.display = 'none';
                 document.getElementById('shipping_fee_display_other').style.display = 'block';
-        	}
+
+                // Compute New Data
+                sub_total_fee = sub_total_fee - shipping_fee;
+                grand_total_fee = grand_total_fee - shipping_fee;
+            }
+             // Update Ui
+            document.getElementById('sub_total_fee_display').innerHTML = '₱' + numeral(sub_total_fee).format('0,0.00');
+            document.getElementById('grand_total_fee_display').innerHTML = '₱' + numeral(grand_total_fee).format('0,0.00');
         }
 
     </script>

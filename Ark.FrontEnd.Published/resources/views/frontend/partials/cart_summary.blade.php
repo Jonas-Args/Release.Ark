@@ -147,7 +147,7 @@
                 <th>{{__('Sub Total')}}</th>
                 <td class="text-right">
                     <span
-                        class="text-italic">{{ number_format(floatval(number_format($subtotal,2, '.', '')) + floatval(number_format($shipping, 2, '.', '')), 2)  }}</span>
+                        class="text-italic" id="sub_total_fee_display">₱{{ number_format(floatval(number_format($subtotal,2, '.', '')) + floatval(number_format($shipping, 2, '.', '')), 2)  }}</span>
                 </td>
             </tr>
 
@@ -162,7 +162,7 @@
                 <th>{{__('Less Available Credit')}}</th>
                 <td class="text-right">
                     <span
-                        class="text-italic">{{ floatval($total) < ($user_balance) ? number_format(floatval($total),2) : number_format(floatval($user_balance),2)}}</span>
+                        class="text-italic">₱{{ floatval($total) < ($user_balance) ? number_format(floatval($total),2) : number_format(floatval($user_balance),2)}}</span>
                 </td>
             </tr>
 
@@ -182,7 +182,7 @@
                     @if ((floatval($user_balance) - floatval($total)) < 0)
 
                         <strong>
-                            <span>{{ number_format(abs(floatval(number_format($user_balance, 2, '.', '')) - floatval(number_format($total, 2, '.', ''))),2) }}</span>
+                            <span id="grand_total_fee_display">₱{{ number_format(abs(floatval(number_format($user_balance, 2, '.', '')) - floatval(number_format($total, 2, '.', ''))),2) }}</span>
                         </strong>
                     @else
                         <strong>
