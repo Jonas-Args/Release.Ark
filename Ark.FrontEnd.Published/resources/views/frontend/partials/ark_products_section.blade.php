@@ -11,7 +11,8 @@
 			<div class="row sm-no-gutters gutters-5">
 				@foreach (filter_products(\App\Product::orderBy('created_at', 'desc'))->paginate(500) as $key => $product)
 
-				<div class="col-xxl-3 col-xl-4 col-lg-3 col-md-4 col-6">
+				@if ($product->category->featured == 1)
+						<div class="col-xxl-3 col-xl-4 col-lg-3 col-md-4 col-6">
 					<div class="product-box-2 bg-white alt-box my-md-2">
 						<div class="position-relative overflow-hidden">
 							<a href="{{ route('product', $product->slug) }}" class="d-block product-image h-100 text-center" tabindex="0">
@@ -48,6 +49,8 @@
 						</div>
 					</div>
 				</div>
+				@endif
+			
 				@endforeach
 			</div>
 		</div>

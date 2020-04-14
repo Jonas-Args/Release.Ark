@@ -27,11 +27,11 @@ use Illuminate\Support\Facades\DB;
                                     $brands = array();
                                 @endphp
                                 <li>
+                                    @if(count($category->subcategories)>0 && $category->featured == 1)
                                     <a href="{{ route('products.category', $category->slug) }}">
                                         <img class="cat-image lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($category->icon) }}" width="30" alt="{{ __($category->name) }}">
                                         <span class="cat-name">{{ __($category->name) }}</span>
                                     </a>
-                                    @if(count($category->subcategories)>0)
                                         <div class="sub-cat-menu c-scrollbar">
                                             <div class="sub-cat-main row no-gutters">
                                                 <div class="col-9">

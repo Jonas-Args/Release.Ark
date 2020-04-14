@@ -173,7 +173,6 @@
                                             <th>{{__('Description')}}</th>
                                             <th>{{__('From User')}}</th>
                                             <th>{{__('Amount')}}</th>
-                                            <th>{{__('Computation')}}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -186,7 +185,6 @@
 														<td>{{ $userIncomeTransactionItem->incomeType->incomeTypeName}}</td>
 														<td>{{ $userIncomeTransactionItem->userAuth->userInfo->firstName . ' ' .  $userIncomeTransactionItem->userAuth->userInfo->lastName}}</td>
 														<td>{{ bcdiv($userIncomeTransactionItem->incomePercentage, 1, 3) }}</td>
-														<td>{{ $userIncomeTransactionItem->remarks }}</td>
 													</tr>
 													@endforeach
 
@@ -196,7 +194,6 @@
                                                      <td></td>
                                                      <td></td>
 													 <td><b>₱ {{ bcdiv($CashtotalAmount, 1, 3) }}</b></td>
-                                                     <td></td>
 												 </tr>
                                         @else
                                             <tr>

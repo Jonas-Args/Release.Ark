@@ -23,7 +23,8 @@
         <div class="title">{{__('Products')}}</div>
         <ul>
             @foreach ($products as $key => $product)
-                <li>
+            @if ($product->category->featured == 1)
+                 <li>
                     <a href="{{ route('product', $product->slug) }}">
                         <div class="d-flex search-product align-items-center">
                             <div class="image" style="background-image:url('{{ asset($product->thumbnail_img) }}');">
@@ -59,6 +60,8 @@
                         </div>
                     </a>
                 </li>
+            @endif
+               
             @endforeach
         </ul>
     @endif
