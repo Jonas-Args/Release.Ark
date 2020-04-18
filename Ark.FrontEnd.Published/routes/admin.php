@@ -1,39 +1,39 @@
 <?php
 
 /*
-|--------------------------------------------------------------------------
-| Admin Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register admin routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+ |--------------------------------------------------------------------------
+ | Admin Routes
+ |--------------------------------------------------------------------------
+ |
+ | Here is where you can register admin routes for your application. These
+ | routes are loaded by the RouteServiceProvider within a group which
+ | contains the "web" middleware group. Now create something great!
+ |
+ */
 Route::get('/admin', 'HomeController@admin_dashboard')->name('admin.dashboard')->middleware(['auth', 'admin']);
-Route::group(['prefix' =>'admin', 'middleware' => ['auth', 'admin']], function(){
-	Route::resource('categories','CategoryController');
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
+	Route::resource('categories', 'CategoryController');
 	Route::get('/categories/destroy/{id}', 'CategoryController@destroy')->name('categories.destroy');
 	Route::post('/categories/featured', 'CategoryController@updateFeatured')->name('categories.featured');
 
-	Route::resource('subcategories','SubCategoryController');
+	Route::resource('subcategories', 'SubCategoryController');
 	Route::get('/subcategories/destroy/{id}', 'SubCategoryController@destroy')->name('subcategories.destroy');
 
-	Route::resource('subsubcategories','SubSubCategoryController');
+	Route::resource('subsubcategories', 'SubSubCategoryController');
 	Route::get('/subsubcategories/destroy/{id}', 'SubSubCategoryController@destroy')->name('subsubcategories.destroy');
 
-	Route::resource('brands','BrandController');
+	Route::resource('brands', 'BrandController');
 	Route::get('/brands/destroy/{id}', 'BrandController@destroy')->name('brands.destroy');
 
-	Route::get('/products/admin','ProductController@admin_products')->name('products.admin');
-	Route::get('/products/seller','ProductController@seller_products')->name('products.seller');
-	Route::get('/products/create','ProductController@create')->name('products.create');
-	Route::get('/products/admin/{id}/edit','ProductController@admin_product_edit')->name('products.admin.edit');
-	Route::get('/products/seller/{id}/edit','ProductController@seller_product_edit')->name('products.seller.edit');
+	Route::get('/products/admin', 'ProductController@admin_products')->name('products.admin');
+	Route::get('/products/seller', 'ProductController@seller_products')->name('products.seller');
+	Route::get('/products/create', 'ProductController@create')->name('products.create');
+	Route::get('/products/admin/{id}/edit', 'ProductController@admin_product_edit')->name('products.admin.edit');
+	Route::get('/products/seller/{id}/edit', 'ProductController@seller_product_edit')->name('products.seller.edit');
 	Route::post('/products/todays_deal', 'ProductController@updateTodaysDeal')->name('products.todays_deal');
 	Route::post('/products/get_products_by_subsubcategory', 'ProductController@get_products_by_subsubcategory')->name('products.get_products_by_subsubcategory');
 
-	Route::resource('sellers','SellerController');
+	Route::resource('sellers', 'SellerController');
 	Route::get('/sellers/destroy/{id}', 'SellerController@destroy')->name('sellers.destroy');
 	Route::get('/sellers/view/{id}/verification', 'SellerController@show_verification_request')->name('sellers.show_verification_request');
 	Route::get('/sellers/approve/{id}', 'SellerController@approve_seller')->name('sellers.approve');
@@ -43,20 +43,32 @@ Route::group(['prefix' =>'admin', 'middleware' => ['auth', 'admin']], function()
 	Route::get('/seller/payments/show/{id}', 'PaymentController@show')->name('sellers.payment_history');
 
 	Route::get('/customers/deposits', 'CustomerController@deposits')->name('customers.deposits');
+	Route::get('/customers/withdrawal', 'CustomerController@withdrawal')->name('customers.withdrawal');
+	Route::get('/customers/topup', 'CustomerController@top_up_list')->name('customers.topup');
 	Route::get('/customers/edit/{id}', 'CustomerController@edit')->name('customers.edit');
 	Route::get('/customers/wallet/{id}', 'CustomerController@wallet')->name('customers.wallet');
 	Route::get('/customers/wallet/send/{id}', 'CustomerController@wallet_send')->name('customers.wallet.send');
+	Route::get('/customers/wallet/top_up/{id}', 'CustomerController@top_up')->name('customers.wallet.top_up');
+	Route::get('/customers/wallet/convert/{id}', 'CustomerController@convert')->name('customers.wallet.convert');
+	Route::get('/customers/wallet/withdraw/{id}', 'CustomerController@withdraw')->name('customers.wallet.withdraw');
+	Route::get('/customers/wallet/transactions/{id}', 'CustomerController@wallet_txs')->name('customers.wallet.txs');
 
-	Route::resource('customers','CustomerController');
+	Route::post('/customers/wallet/send/execute', 'CustomerController@wallet_send_proccess')->name('customers.wallet.send.exec');
+	Route::post('/customers/wallet/top_up/execute', 'CustomerController@top_up_proccess')->name('customers.wallet.top_up.exec');
+	Route::post('/customers/wallet/convert/execute', 'CustomerController@convert_proccess')->name('customers.wallet.convert.exec');
+	Route::post('/customers/wallet/withdraw/execute', 'CustomerController@withdraw_proccess')->name('customers.wallet.withdraw.exec');
+
+	Route::resource('customers', 'CustomerController');
 	Route::get('/customers/destroy/{id}', 'CustomerController@destroy')->name('customers.destroy');
 	Route::post('/customers/update', 'CustomerController@update')->name('customers.update');
 	Route::post('/customers/password_change', 'CustomerController@password_change')->name('customers.password_change');
 	Route::post('/customers/auth_status_change', 'CustomerController@auth_status_change')->name('customers.auth_status_change');
+	Route::post('/customers/manual_verify_email', 'CustomerController@manual_verify_email')->name('customers.manual_verify_email');
 
 	Route::get('/newsletter', 'NewsletterController@index')->name('newsletters.index');
 	Route::post('/newsletter/send', 'NewsletterController@send')->name('newsletters.send');
 
-	Route::resource('profile','ProfileController');
+	Route::resource('profile', 'ProfileController');
 
 	Route::post('/business-settings/update', 'BusinessSettingsController@update')->name('business_settings.update');
 	Route::post('/business-settings/update/activation', 'BusinessSettingsController@updateActivationSettings')->name('business_settings.update.activation');
@@ -72,8 +84,8 @@ Route::group(['prefix' =>'admin', 'middleware' => ['auth', 'admin']], function()
 	Route::post('/facebook_chat', 'BusinessSettingsController@facebook_chat_update')->name('facebook_chat.update');
 	Route::post('/facebook_pixel', 'BusinessSettingsController@facebook_pixel_update')->name('facebook_pixel.update');
 	Route::get('/currency', 'CurrencyController@currency')->name('currency.index');
-    Route::post('/currency/update', 'CurrencyController@updateCurrency')->name('currency.update');
-    Route::post('/your-currency/update', 'CurrencyController@updateYourCurrency')->name('your_currency.update');
+	Route::post('/currency/update', 'CurrencyController@updateCurrency')->name('currency.update');
+	Route::post('/your-currency/update', 'CurrencyController@updateYourCurrency')->name('your_currency.update');
 	Route::get('/currency/create', 'CurrencyController@create')->name('currency.create');
 	Route::post('/currency/store', 'CurrencyController@store')->name('currency.store');
 	Route::post('/currency/currency_edit', 'CurrencyController@edit')->name('currency.edit');
@@ -101,86 +113,87 @@ Route::group(['prefix' =>'admin', 'middleware' => ['auth', 'admin']], function()
 	//Policy Controller
 	Route::post('/policies/store', 'PolicyController@store')->name('policies.store');
 
-	Route::group(['prefix' => 'frontend_settings'], function(){
-		Route::resource('sliders','SliderController');
-	    Route::get('/sliders/destroy/{id}', 'SliderController@destroy')->name('sliders.destroy');
+	Route::group(['prefix' => 'frontend_settings'], function () {
+		 Route::resource('sliders', 'SliderController');
+		 Route::get('/sliders/destroy/{id}', 'SliderController@destroy')->name('sliders.destroy');
 
-		Route::resource('home_banners','BannerController');
-		Route::get('/home_banners/create/{position}', 'BannerController@create')->name('home_banners.create');
-		Route::post('/home_banners/update_status', 'BannerController@update_status')->name('home_banners.update_status');
-	    Route::get('/home_banners/destroy/{id}', 'BannerController@destroy')->name('home_banners.destroy');
+		 Route::resource('home_banners', 'BannerController');
+		 Route::get('/home_banners/create/{position}', 'BannerController@create')->name('home_banners.create');
+		 Route::post('/home_banners/update_status', 'BannerController@update_status')->name('home_banners.update_status');
+		 Route::get('/home_banners/destroy/{id}', 'BannerController@destroy')->name('home_banners.destroy');
 
-		Route::resource('home_categories','HomeCategoryController');
-	    Route::get('/home_categories/destroy/{id}', 'HomeCategoryController@destroy')->name('home_categories.destroy');
-		Route::post('/home_categories/update_status', 'HomeCategoryController@update_status')->name('home_categories.update_status');
-		Route::post('/home_categories/get_subsubcategories_by_category', 'HomeCategoryController@getSubSubCategories')->name('home_categories.get_subsubcategories_by_category');
-	});
+		 Route::resource('home_categories', 'HomeCategoryController');
+		 Route::get('/home_categories/destroy/{id}', 'HomeCategoryController@destroy')->name('home_categories.destroy');
+		 Route::post('/home_categories/update_status', 'HomeCategoryController@update_status')->name('home_categories.update_status');
+		 Route::post('/home_categories/get_subsubcategories_by_category', 'HomeCategoryController@getSubSubCategories')->name('home_categories.get_subsubcategories_by_category');
+	 }
+	 );
 
-	Route::resource('roles','RoleController');
-    Route::get('/roles/destroy/{id}', 'RoleController@destroy')->name('roles.destroy');
+	 Route::resource('roles', 'RoleController');
+	 Route::get('/roles/destroy/{id}', 'RoleController@destroy')->name('roles.destroy');
 
-    Route::resource('staffs','StaffController');
-    Route::get('/staffs/destroy/{id}', 'StaffController@destroy')->name('staffs.destroy');
+	 Route::resource('staffs', 'StaffController');
+	 Route::get('/staffs/destroy/{id}', 'StaffController@destroy')->name('staffs.destroy');
 
-	Route::resource('flash_deals','FlashDealController');
-    Route::get('/flash_deals/destroy/{id}', 'FlashDealController@destroy')->name('flash_deals.destroy');
-	Route::post('/flash_deals/update_status', 'FlashDealController@update_status')->name('flash_deals.update_status');
-	Route::post('/flash_deals/product_discount', 'FlashDealController@product_discount')->name('flash_deals.product_discount');
-	Route::post('/flash_deals/product_discount_edit', 'FlashDealController@product_discount_edit')->name('flash_deals.product_discount_edit');
+	 Route::resource('flash_deals', 'FlashDealController');
+	 Route::get('/flash_deals/destroy/{id}', 'FlashDealController@destroy')->name('flash_deals.destroy');
+	 Route::post('/flash_deals/update_status', 'FlashDealController@update_status')->name('flash_deals.update_status');
+	 Route::post('/flash_deals/product_discount', 'FlashDealController@product_discount')->name('flash_deals.product_discount');
+	 Route::post('/flash_deals/product_discount_edit', 'FlashDealController@product_discount_edit')->name('flash_deals.product_discount_edit');
 
-	Route::get('/orders', 'OrderController@admin_orders')->name('orders.index.admin');
-	Route::get('/orders/{id}/show', 'OrderController@show')->name('orders.show');
-	Route::get('/sales/{id}/show', 'OrderController@sales_show')->name('sales.show');
-	Route::get('/orders/destroy/{id}', 'OrderController@destroy')->name('orders.destroy');
-	Route::get('/sales', 'OrderController@sales')->name('sales.index');
+	 Route::get('/orders', 'OrderController@admin_orders')->name('orders.index.admin');
+	 Route::get('/orders/{id}/show', 'OrderController@show')->name('orders.show');
+	 Route::get('/sales/{id}/show', 'OrderController@sales_show')->name('sales.show');
+	 Route::get('/orders/destroy/{id}', 'OrderController@destroy')->name('orders.destroy');
+	 Route::get('/sales', 'OrderController@sales')->name('sales.index');
 
-	Route::resource('links','LinkController');
-	Route::get('/links/destroy/{id}', 'LinkController@destroy')->name('links.destroy');
+	 Route::resource('links', 'LinkController');
+	 Route::get('/links/destroy/{id}', 'LinkController@destroy')->name('links.destroy');
 
-	Route::resource('generalsettings','GeneralSettingController');
-	Route::get('/logo','GeneralSettingController@logo')->name('generalsettings.logo');
-	Route::post('/logo','GeneralSettingController@storeLogo')->name('generalsettings.logo.store');
-	Route::get('/color','GeneralSettingController@color')->name('generalsettings.color');
-	Route::post('/color','GeneralSettingController@storeColor')->name('generalsettings.color.store');
+	 Route::resource('generalsettings', 'GeneralSettingController');
+	 Route::get('/logo', 'GeneralSettingController@logo')->name('generalsettings.logo');
+	 Route::post('/logo', 'GeneralSettingController@storeLogo')->name('generalsettings.logo.store');
+	 Route::get('/color', 'GeneralSettingController@color')->name('generalsettings.color');
+	 Route::post('/color', 'GeneralSettingController@storeColor')->name('generalsettings.color.store');
 
-	Route::resource('seosetting','SEOController');
+	 Route::resource('seosetting', 'SEOController');
 
-	Route::post('/pay_to_seller', 'CommissionController@pay_to_seller')->name('commissions.pay_to_seller');
+	 Route::post('/pay_to_seller', 'CommissionController@pay_to_seller')->name('commissions.pay_to_seller');
 
-	//Reports
-	Route::get('/stock_report', 'ReportController@stock_report')->name('stock_report.index');
-	Route::get('/in_house_sale_report', 'ReportController@in_house_sale_report')->name('in_house_sale_report.index');
-	Route::get('/seller_report', 'ReportController@seller_report')->name('seller_report.index');
-	Route::get('/seller_sale_report', 'ReportController@seller_sale_report')->name('seller_sale_report.index');
-	Route::get('/wish_report', 'ReportController@wish_report')->name('wish_report.index');
+	 //Reports
+ 	Route::get('/stock_report', 'ReportController@stock_report')->name('stock_report.index');
+	 Route::get('/in_house_sale_report', 'ReportController@in_house_sale_report')->name('in_house_sale_report.index');
+	 Route::get('/seller_report', 'ReportController@seller_report')->name('seller_report.index');
+	 Route::get('/seller_sale_report', 'ReportController@seller_sale_report')->name('seller_sale_report.index');
+	 Route::get('/wish_report', 'ReportController@wish_report')->name('wish_report.index');
 
-	//Coupons
-	Route::resource('coupon','CouponController');
-	Route::post('/coupon/get_form', 'CouponController@get_coupon_form')->name('coupon.get_coupon_form');
-	Route::post('/coupon/get_form_edit', 'CouponController@get_coupon_form_edit')->name('coupon.get_coupon_form_edit');
-	Route::get('/coupon/destroy/{id}', 'CouponController@destroy')->name('coupon.destroy');
+	 //Coupons
+ 	Route::resource('coupon', 'CouponController');
+	 Route::post('/coupon/get_form', 'CouponController@get_coupon_form')->name('coupon.get_coupon_form');
+	 Route::post('/coupon/get_form_edit', 'CouponController@get_coupon_form_edit')->name('coupon.get_coupon_form_edit');
+	 Route::get('/coupon/destroy/{id}', 'CouponController@destroy')->name('coupon.destroy');
 
-	//Reviews
-	Route::get('/reviews', 'ReviewController@index')->name('reviews.index');
-	Route::post('/reviews/published', 'ReviewController@updatePublished')->name('reviews.published');
+	 //Reviews
+ 	Route::get('/reviews', 'ReviewController@index')->name('reviews.index');
+	 Route::post('/reviews/published', 'ReviewController@updatePublished')->name('reviews.published');
 
-	//Support_Ticket
-	Route::get('support_ticket/','SupportTicketController@admin_index')->name('support_ticket.admin_index');
-	Route::get('support_ticket/{id}/show','SupportTicketController@admin_show')->name('support_ticket.admin_show');
-	Route::post('support_ticket/reply','SupportTicketController@admin_store')->name('support_ticket.admin_store');
+	 //Support_Ticket
+ 	Route::get('support_ticket/', 'SupportTicketController@admin_index')->name('support_ticket.admin_index');
+	 Route::get('support_ticket/{id}/show', 'SupportTicketController@admin_show')->name('support_ticket.admin_show');
+	 Route::post('support_ticket/reply', 'SupportTicketController@admin_store')->name('support_ticket.admin_store');
 
-	//Pickup_Points
-	Route::resource('pick_up_points','PickupPointController');
-	Route::get('/pick_up_points/destroy/{id}', 'PickupPointController@destroy')->name('pick_up_points.destroy');
+	 //Pickup_Points
+ 	Route::resource('pick_up_points', 'PickupPointController');
+	 Route::get('/pick_up_points/destroy/{id}', 'PickupPointController@destroy')->name('pick_up_points.destroy');
 
 
-	Route::get('orders_by_pickup_point','OrderController@order_index')->name('pick_up_point.order_index');
-	Route::get('/orders_by_pickup_point/{id}/show', 'OrderController@pickup_point_order_sales_show')->name('pick_up_point.order_show');
+	 Route::get('orders_by_pickup_point', 'OrderController@order_index')->name('pick_up_point.order_index');
+	 Route::get('/orders_by_pickup_point/{id}/show', 'OrderController@pickup_point_order_sales_show')->name('pick_up_point.order_show');
 
-	Route::get('invoice/admin/{order_id}', 'InvoiceController@admin_invoice_download')->name('admin.invoice.download');
+	 Route::get('invoice/admin/{order_id}', 'InvoiceController@admin_invoice_download')->name('admin.invoice.download');
 
-	//conversation of seller customer
-	Route::get('conversations','ConversationController@admin_index')->name('conversations.admin_index');
-	Route::get('conversations/{id}/show','ConversationController@admin_show')->name('conversations.admin_show');
-	Route::get('/conversations/destroy/{id}', 'ConversationController@destroy')->name('conversations.destroy');
-});
+	 //conversation of seller customer
+ 	Route::get('conversations', 'ConversationController@admin_index')->name('conversations.admin_index');
+	 Route::get('conversations/{id}/show', 'ConversationController@admin_show')->name('conversations.admin_show');
+	 Route::get('/conversations/destroy/{id}', 'ConversationController@destroy')->name('conversations.destroy');
+ });

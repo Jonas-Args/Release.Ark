@@ -202,13 +202,16 @@
 										<input type="hidden" name="Id" value="{{ Session::get('userAuthId') }}" />
 										<input type="hidden" name="FromCurrencyIso3" value="PHP" />
 										<input type="number" style="display:none" name="DepositStatus" value="0" />
+										<input type="hidden"id="" name="paynamics_action" placeholder="" value="package_payment" />
 
 										<label><b>Select Payment Method</b></label>
 										<select class="form-control col-md-4" name="Remarks" id="FromWalletCode">
 											<option value="CASH VIA ADMIN">CASH VIA ADMIN</option>
 											<option value="DEPOSIT VIA BANK">DEPOSIT VIA BANK</option>
-										<!--<option value="ACW">ARK CASH WALLET | PHP {{ $UserWallet[9]->balance }}</option>-->	
+										<!--<option value="ACW">ARK CASH WALLET | PHP {{ $UserWallet[9]->balance }}</option>-->
+											 @if (\App\BusinessSetting::where('type', 'paynamics')->first()->value == 1)
 											<option value="PAYNAMICS">Other Payment Method (7-Eleven, G-Cash, Paymaya, Etc)</option>
+											 @endif
 										</select>
 										<hr />
 										<button type="submit" class="btn btn-styled btn-base-1 col-md-2" style="">Next</button>

@@ -11,6 +11,7 @@ use Auth;
 use DB;
 use Session;
 use App\Wallet;
+use App\TopupTransaction;
 
 class WalletController extends Controller
 {
@@ -30,7 +31,7 @@ class WalletController extends Controller
         $request->session()->put('payment_type', 'wallet_payment');
         $request->session()->put('payment_data', $data);
 
-        if($request->payment_option == 'paypal'){
+        if ($request->payment_option == 'paypal') {
             $paypal = new PaypalController;
             return $paypal->getCheckout();
         }
@@ -58,43 +59,80 @@ class WalletController extends Controller
             $voguepay = new VoguePayController;
             return $voguepay->customer_showForm();
         }
+        elseif ($request->payment_option == 'paynamics') {
+            $PaynamicsController = new PaynamicsController;
+			return $PaynamicsController->initializePayment($request);
+        }
     }
 
-    public function wallet_payment_done($payment_data, $payment_details){
-        $user = Auth::user();
-        $user->balance = $user->balance + $payment_data['amount'];
-        $user->save();
+    public function wallet_payment_done($walletTx) {
+        $customerController = new CustomerController;
+        $payment_data = new Request;
 
-        $wallet = new Wallet;
-        $wallet->user_id = $user->id;
-        $wallet->amount = $payment_data['amount'];
-        $wallet->payment_method = $payment_data['payment_method'];
-        $wallet->payment_details = $payment_details;
-        $wallet->save();
+		$payment_data['transaction_amount'] = $walletTx->amount;
+		$payment_data['target_wallet'] = "Ark Credits";
+		$payment_data['ID'] = $walletTx->user_id;
 
-        Session::forget('payment_data');
-        Session::forget('payment_type');
+        if ($walletTx->payment_status != "paid")
+		{
+            $customerController->top_up_proccess($payment_data);
+            return response('Callback Successful', 200)->header('Content-Type', 'text/plain');
+		}
+		else{
+            return response('Callback Successful: Already Paid', 200)->header('Content-Type', 'text/plain');
+		}
+		//flash(__('Payment completed'))->success();
+		//return redirect()->route('wallet.index');
 
-        flash(__('Payment completed'))->success();
-        return redirect()->route('wallet.index');
     }
 
-    public function wallet_update(Request $payment_data){
-        $user = DB::table('users')->where('id', $payment_data->ShopUserId)->increment('balance' , floatval($payment_data->Reward));
+	public function wallet_payment_error($payment_data) {
+        $walletTx = TopupTransaction::where('code', '=', $payment_data->code)->first();
+		$walletTx->payment_status = "rejected";
+        $walletTx->save();
+
+		//flash(__('Payment completed'))->success();
+		//return redirect()->route('wallet.index');
+		return response('Callback Successful: Error Transaction', 200)->header('Content-Type', 'text/plain');
+    }
+
+    public function wallet_payment_pending($payment_data) {
+        $walletTx = TopupTransaction::where('code', '=', $payment_data->code)->first();
+		$walletTx->payment_status = "pending";
+        $walletTx->save();
+
+		//flash(__('Payment completed'))->success();
+		//return redirect()->route('wallet.index');
+		return response('Callback Successful: Pending', 200)->header('Content-Type', 'text/plain');
+    }
+
+    public function wallet_payment_cancel($payment_data) {
+        $walletTx = TopupTransaction::where('code', '=', $payment_data->code)->first();
+		$walletTx->payment_status = "cancelled";
+        $walletTx->save();
+
+		//flash(__('Payment completed'))->success();
+		//return redirect()->route('wallet.index');
+		return response('Callback Successful: Cancelled', 200)->header('Content-Type', 'text/plain');
+    }
+
+    public function wallet_update(Request $payment_data) {
+        $user = DB::table('users')->where('id', $payment_data->ShopUserId)->increment('balance', floatval($payment_data->Reward));
 
         $wallet = new Wallet;
         $wallet->user_id = $payment_data->ShopUserId;
         $wallet->amount = $payment_data->Reward;
         $wallet->payment_method = $payment_data->Remarks;
-        $wallet->payment_details = $payment_data->Remarks;
+        $wallet->source_details = $payment_data->Origin;
+        $wallet->payment_details = $payment_data->Computation;
         $wallet->save();
 
-		return response('Recharge Success', 200)->header('Content-Type', 'text/plain');
+        return response('Recharge Success', 200)->header('Content-Type', 'text/plain');
     }
 
-    public function testPayment(Request $payment_data){
+    public function testPayment(Request $payment_data) {
         $user = DB::table('users')->where('id', 1)->update(['testpayment' => $payment_data->paymentresponse]);
-                
-		return response('Success', 200)->header('Content-Type', 'text/plain');
+
+        return response('Success', 200)->header('Content-Type', 'text/plain');
     }
 }

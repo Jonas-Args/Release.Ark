@@ -105,6 +105,16 @@
 						<br />
 						<button type="submit" style="margin-top:15px" class="btn btn-primary">Apply</button>
 					</form>
+
+					<hr>
+					<form method="POST" action="{{ route('customers.manual_verify_email') }}">
+						@csrf
+						<label for="">Manually Verify Email Address</label>
+						<br>
+						<input type="hidden" class="form-control" id="" name="ID" placeholder="" value="{{ $customer->id }}" />
+						<button type="submit" style="margin-top:15px" class="btn btn-primary">Manual Verify Email</button>
+					</form>
+					
 			
 				</div>
 			</div>

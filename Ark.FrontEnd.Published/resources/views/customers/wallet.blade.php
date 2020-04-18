@@ -2,6 +2,13 @@
 
 @section('content')
 
+@php
+	function LinkToTransactions(int $id, string $wallet)
+	{
+	 	return urlencode(base64_encode(implode(',',array($id, $wallet))));
+	}	
+@endphp
+
 <!-- Basic Data Tables -->
 <!--===================================================-->
 <div class="row">
@@ -19,7 +26,7 @@
 				<h5>{{ $customer->email }}</h5>
 				<h6 style="color:#808080">Source Code: {{ $customer->Uid }}</h6>
 			
-		
+				<a style="margin-top:15px" href="{{ route('customers.index') }}" class="btn btn-primary">Back to customer list</a>
 			</div>
 		</div>
 	</div>
@@ -45,24 +52,6 @@
 						<span style="color:#82a9d8">PHP</span>
 					</h4>
 				</div>
-				<hr />
-				<div style="font-size:14px!important">
-					<p style="color:#808080">
-						Total Recieved:
-						<span style="float:right;">
-							<b style="color:black">0.00</b> PHP
-						</span>
-					</p>
-					<p style="color:#808080">Direct Sales Income:
-						<span style="float:right;">
-							<b style="color:black">0.00</b> PHP
-						</span></p>
-					<p style="color:#808080">Trimatch Sales Income:
-						<span style="float:right;">
-							<b style="color:black">0.00</b> PHP
-						</span>
-					</p>
-				</div>
 				<br />
 				<div class="btn-group dropdown" style="float:right">
 					<button class="btn btn-primary dropdown-toggle dropdown-toggle-icon" data-toggle="dropdown" type="button">
@@ -71,27 +60,27 @@
 					</button>
 					<ul class="dropdown-menu dropdown-menu-right">
 						<li>
-							<a href="{{route('customers.wallet.send', $customer->id)}}">
+							<a href="{{route('customers.wallet.send', LinkToTransactions($customer->id,'ark_cash'))}}">
 								<i class="fa fa-send" style="margin-right:12px; font-size:16px"></i>{{__('Send')}}
 							</a>
 						</li>
-						<li class="disabled" disabled>
-							<a>
+						<li>
+							<a href="{{route('customers.wallet.top_up', LinkToTransactions($customer->id,'ark_cash'))}}">
 								<i class="fa fa-cog" style="margin-right:12px; font-size:16px"></i>{{__('Top Up')}}
 							</a>
 						</li>
-						<li class="disabled">
-							<a>
+						<li>
+							<a href="{{route('customers.wallet.convert', LinkToTransactions($customer->id,'ark_cash'))}}">
 								<i class="fa fa-refresh" style="margin-right:12px; font-size:16px"></i>{{__('Convert')}}
 							</a>
 						</li>
-						<li class="disabled">
-							<a>
+						<li>
+							<a href="{{route('customers.wallet.withdraw', LinkToTransactions($customer->id,'ark_cash'))}}">
 								<i class="fa fa-upload" style="margin-right:12px; font-size:16px"></i>{{__('Withdraw')}}
 							</a>
 						</li>
-						<li class="disabled">
-							<a>
+						<li>
+							<a href="{{route('customers.wallet.txs', LinkToTransactions($customer->id,'ark_cash'))}}">
 								<i class="fa fa-file-text" style="margin-right:12px; font-size:16px"></i>{{__('Transactions')}}
 							</a>
 						</li>
@@ -118,27 +107,7 @@
 						<span style="color:#82a9d8">PHP</span>
 					</h4>
 				</div>
-				<hr />
-				<div style="font-size:14px!important">
-					<p style="color:#808080">
-						Total Recieved:
-						<span style="float:right;">
-							<b style="color:black">0.00</b> PHP
-						</span>
-					</p>
-					<p style="color:#808080">
-						Sales Rebates:
-						<span style="float:right;">
-							<b style="color:black">0.00</b> PHP
-						</span>
-					</p>
-					<p style="color:#808080">
-						Total Deposit:
-						<span style="float:right;">
-							<b style="color:black">0.00</b> PHP
-						</span>
-					</p>
-				</div>
+				
 				<br />
 				<div class="btn-group dropdown" style="float:right">
 					<button class="btn btn-primary dropdown-toggle dropdown-toggle-icon" data-toggle="dropdown" type="button">
@@ -147,27 +116,27 @@
 					</button>
 					<ul class="dropdown-menu dropdown-menu-right">
 						<li>
-							<a href="{{route('customers.wallet.send', $customer->id)}}">
+							<a href="{{route('customers.wallet.send', LinkToTransactions($customer->id,'ark_credits'))}}">
 								<i class="fa fa-send" style="margin-right:12px; font-size:16px"></i>{{__('Send')}}
 							</a>
 						</li>
-						<li class="disabled" disabled>
-							<a>
+						<li>
+							<a href="{{route('customers.wallet.top_up', LinkToTransactions($customer->id,'ark_credits'))}}">
 								<i class="fa fa-cog" style="margin-right:12px; font-size:16px"></i>{{__('Top Up')}}
 							</a>
 						</li>
-						<li class="disabled">
-							<a>
+						<li>
+							<a href="{{route('customers.wallet.convert', LinkToTransactions($customer->id,'ark_credits'))}}">
 								<i class="fa fa-refresh" style="margin-right:12px; font-size:16px"></i>{{__('Convert')}}
 							</a>
 						</li>
-						<li class="disabled">
-							<a>
+						<li>
+							<a href="{{route('customers.wallet.withdraw', LinkToTransactions($customer->id,'ark_credits'))}}">
 								<i class="fa fa-upload" style="margin-right:12px; font-size:16px"></i>{{__('Withdraw')}}
 							</a>
 						</li>
-						<li class="disabled">
-							<a>
+						<li>
+							<a href="{{route('customers.wallet.txs', LinkToTransactions($customer->id,'ark_credits'))}}">
 								<i class="fa fa-file-text" style="margin-right:12px; font-size:16px"></i>{{__('Transactions')}}
 							</a>
 						</li>

@@ -143,6 +143,7 @@ class CheckoutController extends Controller
         $shipping = 0;
         $subtotal = 0;
         $netValue = 0;
+        $computation_string = "";
 
         foreach ($order->orderDetails as $key => $orderDetail) {
             $orderDetail->payment_status = 'paid';
@@ -183,17 +184,21 @@ class CheckoutController extends Controller
                 switch ($_r->businessPackages[0]->businessPackage->packageCode) {
                     case "EPKG1":
                         $_rewards = ($netValue * 0.0025);
+                        $computation_string = "Value = (" . $netValue . ") * (0.0025)";
                         break;
                     case "EPKG1TRL":
                         $_rewards = ($netValue * 0.0025);
+                        $computation_string = "Value = (" . $netValue . ") * (0.0025)";
                         break;
 
                     case "EPKG2":
                         $_rewards = ($netValue * 0.005);
+                        $computation_string = "Value = (" . $netValue . ") * (0.005)";
                         break;
 
                     case "EPKG3":
                         $_rewards = ($netValue * 0.01);
+                        $computation_string = "Value = (" . $netValue . ") * (0.01)";
                         break;
                     default:
                         $_rewards = 0;
@@ -209,7 +214,8 @@ class CheckoutController extends Controller
                     $wallet->user_id = $userc->id;
                     $wallet->amount = $_rewards;
                     $wallet->payment_method = 'Product Rebates';
-                    $wallet->payment_details = 'Product Rebates';
+                    $wallet->source_details = 'Shop Purchase';
+                    $wallet->payment_details = $computation_string;
                     $wallet->save();
                 }
 

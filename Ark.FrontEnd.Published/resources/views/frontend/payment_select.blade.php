@@ -180,6 +180,8 @@ else{
 												@endif
 
 												@if(Auth::user()->balance < $total && $isActivated== true)
+												 @if (\App\BusinessSetting::where('type', 'paynamics')->first()->value == 1)
+												<input type="hidden" id="" name="paynamics_action" placeholder="" value="shop_payment" />
 												<div class="col-6">
 													<label class="payment_option mb-4" data-toggle="tooltip" data-title="Other Payment Method">
 														<input type="radio" id="" name="payment_option" value="paynamics" checked />
@@ -188,6 +190,8 @@ else{
 														</span>
 													</label>
 												</div>
+												 @endif
+												
 												@endif
 											</div>
 										</div>

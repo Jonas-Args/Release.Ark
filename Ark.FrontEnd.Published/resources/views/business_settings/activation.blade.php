@@ -142,6 +142,26 @@
 
 <h3 class="text-center">{{__('Payment Related')}}</h3>
 <div class="row">
+	<div class="col-lg-4">
+		<div class="panel">
+			<div class="panel-heading text-center bord-btm">
+				<h3 class="panel-title">{{__('Paynamics Payment Activation')}}</h3>
+			</div>
+			<div class="panel-body">
+				<div class="clearfix">
+					<img loading="lazy" class="pull-left" src="{{ asset('frontend/images/icons/cards/paynamics.png') }}" height="30" />
+					<label class="switch pull-right">
+						<input type="checkbox" onchange="updateSettings(this, 'paynamics')" <?php if(\App\BusinessSetting::where('type', 'paynamics')->first()->value == 1) echo "checked";?> />
+						<span class="slider round"></span>
+					</label>
+				</div>
+				<div class="alert text-center" style="color: #004085;background-color: #cce5ff;border-color: #b8daff;margin-bottom:0;margin-top:10px;">
+					You need to configure Paynamics correctly to enable this feature.
+					<a href="{{ route('payment_method.index') }}">Configure Now</a>
+				</div>
+			</div>
+		</div>
+	</div>
     <div class="col-lg-4">
         <div class="panel">
             <div class="panel-heading text-center bord-btm">

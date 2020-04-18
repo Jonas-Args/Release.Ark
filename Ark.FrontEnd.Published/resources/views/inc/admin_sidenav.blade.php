@@ -233,7 +233,13 @@
                                     <a class="nav-link" href="{{ route('customers.index') }}">{{__('Customer list')}}</a>
                                 </li>
 								<li class="{{ areActiveRoutes(['customers.deposits'])}}">
-									<a class="nav-link" href="{{ route('customers.deposits') }}">{{__('Pending Deposits')}}</a>
+									<a class="nav-link" href="{{ route('customers.deposits') }}">{{__('Pending Activation')}}</a>
+								</li>
+								<li class="{{ areActiveRoutes(['customers.topup'])}}">
+									<a class="nav-link" href="{{ route('customers.topup') }}">{{__('Top-Up Requests')}}</a>
+								</li>
+								<li class="{{ areActiveRoutes(['customers.withdrawal'])}}">
+									<a class="nav-link" href="{{ route('customers.withdrawal') }}">{{__('Withdrawal Requests')}}</a>
 								</li>
                             </ul>
                         </li>

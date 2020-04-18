@@ -93,7 +93,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-4 ">
+                            <div class="col-md-4">
                                 <div class="dashboard-widget text-center red-widget text-white mt-4 c-pointer">
                                     <i class="la la-wallet" style="font-size:24px;"></i>
                                     <span class="d-block title heading-3 strong-400"> ₱{{ bcdiv($UserWallet[array_search('ACW', array_column($UserWallet, 'walletCode'))]->balance,1, 3) }}</span>
@@ -101,7 +101,7 @@
 
                                 </div>
                             </div>
-                            <div class="col-md-4 ">
+                            <div class="col-md-4">
                                 <div class="dashboard-widget text-center green-widget text-white mt-4 c-pointer" style="background-color:#12CBC4!important">
                                     <i class="la la-wallet" style="font-size:24px;"></i>
                                     <span class="d-block title heading-3 strong-400">₱{{ bcdiv(Auth::user()->balance, 1, 3) }}</span>
@@ -109,14 +109,17 @@
 
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="dashboard-widget text-center plus-widget mt-4 c-pointer" onclick="show_wallet_modal()">
-                                    <i class="la la-plus"></i>
-                                    <span class="d-block title heading-6 strong-400 c-base-1">{{ __('Recharge Wallet') }}</span>
-                                </div>
-                            </div>
+                            
                         </div>
-
+                        <hr />
+                        <div>
+                              <h2 class="heading heading-6 text-capitalize strong-600 mb-0">
+                                        {{__('Wallet Options')}}
+                              </h2>
+                             <button type="button" class="btn btn-styled btn-base-3 mt-3" onclick="show_wallet_modal()">{{__('TopUp Wallet')}}</button>
+                             <button type="button" class="btn btn-styled btn-base-3 mt-3 ml-2">{{__('Withdraw Wallet')}}</button>
+                        </div>
+                        <hr />
                         <div class="card no-border mt-5">
                             <div class="card-header py-3">
                                 <h4 class="mb-0 h6">{{__('Ark Credits Transactions')}}</h4>
@@ -229,6 +232,7 @@
                 </div>
                 <form class="" action="{{ route('wallet.recharge') }}" method="post">
                     @csrf
+					<input type="hidden" class="form-control" id="" name="paynamics_action" placeholder="" value="wallet_topup" />
                     <div class="modal-body gry-bg px-3 pt-3">
                         <div class="row">
                             <div class="col-md-2">
@@ -262,6 +266,9 @@
                                         @endif
                                         @if (\App\BusinessSetting::where('type', 'voguepay')->first()->value == 1)
                                             <option value="voguepay">{{__('VoguePay')}}</option>
+                                        @endif
+                                        @if (\App\BusinessSetting::where('type', 'paynamics')->first()->value == 1)
+                                            <option value="paynamics">{{__('Other Payment Methods')}}</option>
                                         @endif
                                     </select>
                                 </div>
