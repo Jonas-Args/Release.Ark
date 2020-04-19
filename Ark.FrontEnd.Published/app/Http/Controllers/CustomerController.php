@@ -493,7 +493,7 @@ class CustomerController extends Controller
 				   'Amount' => $transaction_amount
 			   );
 
-                $url = 'http://localhost:55006/api/AdminAccess/DecrementBalance';
+                $url = 'http://localhost:55006/api/AdminAccess/WithdrawBalance';
                 $options = array(
                     'http' => array(
                         'method' => 'POST',
