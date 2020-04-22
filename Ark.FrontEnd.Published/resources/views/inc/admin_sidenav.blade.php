@@ -178,12 +178,12 @@
                         @endif
 
                         @if(Auth::user()->user_type == 'admin' || in_array('4', json_decode(Auth::user()->staff->role->permissions)))
-                        <li class="{{ areActiveRoutes(['sales.index', 'sales.show'])}}">
+                      <!--  <li class="{{ areActiveRoutes(['sales.index', 'sales.show'])}}">
                             <a class="nav-link" href="{{ route('sales.index') }}">
                                 <i class="fa fa-money"></i>
                                 <span class="menu-title">{{__('Total sales')}}</span>
                             </a>
-                        </li>
+                        </li>-->
                         @endif
 
                         @if((Auth::user()->user_type == 'admin' || in_array('5', json_decode(Auth::user()->staff->role->permissions))) && \App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1)
