@@ -270,7 +270,7 @@
 							</div>
 							
 
-							<div class="form-group">
+							<div class="form-group" style="display:none">
 	                            <label class="col-lg-2 control-label">{{__('Unit price')}}</label>
 	                            <div class="col-lg-7">
 	                                <input type="text" placeholder="{{__('Unit price')}}" name="unit_price" class="form-control" value="{{$product->unit_price}}" required>
