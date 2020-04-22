@@ -144,6 +144,9 @@
 
 	<!--Summernote [ OPTIONAL ]-->
 	<script src="{{ asset('js/jodit.min.js') }}"></script>
+	<!--Vue.Js-->
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 	<!--Bootstrap Tags Input [ OPTIONAL ]-->
 	<script src="{{ asset('plugins/bootstrap-tagsinput/bootstrap-tagsinput.min.js')}}"></script>
@@ -229,7 +232,7 @@
 	<div id="container" class="effect aside-float aside-bright mainnav-lg">
 		@include('inc.admin_nav')
 
-		<div class="boxed">
+		<div class="boxed" id="appViewPort">
 
 			<!--CONTENT CONTAINER-->
 			<!--===================================================-->
@@ -250,6 +253,13 @@
 	</div>
 
 	@yield('script')
+
+	<script>
+	
+
+
+	
+	</script>
 
 </body>
 </html>

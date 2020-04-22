@@ -10,6 +10,8 @@ use Auth;
 use App\SubSubCategory;
 use Session;
 use ImageOptimizer;
+use App\ProductShippingPoints;
+use App\ProductPriceRange;
 
 class ProductController extends Controller
 {
@@ -22,7 +24,7 @@ class ProductController extends Controller
     {
         $type = 'In House';
         $products = Product::where('added_by', 'admin')->orderBy('created_at', 'desc')->get();
-        return view('products.index', compact('products','type'));
+        return view('products.index', compact('products', 'type'));
     }
 
     /**
@@ -39,7 +41,7 @@ class ProductController extends Controller
             $products = Product::where('added_by', 'seller')->orderBy('created_at', 'desc')->get();
         }
         $type = 'Seller';
-        return view('products.index', compact('products','type'));
+        return view('products.index', compact('products', 'type'));
     }
 
     /**
@@ -73,32 +75,32 @@ class ProductController extends Controller
         $product->current_stock = $request->current_stock;
         $photos = array();
 
-        if($request->hasFile('photos')){
+        if ($request->hasFile('photos')) {
             foreach ($request->photos as $key => $photo) {
                 $path = $photo->store('uploads/products/photos');
                 array_push($photos, $path);
-                //ImageOptimizer::optimize(base_path('public/').$path);
+            //ImageOptimizer::optimize(base_path('public/').$path);
             }
             $product->photos = json_encode($photos);
         }
 
-        if($request->hasFile('thumbnail_img')){
+        if ($request->hasFile('thumbnail_img')) {
             $product->thumbnail_img = $request->thumbnail_img->store('uploads/products/thumbnail');
-            //ImageOptimizer::optimize(base_path('public/').$product->thumbnail_img);
+        //ImageOptimizer::optimize(base_path('public/').$product->thumbnail_img);
         }
 
-        if($request->hasFile('featured_img')){
+        if ($request->hasFile('featured_img')) {
             $product->featured_img = $request->featured_img->store('uploads/products/featured');
-            //ImageOptimizer::optimize(base_path('public/').$product->featured_img);
+        //ImageOptimizer::optimize(base_path('public/').$product->featured_img);
         }
 
-        if($request->hasFile('flash_deal_img')){
+        if ($request->hasFile('flash_deal_img')) {
             $product->flash_deal_img = $request->flash_deal_img->store('uploads/products/flash_deal');
-            //ImageOptimizer::optimize(base_path('public/').$product->flash_deal_img);
+        //ImageOptimizer::optimize(base_path('public/').$product->flash_deal_img);
         }
 
         $product->unit = $request->unit;
-        $product->tags = implode('|',$request->tags);
+        $product->tags = implode('|', $request->tags);
         $product->description = $request->description;
         $product->video_provider = $request->video_provider;
         $product->video_link = $request->video_link;
@@ -109,7 +111,7 @@ class ProductController extends Controller
         $product->discount = $request->discount;
         $product->discount_type = $request->discount_type;
         $product->shipping_type = $request->shipping_type;
-        if($request->shipping_type == 'free'){
+        if ($request->shipping_type == 'free') {
             $product->shipping_cost = 0;
         }
         elseif ($request->shipping_type == 'flat_rate') {
@@ -118,18 +120,18 @@ class ProductController extends Controller
         $product->meta_title = $request->meta_title;
         $product->meta_description = $request->meta_description;
 
-        if($request->hasFile('meta_img')){
+        if ($request->hasFile('meta_img')) {
             $product->meta_img = $request->meta_img->store('uploads/products/meta');
-            //ImageOptimizer::optimize(base_path('public/').$product->meta_img);
+        //ImageOptimizer::optimize(base_path('public/').$product->meta_img);
         }
 
-        if($request->hasFile('pdf')){
+        if ($request->hasFile('pdf')) {
             $product->pdf = $request->pdf->store('uploads/products/pdf');
         }
 
-        $product->slug = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', $request->name)).'-'.str_random(5);
+        $product->slug = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', $request->name)) . '-' . str_random(5);
 
-        if($request->has('colors_active') && $request->has('colors') && count($request->colors) > 0){
+        if ($request->has('colors_active') && $request->has('colors') && count($request->colors) > 0) {
             $product->colors = json_encode($request->colors);
         }
         else {
@@ -139,10 +141,10 @@ class ProductController extends Controller
 
         $choice_options = array();
 
-        if($request->has('choice')){
+        if ($request->has('choice')) {
             foreach ($request->choice_no as $key => $no) {
-                $str = 'choice_options_'.$no;
-                $item['name'] = 'choice_'.$no;
+                $str = 'choice_options_' . $no;
+                $item['name'] = 'choice_' . $no;
                 $item['title'] = $request->choice[$key];
                 $item['options'] = explode(',', implode('|', $request[$str]));
                 array_push($choice_options, $item);
@@ -155,42 +157,42 @@ class ProductController extends Controller
 
         //combinations start
         $options = array();
-        if($request->has('colors_active') && $request->has('colors') && count($request->colors) > 0){
+        if ($request->has('colors_active') && $request->has('colors') && count($request->colors) > 0) {
             $colors_active = 1;
             array_push($options, $request->colors);
         }
 
-        if($request->has('choice_no')){
+        if ($request->has('choice_no')) {
             foreach ($request->choice_no as $key => $no) {
-                $name = 'choice_options_'.$no;
-                $my_str = implode('|',$request[$name]);
+                $name = 'choice_options_' . $no;
+                $my_str = implode('|', $request[$name]);
                 array_push($options, explode(',', $my_str));
             }
         }
 
         //Generates the combinations of customer choice options
         $combinations = combinations($options);
-        if(count($combinations[0]) > 0){
-            foreach ($combinations as $key => $combination){
+        if (count($combinations[0]) > 0) {
+            foreach ($combinations as $key => $combination) {
                 $str = '';
-                foreach ($combination as $key => $item){
-                    if($key > 0 ){
-                        $str .= '-'.str_replace(' ', '', $item);
+                foreach ($combination as $key => $item) {
+                    if ($key > 0) {
+                        $str .= '-' . str_replace(' ', '', $item);
                     }
-                    else{
-                        if($request->has('colors_active') && $request->has('colors') && count($request->colors) > 0){
+                    else {
+                        if ($request->has('colors_active') && $request->has('colors') && count($request->colors) > 0) {
                             $color_name = \App\Color::where('code', $item)->first()->name;
                             $str .= $color_name;
                         }
-                        else{
+                        else {
                             $str .= str_replace(' ', '', $item);
                         }
                     }
                 }
                 $item = array();
-                $item['price'] = $request['price_'.str_replace('.', '_', $str)];
-                $item['sku'] = $request['sku_'.str_replace('.', '_', $str)];
-                $item['qty'] = $request['qty_'.str_replace('.', '_', $str)];
+                $item['price'] = $request['price_' . str_replace('.', '_', $str)];
+                $item['sku'] = $request['sku_' . str_replace('.', '_', $str)];
+                $item['qty'] = $request['qty_' . str_replace('.', '_', $str)];
                 $variations[$str] = $item;
             }
         }
@@ -204,16 +206,16 @@ class ProductController extends Controller
             saveJSONFile($language->code, $data);
         }
 
-        if($product->save()){
+        if ($product->save()) {
             flash(__('Product has been inserted successfully'))->success();
-            if(Auth::user()->user_type == 'admin' || Auth::user()->user_type == 'staff'){
+            if (Auth::user()->user_type == 'admin' || Auth::user()->user_type == 'staff') {
                 return redirect()->route('products.admin');
             }
-            else{
+            else {
                 return redirect()->route('seller.products');
             }
         }
-        else{
+        else {
             flash(__('Something went wrong'))->error();
             return back();
         }
@@ -227,7 +229,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+    //
     }
 
     /**
@@ -238,11 +240,48 @@ class ProductController extends Controller
      */
     public function admin_product_edit($id)
     {
-        $product = Product::findOrFail(decrypt($id));
+        $product = Product::where('id', '=', decrypt($id))->with('priceRange')->with('shippingPoints')->first();
         //dd(json_decode($product->price_variations)->choices_0_S_price);
         $tags = json_decode($product->tags);
         $categories = Category::all();
         return view('products.edit', compact('product', 'categories', 'tags'));
+    }
+
+    public function price_range(Request $request)
+    {
+        $product = Product::where('id', '=', $request->id)->with('priceRange')->with('shippingPoints')->first();
+        //dd(json_decode($product->price_variations)->choices_0_S_price);
+        $tags = json_decode($product->tags);
+        $categories = Category::all();
+
+        return $product->priceRange->toArray();
+    }
+
+    public function price_range_update(Request $request)
+    {
+        $ProductPriceRange = ProductPriceRange::where('id', '=', $request->id)->first();
+        if ($ProductPriceRange != null) {
+            $ProductPriceRange->range_from = $request->range_from;
+            $ProductPriceRange->range_to = $request->range_to;
+            $ProductPriceRange->unit_price = $request->unit_price;
+            $ProductPriceRange->save();
+        }
+        else {
+            $ProductPriceRange = new ProductPriceRange;
+            $ProductPriceRange->product_id = $request->product_id;
+            $ProductPriceRange->range_from = $request->range_from;
+            $ProductPriceRange->range_to = $request->range_to;
+            $ProductPriceRange->unit_price = $request->unit_price;
+            $ProductPriceRange->save();
+        }
+
+        return response("OK", 200)->header('Content-Type', 'text/plain');
+    }
+
+    public function price_range_remove(Request $request)
+    {
+        ProductPriceRange::destroy($request->id);
+        return response("OK", 200)->header('Content-Type', 'text/plain');
     }
 
     /**
@@ -277,42 +316,46 @@ class ProductController extends Controller
         $product->brand_id = $request->brand_id;
         $product->current_stock = $request->current_stock;
 
-        if($request->has('previous_photos')){
+        $shippingPoints = ProductShippingPoints::find($product->shippingPoints[0]->id);
+        $shippingPoints->point_value = $request->shippingPoints;
+        $shippingPoints->save();
+
+        if ($request->has('previous_photos')) {
             $photos = $request->previous_photos;
         }
-        else{
+        else {
             $photos = array();
         }
 
-        if($request->hasFile('photos')){
+        if ($request->hasFile('photos')) {
             foreach ($request->photos as $key => $photo) {
                 $path = $photo->store('uploads/products/photos');
                 array_push($photos, $path);
-                //ImageOptimizer::optimize(base_path('public/').$path);
+            //ImageOptimizer::optimize(base_path('public/').$path);
             }
         }
         $product->photos = json_encode($photos);
 
         $product->thumbnail_img = $request->previous_thumbnail_img;
-        if($request->hasFile('thumbnail_img')){
+        if ($request->hasFile('thumbnail_img')) {
             $product->thumbnail_img = $request->thumbnail_img->store('uploads/products/thumbnail');
-            //ImageOptimizer::optimize(base_path('public/').$product->thumbnail_img);
+        //ImageOptimizer::optimize(base_path('public/').$product->thumbnail_img);
         }
 
         $product->featured_img = $request->previous_featured_img;
-        if($request->hasFile('featured_img')){
+        if ($request->hasFile('featured_img')) {
             $product->featured_img = $request->featured_img->store('uploads/products/featured');
-            //ImageOptimizer::optimize(base_path('public/').$product->featured_img);
+        //ImageOptimizer::optimize(base_path('public/').$product->featured_img);
         }
 
         $product->flash_deal_img = $request->previous_flash_deal_img;
-        if($request->hasFile('flash_deal_img')){
+        if ($request->hasFile('flash_deal_img')) {
             $product->flash_deal_img = $request->flash_deal_img->store('uploads/products/flash_deal');
-            //ImageOptimizer::optimize(base_path('public/').$product->flash_deal_img);
+        //ImageOptimizer::optimize(base_path('public/').$product->flash_deal_img);
         }
 
         $product->unit = $request->unit;
-        $product->tags = implode('|',$request->tags);
+        $product->tags = implode('|', $request->tags);
         $product->description = $request->description;
         $product->video_provider = $request->video_provider;
         $product->video_link = $request->video_link;
@@ -322,7 +365,7 @@ class ProductController extends Controller
         $product->tax_type = $request->tax_type;
         $product->discount = $request->discount;
         $product->shipping_type = $request->shipping_type;
-        if($request->shipping_type == 'free'){
+        if ($request->shipping_type == 'free') {
             $product->shipping_cost = 0;
         }
         elseif ($request->shipping_type == 'flat_rate') {
@@ -333,18 +376,18 @@ class ProductController extends Controller
         $product->meta_description = $request->meta_description;
 
         $product->meta_img = $request->previous_meta_img;
-        if($request->hasFile('meta_img')){
+        if ($request->hasFile('meta_img')) {
             $product->meta_img = $request->meta_img->store('uploads/products/meta');
-            //ImageOptimizer::optimize(base_path('public/').$product->meta_img);
+        //ImageOptimizer::optimize(base_path('public/').$product->meta_img);
         }
 
-        if($request->hasFile('pdf')){
+        if ($request->hasFile('pdf')) {
             $product->pdf = $request->pdf->store('uploads/products/pdf');
         }
 
-        $product->slug = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', $request->name)).'-'.substr($product->slug, -5);
+        $product->slug = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', $request->name)) . '-' . substr($product->slug, -5);
 
-        if($request->has('colors_active') && $request->has('colors') && count($request->colors) > 0){
+        if ($request->has('colors_active') && $request->has('colors') && count($request->colors) > 0) {
             $product->colors = json_encode($request->colors);
         }
         else {
@@ -354,10 +397,10 @@ class ProductController extends Controller
 
         $choice_options = array();
 
-        if($request->has('choice')){
+        if ($request->has('choice')) {
             foreach ($request->choice_no as $key => $no) {
-                $str = 'choice_options_'.$no;
-                $item['name'] = 'choice_'.$no;
+                $str = 'choice_options_' . $no;
+                $item['name'] = 'choice_' . $no;
                 $item['title'] = $request->choice[$key];
                 $item['options'] = explode(',', implode('|', $request[$str]));
                 array_push($choice_options, $item);
@@ -377,41 +420,41 @@ class ProductController extends Controller
 
         //combinations start
         $options = array();
-        if($request->has('colors_active') && $request->has('colors') && count($request->colors) > 0){
+        if ($request->has('colors_active') && $request->has('colors') && count($request->colors) > 0) {
             $colors_active = 1;
             array_push($options, $request->colors);
         }
 
-        if($request->has('choice_no')){
+        if ($request->has('choice_no')) {
             foreach ($request->choice_no as $key => $no) {
-                $name = 'choice_options_'.$no;
-                $my_str = implode('|',$request[$name]);
+                $name = 'choice_options_' . $no;
+                $my_str = implode('|', $request[$name]);
                 array_push($options, explode(',', $my_str));
             }
         }
 
         $combinations = combinations($options);
-        if(count($combinations[0]) > 0){
-            foreach ($combinations as $key => $combination){
+        if (count($combinations[0]) > 0) {
+            foreach ($combinations as $key => $combination) {
                 $str = '';
-                foreach ($combination as $key => $item){
-                    if($key > 0 ){
-                        $str .= '-'.str_replace(' ', '', $item);
+                foreach ($combination as $key => $item) {
+                    if ($key > 0) {
+                        $str .= '-' . str_replace(' ', '', $item);
                     }
-                    else{
-                        if($request->has('colors_active') && $request->has('colors') && count($request->colors) > 0){
+                    else {
+                        if ($request->has('colors_active') && $request->has('colors') && count($request->colors) > 0) {
                             $color_name = \App\Color::where('code', $item)->first()->name;
                             $str .= $color_name;
                         }
-                        else{
+                        else {
                             $str .= str_replace(' ', '', $item);
                         }
                     }
                 }
                 $item = array();
-                $item['price'] = $request['price_'.str_replace('.', '_', $str)];
-                $item['sku'] = $request['sku_'.str_replace('.', '_', $str)];
-                $item['qty'] = $request['qty_'.str_replace('.', '_', $str)];
+                $item['price'] = $request['price_' . str_replace('.', '_', $str)];
+                $item['sku'] = $request['sku_' . str_replace('.', '_', $str)];
+                $item['qty'] = $request['qty_' . str_replace('.', '_', $str)];
                 $variations[$str] = $item;
             }
         }
@@ -419,16 +462,16 @@ class ProductController extends Controller
 
         $product->variations = json_encode($variations);
 
-        if($product->save()){
+        if ($product->save()) {
             flash(__('Product has been updated successfully'))->success();
-            if(Auth::user()->user_type == 'admin'){
+            if (Auth::user()->user_type == 'admin') {
                 return redirect()->route('products.admin');
             }
-            else{
+            else {
                 return redirect()->route('seller.products');
             }
         }
-        else{
+        else {
             flash(__('Something went wrong'))->error();
             return back();
         }
@@ -443,7 +486,7 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = Product::findOrFail($id);
-        if(Product::destroy($id)){
+        if (Product::destroy($id)) {
             foreach (Language::all() as $key => $language) {
                 $data = openJSONFile($language->code);
                 unset($data[$product->name]);
@@ -462,14 +505,14 @@ class ProductController extends Controller
             //     //unlink($photo);
             // }
             flash(__('Product has been deleted successfully'))->success();
-            if(Auth::user()->user_type == 'admin'){
+            if (Auth::user()->user_type == 'admin') {
                 return redirect()->route('products.admin');
             }
-            else{
+            else {
                 return redirect()->route('seller.products');
             }
         }
-        else{
+        else {
             flash(__('Something went wrong'))->error();
             return back();
         }
@@ -485,18 +528,18 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
         $product_new = $product->replicate();
-        $product_new->slug = substr($product_new->slug, 0, -5).str_random(5);
+        $product_new->slug = substr($product_new->slug, 0, -5) . str_random(5);
 
-        if($product_new->save()){
+        if ($product_new->save()) {
             flash(__('Product has been duplicated successfully'))->success();
-            if(Auth::user()->user_type == 'admin' || Auth::user()->user_type == 'staff'){
+            if (Auth::user()->user_type == 'admin' || Auth::user()->user_type == 'staff') {
                 return redirect()->route('products.admin');
             }
-            else{
+            else {
                 return redirect()->route('seller.products');
             }
         }
-        else{
+        else {
             flash(__('Something went wrong'))->error();
             return back();
         }
@@ -518,7 +561,7 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($request->id);
         $product->todays_deal = $request->status;
-        if($product->save()){
+        if ($product->save()) {
             return 1;
         }
         return 0;
@@ -528,7 +571,7 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($request->id);
         $product->published = $request->status;
-        if($product->save()){
+        if ($product->save()) {
             return 1;
         }
         return 0;
@@ -538,7 +581,7 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($request->id);
         $product->featured = $request->status;
-        if($product->save()){
+        if ($product->save()) {
             return 1;
         }
         return 0;
@@ -547,7 +590,7 @@ class ProductController extends Controller
     public function sku_combination(Request $request)
     {
         $options = array();
-        if($request->has('colors_active') && $request->has('colors') && count($request->colors) > 0){
+        if ($request->has('colors_active') && $request->has('colors') && count($request->colors) > 0) {
             $colors_active = 1;
             array_push($options, $request->colors);
         }
@@ -558,9 +601,9 @@ class ProductController extends Controller
         $unit_price = $request->unit_price;
         $product_name = $request->name;
 
-        if($request->has('choice_no')){
+        if ($request->has('choice_no')) {
             foreach ($request->choice_no as $key => $no) {
-                $name = 'choice_options_'.$no;
+                $name = 'choice_options_' . $no;
                 $my_str = implode('|', $request[$name]);
                 array_push($options, explode(',', $my_str));
             }
@@ -575,7 +618,7 @@ class ProductController extends Controller
         $product = Product::findOrFail($request->id);
 
         $options = array();
-        if($request->has('colors_active') && $request->has('colors') && count($request->colors) > 0){
+        if ($request->has('colors_active') && $request->has('colors') && count($request->colors) > 0) {
             $colors_active = 1;
             array_push($options, $request->colors);
         }
@@ -586,9 +629,9 @@ class ProductController extends Controller
         $product_name = $request->name;
         $unit_price = $request->unit_price;
 
-        if($request->has('choice_no')){
+        if ($request->has('choice_no')) {
             foreach ($request->choice_no as $key => $no) {
-                $name = 'choice_options_'.$no;
+                $name = 'choice_options_' . $no;
                 $my_str = implode('|', $request[$name]);
                 array_push($options, explode(',', $my_str));
             }

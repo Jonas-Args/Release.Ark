@@ -29,9 +29,21 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 	Route::get('/products/seller', 'ProductController@seller_products')->name('products.seller');
 	Route::get('/products/create', 'ProductController@create')->name('products.create');
 	Route::get('/products/admin/{id}/edit', 'ProductController@admin_product_edit')->name('products.admin.edit');
+	Route::post('/products/admin/price_range', 'ProductController@price_range')->name('products.admin.price_range');
+	Route::post('/products/admin/price_range/update', 'ProductController@price_range_update')->name('products.admin.price_range.update');
+	Route::post('/products/admin/price_range/remove', 'ProductController@price_range_remove')->name('products.admin.price_range.remove');
 	Route::get('/products/seller/{id}/edit', 'ProductController@seller_product_edit')->name('products.seller.edit');
 	Route::post('/products/todays_deal', 'ProductController@updateTodaysDeal')->name('products.todays_deal');
 	Route::post('/products/get_products_by_subsubcategory', 'ProductController@get_products_by_subsubcategory')->name('products.get_products_by_subsubcategory');
+
+	Route::get('/products/admin/shipping_settings', 'ShippingSettingsController@shipping_settings')->name('shipping_settings.admin');
+	Route::post('/products/admin/shipping_settings/shipping_fee_type/', 'ShippingSettingsController@shipping_fee_type')->name('shipping_settings.admin.shipping_fee_type');
+	Route::post('/products/admin/shipping_settings/shipping_fee_type/update', 'ShippingSettingsController@shipping_fee_type_update')->name('shipping_settings.admin.shipping_fee_type.update');
+	Route::post('/products/admin/shipping_settings/shipping_fee_type/remove', 'ShippingSettingsController@shipping_fee_type_remove')->name('shipping_settings.admin.shipping_fee_type.remove');
+
+	Route::post('/products/admin/shipping_settings/packaging_type/', 'ShippingSettingsController@packaging_type')->name('shipping_settings.admin.packaging_type');
+	Route::post('/products/admin/shipping_settings/packaging_type/update', 'ShippingSettingsController@packaging_type_update')->name('shipping_settings.admin.packaging_type.update');
+	Route::post('/products/admin/shipping_settings/packaging_type/remove', 'ShippingSettingsController@packaging_type_remove')->name('shipping_settings.admin.packaging_type.remove');
 
 	Route::resource('sellers', 'SellerController');
 	Route::get('/sellers/destroy/{id}', 'SellerController@destroy')->name('sellers.destroy');

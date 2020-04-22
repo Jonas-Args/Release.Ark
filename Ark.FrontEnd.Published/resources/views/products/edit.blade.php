@@ -2,6 +2,7 @@
 
 @section('content')
 
+<div id="appViewPort_Products">
 <div class="row">
 	<form class="form form-horizontal mar-top" action="{{route('products.update', $product->id)}}" method="POST" enctype="multipart/form-data" id="choice_form">
 		<input name="_method" type="hidden" value="POST">
@@ -31,7 +32,7 @@
 				            <a data-toggle="tab" href="#demo-stk-lft-tab-5" aria-expanded="false">{{__('Customer Choice')}}</a>
 				        </li>
 						<li class="">
-				            <a data-toggle="tab" href="#demo-stk-lft-tab-6" aria-expanded="false">{{__('Price')}}</a>
+				            <a data-toggle="tab" href="#demo-stk-lft-tab-6" @click="DispalyPriceRangeData({{$product->id}})" aria-expanded="false">{{__('Price')}}</a>
 				        </li>
 						<li class="">
 				            <a data-toggle="tab" href="#demo-stk-lft-tab-7" aria-expanded="false">{{__('Description')}}</a>
@@ -304,22 +305,106 @@
 	                                	<option value="percent" <?php if($product->discount_type == 'percent') echo "selected";?> >%</option>
 	                                </select>
 	                            </div>
-	                        </div>
+							</div>
 							<div class="form-group" id="quantity">
-								<label class="col-lg-2 control-label">{{__('Quantity')}}</label>
-								<div class="col-lg-7">
-									<input type="number" min="0" value="{{ $product->current_stock }}" step="1" placeholder="{{__('Quantity')}}" name="current_stock" class="form-control" required>
-								</div>
+							    <label class="col-lg-2 control-label">{{__('Quantity')}}</label>
+							    <div class="col-lg-7">
+							        <input type="number" min="0" value="{{ $product->current_stock }}" step="1"
+							            placeholder="{{__('Quantity')}}" name="current_stock" class="form-control" required>
+							    </div>
+							</div>
+						<hr>
+							<div class="row">
+							    <div class="col-md-12">
+							        <div class="panel panel-primary">
+							            <div class="panel-heading">
+							                <h3 class="panel-title">Price Range</h3>
+							                <div class="pull-right">
+							                    <span class="clickable filter" data-toggle="tooltip" title="Toggle table filter"
+							                        data-container="body">
+							                        <i class="glyphicon glyphicon-filter"></i>
+							                    </span>
+							                </div>
+							            </div>
+							            <div class="panel-body">
+							                <input type="text" class="form-control" id="dev-table-filter" data-action="filter"
+							                    data-filters="#dev-table" placeholder="Filter Developers" />
+
+							                <table class="table table-hover" id="dev-table">
+							                    <thead>
+							                        <tr>
+							                            <th>#</th>
+							                            <th>From Qty</th>
+							                            <th>To Qty</th>
+							                            <th>Unit Price</th>
+							                            <th></th>
+							                        </tr>
+							                    </thead>
+							                    <tbody>
+													@verbatim
+													<tr v-for="(rowItem, x) in priceRange" v-bind:key="x">
+							                          <td>{{x + 1}}</td>
+							                          <td>{{rowItem.range_from}}</td>
+							                          <td>{{rowItem.range_to}}</td>
+							                          <td>{{rowItem.unit_price}}</td>
+							                          <td width="100px">
+							                              <div class="btn-group dropdown">
+							                                  <button class="btn btn-primary dropdown-toggle dropdown-toggle-icon"
+							                                      data-toggle="dropdown" type="button">
+							                                      Actions <i class="dropdown-caret"></i>
+							                                  </button>
+							                                  <ul class="dropdown-menu dropdown-menu-right">
+							                                      <li><a @click="ShowModal('EditProductPrice', JSON.stringify(rowItem))">Edit</a></li>
+							                                      <li><a @click="RemovePriceRangeData(rowItem)">Delete</a>
+							                                      </li>
+							                                  </ul>
+							                              </div>
+							                          </td>
+													</tr>
+													@endverbatim
+							                    </tbody>
+							                </table>
+
+							                <div class="form-group" style="margin-bottom:0px">
+							                    <div class="col-lg-2">
+							                        <button type="button" class="btn btn-info btn-primary"
+							                            @click="ShowModal('AddProductPrice')">{{ __('Add more price choice option') }}</button>
+							                    </div>
+							                </div>
+							            </div>
+
+							        </div>
+
+							    </div>
 							</div>
 
-							<div class="form-group">
-								<div class="col-lg-2">
-									<button type="button" class="btn btn-info" onclick="add_more_price_choice_option()">{{ __('Add more price choice option') }}</button>
-								</div>
-							</div>
+						
 
 							<br>
-							<div class="sku_combination" id="sku_combination">
+							<div class="panel panel-primary">
+							            <div class="panel-heading">
+							                <h3 class="panel-title">Variants</h3>
+							                <div class="pull-right">
+							                    <span class="clickable filter" data-toggle="tooltip" title="Toggle table filter"
+							                        data-container="body">
+							                        <i class="glyphicon glyphicon-filter"></i>
+							                    </span>
+							                </div>
+							            </div>
+							            <div class="panel-body">
+										   
+											<div class="sku_combination" id="sku_combination">
+
+							                <div class="form-group" style="margin-bottom:0px">
+							                    <div class="col-lg-2">
+							                        <button type="button" class="btn btn-info btn-primary"
+							                            onclick="add_more_price_choice_option()">{{ __('Add more price choice option') }}</button>
+							                    </div>
+							                </div>
+							            </div>
+
+							        </div>
+							
 
 							</div>
 				        </div>
@@ -402,9 +487,29 @@
 										</div>
 									</div>
 								</div>
+								
 							</div>
 
-				        </div>
+							<div class="row bord-btm">
+							    <div class="col-md-2">
+							        <div class="panel-heading">
+							            <h3 class="panel-title">{{__('Other Options')}}</h3>
+							        </div>
+							    </div>
+							    <div class="col-md-10" style="margin-top:10px">
+							        <div class="form-group">
+							            <label class="col-lg-2 control-label">{{__('Shipping Points')}}</label>
+							            <div class="col-lg-7">
+							                <input type="number" min="0" step="0.01" placeholder="{{__('Shipping Points')}}"
+							                    name="shippingPoints" class="form-control" value="{{ number_format($product->shippingPoints[0]->point_value, 2) }}"
+							                    required>
+							            </div>
+							        </div>
+							    </div>
+
+							</div>
+
+							</div>
 						<div id="demo-stk-lft-tab-10" class="tab-pane fade">
 							<div class="form-group">
 								<label class="col-lg-2 control-label">{{__('PDF Specification')}}</label>
@@ -423,11 +528,131 @@
 	</form>
 </div>
 
+
+<!-- Modal -->
+<div class="modal fade" id="productPriceModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	  <h4 class="modal-title" id="myModalLabel">@{{modalHeader}}</h4>
+      </div>
+      <div class="modal-body">
+		
+		<div v-if="modalIntent == 'EditProductPrice' || modalIntent == 'AddProductPrice'">
+			<input type="hidden" class="form-control" v-model="modalData.product_id">
+			<div class="input-group">
+		        <span class="input-group-addon">From Qty</span>
+		        <input type="text" class="form-control" v-model="modalData.range_from" placeholder="Qty">
+		    </div>
+			<br>
+			<div class="input-group">
+		        <span class="input-group-addon">To Qty</span>
+		        <input type="text" class="form-control" v-model="modalData.range_to" placeholder="Qty">
+			</div>
+			<br>
+			<div class="input-group">
+		        <span class="input-group-addon">Unit Price</span>
+		        <input type="text" class="form-control" v-model="modalData.unit_price" placeholder="Price Php">
+		    </div>
+		</div>
+		
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" @click="UpdatePriceRangeData()" class="btn btn-primary">Save changes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+</div>
+
+
 @endsection
 
 @section('script')
 
 <script type="text/javascript">
+
+		var appView_products = new Vue({
+		    el: '#appViewPort_Products',
+		    data: {
+				message: 'Hello Vue!',
+				modalIntent: '',
+				modalHeader: '',
+				productID: '',
+				modalData: [],
+		        priceRange: []
+		    },
+		    methods: {
+		        DispalyPriceRangeData(x, url = '{{ route('products.admin.price_range') }}') {
+					this.productID = x;
+					document.body.style.cursor = "progress";
+		            axios
+		                .post(url, {
+		                    id: x
+		                })
+		                .then(data => {
+							document.body.style.cursor = "default";
+		                    this.priceRange = data.data;
+		                });
+				},
+		        UpdatePriceRangeData(x = this.modalData, url = '{{ route('products.admin.price_range.update') }}') {
+					document.body.style.cursor = "progress";
+		            axios
+		                .post(url, {
+		                    id: x.id,
+		                    range_from: x.range_from,
+		                    range_to: x.range_to,
+							unit_price: x.unit_price,
+							product_id: this.productID
+		                })
+		                .then(data => {
+							document.body.style.cursor = "default";
+							this.DispalyPriceRangeData(this.productID);
+							$('#productPriceModal').modal('hide');
+		                });
+				},
+				 RemovePriceRangeData(x, url = '{{ route('products.admin.price_range.remove') }}') {
+					document.body.style.cursor = "progress";
+		            axios
+		                .post(url, {
+		                    id: x.id
+		                })
+		                .then(data => {
+							document.body.style.cursor = "default";
+							this.DispalyPriceRangeData(this.productID);
+		                });
+				},
+				ShowModal(x,y) {
+					switch (x) {
+						case 'EditProductPrice':
+							this.modalHeader = "Edit Price Range";
+							this.modalIntent = "EditProductPrice";
+							rwData = JSON.parse(y);
+							this.modalData = rwData;
+							break;
+						case 'AddProductPrice':
+							this.modalHeader = "New Price Range";
+							this.modalIntent = "AddProductPrice";
+							this.modalData = [];
+							break;
+					
+						default:
+							break;
+					}
+
+				    $('#productPriceModal').modal('show');
+				}
+		    },
+		    created() {
+		    }
+		});
+
+	function EditProductPrice(params) {
+		$('#productPriceModal').modal('show');
+	}
 
 	var i = $('input[name="choice_no[]"').last().val();
 	if(isNaN(i)){
