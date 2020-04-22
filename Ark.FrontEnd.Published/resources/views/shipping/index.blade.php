@@ -52,7 +52,7 @@
                                 <td>{{x + 1}}</td>
                                 <td>{{rowItem.range_from}}</td>
                                 <td>{{rowItem.range_to}}</td>
-                                <td>{{rowItem.packaging_type.packaging_name}} | {{rowItem.packaging_type.name}}</td>
+                                <td>{{rowItem.packaging_type.packaging_name}} | {{rowItem.packaging_type.name}} | Price: {{rowItem.packaging_type.unit_price}}</td>
                                 <td>{{rowItem.region}}</td>
                                 <td width="100px">
                                     <div class="btn-group dropdown">
