@@ -266,6 +266,9 @@
 
                             <!--Submenu-->
                             <ul class="collapse">
+                                <li class="{{ areActiveRoutes(['stock_report.mem_sale_report'])}}">
+                                    <a class="nav-link" href="{{ route('stock_report.mem_sale_report') }}">{{__('Membership Sale Report')}}</a>
+                                </li>
                                 <li class="{{ areActiveRoutes(['stock_report.index'])}}">
                                     <a class="nav-link" href="{{ route('stock_report.index') }}">{{__('Stock Report')}}</a>
                                 </li>

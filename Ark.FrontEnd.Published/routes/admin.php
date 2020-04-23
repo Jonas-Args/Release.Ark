@@ -173,7 +173,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 	 Route::post('/pay_to_seller', 'CommissionController@pay_to_seller')->name('commissions.pay_to_seller');
 
 	 //Reports
- 	Route::get('/stock_report', 'ReportController@stock_report')->name('stock_report.index');
+ 	Route::get('/stock_report/membership', 'ReportController@mambership_sale_report')->name('stock_report.membership');
+	 Route::get('/stock_report/membership/list', 'ReportController@mambership_list_report')->name('stock_report.membership_list');
+	 Route::get('/MembershipReport', 'ReportController@mem_sale_report')->name('stock_report.mem_sale_report');
+	 Route::get('/stock_report', 'ReportController@stock_report')->name('stock_report.index');
 	 Route::get('/in_house_sale_report', 'ReportController@in_house_sale_report')->name('in_house_sale_report.index');
 	 Route::get('/seller_report', 'ReportController@seller_report')->name('seller_report.index');
 	 Route::get('/seller_sale_report', 'ReportController@seller_sale_report')->name('seller_sale_report.index');

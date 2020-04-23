@@ -120,6 +120,7 @@
 
 	<!--BootstrapJS [ RECOMMENDED ]-->
 	<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+	<script src="{{ asset('js/moment.js') }}"></script>
 
 
 	<!--active-shop [ RECOMMENDED ]-->
