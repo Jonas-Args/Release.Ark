@@ -55,7 +55,7 @@
                             <tr  v-for="(rowItem, x) in priceRange" v-bind:key="x">
                                 <td>@{{ rowItem.businessPackage.packageName }}</td>
                                 <td>@{{ rowItem.totalSales }}</td>
-                                <td>@{{ rowItem.totalAmount }}</td>
+                                <td>PHP @{{ rowItem.totalAmount }}</td>
                             </tr>
                             <tr>
                                 <td></td>
