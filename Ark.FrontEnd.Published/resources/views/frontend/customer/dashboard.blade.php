@@ -9,11 +9,11 @@
   
    $url = 'http://localhost:55006/api/user/BusinessPackages';
    $options = array(
-  	 'http' => array(
-  		 'method'  => 'GET',
-  		 'header'    => "Accept-language: en\r\n" .
-  			 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
-  	 )
+	 'http' => array(
+		 'method'  => 'GET',
+		 'header'    => "Accept-language: en\r\n" .
+			 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
+	 )
    );
    $context  = stream_context_create($options);
    $result = file_get_contents($url, false, $context);
@@ -120,10 +120,10 @@
 							<hr />
 							<h6><b>Package Details:</b></h6>
 							<ul>
-							    <li>Package Name: <b>{{ $_r->businessPackages[0]->businessPackage->packageName }}</b></li>
-							    <li>Payment Method: <b>{{ $_r->businessPackages[0]->userDepositRequest->remarks }}</b></li>
-							    <li>Payment Amount: <b>{{ $_r->businessPackages[0]->userDepositRequest->amount }}</b></li>
-							    <li>Package Status: Pending Activation</li>
+								<li>Package Name: <b>{{ $_r->businessPackages[0]->businessPackage->packageName }}</b></li>
+								<li>Payment Method: <b>{{ $_r->businessPackages[0]->userDepositRequest->remarks }}</b></li>
+								<li>Payment Amount: <b>{{ $_r->businessPackages[0]->userDepositRequest->amount }}</b></li>
+								<li>Package Status: Pending Activation</li>
 							</ul>
 							
 							<hr />
@@ -146,10 +146,14 @@
 					</div>
 
 					@else
+						@if($_r->businessPackages[0]->businessPackage->packageCode == "EPKG1TRL")
+						<div class="mt-3">
+						    <div class="alert alert-warning" role="alert">
+						        You're Using Trial Account. Your free membership will expire on {{ date_format(date_create($_r->businessPackages[0]->expiryDate),"Y/m/d H:i:s") }}
+						    </div>
+						</div>
+						@endif
 					<div class="row">
-
-
-
 						<div class="col-md-4">
 							<div class="dashboard-widget text-center blue-widget mt-4 c-pointer" style="background-color:#12CBC4!important">
 								<a href="javascript:;" class="d-block">
@@ -182,7 +186,7 @@
 			 foreach ($orders as $key => $order) {
 				 $total += count($order->orderDetails);
 			 }
-             @endphp
+			 @endphp
 									<span class="d-block title">{{ $total }} Product(s)</span>
 									<span class="d-block sub-title">you ordered</span>
 								</a>
@@ -208,8 +212,8 @@
 											<td>{{__('Region')}}:</td>
 											<td class="p-2">
 												@if (Auth::user()->country != null)
-                                                        {{ \App\Country::where('code', Auth::user()->country)->first()->name }}
-                                                    @endif
+														{{ \App\Country::where('code', Auth::user()->country)->first()->name }}
+													@endif
 											</td>
 										</tr>
 										<tr>
