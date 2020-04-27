@@ -9,45 +9,46 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\DB;
 
 class RegisterController extends Controller
 {
 	/*
-	|--------------------------------------------------------------------------
-	| Register Controller
-	|--------------------------------------------------------------------------
-	|
-	| This controller handles the registration of new users as well as their
-	| validation and creation. By default this controller uses a trait to
-	| provide this functionality without requiring any additional code.
-	|
-	*/
+  |--------------------------------------------------------------------------
+  | Register Controller
+  |--------------------------------------------------------------------------
+  |
+  | This controller handles the registration of new users as well as their
+  | validation and creation. By default this controller uses a trait to
+  | provide this functionality without requiring any additional code.
+  |
+  */
 
 	use RegistersUsers;
 
 	/**
-	 * Where to redirect users after registration.
-	 *
-	 * @var string
-	 */
+  * Where to redirect users after registration.
+  *
+  * @var string
+  */
 	protected $redirectTo = '/';
 
 	/**
-	 * Create a new controller instance.
-	 *
-	 * @return void
-	 */
+  * Create a new controller instance.
+  *
+  * @return void
+  */
 	public function __construct()
 	{
 		$this->middleware('guest');
 	}
 
 	/**
-	 * Get a validator for an incoming registration request.
-	 *
-	 * @param  array  $data
-	 * @return \Illuminate\Contracts\Validation\Validator
-	 */
+  * Get a validator for an incoming registration request.
+  *
+  * @param  array  $data
+  * @return \Illuminate\Contracts\Validation\Validator
+  */
 	protected function validator(array $data)
 	{
 		return Validator::make($data, [
@@ -61,11 +62,11 @@ class RegisterController extends Controller
 	}
 
 	/**
-	 * Create a new user instance after a valid registration.
-	 *
-	 * @param  array  $data
-	 * @return \App\User
-	 */
+  * Create a new user instance after a valid registration.
+  *
+  * @param  array  $data
+  * @return \App\User
+  */
 	protected function create(array $data)
 	{
 		if ($data['special_code'] != "" && $data['special_code'] != "ARKPH2020")
@@ -74,14 +75,15 @@ class RegisterController extends Controller
 			return redirect()->route('user.registration');
 		}
 
+		DB::beginTransaction();
 		$user = User::create([
-		'name' => $data['fname'] . ' ' . $data['lname'],
-		'fname' => $data['fname'],
-		'mname' => $data['mname'],
-		'lname' => $data['lname'],
-		'email' => $data['email'],
-		'password' => Hash::make($data['password']),
-	]);
+			'name' => $data['fname'] . ' ' . $data['lname'],
+			'fname' => $data['fname'],
+			'mname' => $data['mname'],
+			'lname' => $data['lname'],
+			'email' => $data['email'],
+			'password' => Hash::make($data['password']),
+		]);
 
 		$url = 'http://localhost:55006/api/user/create';
 		$_data = array(
@@ -95,29 +97,29 @@ class RegisterController extends Controller
 			'DirectSponsorID' => $data['source_code'],
 			'BinaryPosition' => '1',
 			'ShopUserId' => $user->id
-			);
-
+		);
 
 
 		// use key 'http' even if you send the request to https://...
 		$options = array(
 			'http' => array(
-				'header'  => "Content-type: application/json",
-				'method'  => 'POST',
+				'header' => "Content-type: application/json",
+				'method' => 'POST',
 				'content' => json_encode($_data)
 			)
 		);
-		$context  = stream_context_create($options);
+		$context = stream_context_create($options);
 		$result = file_get_contents($url, false, $context);
 		$result = json_decode($result);
 
 		if ($result->httpStatusCode === "500") { /* Handle error */
 			flash(__('An error occured: ' . $result->message))->error();
+			DB::rollBack();
 		}
 
-		else{
-
-			if(BusinessSetting::where('type', 'email_verification')->first()->value != 1){
+		else {
+			DB::commit();
+			if (BusinessSetting::where('type', 'email_verification')->first()->value != 1) {
 				$user->email_verified_at = date('Y-m-d H:m:s');
 				$user->save();
 				flash(__('Registration successful.'))->success();
@@ -134,5 +136,6 @@ class RegisterController extends Controller
 
 			return $user;
 		}
+
 	}
 }
