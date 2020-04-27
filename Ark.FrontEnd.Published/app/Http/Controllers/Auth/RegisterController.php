@@ -75,7 +75,7 @@ class RegisterController extends Controller
 			return redirect()->route('user.registration');
 		}
 
-		DB::beginTransaction();
+		// DB::beginTransaction();
 		$user = User::create([
 			'name' => $data['fname'] . ' ' . $data['lname'],
 			'fname' => $data['fname'],
@@ -114,11 +114,12 @@ class RegisterController extends Controller
 
 		if ($result->httpStatusCode === "500") { /* Handle error */
 			flash(__('An error occured: ' . $result->message))->error();
-			DB::rollBack();
+			User::destroy($user->id);
+		// DB::rollBack();
 		}
 
 		else {
-			DB::commit();
+			// DB::commit();
 			if (BusinessSetting::where('type', 'email_verification')->first()->value != 1) {
 				$user->email_verified_at = date('Y-m-d H:m:s');
 				$user->save();
