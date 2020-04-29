@@ -99,18 +99,23 @@ class RegisterController extends Controller
 			'ShopUserId' => $user->id
 		);
 
-
-		// use key 'http' even if you send the request to https://...
-		$options = array(
-			'http' => array(
-				'header' => "Content-type: application/json",
-				'method' => 'POST',
-				'content' => json_encode($_data)
-			)
-		);
-		$context = stream_context_create($options);
-		$result = file_get_contents($url, false, $context);
-		$result = json_decode($result);
+		try {
+			// use key 'http' even if you send the request to https://...
+			$options = array(
+				'http' => array(
+					'header' => "Content-type: application/json",
+					'method' => 'POST',
+					'content' => json_encode($_data)
+				)
+			);
+			$context = stream_context_create($options);
+			$result = file_get_contents($url, false, $context);
+			$result = json_decode($result);
+		}
+		catch (\Exception $th) {
+			flash(__('A sever serror has occured'))->error();
+			User::destroy($user->id);
+		}
 
 		if ($result->httpStatusCode === "500") { /* Handle error */
 			flash(__('An error occured: ' . $result->message))->error();
