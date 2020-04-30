@@ -1,15 +1,15 @@
 <?php
 
 /*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+ |--------------------------------------------------------------------------
+ | Web Routes
+ |--------------------------------------------------------------------------
+ |
+ | Here is where you can register web routes for your application. These
+ | routes are loaded by the RouteServiceProvider within a group which
+ | contains the "web" middleware group. Now create something great!
+ |
+ */
 
 Auth::routes(['verify' => true]);
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('user.logout');
@@ -35,7 +35,7 @@ Route::post('/home/section/ark_products', 'HomeController@load_ark_products_sect
 Route::post('/home/section/best_selling', 'HomeController@load_best_selling_section')->name('home.section.best_selling');
 Route::post('/home/section/home_categories', 'HomeController@load_home_categories_section')->name('home.section.home_categories');
 Route::post('/home/section/best_sellers', 'HomeController@load_best_sellers_section')->name('home.section.best_sellers');
-Route::get('/sitemap.xml', function(){
+Route::get('/sitemap.xml', function () {
 	return base_path('sitemap.xml');
 });
 
@@ -58,8 +58,12 @@ Route::post('/cart/addtocart', 'CartController@addToCart')->name('cart.addToCart
 Route::post('/cart/removeFromCart', 'CartController@removeFromCart')->name('cart.removeFromCart');
 Route::post('/cart/updateQuantity', 'CartController@updateQuantity')->name('cart.updateQuantity');
 
+// API ACCESS FOR WITHDRAWAL
+Route::post('/customers/wallet/convert/execute', 'CustomerController@convert_proccess')->name('client.wallet.convert.exec');
+Route::post('/customers/wallet/withdraw/execute', 'CustomerController@withdraw_proccess')->name('client.wallet.withdraw.exec');
+
 //Checkout Routes
-Route::group(['middleware' => ['checkout']], function(){
+Route::group(['middleware' => ['checkout']], function () {
 	Route::get('/checkout', 'CheckoutController@get_shipping_info')->name('checkout.shipping_info');
 	Route::any('/checkout/delivery_info', 'CheckoutController@store_shipping_info')->name('checkout.store_shipping_infostore');
 	Route::post('/checkout/payment_select', 'CheckoutController@store_delivery_info')->name('checkout.store_delivery_info');
@@ -99,7 +103,7 @@ Route::get('/compare', 'CompareController@index')->name('compare');
 Route::get('/compare/reset', 'CompareController@reset')->name('compare.reset');
 Route::post('/compare/addToCompare', 'CompareController@addToCompare')->name('compare.addToCompare');
 
-Route::resource('subscribers','SubscriberController');
+Route::resource('subscribers', 'SubscriberController');
 
 Route::get('/brands', 'HomeController@all_brands')->name('brands.all');
 Route::get('/categories', 'HomeController@all_categories')->name('categories.all');
@@ -117,33 +121,33 @@ Route::get('/privacypolicy', 'HomeController@privacypolicy')->name('privacypolic
 
 Route::post('/wallet_update', 'WalletController@wallet_update')->name('wallet.wallet_update');
 
-Route::group(['middleware' => ['user', 'verified']], function(){
+Route::group(['middleware' => ['user', 'verified']], function () {
 	Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
 	Route::get('/profile', 'HomeController@profile')->name('profile');
 	Route::get('/affiliate', 'HomeController@affiliate')->name('affiliate');
 	Route::post('/customer/update-profile', 'HomeController@customer_update_profile')->name('customer.profile.update');
 	Route::post('/seller/update-profile', 'HomeController@seller_update_profile')->name('seller.profile.update');
 
-	Route::resource('purchase_history','PurchaseHistoryController');
+	Route::resource('purchase_history', 'PurchaseHistoryController');
 	Route::post('/purchase_history/details', 'PurchaseHistoryController@purchase_history_details')->name('purchase_history.details');
 	Route::get('/purchase_history/destroy/{id}', 'PurchaseHistoryController@destroy')->name('purchase_history.destroy');
 
-	Route::resource('wishlists','WishlistController');
+	Route::resource('wishlists', 'WishlistController');
 	Route::post('/wishlists/remove', 'WishlistController@remove')->name('wishlists.remove');
 
 	Route::get('/wallet', 'WalletController@index')->name('wallet.index');
 	Route::post('/recharge', 'WalletController@recharge')->name('wallet.recharge');
 
 
-	Route::resource('support_ticket','SupportTicketController');
-	Route::post('support_ticket/reply','SupportTicketController@seller_store')->name('support_ticket.seller_store');
+	Route::resource('support_ticket', 'SupportTicketController');
+	Route::post('support_ticket/reply', 'SupportTicketController@seller_store')->name('support_ticket.seller_store');
 });
 
-Route::group(['prefix' =>'seller', 'middleware' => ['seller', 'verified']], function(){
+Route::group(['prefix' => 'seller', 'middleware' => ['seller', 'verified']], function () {
 	Route::get('/products', 'HomeController@seller_product_list')->name('seller.products');
 	Route::get('/product/upload', 'HomeController@show_product_upload_form')->name('seller.products.upload');
 	Route::get('/product/{id}/edit', 'HomeController@show_product_edit_form')->name('seller.products.edit');
-	Route::resource('payments','PaymentController');
+	Route::resource('payments', 'PaymentController');
 
 	Route::get('/shop/apply_for_verification', 'ShopController@verify_form')->name('shop.verify');
 	Route::post('/shop/apply_for_verification', 'ShopController@verify_form_store')->name('shop.verify.store');
@@ -151,9 +155,9 @@ Route::group(['prefix' =>'seller', 'middleware' => ['seller', 'verified']], func
 	Route::get('/reviews', 'ReviewController@seller_reviews')->name('reviews.seller');
 });
 
-Route::group(['middleware' => ['auth']], function(){
-	Route::post('/products/store/','ProductController@store')->name('products.store');
-	Route::post('/products/update/{id}','ProductController@update')->name('products.update');
+Route::group(['middleware' => ['auth']], function () {
+	Route::post('/products/store/', 'ProductController@store')->name('products.store');
+	Route::post('/products/update/{id}', 'ProductController@update')->name('products.update');
 	Route::get('/products/destroy/{id}', 'ProductController@destroy')->name('products.destroy');
 	Route::get('/products/duplicate/{id}', 'ProductController@duplicate')->name('products.duplicate');
 	Route::post('/products/sku_combination', 'ProductController@sku_combination')->name('products.sku_combination');
@@ -164,7 +168,7 @@ Route::group(['middleware' => ['auth']], function(){
 	Route::get('invoice/customer/{order_id}', 'InvoiceController@customer_invoice_download')->name('customer.invoice.download');
 	Route::get('invoice/seller/{order_id}', 'InvoiceController@seller_invoice_download')->name('seller.invoice.download');
 
-	Route::resource('orders','OrderController');
+	Route::resource('orders', 'OrderController');
 	Route::get('/orders/destroy/{id}', 'OrderController@destroy')->name('orders.destroy');
 	Route::post('/orders/details', 'OrderController@order_details')->name('orders.details');
 	Route::post('/orders/update_delivery_status', 'OrderController@update_delivery_status')->name('orders.update_delivery_status');
@@ -177,9 +181,9 @@ Route::group(['middleware' => ['auth']], function(){
 	Route::post('/withdraw_request/payment_modal', 'SellerWithdrawRequestController@payment_modal')->name('withdraw_request.payment_modal');
 	Route::post('/withdraw_request/message_modal', 'SellerWithdrawRequestController@message_modal')->name('withdraw_request.message_modal');
 
-	Route::resource('conversations','ConversationController');
-	Route::post('conversations/refresh','ConversationController@refresh')->name('conversations.refresh');
-	Route::resource('messages','MessageController');
+	Route::resource('conversations', 'ConversationController');
+	Route::post('conversations/refresh', 'ConversationController@refresh')->name('conversations.refresh');
+	Route::resource('messages', 'MessageController');
 });
 
 Route::resource('shops', 'ShopController');

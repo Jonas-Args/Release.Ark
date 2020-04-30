@@ -117,7 +117,8 @@
                                         {{__('Wallet Options')}}
                               </h2>
                              <button type="button" class="btn btn-styled btn-base-3 mt-3" onclick="show_wallet_modal()">{{__('TopUp Wallet')}}</button>
-                             <button type="button" class="btn btn-styled btn-base-3 mt-3 ml-2">{{__('Withdraw Wallet')}}</button>
+                             <button type="button" class="btn btn-styled btn-base-3 mt-3 ml-2" onclick="show_wallet_withdarw_modal()">{{__('Withdraw Wallet')}}</button>
+                             <button type="button" class="btn btn-styled btn-base-3 mt-3 ml-2" onclick="show_wallet_convert_modal()">{{__('Convert Ark Cash')}}</button>
                         </div>
                         <hr />
                         <div class="card no-border mt-5">
@@ -131,6 +132,7 @@
                                             <th>#</th>
                                             <th>{{ __('Date') }}</th>
                                             <th>{{__('Description')}}</th>
+                                            <th>{{__('Source')}}</th>
                                             <th>{{__('Amount')}}</th>
                                         </tr>
                                     </thead>
@@ -141,6 +143,7 @@
                                                     <td>{{ $key+1 }}</td>
                                                     <td>{{ date_format(date_create($wallet->created_at),"Y/m/d H:i:s") }}</td>
                                                     <td>{{ ucfirst(str_replace('_', ' ', $wallet ->payment_method)) }}</td>
+                                                    <td>{{ $wallet->source_details }}</td>
                                                     <td>{{ bcdiv($wallet->amount, 1,3) }}</td>
                                                 </tr>
                                             @endforeach
@@ -282,12 +285,100 @@
             </div>
         </div>
     </div>
+
+     <div class="modal fade" id="wallet_withdraw_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-zoom product-modal" id="modal-size" role="document">
+            <div class="modal-content position-relative">
+                <div class="modal-header">
+                    <h5 class="modal-title strong-600 heading-5">{{__('Withdraw Ark Credits')}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form class="" action="{{ route('client.wallet.withdraw.exec') }}" method="post">
+                	@csrf
+	            	<input type="hidden" class="form-control" id="" name="ID" placeholder="" value="{{ Auth::user()->id }}" />
+	            	<input type="hidden" class="form-control" id="" name="target_wallet" placeholder="" value="Ark Cash" />
+                    
+                    <div class="modal-body gry-bg px-3 pt-3">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label>{{__('Amount')}} <span class="required-star">*</span></label>
+                            </div>
+                            <div class="col-md-10">
+                                <input type="number" class="form-control mb-3" name="transaction_amount" placeholder="Amount" step="0.01" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label>{{__('Withrawal Method')}}</label>
+                            </div>
+                            <div class="col-md-10">
+                                <div class="mb-3">
+                                    <select class="form-control selectpicker" name="target_outlet" data-minimum-results-for-search="Infinity">
+                                        <option value="Bank Wire Transfer">Bank Wire Transfer</option>
+                                        <option value="Cheque">Cheque</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1">Bank / Recepient Details</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" name="outlet_details"
+                                rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-base-1">{{__('Confirm')}}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="wallet_convert_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-zoom product-modal" id="modal-size" role="document">
+            <div class="modal-content position-relative">
+                <div class="modal-header">
+                    <h5 class="modal-title strong-600 heading-5">{{__('Convert Ark Cash')}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form class="" action="{{ route('client.wallet.convert.exec') }}" method="post">
+                    @csrf
+					<input type="hidden" class="form-control" id="" name="ID" placeholder="" value="{{ Auth::user()->id }}" />
+	            	<input type="hidden" class="form-control" id="" name="target_wallet" placeholder="" value="Ark Cash" />
+                    
+                    <div class="modal-body gry-bg px-3 pt-3">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label>{{__('Amount')}} <span class="required-star">*</span></label>
+                            </div>
+                            <div class="col-md-10">
+                                <input type="number" class="form-control mb-3" name="transaction_amount" step="0.01" placeholder="Amount" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-base-1">{{__('Confirm')}}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('script')
     <script type="text/javascript">
         function show_wallet_modal(){
             $('#wallet_modal').modal('show');
+        }
+        function show_wallet_withdarw_modal(){
+            $('#wallet_withdraw_modal').modal('show');
+        }
+        function show_wallet_convert_modal(){
+            $('#wallet_convert_modal').modal('show');
         }
     </script>
 @endsection
