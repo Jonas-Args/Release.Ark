@@ -44,7 +44,7 @@ class CustomerController extends Controller
                     "Date" => date_format(date_create($x->createdOn), "Y/m/d H:i:s"),
                     "Description" => $x->incomeType->incomeTypeName,
                     "Originator" => $x->userAuth->userInfo->firstName . ' ' . $x->userAuth->userInfo->lastName,
-                    "OriginatorID" =>  $x->userAuth->shopUserId,
+                    "OriginatorID" => $x->userAuth->shopUserId,
                     "Amount" => number_format($x->incomePercentage, 5),
                     "Computation" => $x->remarks);
             default:
@@ -71,8 +71,8 @@ class CustomerController extends Controller
 
     public function top_up_list(Request $request)
     {
-		$txs = TopupTransaction::all();
-        return view('customers.topup',compact('txs'));
+        $txs = TopupTransaction::all();
+        return view('customers.topup', compact('txs'));
     }
     /**
      * Show the form for creating a new resource.
@@ -238,15 +238,20 @@ class CustomerController extends Controller
         $result = file_get_contents($url, false, $context);
         $_r = json_decode($result);
         if ($_r->httpStatusCode == "500")
-		{
-			flash("Recipient Source Code Does Not Exist")->error();
-			return redirect()->back();
-		}
+        {
+            flash("Recipient Source Code Does Not Exist")->error();
+            return redirect()->back();
+        }
         $_r = $_r->user;
 
         $user_recepient = User::where('id', $_r->shopUserId)->first();
         switch ($target_wallet) {
             case "Ark Credits":
+
+                if (floatval($transaction_amount) > floatval($user_source->balance)) {
+                    flash("Insufficient Balance")->error();
+                    return redirect()->back();
+                }
                 $user_recepient->balance += $transaction_amount;
 
                 $wallet = new Wallet;
@@ -288,6 +293,11 @@ class CustomerController extends Controller
                 $context = stream_context_create($options);
                 $result = file_get_contents($url, false, $context);
                 $_r = json_decode($result);
+
+                if ($_r->httpStatusCode === "500") { /* Handle error */
+                    flash(__($_r->message))->error();
+                    return redirect()->back();
+                }
                 break;
 
         }
@@ -331,7 +341,8 @@ class CustomerController extends Controller
                 $wallet->user_id = $user_recepient->id;
                 $wallet->amount = $transaction_amount;
                 $wallet->payment_method = 'Balance Top-up';
-                $wallet->source_details = $user_recepient->fname . ' ' . $user_recepient->lname;;
+                $wallet->source_details = $user_recepient->fname . ' ' . $user_recepient->lname;
+                ;
                 $wallet->payment_details = '';
                 $wallet->save();
                 $user_recepient->save();
@@ -390,10 +401,10 @@ class CustomerController extends Controller
         $user_recepient = User::where('id', $_r->shopUserId)->first();
         switch ($target_wallet) {
             case "Ark Credits":
-				$data = array(
-				   'TargetShopId' => $user_recepient->id,
-				   'Amount' => $transaction_amount
-			   );
+                $data = array(
+                    'TargetShopId' => $user_recepient->id,
+                    'Amount' => $transaction_amount
+                );
 
                 $url = 'http://localhost:55006/api/AdminAccess/DecrementBalance';
                 $options = array(
@@ -407,19 +418,31 @@ class CustomerController extends Controller
                 $result = file_get_contents($url, false, $context);
                 $_r = json_decode($result);
 
+                if ($_r->httpStatusCode === "500") { /* Handle error */
+                    flash(__($_r->message))->error();
+                    return redirect()->back();
+                }
+
                 $user_recepient->balance += $transaction_amount;
 
                 $wallet = new Wallet;
                 $wallet->user_id = $user_recepient->id;
                 $wallet->amount = $transaction_amount;
                 $wallet->payment_method = 'WALLET CONVERT';
-                $wallet->source_details = $user_recepient->fname . ' ' . $user_recepient->lname;;
+                $wallet->source_details = $user_recepient->fname . ' ' . $user_recepient->lname;
+                ;
                 $wallet->payment_details = '';
                 $wallet->save();
                 $user_recepient->save();
 
                 break;
             case "Ark Cash":
+
+                if (floatval($transaction_amount) > floatval($user_recepient->balance)) {
+                    flash("Insufficient Balance")->error();
+                    return redirect()->back();
+                }
+
                 $data = array(
                     'TargetShopId' => $user_recepient->id,
                     'Amount' => $transaction_amount
@@ -465,18 +488,31 @@ class CustomerController extends Controller
         $transaction_amount = floatval($request['transaction_amount']);
 
         $user_recepient = User::where('id', $recepient_address)->first();
+
+        if ($target_outlet == 'Cheque') {
+            if (floatval($transaction_amount) < 1000) {
+                flash("Minimum withdrawal for 'Cheque' method is PHP 1000")->error();
+                return redirect()->back();
+            }
+        }
+
         switch ($target_wallet) {
             case "Ark Credits":
 
-				$data = array(
-	            	   'UserAuthId' => $recepient_address,
-	            	   'Address' => $outlet_details,
-	            	   'TotalAmount' => $transaction_amount,
-	            	   'SourceWalletTypeId' => 20,
-	            	   'Remarks' => $target_outlet
-	                    );
+                if (floatval($transaction_amount) > floatval($user_recepient->balance)) {
+                    flash("Insufficient Balance")->error();
+                    return redirect()->back();
+                }
 
-				$user_recepient->balance -= $transaction_amount;
+                $data = array(
+                    'UserAuthId' => $recepient_address,
+                    'Address' => $outlet_details,
+                    'TotalAmount' => $transaction_amount,
+                    'SourceWalletTypeId' => 20,
+                    'Remarks' => $target_outlet
+                );
+
+                $user_recepient->balance -= $transaction_amount;
 
                 $wallet = new Wallet;
                 $wallet->user_id = $user_recepient->id;
@@ -489,9 +525,9 @@ class CustomerController extends Controller
                 break;
             case "Ark Cash":
                 $data = array(
-				   'TargetShopId' => $user_recepient->id,
-				   'Amount' => $transaction_amount
-			   );
+                    'TargetShopId' => $user_recepient->id,
+                    'Amount' => $transaction_amount
+                );
 
                 $url = 'http://localhost:55006/api/AdminAccess/WithdrawBalance';
                 $options = array(
@@ -505,13 +541,18 @@ class CustomerController extends Controller
                 $result = file_get_contents($url, false, $context);
                 $_r = json_decode($result);
 
+                if ($_r->httpStatusCode === "500") { /* Handle error */
+                    flash(__($_r->message))->error();
+                    return redirect()->back();
+                }
+
                 $data = array(
-	            	   'UserAuthId' => $recepient_address,
-	            	   'Address' => $outlet_details,
-	            	   'TotalAmount' => $transaction_amount,
-	            	   'SourceWalletTypeId' => 18,
-	            	   'Remarks' => $target_outlet
-	                    );
+                    'UserAuthId' => $recepient_address,
+                    'Address' => $outlet_details,
+                    'TotalAmount' => $transaction_amount,
+                    'SourceWalletTypeId' => 18,
+                    'Remarks' => $target_outlet
+                );
                 break;
 
         }
@@ -590,20 +631,20 @@ class CustomerController extends Controller
         $view_bag->user_name = $customer->email;
         $view_bag->full_name = $customer->fname . ' ' . $customer->lname;
 
-		$data = array(
-				   'ShopUserId' => $view_bag->user_id
-			   );
-		$url = 'http://localhost:55006/api/AdminAccess/SingleUser';
-		$options = array(
-			'http' => array(
-				'method' => 'POST',
-				'header' => "Content-type: application/json",
-				'content' => json_encode($data)
-			)
-		);
-		$context = stream_context_create($options);
-		$result = file_get_contents($url, false, $context);
-		$_res = json_decode($result);
+        $data = array(
+            'ShopUserId' => $view_bag->user_id
+        );
+        $url = 'http://localhost:55006/api/AdminAccess/SingleUser';
+        $options = array(
+            'http' => array(
+                'method' => 'POST',
+                'header' => "Content-type: application/json",
+                'content' => json_encode($data)
+            )
+        );
+        $context = stream_context_create($options);
+        $result = file_get_contents($url, false, $context);
+        $_res = json_decode($result);
 
         switch ($view_bag->wallet_name) {
             case "ark_credits":
