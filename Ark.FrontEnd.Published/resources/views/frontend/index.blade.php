@@ -250,31 +250,47 @@ use Illuminate\Support\Facades\DB;
                                 <span class="mr-4">{{__('Featured Products')}}</span>
                             </h3>
                         </div>
-                        <div class="caorusel-box">
-                            <div :id="'slick_carousel_' + section" class="slick-carousel" data-slick-items="6" data-slick-xl-items="5" data-slick-lg-items="4"  data-slick-md-items="3" data-slick-sm-items="2" data-slick-xs-items="2">
-                                <div class="product-card-2 card card-product m-2 shop-cards shop-tech"  v-for="(rowItem, x) in products" v-bind:key="x">
-                                    <div class="card-body p-0">
-                                    
-                                        <div class="card-image">
-                                          <a v-bind:href="'/product/'+ rowItem.slug" class="d-block">
-		    				             	<img class="img-fit mx-auto" :src="'/public/' + rowItem.thumbnail_img" :alt="rowItem.name" />
-		    				             </a>
-                                        </div>
-                                    
-                                        <div class="p-md-3 p-2">
-                                            <div class="price-box">
-                                               <span class="product-price strong-600">@{{rowItem.price_range | single_price_dashboard}}</span>
-                                            </div>
-                                            <div class="star-rating star-rating-sm mt-1"  :inner-html.prop="rowItem.rating | renderStarRating">                                              
-                                            </div>
-                                            <h2 class="product-title p-0 text-truncate-2">
-                                            	<a :href="'/product/' + rowItem.slug" tabindex="0">@{{ rowItem.name }}</a>
-                                            </h2>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="row sm-no-gutters gutters-5">
+		    		{{-- @foreach (filter_products(\App\Product::orderBy('created_at', 'desc'))->paginate(500) as $key => $product) --}}
+
+		    		{{-- @if ($product->category->featured == 1) --}}
+		    		<div class="col-xxl-3 col-xl-4 col-lg-3 col-md-4 col-6" v-for="(rowItem, x) in products" v-bind:key="x">
+		    			<div class="product-box-2 bg-white alt-box my-md-2">
+		    				<div class="position-relative overflow-hidden">
+		    					<a v-bind:href="'/product/'+ rowItem.slug" class="d-block product-image h-100 text-center" tabindex="0">
+		    						<img class="img-fit" :src="'/public/' + rowItem.thumbnail_img" :alt="rowItem.name" />
+		    					</a>
+		    					<div class="product-btns clearfix">
+		    						<button class="btn add-wishlist" title="Add to Wishlist" onclick="addToWishList(@{{ rowItem.id }})" tabindex="0">
+		    							<i class="la la-heart-o"></i>
+		    						</button>
+		    						<!-- <button class="btn add-compare" title="Add to Compare" onclick="addToCompare(@{{ rowItem.id }})" tabindex="0">
+                                                            <i class="la la-refresh"></i>
+                                                        </button>
+                                                           -->
+		    						<button class="btn quick-view" title="Quick view" onclick="showAddToCartModal(@{{ rowItem.id }})" tabindex="0">
+		    							<i class="la la-eye"></i>
+		    						</button>
+		    					</div>
+		    				</div>
+		    				<div class="p-2 p-md-3 border-top">
+		    					<h2 class="product-title p-0 text-truncate">
+		    						<a :href="'/product/' + rowItem.slug" tabindex="0">@{{ rowItem.name }}</a>
+		    					</h2>
+		    					<div class="star-rating mb-1" :inner-html.prop="rowItem.rating | renderStarRating">
+		    					</div>
+		    					<div class="clearfix">
+		    						<div class="price-box float-left">
+		    						 <span class="product-price strong-600">@{{rowItem.price_range | single_price_dashboard}}</span>
+		    						</div>
+		    					</div>
+		    				</div>
+		    			</div>
+		    		</div>
+		    		{{-- @endif --}}
+                
+		    		{{-- @endforeach --}}
+		    	</div>
                     </div>
                 </div>
             </section>
@@ -486,6 +502,7 @@ if (window.localStorage.section_ark_products != undefined) {
 if (window.localStorage.section_featured != undefined) {
   document.getElementById("section_featured_preloaded").innerHTML =
     window.localStorage.section_featured;
+    $('#slick_carousel_section_featured').slick('reinit');
 }
 if (window.localStorage.section_coming_soon != undefined) {
   document.getElementById("section_coming_soon_preloaded").innerHTML =
@@ -639,7 +656,7 @@ if (window.localStorage.section_home_categories != undefined) {
                                  window.localStorage.section_featured_data = this.products;
                                  setTimeout(() => {
                                     this.displayStyle = 'block';
-                                    $('#slick_carousel_' + this.section).slick('reinit');
+                                    // $('#slick_carousel_' + this.section).slick('reinit');
                                     setTimeout(() => {window.localStorage.section_featured = document.getElementById('section_featured_real_load').innerHTML; }, 500);
                                 }, 100);
                             }                           
