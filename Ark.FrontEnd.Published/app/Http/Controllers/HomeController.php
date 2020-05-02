@@ -21,12 +21,13 @@ use App\BusinessSetting;
 use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\DB;
 use ImageOptimizer;
+use App\HomeCategory;
 
 class HomeController extends Controller
 {
     public function login()
     {
-        if(Auth::check()){
+        if (Auth::check()) {
             return redirect()->route('home');
         }
         return view('frontend.user_login');
@@ -34,7 +35,7 @@ class HomeController extends Controller
 
     public function registration()
     {
-        if(Auth::check()){
+        if (Auth::check()) {
             return redirect()->route('home');
         }
         return view('frontend.user_registration');
@@ -60,13 +61,13 @@ class HomeController extends Controller
     public function cart_login(Request $request)
     {
         $user = User::whereIn('user_type', ['customer', 'seller'])->where('email', $request->email)->first();
-        if($user != null){
+        if ($user != null) {
             updateCartSetup();
-            if(Hash::check($request->password, $user->password)){
-                if($request->has('remember')){
+            if (Hash::check($request->password, $user->password)) {
+                if ($request->has('remember')) {
                     auth()->login($user, true);
                 }
-                else{
+                else {
                     auth()->login($user, false);
                 }
             }
@@ -81,7 +82,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        //$this->middleware('auth');
+    //$this->middleware('auth');
     }
 
     /**
@@ -101,10 +102,10 @@ class HomeController extends Controller
      */
     public function dashboard()
     {
-        if(Auth::user()->user_type == 'seller'){
+        if (Auth::user()->user_type == 'seller') {
             return view('frontend.seller.dashboard');
         }
-        elseif(Auth::user()->user_type == 'customer'){
+        elseif (Auth::user()->user_type == 'customer') {
             return view('frontend.customer.dashboard');
         }
         else {
@@ -114,20 +115,20 @@ class HomeController extends Controller
 
     public function profile(Request $request)
     {
-        if(Auth::user()->user_type == 'customer'){
+        if (Auth::user()->user_type == 'customer') {
             return view('frontend.customer.profile');
         }
-        elseif(Auth::user()->user_type == 'seller'){
+        elseif (Auth::user()->user_type == 'seller') {
             return view('frontend.seller.profile');
         }
     }
 
-     public function affiliate(Request $request)
+    public function affiliate(Request $request)
     {
-        if(Auth::user()->user_type == 'customer'){
+        if (Auth::user()->user_type == 'customer') {
             return view('frontend.customer.affiliate');
         }
-        elseif(Auth::user()->user_type == 'seller'){
+        elseif (Auth::user()->user_type == 'seller') {
             return view('frontend.seller.affiliate');
         }
     }
@@ -142,15 +143,15 @@ class HomeController extends Controller
         $user->postal_code = $request->postal_code;
         $user->phone = $request->phone;
 
-        if($request->new_password != null && ($request->new_password == $request->confirm_password)){
+        if ($request->new_password != null && ($request->new_password == $request->confirm_password)) {
             $user->password = Hash::make($request->new_password);
         }
 
-        if($request->hasFile('photo')){
+        if ($request->hasFile('photo')) {
             $user->avatar_original = $request->photo->store('uploads/users');
         }
 
-        if($user->save()){
+        if ($user->save()) {
             flash(__('Your Profile has been updated successfully!'))->success();
             return back();
         }
@@ -170,11 +171,11 @@ class HomeController extends Controller
         $user->postal_code = $request->postal_code;
         $user->phone = $request->phone;
 
-        if($request->new_password != null && ($request->new_password == $request->confirm_password)){
+        if ($request->new_password != null && ($request->new_password == $request->confirm_password)) {
             $user->password = Hash::make($request->new_password);
         }
 
-        if($request->hasFile('photo')){
+        if ($request->hasFile('photo')) {
             $user->avatar_original = $request->photo->store('uploads');
         }
 
@@ -201,7 +202,7 @@ class HomeController extends Controller
         $seller->voguepay_status = $request->voguepay_status;
         $seller->voguepay_merchand_id = $request->voguepay_merchand_id;
 
-        if($user->save() && $seller->save()){
+        if ($user->save() && $seller->save()) {
             flash(__('Your Profile has been updated successfully!'))->success();
             return back();
         }
@@ -221,39 +222,71 @@ class HomeController extends Controller
         // foreach($files as $file) {
         //     ImageOptimizer::optimize(base_path('public/uploads/categories/').$file);
         // }
-		$products = filter_products(Product::orderBy('created_at', 'desc'))->paginate(500);
+        $products = filter_products(Product::orderBy('created_at', 'desc'))->paginate(500);
         return view('frontend.index', compact('products'));
     }
 
-    public function load_featured_section(){
+    public function load_featured_section() {
         return view('frontend.partials.featured_products_section');
     }
+    public function load_featured_data() {
+        $products = Product::select('id', 'rating', 'slug', 'name', 'thumbnail_img', 'published', 'category_id')->orderBy('created_at', 'desc')->with('priceRange')->where('featured', '1')->get();
+        $products = filter_products($products)->toArray();
 
-    public function load_ark_products_section(){
+        return $products;
+    }
+    public function load_ark_products_section() {
         return view('frontend.partials.ark_products_section');
     }
+    public function load_ark_products_data() {
+        $products = Product::select('id', 'rating', 'slug', 'name', 'thumbnail_img', 'published', 'category_id')->orderBy('created_at', 'desc')->with('priceRange')->whereHas('category', function ($q) {
+            $q->where('featured', '=', '1');
+        })->get();
+        $products = filter_products($products)->toArray();
 
-    public function load_coming_soon_section(){
+        return $products;
+    }
+    public function load_coming_soon_section() {
         return view('frontend.partials.coming_soon_section');
     }
+    public function load_coming_soon_data() {
+        $products = Product::select('id', 'rating', 'slug', 'name', 'thumbnail_img', 'published', 'category_id')->orderBy('created_at', 'desc')->with('priceRange')->whereHas('category', function ($q) {
+            $q->where('name', '=', 'COMING SOON');
+        })->get();
+        // $products = filter_products($products)->toArray();
 
-    public function load_best_selling_section(){
+        return $products;
+    }
+
+    public function load_best_selling_section() {
         return view('frontend.partials.best_selling_section');
     }
 
-    public function load_home_categories_section(){
+    public function load_home_categories_section() {
         return view('frontend.partials.home_categories_section');
     }
+    public function load_home_categories_data() {
+        $products = HomeCategory::select('id', 'category_id', 'status')->with(['category:id,name,slug,meta_title,featured', 'category.subcategories.subsubcategories.products' => function ($query) {
+            return filter_products($query->select(['id', 'category_id', 'subcategory_id', 'subsubcategory_id', 'name', 'thumbnail_img', 'slug', 'rating']));
+        }, 'category.subcategories' => function ($query) {
+            return $query->select(['id', 'category_id', 'name', 'slug']);
+        }, 'category.subcategories.subsubcategories' => function ($query) {
+            return $query->select(['id', 'name', 'sub_category_id', 'slug'])->has('products', '>', 0);
+        }, 'category.subcategories.subsubcategories.products.priceRange:id,product_id,range_from,range_to,unit_price'])->get();
+        // $products = filter_products($products)->toArray();
 
-    public function load_best_sellers_section(){
+        return $products;
+    }
+
+    public function load_best_sellers_section() {
         return view('frontend.partials.best_sellers_section');
     }
 
     public function trackOrder(Request $request)
     {
-        if($request->has('order_code')){
+        if ($request->has('order_code')) {
             $order = Order::where('code', $request->order_code)->first();
-            if($order != null){
+            if ($order != null) {
                 return view('frontend.track_order', compact('order'));
             }
         }
@@ -262,9 +295,9 @@ class HomeController extends Controller
 
     public function product($slug)
     {
-        $product  = Product::where('slug', $slug)->first();
+        $product = Product::where('slug', $slug)->first();
         $product_price = DB::table('product_price')->where([['product_id', '=', $product->id]])->get();
-        if($product!=null){
+        if ($product != null) {
             updateCartSetup();
             return view('frontend.product_details', compact('product'), compact('product_price'));
         }
@@ -273,8 +306,8 @@ class HomeController extends Controller
 
     public function shop($slug)
     {
-        $shop  = Shop::where('slug', $slug)->first();
-        if($shop!=null){
+        $shop = Shop::where('slug', $slug)->first();
+        if ($shop != null) {
             return view('frontend.seller_shop', compact('shop'));
         }
         abort(404);
@@ -282,8 +315,8 @@ class HomeController extends Controller
 
     public function filter_shop($slug, $type)
     {
-        $shop  = Shop::where('slug', $slug)->first();
-        if($shop!=null && $type != null){
+        $shop = Shop::where('slug', $slug)->first();
+        if ($shop != null && $type != null) {
             return view('frontend.seller_shop', compact('shop', 'type'));
         }
         abort(404);
@@ -329,15 +362,15 @@ class HomeController extends Controller
     public function ajax_search(Request $request)
     {
         $keywords = array();
-        $products = Product::where('published', 1)->where('tags', 'like', '%'.$request->search.'%')->get();
+        $products = Product::where('published', 1)->where('tags', 'like', '%' . $request->search . '%')->get();
         foreach ($products as $key => $product) {
-            foreach (explode(',',$product->tags) as $key => $tag) {
-                if(stripos($tag, $request->search) !== false){
-                    if(sizeof($keywords) > 5){
+            foreach (explode(',', $product->tags) as $key => $tag) {
+                if (stripos($tag, $request->search) !== false) {
+                    if (sizeof($keywords) > 5) {
                         break;
                     }
-                    else{
-                        if(!in_array(strtolower($tag), $keywords)){
+                    else {
+                        if (!in_array(strtolower($tag), $keywords)) {
                             array_push($keywords, strtolower($tag));
                         }
                     }
@@ -345,13 +378,13 @@ class HomeController extends Controller
             }
         }
 
-        $products = filter_products(Product::where('published', 1)->where('name', 'like', '%'.$request->search.'%'))->get()->take(3);
+        $products = filter_products(Product::where('published', 1)->where('name', 'like', '%' . $request->search . '%'))->get()->take(3);
 
-        $subsubcategories = SubSubCategory::where('name', 'like', '%'.$request->search.'%')->get()->take(3);
+        $subsubcategories = SubSubCategory::where('name', 'like', '%' . $request->search . '%')->get()->take(3);
 
-        $shops = Shop::where('name', 'like', '%'.$request->search.'%')->get()->take(3);
+        $shops = Shop::where('name', 'like', '%' . $request->search . '%')->get()->take(3);
 
-        if(sizeof($keywords)>0 || sizeof($subsubcategories)>0 || sizeof($products)>0 || sizeof($shops) >0){
+        if (sizeof($keywords) > 0 || sizeof($subsubcategories) > 0 || sizeof($products) > 0 || sizeof($shops) > 0) {
             return view('frontend.partials.search_content', compact('products', 'subsubcategories', 'keywords', 'shops'));
         }
         return '0';
@@ -360,46 +393,46 @@ class HomeController extends Controller
     public function search(Request $request)
     {
         $query = $request->q;
-        $brand_id = (Brand::where('slug', $request->brand)->first() != null) ? Brand::where('slug', $request->brand)->first()->id : null;
+        $brand_id = (Brand::where('slug', $request->brand)->first() != null) ?Brand::where('slug', $request->brand)->first()->id : null;
         $sort_by = $request->sort_by;
-        $category_id = (Category::where('slug', $request->category)->first() != null) ? Category::where('slug', $request->category)->first()->id : null;
-        $subcategory_id = (SubCategory::where('slug', $request->subcategory)->first() != null) ? SubCategory::where('slug', $request->subcategory)->first()->id : null;
-        $subsubcategory_id = (SubSubCategory::where('slug', $request->subsubcategory)->first() != null) ? SubSubCategory::where('slug', $request->subsubcategory)->first()->id : null;
+        $category_id = (Category::where('slug', $request->category)->first() != null) ?Category::where('slug', $request->category)->first()->id : null;
+        $subcategory_id = (SubCategory::where('slug', $request->subcategory)->first() != null) ?SubCategory::where('slug', $request->subcategory)->first()->id : null;
+        $subsubcategory_id = (SubSubCategory::where('slug', $request->subsubcategory)->first() != null) ?SubSubCategory::where('slug', $request->subsubcategory)->first()->id : null;
         $min_price = $request->min_price;
         $max_price = $request->max_price;
         $seller_id = $request->seller_id;
 
         $conditions = ['published' => 1];
 
-        if($brand_id != null){
+        if ($brand_id != null) {
             $conditions = array_merge($conditions, ['brand_id' => $brand_id]);
         }
-        if($category_id != null){
+        if ($category_id != null) {
             $conditions = array_merge($conditions, ['category_id' => $category_id]);
         }
-        if($subcategory_id != null){
+        if ($subcategory_id != null) {
             $conditions = array_merge($conditions, ['subcategory_id' => $subcategory_id]);
         }
-        if($subsubcategory_id != null){
+        if ($subsubcategory_id != null) {
             $conditions = array_merge($conditions, ['subsubcategory_id' => $subsubcategory_id]);
         }
-        if($seller_id != null){
+        if ($seller_id != null) {
             $conditions = array_merge($conditions, ['user_id' => Seller::findOrFail($seller_id)->user->id]);
         }
 
         $products = Product::where($conditions);
 
-        if($min_price != null && $max_price != null){
+        if ($min_price != null && $max_price != null) {
             $products = $products->where('unit_price', '>=', $min_price)->where('unit_price', '<=', $max_price);
         }
 
-        if($query != null){
+        if ($query != null) {
             $searchController = new SearchController;
             $searchController->store($request);
-            $products = $products->where('name', 'like', '%'.$query.'%');
+            $products = $products->where('name', 'like', '%' . $query . '%');
         }
 
-        if($sort_by != null){
+        if ($sort_by != null) {
             switch ($sort_by) {
                 case '1':
                     $products->orderBy('created_at', 'desc');
@@ -420,22 +453,22 @@ class HomeController extends Controller
         }
 
         if ($category_id == '15')
-		{
-            $products = filter_products($products,true)->paginate(25)->appends(request()->query());
-		}
-        else{
-			$products = filter_products($products)->paginate(25)->appends(request()->query());
-		}
+        {
+            $products = filter_products($products, true)->paginate(25)->appends(request()->query());
+        }
+        else {
+            $products = filter_products($products)->paginate(25)->appends(request()->query());
+        }
 
-        return view('frontend.product_listing', compact('products', 'query', 'category_id', 'subcategory_id', 'subsubcategory_id', 'brand_id', 'sort_by', 'seller_id','min_price', 'max_price'));
+        return view('frontend.product_listing', compact('products', 'query', 'category_id', 'subcategory_id', 'subsubcategory_id', 'brand_id', 'sort_by', 'seller_id', 'min_price', 'max_price'));
     }
 
-    public function product_content(Request $request){
-        $connector  = $request->connector;
-        $selector   = $request->selector;
-        $select     = $request->select;
-        $type       = $request->type;
-        productDescCache($connector,$selector,$select,$type);
+    public function product_content(Request $request) {
+        $connector = $request->connector;
+        $selector = $request->selector;
+        $select = $request->select;
+        $type = $request->type;
+        productDescCache($connector, $selector, $select, $type);
     }
 
     public function home_settings(Request $request)
@@ -446,22 +479,22 @@ class HomeController extends Controller
     public function top_10_settings(Request $request)
     {
         foreach (Category::all() as $key => $category) {
-            if(in_array($category->id, $request->top_categories)){
+            if (in_array($category->id, $request->top_categories)) {
                 $category->top = 1;
                 $category->save();
             }
-            else{
+            else {
                 $category->top = 0;
                 $category->save();
             }
         }
 
         foreach (Brand::all() as $key => $brand) {
-            if(in_array($brand->id, $request->top_brands)){
+            if (in_array($brand->id, $request->top_brands)) {
                 $brand->top = 1;
                 $brand->save();
             }
-            else{
+            else {
                 $brand->top = 0;
                 $brand->save();
             }
@@ -476,33 +509,33 @@ class HomeController extends Controller
         $product = Product::find($request->id);
         $str = '';
         $quantity = 0;
-        $product_price = DB::table('product_price')->where([['product_id', '=', $product->id],['range_from', '<=',floatval($request->quantity)],['range_to', '>=',floatval($request->quantity)]])->get();
+        $product_price = DB::table('product_price')->where([['product_id', '=', $product->id], ['range_from', '<=', floatval($request->quantity)], ['range_to', '>=', floatval($request->quantity)]])->get();
 
         if ($product_price == null)
-		{
-            $product_price = DB::table('product_price')->where([['product_id', '=', $product->id]])->orderBy('range_to','desc')->first();
-		}
+        {
+            $product_price = DB::table('product_price')->where([['product_id', '=', $product->id]])->orderBy('range_to', 'desc')->first();
+        }
 
 
-        if($request->has('color')){
+        if ($request->has('color')) {
             $data['color'] = $request['color'];
             $str = Color::where('code', $request['color'])->first()->name;
         }
 
         foreach (json_decode(Product::find($request->id)->choice_options) as $key => $choice) {
-            if($str != null){
-                $str .= '-'.str_replace(' ', '', $request[$choice->name]);
+            if ($str != null) {
+                $str .= '-' . str_replace(' ', '', $request[$choice->name]);
             }
-            else{
+            else {
                 $str .= str_replace(' ', '', $request[$choice->name]);
             }
         }
 
-        if($str != null){
+        if ($str != null) {
             $price = json_decode($product->variations)->$str->price;
             $quantity = json_decode($product->variations)->$str->qty;
         }
-        else{
+        else {
             $price = $product->unit_price;
             $quantity = $product->current_stock;
         }
@@ -511,52 +544,52 @@ class HomeController extends Controller
         $flash_deal = \App\FlashDeal::where('status', 1)->first();
         if ($flash_deal != null && strtotime(date('d-m-Y')) >= $flash_deal->start_date && strtotime(date('d-m-Y')) <= $flash_deal->end_date && \App\FlashDealProduct::where('flash_deal_id', $flash_deal->id)->where('product_id', $product->id)->first() != null) {
             $flash_deal_product = \App\FlashDealProduct::where('flash_deal_id', $flash_deal->id)->where('product_id', $product->id)->first();
-            if($flash_deal_product->discount_type == 'percent'){
-                $price -= ($price*$flash_deal_product->discount)/100;
+            if ($flash_deal_product->discount_type == 'percent') {
+                $price -= ($price * $flash_deal_product->discount) / 100;
             }
-            elseif($flash_deal_product->discount_type == 'amount'){
+            elseif ($flash_deal_product->discount_type == 'amount') {
                 $price -= $flash_deal_product->discount;
             }
         }
-        else{
-            if($product->discount_type == 'percent'){
-                $price -= ($price*$product->discount)/100;
+        else {
+            if ($product->discount_type == 'percent') {
+                $price -= ($price * $product->discount) / 100;
             }
-            elseif($product->discount_type == 'amount'){
+            elseif ($product->discount_type == 'amount') {
                 $price -= $product->discount;
             }
         }
 
-        if($product->tax_type == 'percent'){
-            $price += ($price*$product->tax)/100;
+        if ($product->tax_type == 'percent') {
+            $price += ($price * $product->tax) / 100;
         }
-        elseif($product->tax_type == 'amount'){
+        elseif ($product->tax_type == 'amount') {
             $price += $product->tax;
         }
-        return array('price' => single_price($product_price[0]->unit_price*$request->quantity), 'quantity' => $quantity, 'unit_price' => single_price($product_price[0]->unit_price));
-		//return array('price' => single_price($price*$request->quantity), 'quantity' => $quantity);
+        return array('price' => single_price($product_price[0]->unit_price * $request->quantity), 'quantity' => $quantity, 'unit_price' => single_price($product_price[0]->unit_price));
+    //return array('price' => single_price($price*$request->quantity), 'quantity' => $quantity);
     }
 
-    public function sellerpolicy(){
+    public function sellerpolicy() {
         return view("frontend.policies.sellerpolicy");
     }
 
-    public function returnpolicy(){
+    public function returnpolicy() {
         return view("frontend.policies.returnpolicy");
     }
 
-    public function supportpolicy(){
+    public function supportpolicy() {
         return view("frontend.policies.supportpolicy");
     }
 
-    public function aboutus(){
+    public function aboutus() {
         return view("frontend.policies.aboutus");
     }
-    public function terms(){
+    public function terms() {
         return view("frontend.policies.terms");
     }
 
-    public function privacypolicy(){
+    public function privacypolicy() {
         return view("frontend.policies.privacypolicy");
     }
 

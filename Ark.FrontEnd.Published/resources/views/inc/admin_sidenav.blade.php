@@ -373,6 +373,9 @@
                                         <li class="{{ areActiveRoutes(['supportpolicy.index'])}}">
                                             <a class="nav-link" href="{{route('supportpolicy.index', 'support_policy')}}">{{__('Support Policy')}}</a>
                                         </li>
+                                        <li class="{{ areActiveRoutes(['about_us.index'])}}">
+                                            <a class="nav-link" href="{{route('about_us.index', 'about_us')}}">{{__('About Us')}}</a>
+                                        </li>
                                         <li class="{{ areActiveRoutes(['terms.index'])}}">
                                             <a class="nav-link" href="{{route('terms.index', 'terms')}}">{{__('Terms & Conditions')}}</a>
                                         </li>
