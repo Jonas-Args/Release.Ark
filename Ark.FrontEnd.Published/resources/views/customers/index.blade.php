@@ -74,6 +74,14 @@
 									<li>
 										<a href="{{route('customers.wallet', $customer->shopUserId)}}"><i class="fa fa-credit-card" style="margin-right:12px; font-size:16px"></i>{{__('Wallet')}}</a>
 									</li>
+									</li>
+									@if ($customer->userBusinessPackage->businessPackage != null && $customer->userBusinessPackage->businessPackage->packageCode == "EPKG1TRL")
+										<li>
+										    <a href="{{route('client.trial.end.exec', $customer->shopUserId)}}"><i class="fa fa-check"
+										            style="margin-right:12px; font-size:16px"></i>{{__('End Trial')}}</a>
+										</li>
+									@endif
+									
 									<li style="display:none">
 										<a onclick="confirm_modal('{{route('customers.destroy', $customer->shopUserId)}}');"><i class="fa fa-ban" style="margin-right:12px; font-size:16px"></i>{{__('Delete')}}</a>
 									</li>

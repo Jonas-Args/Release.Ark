@@ -348,7 +348,7 @@
                 <form class="" action="{{ route('client.wallet.convert.exec') }}" method="post">
                     @csrf
 					<input type="hidden" class="form-control" id="" name="ID" placeholder="" value="{{ Auth::user()->id }}" />
-	            	<input type="hidden" class="form-control" id="" name="target_wallet" placeholder="" value="Ark Cash" />
+	            	<input type="hidden" class="form-control" id="" name="target_wallet" placeholder="" value="Ark Credits" />
                     
                     <div class="modal-body gry-bg px-3 pt-3">
                         <div class="row">

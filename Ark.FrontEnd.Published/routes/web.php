@@ -11,6 +11,10 @@
  |
  */
 
+Event::listen('illuminate.query', function ($query) {
+// dump($query);
+});
+
 Auth::routes(['verify' => true]);
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('user.logout');
 Route::post('/language', 'LanguageController@changeLanguage')->name('language.change');
@@ -35,6 +39,12 @@ Route::post('/home/section/ark_products', 'HomeController@load_ark_products_sect
 Route::post('/home/section/best_selling', 'HomeController@load_best_selling_section')->name('home.section.best_selling');
 Route::post('/home/section/home_categories', 'HomeController@load_home_categories_section')->name('home.section.home_categories');
 Route::post('/home/section/best_sellers', 'HomeController@load_best_sellers_section')->name('home.section.best_sellers');
+
+Route::get('/home/section/data/ark_products', 'HomeController@load_ark_products_data')->name('home.section.data.ark_products');
+Route::get('/home/section/data/coming_soon', 'HomeController@load_coming_soon_data')->name('home.section.data.coming_soon');
+Route::get('/home/section/data/featured', 'HomeController@load_featured_data')->name('home.section.data.featured');
+Route::get('/home/section/data/home_categories', 'HomeController@load_home_categories_data')->name('home.section.data.home_categories');
+
 Route::get('/sitemap.xml', function () {
 	return base_path('sitemap.xml');
 });
@@ -61,6 +71,7 @@ Route::post('/cart/updateQuantity', 'CartController@updateQuantity')->name('cart
 // API ACCESS FOR WITHDRAWAL
 Route::post('/customers/wallet/convert/execute', 'CustomerController@convert_proccess')->name('client.wallet.convert.exec');
 Route::post('/customers/wallet/withdraw/execute', 'CustomerController@withdraw_proccess')->name('client.wallet.withdraw.exec');
+Route::get('/customers/trial/end/{id}', 'CustomerController@end_trial_proccess')->name('client.trial.end.exec');
 
 //Checkout Routes
 Route::group(['middleware' => ['checkout']], function () {

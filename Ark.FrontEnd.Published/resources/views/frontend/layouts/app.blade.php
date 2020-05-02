@@ -144,6 +144,10 @@
 <!-- jQuery -->
 <script src="{{ asset('frontend/js/vendor/jquery.min.js') }}"></script>
 <script src="{{ asset('frontend/js/bootstrap-treeview.js') }}"></script>
+<script src="{{ asset('js/vue.js') }}"></script>
+<script src="{{ asset('js/axios.js') }}"></script>
+{{-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script> --}}
+{{-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> --}}
 
 
 @if (\App\BusinessSetting::where('type', 'google_analytics')->first()->value == 1)

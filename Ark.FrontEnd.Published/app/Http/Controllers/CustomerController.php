@@ -575,6 +575,36 @@ class CustomerController extends Controller
         return redirect()->back();
     }
 
+    public function end_trial_proccess($id)
+    {
+        $recepient = floatval($id);
+
+        $data = array(
+            'ShopUserId' => $recepient
+        );
+
+        $url = 'http://localhost:55006/api/AdminAccess/EndTrial';
+        $options = array(
+            'http' => array(
+                'method' => 'POST',
+                'header' => "Content-type: application/json",
+                'content' => json_encode($data)
+            )
+        );
+        $context = stream_context_create($options);
+        $result = file_get_contents($url, false, $context);
+        $_r = json_decode($result);
+
+        if ($_r->httpStatusCode === "500") { /* Handle error */
+            flash(__($_r->message))->error();
+            return redirect()->back();
+        }
+
+        # code...
+        flash("Trial Removed")->success();
+        return redirect()->back();
+    }
+
     public function top_up($string)
     {
         $_x = $this->MALinkDecode($string);
