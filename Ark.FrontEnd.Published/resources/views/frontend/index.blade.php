@@ -656,7 +656,7 @@ if (window.localStorage.section_home_categories != undefined) {
                                  window.localStorage.section_featured_data = this.products;
                                  setTimeout(() => {
                                     this.displayStyle = 'block';
-                                    $('#slick_carousel_' + this.section).slick('reinit');
+                                    // $('#slick_carousel_' + this.section).slick('reinit');
                                     setTimeout(() => {window.localStorage.section_featured = document.getElementById('section_featured_real_load').innerHTML; }, 500);
                                 }, 100);
                             }                           
