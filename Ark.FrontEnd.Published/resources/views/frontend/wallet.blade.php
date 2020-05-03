@@ -151,6 +151,7 @@
 													 <td></td>
 													 <td></td>
 													 <td></td>
+													 <td></td>
 													 <td><b>₱ {{ bcdiv($CredittotalAmount, 1, 3) }}</b></td>
 														
 												 </tr>
