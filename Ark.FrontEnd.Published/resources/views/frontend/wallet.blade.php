@@ -50,14 +50,14 @@
 			 if(isset($userIncomeTransactions) && $userIncomeTransactions != null){
 				 foreach ($userIncomeTransactions as $userIncomeTransactionItem)
 				 {
-					 $CashtotalAmount += floatval(bcdiv($userIncomeTransactionItem->incomePercentage,1, 3));
+					 $CashtotalAmount += floatval(bcdiv($userIncomeTransactionItem->incomePercentage,1, 5));
 				 }
 			 }
 
              if(isset($wallets) && $wallets != null){
 				 foreach ($wallets as $item)
 				 {
-                     $CredittotalAmount += floatval(bcdiv($item->amount,1, 3));
+                     $CredittotalAmount += floatval(bcdiv($item->amount,1, 5));
 				 }
 			 }
 
@@ -144,7 +144,7 @@
                                                     <td>{{ date_format(date_create($wallet->created_at),"Y/m/d H:i:s") }}</td>
                                                     <td>{{ ucfirst(str_replace('_', ' ', $wallet ->payment_method)) }}</td>
                                                     <td>{{ $wallet->source_details }}</td>
-                                                    <td>{{ bcdiv($wallet->amount, 1,3) }}</td>
+                                                    <td>{{ bcdiv($wallet->amount, 1,5) }}</td>
                                                 </tr>
                                             @endforeach
                                             <tr>
@@ -152,7 +152,7 @@
 													 <td></td>
 													 <td></td>
 													 <td></td>
-													 <td><b>₱ {{ bcdiv($CredittotalAmount, 1, 3) }}</b></td>
+													 <td><b>₱ {{ bcdiv($CredittotalAmount, 1, 5) }}</b></td>
 														
 												 </tr>
                                         @else
@@ -191,7 +191,7 @@
 														<td>{{ date_format(date_create($userIncomeTransactionItem->createdOn),"Y/m/d H:i:s")  }}</td>
 														<td>{{ $userIncomeTransactionItem->incomeType->incomeTypeName}}</td>
 														<td>{{ $userIncomeTransactionItem->userAuth->userInfo->firstName . ' ' .  $userIncomeTransactionItem->userAuth->userInfo->lastName}}</td>
-														<td>{{ bcdiv($userIncomeTransactionItem->incomePercentage, 1, 3) }}</td>
+														<td>{{ bcdiv($userIncomeTransactionItem->incomePercentage, 1, 5) }}</td>
 													</tr>
 													@endforeach
 
@@ -200,7 +200,7 @@
 													 <td></td>
                                                      <td></td>
                                                      <td></td>
-													 <td><b>₱ {{ bcdiv($CashtotalAmount, 1, 3) }}</b></td>
+													 <td><b>₱ {{ bcdiv($CashtotalAmount, 1, 5) }}</b></td>
 												 </tr>
                                         @else
                                             <tr>
