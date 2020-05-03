@@ -97,31 +97,27 @@
 
         var UserWithdrawalRequest = {
             Id: parseFloat(a),
-            WithdrawalStatus: _p
+			WithdrawalStatus: _p,
+			_token: '{{ csrf_token() }}'
         }
 
         $.ajax({
-            url: config.ApiURL + 'api/AdminAccess/UpdateWithdrawalRequest',
+            url: '{{route('customers.withdrawal.update.exec')}}',
             type: "POST",
             data: JSON.stringify(UserWithdrawalRequest),
             contentType: 'application/json',
             success: function (data) {
-                //console.log(data);
                 if (data.message != undefined && data.httpStatusCode == "200") {
-                    alert(data.message);
+                    // alert(data.message);
                 }
-                //window.location = data.RedirectUrl;
                 window.location.reload();
             },
             error: function (data, textStatus, jqXHR) {
                 console.log(data.responseJSON);
-                //alert(data.responseJSON.Status);
                 if (data.responseJSON.message != undefined && data.responseJSON.httpStatusCode == "500") {
                     alert(data.responseJSON.message);
                 }
                 window.location.reload();
-                //$('#myModal').modal('show');
-                //window.location.href = data.responseJSON.RedirectUrl;
             },
         });
 

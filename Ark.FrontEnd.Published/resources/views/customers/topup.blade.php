@@ -19,7 +19,6 @@
 					<th width="10%">{{__('Amount')}}</th>
 					<th width="10%">{{__('Status')}}</th>
 					<th>Request Date</th>
-					<th>Options</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -53,22 +52,7 @@
 					<td>{{ $req->amount }}</td>
 					<td>{{ $withdrawalStatus }}</td>
 					<td>{{ date_format(date_create($req->created_at), "Y/m/d H:i:s") }}</td>
-					<td>
-						<div class="btn-group dropdown">
-							<button class="btn btn-primary dropdown-toggle dropdown-toggle-icon" data-toggle="dropdown" type="button">
-								{{__('Actions')}}
-								<i class="dropdown-caret"></i>
-							</button>
-							<ul class="dropdown-menu dropdown-menu-right">
-								<li>
-									<a onclick="UpdateDepositRequest('{{ $req->id }}', 2);">{{__('Approve')}}</a>
-								</li>
-								<li>
-									<a onclick="UpdateDepositRequest('{{ $req->id }}', 10);">{{__('Cancel')}}</a>
-								</li>
-							</ul>
-						</div>
-					</td>
+					
 				</tr>
 				@endforeach
 			</tbody>
@@ -78,40 +62,6 @@
 </div>
 
 <script>
-    function UpdateDepositRequest(a, _p) {
-
-        var UserWithdrawalRequest = {
-            Id: parseFloat(a),
-            WithdrawalStatus: _p
-        }
-
-        $.ajax({
-            url: config.ApiURL + 'api/AdminAccess/UpdateWithdrawalRequest',
-            type: "POST",
-            data: JSON.stringify(UserWithdrawalRequest),
-            contentType: 'application/json',
-            success: function (data) {
-                //console.log(data);
-                if (data.message != undefined && data.httpStatusCode == "200") {
-                    alert(data.message);
-                }
-                //window.location = data.RedirectUrl;
-                window.location.reload();
-            },
-            error: function (data, textStatus, jqXHR) {
-                console.log(data.responseJSON);
-                //alert(data.responseJSON.Status);
-                if (data.responseJSON.message != undefined && data.responseJSON.httpStatusCode == "500") {
-                    alert(data.responseJSON.message);
-                }
-                window.location.reload();
-                //$('#myModal').modal('show');
-                //window.location.href = data.responseJSON.RedirectUrl;
-            },
-        });
-
-        return false
-    }
     //AutoRefresh(10000);
     function AutoRefresh(t) {
         setTimeout("location.reload(true);", t);

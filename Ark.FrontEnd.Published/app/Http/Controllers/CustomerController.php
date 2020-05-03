@@ -605,6 +605,82 @@ class CustomerController extends Controller
         return redirect()->back();
     }
 
+    public function buy_package_proccess(Request $request)
+    {
+        $data = $request->input();
+        $url = 'http://localhost:55006/api/BusinessPackage/Buy';
+        $options = array(
+            'http' => array(
+                'method' => 'POST',
+                'header' => "Content-type: application/json",
+                'content' => json_encode($data)
+            )
+        );
+        $context = stream_context_create($options);
+        $result = file_get_contents($url, false, $context);
+        $_r = json_decode($result);
+
+        flash($_r->message)->success();
+        return response()->json($_r);
+    }
+
+    public function update_withdrawal_request_proccess(Request $request)
+    {
+        $data = $request->input();
+        $url = 'http://localhost:55006/api/AdminAccess/UpdateWithdrawalRequest';
+        $options = array(
+            'http' => array(
+                'method' => 'POST',
+                'header' => "Content-type: application/json",
+                'content' => json_encode($data)
+            )
+        );
+        $context = stream_context_create($options);
+        $result = file_get_contents($url, false, $context);
+        $_r = json_decode($result);
+
+        flash($_r->message)->success();
+        return response()->json($_r);
+    }
+
+    public function update_business_package_proccess(Request $request)
+    {
+        $data = $request->input();
+        $url = 'http://localhost:55006/api/BusinessPackage/Update';
+        $options = array(
+            'http' => array(
+                'method' => 'POST',
+                'header' => "Content-type: application/json",
+                'content' => json_encode($data)
+            )
+        );
+        $context = stream_context_create($options);
+        $result = file_get_contents($url, false, $context);
+        $_r = json_decode($result);
+
+        flash($_r->message)->success();
+        return response()->json($_r);
+    }
+
+    public function update_wallet_topup_proccess(Request $request)
+    {
+        $data = $request->input();
+        $url = 'http://localhost:55006/api/BusinessPackage/Update';
+        $options = array(
+            'http' => array(
+                'method' => 'POST',
+                'header' => "Content-type: application/json",
+                'content' => json_encode($data)
+            )
+        );
+        $context = stream_context_create($options);
+        $result = file_get_contents($url, false, $context);
+        $_r = json_decode($result);
+
+        flash($_r->message)->success();
+        return response()->json($_r);
+    }
+
     public function top_up($string)
     {
         $_x = $this->MALinkDecode($string);
