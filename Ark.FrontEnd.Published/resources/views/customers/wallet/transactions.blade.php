@@ -69,40 +69,7 @@
 
 
 <script>
-	function UpdateDepositRequest(a,_p) {
-
-		var UserBusinessPackageBO = {
-			UserPackageID: parseFloat(a),
-			DepositStatus: _p
-		}
-
-		$.ajax({
-			url: config.ApiURL + 'api/BusinessPackage/Update',
-			type: "POST",
-			data: JSON.stringify(UserBusinessPackageBO),
-			contentType: 'application/json',
-			success: function (data) {
-				//console.log(data);
-				if (data.message != undefined && data.httpStatusCode == "200") {
-					alert(data.message);
-				}
-				//window.location = data.RedirectUrl;
-				window.location.reload();
-			},
-			error: function (data, textStatus, jqXHR) {
-				console.log(data.responseJSON);
-				//alert(data.responseJSON.Status);
-				if (data.responseJSON.message != undefined && data.responseJSON.httpStatusCode == "500") {
-					alert(data.responseJSON.message);
-				}
-				window.location.reload();
-				//$('#myModal').modal('show');
-				//window.location.href = data.responseJSON.RedirectUrl;
-			},
-		});
-
-		return false
-	}
+	
 	//AutoRefresh(10000);
 	function AutoRefresh(t) {
 		setTimeout("location.reload(true);", t);

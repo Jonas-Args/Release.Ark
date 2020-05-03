@@ -69,6 +69,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 	Route::post('/customers/wallet/top_up/execute', 'CustomerController@top_up_proccess')->name('customers.wallet.top_up.exec');
 	Route::post('/customers/wallet/convert/execute', 'CustomerController@convert_proccess')->name('customers.wallet.convert.exec');
 	Route::post('/customers/wallet/withdraw/execute', 'CustomerController@withdraw_proccess')->name('customers.wallet.withdraw.exec');
+	Route::post('/customers/withdrawal/update', 'CustomerController@update_withdrawal_request_proccess')->name('customers.withdrawal.update.exec');
+	Route::post('/customers/package/update', 'CustomerController@update_business_package_proccess')->name('customers.package.update.exec');
 
 	Route::resource('customers', 'CustomerController');
 	Route::get('/customers/destroy/{id}', 'CustomerController@destroy')->name('customers.destroy');

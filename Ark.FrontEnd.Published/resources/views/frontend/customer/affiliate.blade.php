@@ -546,14 +546,14 @@
 	function SendDepositRequest() {
 
 		 $.ajax({
-		     url: config.ApiURL + 'api/BusinessPackage/Buy',
+		     url: '{{route('client.package.buy.exec')}}',
 			 type: "POST",
 			 data: getFormData(document.getElementById('packageForm')),
 		     contentType: 'application/json',
 		     success: function (data) {
 		         //console.log(data);
 		         if (data.message != undefined && data.httpStatusCode == "200") {
-		             alert(data.message);
+		            //  alert(data.message);
 		         }
 		         window.location = data.redirectUrl;
 		         //window.location.replace(data.RedirectUrl);
