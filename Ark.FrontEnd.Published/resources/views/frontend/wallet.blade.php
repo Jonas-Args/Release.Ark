@@ -242,7 +242,7 @@
                                 <label>{{__('Amount')}} <span class="required-star">*</span></label>
                             </div>
                             <div class="col-md-10">
-                                <input type="number" class="form-control mb-3" name="amount" placeholder="Amount" required>
+                                <input type="number" class="form-control mb-3" name="amount" step="0.000000001" placeholder="Amount" required>
                             </div>
                         </div>
                         <div class="row">
@@ -306,7 +306,7 @@
                                 <label>{{__('Amount')}} <span class="required-star">*</span></label>
                             </div>
                             <div class="col-md-10">
-                                <input type="number" class="form-control mb-3" name="transaction_amount" placeholder="Amount" step="0.01" required>
+                                <input type="number" class="form-control mb-3" name="transaction_amount" placeholder="Amount" step="0.000000001" required>
                             </div>
                         </div>
                         <div class="row">
@@ -356,7 +356,7 @@
                                 <label>{{__('Amount')}} <span class="required-star">*</span></label>
                             </div>
                             <div class="col-md-10">
-                                <input type="number" class="form-control mb-3" name="transaction_amount" step="0.01" placeholder="Amount" required>
+                                <input type="number" class="form-control mb-3" name="transaction_amount" step="0.000000001" placeholder="Amount" required>
                             </div>
                         </div>
                     </div>
