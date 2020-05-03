@@ -50,14 +50,14 @@
 			 if(isset($userIncomeTransactions) && $userIncomeTransactions != null){
 				 foreach ($userIncomeTransactions as $userIncomeTransactionItem)
 				 {
-					 $CashtotalAmount += floatval($userIncomeTransactionItem->incomePercentage);
+					 $CashtotalAmount += floatval(bcdiv($userIncomeTransactionItem->incomePercentage,1, 3));
 				 }
 			 }
 
              if(isset($wallets) && $wallets != null){
 				 foreach ($wallets as $item)
 				 {
-					 $CredittotalAmount += floatval($item->amount);
+                     $CredittotalAmount += floatval(bcdiv($item->amount,1, 3));
 				 }
 			 }
 
