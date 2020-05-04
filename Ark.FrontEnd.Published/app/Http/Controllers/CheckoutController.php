@@ -117,6 +117,14 @@ class CheckoutController extends Controller
                 $user->balance -= $grandTotal;
                 $user->save();
 
+                $wallet = new Wallet;
+                $wallet->user_id = $user->id;
+                $wallet->amount = floatval($grandTotal) * (-1);
+                $wallet->payment_method = 'Payment';
+                $wallet->source_details = 'Shop Purchase';
+                $wallet->payment_details = '';
+                $wallet->save();
+
                 $order->wallet_deduction = $grandTotal;
                 $order->save();
 
