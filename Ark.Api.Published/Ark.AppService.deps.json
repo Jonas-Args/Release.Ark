@@ -1597,6 +1597,7 @@
       "Ark.DataAccessLayer/1.0.0": {
         "dependencies": {
           "Ark.Entities": "1.0.0",
+          "Ark.IntegrityService": "1.0.0",
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "7.0.0",
           "Microsoft.EntityFrameworkCore": "3.0.0"
         },
@@ -1620,6 +1621,14 @@
         },
         "runtime": {
           "Ark.ExternalUtilities.dll": {}
+        }
+      },
+      "Ark.IntegrityService/1.0.0": {
+        "dependencies": {
+          "Ark.ExternalUtilities": "1.0.0"
+        },
+        "runtime": {
+          "Ark.IntegrityService.dll": {}
         }
       }
     }
@@ -2677,6 +2686,11 @@
       "sha512": ""
     },
     "Ark.ExternalUtilities/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Ark.IntegrityService/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
