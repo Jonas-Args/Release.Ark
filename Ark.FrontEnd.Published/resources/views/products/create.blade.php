@@ -208,16 +208,9 @@
 				        </div>
 
 						<div id="demo-stk-lft-tab-6" class="tab-pane fade">
-
-							<div class="price_choice_options" id="customer_choice_options">
-
-							</div>
-							<div class="form-group">
-								<div class="col-lg-2">
-									<button type="button" class="btn btn-info" onclick="add_more_customer_choice_option()">{{ __('Add more price choice option') }}</button>
-								</div>
-							</div>
-
+							<h4>To add price range, edit this Product after you saved it.</h4>
+							<div style="display: none">
+								
 							<div class="form-group">
 								<label class="col-lg-2 control-label">{{__('Unit price')}}</label>
 								<div class="col-lg-7">
@@ -263,6 +256,7 @@
 							<br>
 							<div class="sku_combination" id="sku_combination">
 
+							</div>
 							</div>
 				        </div>
 						<div id="demo-stk-lft-tab-7" class="tab-pane fade">
@@ -319,6 +313,12 @@
 											<input type="number" min="0" value="0" step="0.01" placeholder="{{__('Shipping cost')}}" name="flat_shipping_cost" class="form-control" required>
 										</div>
 									</div>
+								</div>
+							</div>
+							<hr>
+							<div class="row">
+								<div style="padding-left:15px;">
+									<h4>To add shipping points, edit this Product after you saved it.</h4>
 								</div>
 							</div>
 

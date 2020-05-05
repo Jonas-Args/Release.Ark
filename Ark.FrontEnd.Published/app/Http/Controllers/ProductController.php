@@ -207,6 +207,11 @@ class ProductController extends Controller
         }
 
         if ($product->save()) {
+            $ProductShippingPoints = new ProductShippingPoints();
+            $ProductShippingPoints->product_id = $product->id;
+            $ProductShippingPoints->point_value = 0;
+            $ProductShippingPoints->save();
+
             flash(__('Product has been inserted successfully'))->success();
             if (Auth::user()->user_type == 'admin' || Auth::user()->user_type == 'staff') {
                 return redirect()->route('products.admin');
