@@ -249,6 +249,16 @@ class ProductController extends Controller
         //dd(json_decode($product->price_variations)->choices_0_S_price);
         $tags = json_decode($product->tags);
         $categories = Category::all();
+
+        if (count($product->shippingPoints) == 0) {
+            $ProductShippingPoints = new ProductShippingPoints();
+            $ProductShippingPoints->product_id = $product->id;
+            $ProductShippingPoints->point_value = 0;
+            $ProductShippingPoints->save();
+
+            $product = Product::where('id', '=', decrypt($id))->with('priceRange')->with('shippingPoints')->first();
+        }
+
         return view('products.edit', compact('product', 'categories', 'tags'));
     }
 
