@@ -299,7 +299,7 @@ use Illuminate\Support\Facades\DB;
         </div>
     </div>
     <div id="section_ark_products" class="mb-3">
-        <div class="container" id="section_ark_products_real_load" :style="{ display: displayStyle}">
+        <div class="container" id="section_ark_products_real_load" style="display: none" :style="{ display: displayStyle}">
 
 		    <div class="products-box-bar px-2 py-4 p-md-4 bg-white shadow-sm">
 		    	<div class="section-title-1 clearfix">
