@@ -62,7 +62,7 @@
                     <table class="details-table table">
                         <tr>
                             <td class="w-50 strong-600">{{__('Order date')}}:</td>
-                            <td>{{ date('d-m-Y H:m A', $order->date) }}</td>
+                            <td>{{ date('d-m-Y h:i A', strtotime($order->created_at)) }} (PHT)</td>
                         </tr>
                         <tr>
                             <td class="w-50 strong-600">{{__('Order status')}}:</td>

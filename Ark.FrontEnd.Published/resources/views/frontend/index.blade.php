@@ -546,11 +546,11 @@ if (window.localStorage.section_home_categories != undefined) {
                             document.body.style.cursor = "default";
                             this.products = data.data;
                             console.log("Rendering Data..");
-                             if (this.products != window.localStorage.section_ark_products_data) {
-                                window.localStorage.section_ark_products_data = this.products;
+                             if (JSON.stringify(this.products) != window.localStorage.section_ark_products_data) {
+                                window.localStorage.section_ark_products_data = JSON.stringify(this.products);
+                                this.displayStyle = 'block';
                                 setTimeout(() => {
                                     window.localStorage.section_ark_products = document.getElementById('section_ark_products_real_load').innerHTML;
-                                    this.displayStyle = 'block';
                                 }, 100);
                             }
                         });
@@ -652,8 +652,8 @@ if (window.localStorage.section_home_categories != undefined) {
                             document.body.style.cursor = "default";
                             this.products = data.data;
                             console.log("Rendering Data..");
-                            if (this.products != window.localStorage.section_featured_data) {
-                                 window.localStorage.section_featured_data = this.products;
+                            if (JSON.stringify(this.products) != window.localStorage.section_featured_data) {
+                                 window.localStorage.section_featured_data = JSON.stringify(this.products);
                                  setTimeout(() => {
                                     this.displayStyle = 'block';
                                     // $('#slick_carousel_' + this.section).slick('reinit');
@@ -758,8 +758,8 @@ if (window.localStorage.section_home_categories != undefined) {
                             document.body.style.cursor = "default";
                             this.products = data.data;
                             console.log("Rendering Data..");
-                             if (this.products != window.localStorage.section_coming_soon) {
-                                window.localStorage.section_coming_soon = this.products;
+                             if (JSON.stringify(this.products) != window.localStorage.section_coming_soon) {
+                                window.localStorage.section_coming_soon = JSON.stringify(this.products);
                                 setTimeout(() => {
                                     window.localStorage.section_coming_soon = document.getElementById('section_coming_soon_real_load').innerHTML;
                                     this.displayStyle = 'block';
@@ -864,15 +864,15 @@ if (window.localStorage.section_home_categories != undefined) {
                             document.body.style.cursor = "default";
                             this.homeCategory = data.data;
                             console.log("Rendering Data..");
-                            // if (this.homeCategory != window.localStorage.section_home_categories_data) {
-                                 window.localStorage.section_home_categories_data = this.homeCategory;
+                            if (JSON.stringify(this.homeCategory) != window.localStorage.section_home_categories_data) {
+                                 window.localStorage.section_home_categories_data = JSON.stringify(this.homeCategory);
                                  setTimeout(() => {
                                     this.displayStyle = 'block';
                                     console.log("Rendering section_home_categories..");
                                     $('#slick_carousel_' + this.section).slick('reinit');
                                     setTimeout(() => {window.localStorage.section_home_categories = document.getElementById('section_home_categories_real_load').innerHTML; }, 500);
                                 }, 100);
-                            // }                           
+                            }                           
                         });
             	}
             },
