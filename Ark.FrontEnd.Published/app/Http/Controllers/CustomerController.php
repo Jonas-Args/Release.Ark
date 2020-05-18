@@ -962,43 +962,6 @@ class CustomerController extends Controller
         return redirect()->back();
     }
 
-    public function reset_password(Request $request)
-    {
-
-        $user = User::findOrFail($request['ID']);
-
-        if (strlen($request['PasswordString']) < 6)
-        {
-            flash("Password must be atleast 6 characters")->error();
-            return redirect()->back();
-        }
-
-
-        $user->password = Hash::make($request['PasswordString']);
-        $user->save();
-
-        $data = array(
-            'PasswordString' => $request['PasswordString'],
-            'ShopUserId' => $request['ID']
-        );
-
-        $url = 'http://localhost:55006/api/user/PasswordChange';
-        $options = array(
-            'http' => array(
-                'method' => 'POST',
-                'header' => "Content-type: application/json",
-                'content' => json_encode($data)
-            )
-        );
-
-        $context = stream_context_create($options);
-        $result = file_get_contents($url, false, $context);
-        $_r = json_decode($result);
-
-        flash("User password updated succesfully")->success();
-        return redirect(route('user.login'));
-    }
-
     public function auth_status_change(Request $request)
     {
 
@@ -1058,11 +1021,6 @@ class CustomerController extends Controller
 
 
         return redirect()->back();
-    }
-
-
-    public function showResetPassword($id){
-        return view('auth.passwords.resets', array('id' => $id));
     }
 
     /**

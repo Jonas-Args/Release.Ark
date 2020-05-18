@@ -56,9 +56,11 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                @if(env('MAIL_USERNAME') != null && env('MAIL_PASSWORD') != null)
                                                     <div class="col-6 text-right">
                                                         <a href="{{ route('password.request') }}" class="link link-xs link--style-3">{{__('Forgot password?')}}</a>
                                                     </div>
+                                                @endif
                                             </div>
 
                                             <div class="row">
