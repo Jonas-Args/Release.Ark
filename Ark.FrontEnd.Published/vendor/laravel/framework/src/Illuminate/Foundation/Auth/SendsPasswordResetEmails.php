@@ -30,13 +30,44 @@ trait SendsPasswordResetEmails
         // We will send the password reset link to this user. Once we have attempted
         // to send the link, we will examine the response then see the message we
         // need to show to the user. Finally, we'll send out a proper response.
-        $response = $this->broker()->sendResetLink(
-            $this->credentials($request)
-        );
+        //$response = $this->broker()->sendResetLink(
+        //    $this->credentials($request)
+        //);
 
-        return $response == Password::RESET_LINK_SENT
-                    ? $this->sendResetLinkResponse($request, $response)
-                    : $this->sendResetLinkFailedResponse($request, $response);
+        //return $response == Password::RESET_LINK_SENT
+        //            ? $this->sendResetLinkResponse($request, $response)
+                    //: $this->sendResetLinkFailedResponse($request, $response);
+        $user = User::where('email', $request['email'])->first();
+
+        $url = 'http://localhost:55006/api/user/SendResetLinkEmail';
+		$data = array(
+			'ShopUserId' => $user->id,
+			'Email' => $request['email'],
+			'PasswordString' => ''
+		);
+
+		// use key 'http' even if you send the request to https://...
+		$options = array(
+			'http' => array(
+				'header'  => "Content-type: application/json",
+				'method'  => 'POST',
+				'content' => json_encode($data)
+			)
+		);
+		$context  = stream_context_create($options);
+		$result = file_get_contents($url, false, $context);
+		$_r = json_decode($result);
+
+		if ($_r->httpStatusCode == "500")
+		{
+			flash(__('An error occured: ' . $_r->message))->error();
+			return redirect('/users/login');
+		}
+        else{
+            flash(__('Password link has been sent'))->success();
+			return redirect('/users/login');
+        }
+
     }
 
     /**
