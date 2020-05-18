@@ -72,7 +72,10 @@ Route::post('/cart/updateQuantity', 'CartController@updateQuantity')->name('cart
 Route::post('/customers/wallet/convert/execute', 'CustomerController@convert_proccess')->name('client.wallet.convert.exec');
 Route::post('/customers/wallet/withdraw/execute', 'CustomerController@withdraw_proccess')->name('client.wallet.withdraw.exec');
 Route::get('/customers/trial/end/{id}', 'CustomerController@end_trial_proccess')->name('client.trial.end.exec');
-Route::post('/customers/package/buy', 'CustomerController@buy_package_proccess')->name('client.package.buy.exec');
+
+// API ACCESS FOR PASSWORD CHANGE
+Route::post('/customers/password/update', 'CustomerController@reset_password')->name('client.password.change');
+Route::get('/customers/password/reset/{id}', 'CustomerController@showResetPassword')->name('client.password.reset');
 
 //Checkout Routes
 Route::group(['middleware' => ['checkout']], function () {

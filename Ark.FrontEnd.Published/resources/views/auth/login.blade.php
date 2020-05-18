@@ -57,13 +57,13 @@
                             </label>
                         </div>
                     </div>
-                    @if(env('MAIL_USERNAME') != null && env('MAIL_PASSWORD') != null)
+           
                         <div class="col-sm-6">
                             <div class="checkbox pad-btm text-right">
                                 <a href="{{ route('password.request') }}" class="btn-link">{{__('Forgot password')}} ?</a>
                             </div>
                         </div>
-                    @endif
+   
                 </div>
                 <button type="submit" class="btn btn-primary btn-lg btn-block">
                     {{ __('Login') }}
