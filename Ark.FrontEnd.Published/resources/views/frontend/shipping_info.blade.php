@@ -130,6 +130,15 @@
                                                 </div>
                                             </div>
                                         </div>
+                                         <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group has-feedback">
+                                                    <label class="control-label">{{__('Remarks')}}</label><br/>
+                                                    <textarea class="form-control" rows="3" name="remarks" placeholder="Please indicate window hours for delivery due to ecq.."></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
 
                                         <input type="hidden" name="checkout_type" value="logged">
                                     </div>
@@ -195,6 +204,18 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                         <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group has-feedback">
+                                                    <label class="control-label">{{__('Remarks')}}</label><br/>
+                                                    <small style="color:red">Please indicate window hours for delivery due to ecq.</small>
+                                                    <textarea class="form-control" rows="3" name="remarks"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
 
                                         <input type="hidden" name="checkout_type" value="guest">
                                     </div>
