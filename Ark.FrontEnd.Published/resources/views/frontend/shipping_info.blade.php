@@ -61,9 +61,9 @@
                             @csrf
                             <div class="card">
                                 @if(Auth::check())
-                                    @php
-			 $user = Auth::user();
-             @endphp
+                                 @php
+			                     $user = Auth::user();
+                                 @endphp
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-12">
@@ -138,8 +138,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
-
                                         <input type="hidden" name="checkout_type" value="logged">
                                     </div>
                                 @else
@@ -205,12 +203,11 @@
                                             </div>
                                         </div>
 
-                                         <div class="row">
+                                        <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group has-feedback">
                                                     <label class="control-label">{{__('Remarks')}}</label><br/>
-                                                    <small style="color:red">Please indicate window hours for delivery due to ecq.</small>
-                                                    <textarea class="form-control" rows="3" name="remarks"></textarea>
+                                                    <textarea class="form-control" rows="3" name="remarks" placeholder="Please indicate window hours for delivery due to ecq.."></textarea>
                                                 </div>
                                             </div>
                                         </div>

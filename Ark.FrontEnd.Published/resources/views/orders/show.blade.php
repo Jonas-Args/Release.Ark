@@ -40,6 +40,8 @@
                          {{ json_decode($order->shipping_address)->phone }}<br>
         				 {{ json_decode($order->shipping_address)->address }}, {{ json_decode($order->shipping_address)->city }}, {{ json_decode($order->shipping_address)->country }}
                     </address>
+                    <p>Remarks</p>
+                    <p>{{ json_decode($order->shipping_address)->remarks }}</p>
     			</div>
     			<div class="col-sm-6 text-xs-center">
     				<table class="invoice-details">
@@ -147,7 +149,7 @@
                 					</td>
                 					<td class="text-center">
                 						{{ single_price($orderDetail->price/$orderDetail->quantity) }}
-                					</td>
+                					</td>$order->orderDetails->where('seller_id', Auth::user()->id)->avg('shipping_cost')
                                     <td class="text-center">
                 						{{ single_price($orderDetail->price) }}
                 					</td>
