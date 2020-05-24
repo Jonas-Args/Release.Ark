@@ -149,7 +149,7 @@
 						@if($_r->businessPackages[0]->businessPackage->packageCode == "EPKG1TRL")
 						<div class="mt-3">
 						    <div class="alert alert-warning" role="alert">
-						        You are using a trial account. Your free membership will expire on {{ date_format(date_create($_r->businessPackages[0]->expiryDate),"Y/m/d H:i:s") }}
+						        You are using a trial account. Your free membership will expire on {{ date_format(date_create($_r->businessPackages[0]->expiryDate),"Y/m/d H:i:s") }} PST
 						    </div>
 						</div>
 						@endif

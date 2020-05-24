@@ -553,7 +553,7 @@
 									</li>
 								@endif
 								<li class="nav-item">
-									<a href="#tab_default_4" data-toggle="tab" class="nav-link text-uppercase strong-600">{{__('Reviews')}}</a>
+									<a href="#tab_default_4" data-toggle="tab" class="nav-link text-uppercase strong-600">{{__('Reviews')}} ({{ $total }})</a>
 								</li>
 							</ul>
 

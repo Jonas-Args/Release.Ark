@@ -65,7 +65,7 @@
                         @auth
                         <li class="dropdown" id="lang-change" style="float:right">                         
                             <a href="#" class="top-bar-item d-lg-none">
-                              <i class="la la-wallet d-inline-block nav-box-icon" style="color:#0acf97"></i>  Ark Credit: <b>₱{{ number_format(floatval(Auth::user()->balance)) }} </b> 
+                              <i class="la la-wallet d-inline-block nav-box-icon" style="color:#0acf97"></i>  Ark Credit: <b>₱{{ bcdiv(Auth::user()->balance, 1, 3) }} </b> 
                             </a>
                         </li>
 
