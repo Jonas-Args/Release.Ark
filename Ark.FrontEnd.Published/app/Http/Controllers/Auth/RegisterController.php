@@ -14,41 +14,41 @@ use Illuminate\Support\Facades\DB;
 class RegisterController extends Controller
 {
 	/*
-  |--------------------------------------------------------------------------
-  | Register Controller
-  |--------------------------------------------------------------------------
-  |
-  | This controller handles the registration of new users as well as their
-  | validation and creation. By default this controller uses a trait to
-  | provide this functionality without requiring any additional code.
-  |
-  */
+    |--------------------------------------------------------------------------
+    | Register Controller
+    |--------------------------------------------------------------------------
+    |
+    | This controller handles the registration of new users as well as their
+    | validation and creation. By default this controller uses a trait to
+    | provide this functionality without requiring any additional code.
+    |
+     */
 
 	use RegistersUsers;
 
 	/**
-  * Where to redirect users after registration.
-  *
-  * @var string
-  */
+     * Where to redirect users after registration.
+     *
+     * @var string
+     */
 	protected $redirectTo = '/';
 
 	/**
-  * Create a new controller instance.
-  *
-  * @return void
-  */
+     * Create a new controller instance.
+     *
+     * @return void
+     */
 	public function __construct()
 	{
 		$this->middleware('guest');
 	}
 
 	/**
-  * Get a validator for an incoming registration request.
-  *
-  * @param  array  $data
-  * @return \Illuminate\Contracts\Validation\Validator
-  */
+     * Get a validator for an incoming registration request.
+     *
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
 	protected function validator(array $data)
 	{
 		return Validator::make($data, [
@@ -57,16 +57,17 @@ class RegisterController extends Controller
 			'lname' => 'required|string|max:255',
 			'email' => 'required|string|email|max:255|unique:users',
 			'password' => 'required|string|min:6|confirmed',
+			'mobileNo' => 'required|max:11',
 			'source_code' => '',
 		]);
 	}
 
 	/**
-  * Create a new user instance after a valid registration.
-  *
-  * @param  array  $data
-  * @return \App\User
-  */
+     * Create a new user instance after a valid registration.
+     *
+     * @param  array  $data
+     * @return \App\User
+     */
 	protected function create(array $data)
 	{
 		if ($data['special_code'] != "" && $data['special_code'] != "ARKPH2020")
@@ -120,7 +121,7 @@ class RegisterController extends Controller
 		if ($result->httpStatusCode === "500") { /* Handle error */
 			flash(__('An error occured: ' . $result->message))->error();
 			User::destroy($user->id);
-		// DB::rollBack();
+            // DB::rollBack();
 		}
 
 		else {
