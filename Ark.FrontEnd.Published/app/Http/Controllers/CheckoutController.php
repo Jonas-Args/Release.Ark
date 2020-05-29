@@ -22,7 +22,6 @@ use Session;
 
 class CheckoutController extends Controller
 {
-
     public function __construct()
     {
     //
@@ -133,6 +132,7 @@ class CheckoutController extends Controller
             }
         }
     }
+
     //redirects to this method after a successfull checkout
     public function checkout_done($order_id, $payment, $userId = null, $isExternal = false, $isWallet = false)
     {
@@ -434,6 +434,7 @@ class CheckoutController extends Controller
         $data['city'] = $request->city;
         $data['postal_code'] = $request->postal_code;
         $data['phone'] = $request->phone;
+        $data['remarks'] = $request->remarks;
         $data['checkout_type'] = $request->checkout_type;
 
         $shipping_info = $data;

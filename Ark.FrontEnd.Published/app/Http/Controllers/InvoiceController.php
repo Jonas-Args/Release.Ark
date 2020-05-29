@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Order;
 use PDF;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class InvoiceController extends Controller
 {
@@ -25,6 +25,7 @@ class InvoiceController extends Controller
     public function seller_invoice_download($id)
     {
         $order = Order::findOrFail($id);
+		$order->orderDetails->shipping_cost = $order->orderDetails->where('seller_id', Auth::user()->id)->avg('shipping_cost');
         $pdf = PDF::setOptions([
                         'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true,
                         'logOutputFile' => storage_path('logs/log.htm'),

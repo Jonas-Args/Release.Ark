@@ -56,6 +56,11 @@
                             <td class="w-50 strong-600">{{__('Shipping address')}}:</td>
                             <td>{{ json_decode($order->shipping_address)->address }}, {{ json_decode($order->shipping_address)->city }}, {{ json_decode($order->shipping_address)->country }}</td>
                         </tr>
+
+						<tr>
+							<td class="w-50 strong-600">{{__('Remarks')}}:</td>
+							<td>{{ json_decode($order->shipping_address)->remarks }}</td>
+						</tr>
                     </table>
                 </div>
                 <div class="col-lg-6">
